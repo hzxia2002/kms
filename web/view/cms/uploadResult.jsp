@@ -6,9 +6,16 @@
     <%@ include file="../common/header_new.jsp" %>
     <script>
         function returnData(){
+           <c:if test="${docId==null}">
             if(parent.setPicPath){
                 parent.setPicPath(${ret});
             }
+            </c:if>
+            <c:if test="${docId!=null}">
+            if(parent.setFilePath){
+                parent.setFilePath(${ret},${docId});
+            }
+            </c:if>
             if(parent.closeDialog){
                 parent.closeDialog();
             }
@@ -21,7 +28,7 @@
 
         <tr class="inputTr">
             <td >
-               ${msg}
+                    ${msg}
             </td>
             <td  class="container">
             </td>
