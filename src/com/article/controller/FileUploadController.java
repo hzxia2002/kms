@@ -1,20 +1,20 @@
 package com.article.controller;
 
 import com.article.daoservice.CmsCatalogService;
-import com.article.domain.CmsArticle;
+import com.article.daoservice.DocAttachmentsService;
+import com.article.daoservice.DocDocumentService;
 import com.article.domain.CmsCatalog;
+import com.article.domain.DocAttachments;
 import com.article.domain.DocDocument;
 import com.article.manager.CatalogManager;
-import com.article.util.Uploader;
 import com.comet.core.controller.BaseCRUDActionController;
-import com.comet.core.security.util.SpringSecurityUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -23,7 +23,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -40,14 +40,18 @@ public class FileUploadController extends BaseCRUDActionController {
     @Autowired
     private CatalogManager catalogManager;
 
+    @Autowired
+    private DocDocumentService docDocumentService;
+
+    @Autowired
+    private DocAttachmentsService docAttachmentsService;
+
     @RequestMapping
     public void uploadImage(HttpServletResponse response,HttpServletRequest request,Long id) throws Exception {
         CmsCatalog cmsCatalog = cmsCatalogService.get(id);
         String catalogPath = catalogManager.getCatalogPath(cmsCatalog);
         String wholePath = request.getSession().getServletContext().getRealPath("")+File.separator+catalogPath;
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)(request);
-        Map<String,MultipartFile> fileMap = multipartRequest.getFileMap();
 
         String oldStr = getFileDirByDate();
         String dateStr = oldStr.substring(1, (oldStr.length()-1));
@@ -58,31 +62,34 @@ public class FileUploadController extends BaseCRUDActionController {
 
         Iterator fileNames = multipartRequest.getFileNames();
         HashMap map = new HashMap();
-        if (fileNames.hasNext()) {
+        while (fileNames.hasNext()) {
             String name = (String) fileNames.next();
 
             CommonsMultipartFile multipartFile = (CommonsMultipartFile) multipartRequest.getFile(name);
             String originalFileName = multipartFile.getOriginalFilename();
             String fileName = originalFileName;
-            String extName = "";
-            int index = originalFileName.lastIndexOf(".");
-            if(index>0){
-                fileName = originalFileName.substring(0, index);
-                extName = originalFileName.substring(index+1, originalFileName.length());
-            }
-            Long dateLong = System.currentTimeMillis()-date.getTime();
-            String chgName =    dateLong + "." + extName;
-            File dest = new File(wholePath +File.separator +dateDir );
-            if(!dest.exists()){
-                dest.mkdirs();
+            if(StringUtils.isNotEmpty(fileName)){
+                String extName = "";
+                int index = originalFileName.lastIndexOf(".");
+                if(index>0){
+                    fileName = originalFileName.substring(0, index);
+                    extName = originalFileName.substring(index+1, originalFileName.length());
+                }
+                Long dateLong = System.currentTimeMillis()-date.getTime();
+                String chgName =    dateLong + "." + extName;
+                File dest = new File(wholePath +File.separator +dateDir );
+                if(!dest.exists()){
+                    dest.mkdirs();
+                }
+
+                multipartFile.transferTo(new File(wholePath +File.separator +dateDir+chgName));
+                map.put("original", originalFileName);
+                map.put("url", request.getHeader("Host")+request.getContextPath() +"/" +catalogPath.replace(File.separator,"/")+"/"+ dateDir.replace(File.separator,"/") + chgName);
+                map.put("title", request.getParameter("pictitle"));
+                map.put("state","SUCCESS");
+                map.put("fileType","."+extName);
             }
 
-            multipartFile.transferTo(new File(wholePath +File.separator +dateDir+chgName));
-            map.put("original", originalFileName);
-            map.put("url", request.getHeader("Host")+request.getContextPath() +"/" +catalogPath.replace(File.separator,"/")+"/"+ dateDir.replace(File.separator,"/") + chgName);
-            map.put("title", request.getParameter("pictitle"));
-            map.put("state","SUCCESS");
-            map.put("fileType","."+extName);
         }
 
         response.getWriter().print(JSONObject.fromObject(map).toString());
@@ -111,9 +118,7 @@ public class FileUploadController extends BaseCRUDActionController {
         CmsCatalog cmsCatalog = cmsCatalogService.get(id);
         String catalogPath = catalogManager.getCatalogPath(cmsCatalog);
         String wholePath = request.getSession().getServletContext().getRealPath("")+File.separator+catalogPath;
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)(request);
-        Map<String,MultipartFile> fileMap = multipartRequest.getFileMap();
 
         String oldStr = getFileDirByDate();
         String dateStr = oldStr.substring(1, (oldStr.length()-1));
@@ -122,7 +127,7 @@ public class FileUploadController extends BaseCRUDActionController {
         Date date = format1.parse(dateStr);
 
         Iterator fileNames = multipartRequest.getFileNames();
-        if (fileNames.hasNext()) {
+        while (fileNames.hasNext()) {
             HashMap map = new HashMap();
             String name = (String) fileNames.next();
 
@@ -175,39 +180,56 @@ public class FileUploadController extends BaseCRUDActionController {
         //附件 Document
         DocDocument docDocument = new DocDocument();
         docDocument.setPath(wholePath);
-
+        docDocumentService.save(docDocument);
         Iterator fileNames = multipartRequest.getFileNames();
 
-        if (fileNames.hasNext()) {
+        while (fileNames.hasNext()) {
+            DocAttachments docAttachments = new DocAttachments();
+            docAttachments.setDoc(docDocument);
+
             HashMap map = new HashMap();
             String name = (String) fileNames.next();
 
             CommonsMultipartFile multipartFile = (CommonsMultipartFile) multipartRequest.getFile(name);
             String originalFileName = multipartFile.getOriginalFilename();
             String fileName = originalFileName;
-            String extName = "";
-            int index = originalFileName.lastIndexOf(".");
-            if(index>0){
-                fileName = originalFileName.substring(0, index);
-                extName = originalFileName.substring(index+1, originalFileName.length());
-            }
-            Long dateLong = System.currentTimeMillis()-date.getTime();
-            String chgName =    dateLong + "." + extName;
-            File dest = new File(wholePath +File.separator +dateDir );
-            if(!dest.exists()){
-                dest.mkdirs();
+            if(StringUtils.isNotEmpty(fileName)){
+                String extName = "";
+                int index = originalFileName.lastIndexOf(".");
+                if(index>0){
+                    fileName = originalFileName.substring(0, index);
+                    extName = originalFileName.substring(index+1, originalFileName.length());
+                }
+                Long dateLong = System.currentTimeMillis()-date.getTime();
+                String chgName =    dateLong + "." + extName;
+                File dest = new File(wholePath +File.separator +dateDir );
+                if(!dest.exists()){
+                    dest.mkdirs();
+                }
+
+                multipartFile.transferTo(new File(wholePath + File.separator + dateDir + chgName));
+
+                map.put("original", originalFileName);
+                String path = catalogPath.replace(File.separator, "/") + "/" + dateDir.replace(File.separator, "/") + chgName;
+                map.put("url", path);
+
+                map.put("title", request.getParameter("pictitle"));
+                map.put("state","SUCCESS");
+                map.put("fileType","."+extName);
+                arrayList.add(map);
+
+                docAttachments.setOrginName(originalFileName);
+                docAttachments.setFilePath(path);
+                docAttachments.setName(chgName);
+                String uploadDate = new Timestamp(System.currentTimeMillis()).toString().substring(0,19);
+                docAttachments.setUploadDate(uploadDate);
+                docAttachmentsService.save(docAttachments);
             }
 
-            multipartFile.transferTo(new File(wholePath +File.separator +dateDir+chgName));
-            map.put("original", originalFileName);
-            map.put("url", catalogPath.replace(File.separator,"/")+"/"+ dateDir.replace(File.separator,"/") + chgName);
-            map.put("title", request.getParameter("pictitle"));
-            map.put("state","SUCCESS");
-            map.put("fileType","."+extName);
-            arrayList.add(map);
         }
 //        new
         model.addAttribute("msg","上传成功");
+        model.addAttribute("docId",docDocument.getId());
         model.addAttribute("ret", JSONArray.fromObject(arrayList).toString());
 //        model.addAttribute("docId", );
         return "view/cms/uploadResult";
