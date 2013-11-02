@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="CmsStudyRecord"
+		table="cms_study_record"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+			name="id"
+			type="long"
+			column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="lastStudyTime"
+			column="LAST_STUDY_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        />
+
+		<property
+			name="totalHour"
+			column="TOTAL_HOUR"
+			type="java.lang.Double"
+			not-null="false"
+			length="8"
+        />
+
+		<property
+			name="studyTimes"
+			column="STUDY_TIMES"
+			type="long"
+			not-null="false"
+			length="19"
+        />
+
+		<many-to-one
+			name="user"
+			column="USER_ID"
+			class="com.comet.system.domain.SysUser"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="course"
+			column="COURSE_ID"
+			class="CmsArticle"
+			not-null="false"
+		>
+		</many-to-one>
+
+
+	</class>	
+    <query name="cmsstudyrecord_all_data_query">
+        <![CDATA[FROM CmsStudyRecord]]>
+    </query>
+</hibernate-mapping>

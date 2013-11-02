@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="CmsCollectArticle"
+		table="cms_collect_article"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">cms_collect_article</meta>
+        <meta attribute="tableComment">收藏文章</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+			name="id"
+			type="long"
+			column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="url"
+			column="URL"
+			type="string"
+			not-null="false"
+			length="200"
+        >
+            <meta attribute="ColumnName">URL</meta>
+            <meta attribute="ColumnComment">链接地址</meta>
+        </property>
+
+		<property
+			name="remark"
+			column="REMARK"
+			type="string"
+			not-null="false"
+			length="200"
+        >
+            <meta attribute="ColumnName">REMARK</meta>
+            <meta attribute="ColumnComment">备注名称</meta>
+        </property>
+
+		<many-to-one
+			name="catagory"
+			column="CATAGORY_ID"
+			class="CmsCollectCatagory"
+			not-null="false"
+		>
+		</many-to-one>
+
+        <many-to-one
+                name="article"
+                column="ARTICLE_ID"
+                class="CmsArticle"
+                not-null="false"
+                >
+        </many-to-one>
+
+        <many-to-one
+                name="user"
+                column="USER_ID"
+                class="com.comet.system.domain.SysUser"
+                not-null="false"
+                >
+        </many-to-one>
+
+	</class>	
+    <query name="cmscollectarticle_all_data_query">
+        <![CDATA[FROM CmsCollectArticle]]>
+    </query>
+</hibernate-mapping>

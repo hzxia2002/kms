@@ -1,0 +1,161 @@
+*{font-size:12px; font-family: "Microsoft YaHei","宋体";}
+body{background:#ffffff; }
+/*a{ color:Black; text-decoration:none;}*/
+a:hover{ color:Red; text-decoration:underline;}
+
+.inputTable{
+    font-family: "宋体";
+    font-size: 12px;
+    background-color:#FFFFFF;
+    font-weight:normal;
+    border:1px solid #dcdcdc;
+    text-decoration: none;
+}
+
+.inputTable .inputTr{
+    background-color:expression((this.sectionRowIndex%2)?'#EFEFEF':'#ffffff');
+    font-size:12px;
+    padding-left: 2px;
+    padding-top: 1px;
+    height:30px;
+}
+
+.container {
+    padding-left: 5px;
+}
+
+.inputTable .inputTr:nth-of-type(even){
+    background-color: rgba(196, 207, 217, 0.42);
+    /*background:url(icons/row-over.gif);*/
+    font-size: 12px;
+    height:30px;
+}
+
+.inputTable .inputTr:nth-of-type(odd){
+    background-color: rgb(255, 255, 255);
+    /*background:url(icons/row-sel.gif);*/
+    font-size: 12px;
+    height:30px;
+}
+
+.btn_Search {
+    COLOR: black;
+    background-image: url(icons/search.png);
+    background-repeat: no-repeat;
+    text-indent: 15px;
+    padding: 2px;
+    height: 23px;
+    width: 54px;
+    border: 0px none;
+    padding: 2px;
+    cursor: pointer;
+}
+.btn_Add {
+    COLOR: black;
+    background-image: url(icons/add.png);
+    background-repeat: no-repeat;
+    text-indent: 15px;
+    padding: 2px;
+    height: 23px;
+    width: 54px;
+    border: 0px none;
+    padding: 2px;
+    cursor: pointer;
+}
+.btn_Del {
+    COLOR: black;
+    background-image: url(icons/del.png);
+    background-repeat: no-repeat;
+    text-indent: 15px;
+    padding: 2px;
+    height: 23px;
+    width: 54px;
+    border: 0px none;
+    padding: 2px;
+    cursor: pointer;
+}
+.btn_Ok {
+    COLOR: black;
+    background-image: url(icons/ok.png);
+    background-repeat: no-repeat;
+    text-indent: 15px;
+    padding: 2px;
+    height: 23px;
+    width: 54px;
+    border: 0px none;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.btn_out {
+    COLOR: black;
+    background-image: url(icons/btn_out.png);
+    background-repeat: no-repeat;
+    text-indent: 15px;
+    padding: 2px;
+    height: 23px;
+    width: 54px;
+    border: 0px none;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.btn_out_big {
+    COLOR: black;
+    background-image: url(icons/btn_out_big.png);
+    background-repeat: no-repeat;
+    text-indent: 15px;
+    padding: 2px;
+    height: 23px;
+    width:128px;
+    border: 0px none;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.btn_Refresh {
+    COLOR: black;
+    background-image: url(icons/refresh.png);
+    background-repeat: no-repeat;
+    text-indent: 15px;
+    padding: 2px;
+    height: 23px;
+    width: 54px;
+    border: 0px none;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.table_input {
+    font-size: 12px;
+    border: 1px solid #8db4d1;
+    color: #000000;
+    width: 200px;
+    height: 24px;
+    /*background-image: url(icons/bginput.jpg);*/
+    background-repeat: repeat;
+    text-indent: 0px;
+}
+
+.needInfo,.error{
+    color: red;
+    margin-left: 5px;
+}
+
+.inputError{
+    border-color: red;
+}
+
+.csslabel{
+    align:right;
+    padding-right:2px;
+}
+
+.textarea_table {
+    font-size: 12px;
+    border: 1px solid #8db4d1;
+    color: #000000;
+
+    /*background-repeat: repeat;*/
+    text-indent: 0px;
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="CmsComment"
+		table="cms_comment"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">cms_comment</meta>
+        <meta attribute="tableComment">评论</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+			name="id"
+			type="long"
+			column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="content"
+			column="CONTENT"
+			type="string"
+			not-null="false"
+        >
+            <meta attribute="ColumnName">CONTENT</meta>
+            <meta attribute="ColumnComment">回复内容</meta>
+        </property>
+
+		<property
+			name="replyTime"
+			column="REPLY_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">REPLY_TIME</meta>
+            <meta attribute="ColumnComment">回复时间</meta>
+        </property>
+
+        <property
+                name="adoptTime"
+                column="ADOPT_TIME"
+                type="timestamp"
+                not-null="false"
+                length="19"
+                >
+            <meta attribute="ColumnName">ADOPT_TIME</meta>
+            <meta attribute="ColumnComment">采纳时间</meta>
+        </property>
+
+        <property
+                name="isAdopt"
+                column="IS_ADOPT"
+                type="boolean"
+                not-null="false"
+                length="19"
+                >
+            <meta attribute="ColumnName">IS_ADOPT</meta>
+            <meta attribute="ColumnComment">是否采纳</meta>
+        </property>
+
+        <property
+                name="commentType"
+                column="COMMENT_TYPE"
+                type="string"
+                not-null="false"
+                length="10"
+                >
+            <meta attribute="ColumnName">COMMENT_TYPE</meta>
+            <meta attribute="ColumnComment">评论类型</meta>
+        </property>
+
+        <many-to-one
+			name="knowledge"
+			column="KNOWLEDGE_ID"
+			class="CmsArticle"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="replyer"
+			column="REPLYER"
+			class="com.comet.system.domain.SysUser"
+			not-null="false"
+		>
+		</many-to-one>
+
+        <many-to-one
+                name="adopter"
+                column="ADOPTER"
+                class="com.comet.system.domain.SysUser"
+                not-null="false"
+                >
+        </many-to-one>
+	</class>	
+    <query name="cmscomment_all_data_query">
+        <![CDATA[FROM CmsComment]]>
+    </query>
+</hibernate-mapping>

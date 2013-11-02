@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="CmsArticle"
+		table="cms_article"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">cms_article</meta>
+        <meta attribute="tableComment">文章</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+			name="id"
+			type="long"
+			column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="title"
+			column="TITLE"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">TITLE</meta>
+            <meta attribute="ColumnComment">标题</meta>
+        </property>
+
+		<property
+			name="keyWord"
+			column="KEY_WORD"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">KEY_WORD</meta>
+            <meta attribute="ColumnComment">关键字</meta>
+        </property>
+
+		<property
+			name="content"
+			column="CONTENT"
+			type="string"
+			not-null="false"
+        >
+            <meta attribute="ColumnName">CONTENT</meta>
+            <meta attribute="ColumnComment">内容</meta>
+        </property>
+
+		<property
+			name="clickNum"
+			column="CLICK_NUM"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">CLICK_NUM</meta>
+            <meta attribute="ColumnComment">点击次数</meta>
+        </property>
+
+		<property
+			name="isPublished"
+			column="IS_PUBLISHED"
+			type="boolean"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">IS_PUBLISHED</meta>
+            <meta attribute="ColumnComment">是否发布</meta>
+        </property>
+
+		<property
+			name="publishTime"
+			column="PUBLISH_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">PUBLISH_TIME</meta>
+            <meta attribute="ColumnComment">发布时间</meta>
+        </property>
+
+		<property
+			name="publishDate"
+			column="PUBLISH_DATE"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">PUBLISH_DATE</meta>
+            <meta attribute="ColumnComment">发布时间</meta>
+        </property>
+
+		<property
+			name="visitTimes"
+			column="VISIT_TIMES"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">VISIT_TIMES</meta>
+            <meta attribute="ColumnComment">访问次数</meta>
+        </property>
+
+		<property
+			name="isValid"
+			column="IS_VALID"
+			type="java.lang.Boolean"
+			not-null="false"
+			length="1"
+        >
+            <meta attribute="ColumnName">IS_VALID</meta>
+            <meta attribute="ColumnComment">是否有效</meta>
+        </property>
+
+		<property
+			name="isTop"
+			column="IS_TOP"
+			type="java.lang.Boolean"
+			not-null="false"
+			length="1"
+        >
+            <meta attribute="ColumnName">IS_TOP</meta>
+            <meta attribute="ColumnComment">是否置顶</meta>
+        </property>
+
+		<property
+			name="attachPath"
+			column="ATTACH_PATH"
+			type="string"
+			not-null="false"
+			length="500"
+        >
+            <meta attribute="ColumnName">ATTACH_PATH</meta>
+            <meta attribute="ColumnComment">展示图片</meta>
+        </property>
+
+		<property
+			name="thumbPath"
+			column="THUMB_PATH"
+			type="string"
+			not-null="false"
+			length="500"
+        >
+            <meta attribute="ColumnName">THUMB_PATH</meta>
+            <meta attribute="ColumnComment">缩略图</meta>
+        </property>
+
+		<property
+			name="linkUrl"
+			column="LINK_URL"
+			type="string"
+			not-null="false"
+			length="500"
+        >
+            <meta attribute="ColumnName">LINK_URL</meta>
+            <meta attribute="ColumnComment">外部链接</meta>
+        </property>
+
+		<property
+			name="createTime"
+			column="CREATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">CREATE_TIME</meta>
+            <meta attribute="ColumnComment">创建时间</meta>
+        </property>
+
+		<property
+			name="updateTime"
+			column="UPDATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">UPDATE_TIME</meta>
+            <meta attribute="ColumnComment">更新时间</meta>
+        </property>
+
+		<property
+			name="updateUser"
+			column="UPDATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">UPDATE_USER</meta>
+            <meta attribute="ColumnComment">更新人</meta>
+        </property>
+
+		<property
+			name="createUser"
+			column="CREATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">CREATE_USER</meta>
+            <meta attribute="ColumnComment">创建人</meta>
+        </property>
+
+		<property
+			name="accessRangeId"
+			column="ACCESS_RANGE_ID"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">ACCESS_RANGE_ID</meta>
+            <meta attribute="ColumnComment">发布范围</meta>
+        </property>
+
+        <property
+                name="author"
+                column="AUTHOR"
+                type="string"
+                not-null="false"
+                length="100"
+                >
+            <meta attribute="ColumnName">AUTHOR</meta>
+            <meta attribute="ColumnComment">作者</meta>
+        </property>
+
+        <property
+                name="summary"
+                column="summary"
+                type="string"
+                not-null="false"
+                length="1000"
+                >
+            <meta attribute="ColumnName">summary</meta>
+            <meta attribute="ColumnComment">摘要</meta>
+        </property>
+
+        <property
+                name="extension1"
+                column="extension1"
+                type="string"
+                not-null="false"
+                length="1000"
+                >
+            <meta attribute="ColumnName">extension1</meta>
+            <meta attribute="ColumnComment">扩展属性1</meta>
+        </property>
+
+        <property
+                name="extension2"
+                column="extension2"
+                type="string"
+                not-null="false"
+                length="1000"
+                >
+            <meta attribute="ColumnName">extension2</meta>
+            <meta attribute="ColumnComment">扩展属性2</meta>
+        </property>
+
+        <property
+                name="extension3"
+                column="extension3"
+                type="string"
+                not-null="false"
+                length="1000"
+                >
+            <meta attribute="ColumnName">extension3</meta>
+            <meta attribute="ColumnComment">扩展属性3</meta>
+        </property>
+
+        <property
+                name="extension4"
+                column="extension4"
+                type="string"
+                not-null="false"
+                length="1000"
+                >
+            <meta attribute="ColumnName">extension4</meta>
+            <meta attribute="ColumnComment">扩展属性4</meta>
+        </property>
+
+        <property
+                name="extension5"
+                column="extension5"
+                type="string"
+                not-null="false"
+                length="1000"
+                >
+            <meta attribute="ColumnName">extension5</meta>
+            <meta attribute="ColumnComment">扩展属性5</meta>
+        </property>
+
+        <property
+                name="studyStartTime"
+                column="STUDY_START_TIME"
+                type="timestamp"
+                not-null="false"
+                length="19"
+                >
+            <meta attribute="ColumnName">STUDY_START_TIME</meta>
+            <meta attribute="ColumnComment">开课时间</meta>
+        </property>
+
+        <property
+                name="studyEndTime"
+                column="STUDY_END_TIME"
+                type="timestamp"
+                not-null="false"
+                length="19"
+                >
+            <meta attribute="ColumnName">STUDY_END_TIME</meta>
+            <meta attribute="ColumnComment">结束时间</meta>
+        </property>
+
+        <property
+                name="isRecommend"
+                column="IS_RECOMMEND"
+                type="java.lang.Boolean"
+                not-null="false"
+                length="1"
+                >
+            <meta attribute="ColumnName">IS_RECOMMEND</meta>
+            <meta attribute="ColumnComment">是否推荐</meta>
+        </property>
+
+        <property
+                name="classHour"
+                column="CLASS_HOUR"
+                type="long"
+                not-null="false"
+                length="19"
+                >
+            <meta attribute="ColumnName">CLASS_HOUR</meta>
+            <meta attribute="ColumnComment">课时</meta>
+        </property>
+
+        <property
+                name="docId"
+                column="DOC_ID"
+                type="long"
+                not-null="false"
+                length="10"
+                >
+            <meta attribute="ColumnName">DOC_ID</meta>
+            <meta attribute="ColumnComment">文档ID</meta>
+        </property>
+
+        <many-to-one
+			name="path"
+			column="PATH_ID"
+			class="CmsCatalog"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="publisher"
+			column="PUBLISHER"
+			class="com.comet.system.domain.SysUser"
+			not-null="false"
+		>
+		</many-to-one>
+	
+<!--
+
+		<set name="cmsAttachments" inverse="true">
+			<key column="KNOWLEDGE_ID"/>
+			<one-to-many class="CmsAttachments"/>
+		</set>
+
+-->
+<!--
+
+		<set name="cmsComments" inverse="true">
+			<key column="KNOWLEDGE_ID"/>
+			<one-to-many class="CmsComment"/>
+		</set>
+
+-->
+
+
+	</class>	
+    <query name="cmsarticle_all_data_query">
+        <![CDATA[FROM CmsArticle]]>
+    </query>
+</hibernate-mapping>

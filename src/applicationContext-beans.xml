@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <!--<bean name="menuParser" class="com.comet.system.manager.MenuManager" init-method="parse">-->
+        <!--<property name="filePath" value="menu.xml"/>-->
+    <!--</bean>-->
+
+    <bean name="privilegeService" class="com.comet.system.manager.PrivilegeServiceImpl">
+    </bean>
+
+    <bean name="initPrivilegeBean" class="com.comet.core.security.privilege.InitPrivilegeBean">
+        <property name="privilegeService" ref="privilegeService"></property>
+    </bean>
+
+    <!--<bean name="initTableConfigBean" class="com.comet.core.orm.log.InitTableConfigBean">-->
+        <!--<property name="tableConfigService" ref="configTableManager"></property>-->
+    <!--</bean>-->
+
+    <bean name="systemMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="filePath" value="${filePath}" />
+                <entry key="fileUploadSize" value="${fileUploadSize}" />
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>

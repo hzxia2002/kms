@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="CmsCollectCatagory"
+		table="cms_collect_catagory"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">true</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">cmc_collect_catagory</meta>
+        <meta attribute="tableComment">收藏夹</meta>
+            <meta attribute="sync-templatePatterns">tree\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+			name="id"
+			type="long"
+			column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="name"
+			column="NAME"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">NAME</meta>
+            <meta attribute="ColumnComment">名称</meta>
+        </property>
+
+		<property
+			name="code"
+			column="CODE"
+			type="string"
+			not-null="false"
+			length="50"
+        >
+            <meta attribute="ColumnName">CODE</meta>
+            <meta attribute="ColumnComment">代码</meta>
+        </property>
+
+		<property
+			name="userId"
+			column="USER_ID"
+			type="string"
+			not-null="false"
+			length="50"
+        >
+            <meta attribute="ColumnName">USER_ID</meta>
+            <meta attribute="ColumnComment">用户ID</meta>
+        </property>
+
+		<property
+			name="type"
+			column="TYPE"
+			type="string"
+			not-null="false"
+			length="2"
+        >
+            <meta attribute="ColumnName">TYPE</meta>
+            <meta attribute="ColumnComment">类型,0表示全部用户共用,1用户自己创建</meta>
+        </property>
+
+		<property
+			name="isLeaf"
+			column="IS_LEAF"
+			type="boolean"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">IS_LEAF</meta>
+            <meta attribute="ColumnComment">叶节点</meta>
+        </property>
+
+		<property
+			name="treeId"
+			column="TREE_ID"
+			type="string"
+			not-null="false"
+			length="255"
+        >
+            <meta attribute="ColumnName">TREE_ID</meta>
+            <meta attribute="ColumnComment">树形层次</meta>
+        </property>
+
+		<many-to-one
+			name="parent"
+			column="PARENT_ID"
+			class="CmsCollectCatagory"
+			not-null="false"
+		>
+		</many-to-one>
+	
+<!--
+
+		<set name="cmsCollectCatagories" inverse="true">
+			<key column="PARENT_ID"/>
+			<one-to-many class="CmsCollectCatagory"/>
+		</set>
+
+-->
+<!--
+
+		<set name="cmsCollectArticles" inverse="true">
+			<key column="CATAGORY_ID"/>
+			<one-to-many class="CmsCollectArticle"/>
+		</set>
+
+-->
+
+
+	</class>	
+    <query name="cmscollectcatagory_all_data_query">
+        <![CDATA[FROM CmsCollectCatagory]]>
+    </query>
+</hibernate-mapping>
