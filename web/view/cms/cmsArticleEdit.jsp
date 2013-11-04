@@ -4,8 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@ include file="../common/header_new.jsp" %>
-    <link href="${ctx}/skin/ueditor/default/dialogbase.css"  rel="stylesheet" type="text/css">
-    <link href="${ctx}/skin/ueditor/default/css/ueditor.css">
     <script type="text/javascript" src="${ctx}/js/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="${ctx}/js/ueditor/ueditor.all.js"></script>
     <script type="text/javascript" src="${ctx}/js/ueditor/zh-cn.js"></script>
