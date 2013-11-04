@@ -5,6 +5,7 @@ import com.article.domain.CmsStudyCourse;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
+import com.comet.core.security.util.SpringSecurityUtils;
 import com.comet.core.utils.ReflectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public class CmsStudyCourseController extends BaseCRUDActionController<CmsStudyC
 		try {
             page.setAutoCount(true);
 
-            String hql = "from CmsStudyCourse t where 1=1 " ;
+            String hql = "from CmsStudyCourse t where 1=1 order by t.createTime desc" ;
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
@@ -85,11 +87,7 @@ public class CmsStudyCourseController extends BaseCRUDActionController<CmsStudyC
                     "article",
                     "startTime",
                     "endTime",
-                    "studyDuration",
-                    "createTime",
-                    "createUser",
-                    "updateTime",
-                    "updateUser"
+                    "studyDuration"
             };
 
             CmsStudyCourse target;
@@ -97,8 +95,12 @@ public class CmsStudyCourseController extends BaseCRUDActionController<CmsStudyC
                 target = cmsStudyCourseService.get(entity.getId());
 
                 ReflectionUtils.copyBean(entity, target, columns);
+                target.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+                target.setUpdateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
             } else {
                 target = entity;
+                target.setCreateTime(new Timestamp(System.currentTimeMillis()));
+                target.setCreateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
             }
 
             cmsStudyCourseService.save(target);
