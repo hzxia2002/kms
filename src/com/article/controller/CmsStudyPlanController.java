@@ -57,14 +57,29 @@ public class CmsStudyPlanController extends BaseCRUDActionController<CmsStudyPla
             if(entity != null && entity.getId() != null) {
                 entity = cmsStudyPlanService.get(entity.getId());
 
-                model.addAttribute("bean", entity);
             }
+            model.addAttribute("bean", entity);
         } catch (Exception e) {
             log.error("error", e);
         }
 
         return "view/cms/cmsStudyPlanEdit";
     }
+
+    @RequestMapping
+    public String initTask(Model model, CmsStudyPlan entity) throws Exception {
+        try {
+            if(entity != null && entity.getId() != null) {
+                entity = cmsStudyPlanService.get(entity.getId());
+            }
+            model.addAttribute("bean", entity);
+        } catch (Exception e) {
+            log.error("error", e);
+        }
+
+        return "view/cms/cmsStudyPlanTask";
+    }
+
 
     @RequestMapping
     public String view(Model model, Long id) {

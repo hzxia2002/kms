@@ -1,5 +1,7 @@
 package com.article.domain.base;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 
@@ -17,7 +19,7 @@ import java.io.Serializable;
  * @hibernate.class
  *  table="cms_study_plan"
  */
-
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 public abstract class BaseCmsStudyPlan  implements Serializable{
 
 	public static String REF = "CmsStudyPlan";

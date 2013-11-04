@@ -29,17 +29,17 @@
 
             //Tab
             $("#framecenter").juiceTab({ height: height,onAfterSelectTabItem:function(item){
-                if(tree.getSelected()&&tree.getSelected().data.id!=this.getSelectedTabItemID()){
-                    tree.selectNode(this.getSelectedTabItemID() );
-                }else if(!tree.getSelected()){
-                    tree.selectNode(this.getSelectedTabItemID() );
-                }
+//                if(tree.getSelected()&&tree.getSelected().data.id!=this.getSelectedTabItemID()){
+//                    tree.selectNode(this.getSelectedTabItemID() );
+//                }else if(!tree.getSelected()){
+//                    tree.selectNode(this.getSelectedTabItemID() );
+//                }
             }, onafterRemoveTabItem:function(item){
-                if(this.getSelectedTabItemID()!="home"){
-                    tree.selectNode(this.getSelectedTabItemID() );
-                }else{
-//                    tree.selectNode
-                }
+//                if(this.getSelectedTabItemID()!="home"){
+//                    tree.selectNode(this.getSelectedTabItemID() );
+//                }else{
+////                    tree.selectNode
+//                }
             }});
 
             //面板
@@ -53,34 +53,34 @@
             {
                 $(this).removeClass("l-link-over");
             });
-            //树
-            $.ajax({
-                url: '${ctx}/sysMenu/getMenu.do',
-                dataType: "json",
-                success:function(datas){
-                    $("#tree1").juiceTree({
-                        data : datas,
-                        checkbox: false,
-                        slide: false,
-                        idFieldName :'id',
-                        parentIDFieldName :'pid',
-                        nodeWidth: 120,
-                        attribute: ['nodename', 'url'],
-                        onSelect: function (node)
-                        {
-                            if (!node.data.url) return;
-                            var tabid = $(node.target).attr("tabid");
-                            if (!tabid)
-                            {
-                                tabid = node.data.id;
-                                $(node.target).attr("tabid", tabid)
-                            }
-                            f_addTab(tabid, node.data.text, node.data.url);
-                        }
-                    });
-                    tree = $("#tree1").juiceGetTreeManager();
-                }
-            });
+            <%--//树--%>
+            <%--$.ajax({--%>
+                <%--url: '${ctx}/sysMenu/getMenu.do',--%>
+                <%--dataType: "json",--%>
+                <%--success:function(datas){--%>
+                    <%--$("#tree1").juiceTree({--%>
+                        <%--data : datas,--%>
+                        <%--checkbox: false,--%>
+                        <%--slide: false,--%>
+                        <%--idFieldName :'id',--%>
+                        <%--parentIDFieldName :'pid',--%>
+                        <%--nodeWidth: 120,--%>
+                        <%--attribute: ['nodename', 'url'],--%>
+                        <%--onSelect: function (node)--%>
+                        <%--{--%>
+                            <%--if (!node.data.url) return;--%>
+                            <%--var tabid = $(node.target).attr("tabid");--%>
+                            <%--if (!tabid)--%>
+                            <%--{--%>
+                                <%--tabid = node.data.id;--%>
+                                <%--$(node.target).attr("tabid", tabid)--%>
+                            <%--}--%>
+                            <%--f_addTab(tabid, node.data.text, node.data.url);--%>
+                        <%--}--%>
+                    <%--});--%>
+                    <%--tree = $("#tree1").juiceGetTreeManager();--%>
+                <%--}--%>
+            <%--});--%>
 
             //菜单
             $.ajax({
@@ -154,7 +154,7 @@
         function menuItemClick(item){
             if(item.url){
                 tab.addTabItem({ tabid : item.id,text: item.text, url: item.url });
-                tree.selectNode(item.id) ;
+//                tree.selectNode(item.id) ;
             }
         }
     </script>
@@ -181,11 +181,11 @@
     </table>
 </div>
 <div id="layout1" style="width:99.2%; margin:0 auto; margin-top:0px; ">
-    <div position="left"  title="菜单导航" id="accordion1" >
-        <div title="功能列表" class="l-scroll" style="height: 100%">
-            <ul id="tree1" style="margin-top:3px;"></ul>
-        </div>
-    </div>
+    <%--<div position="left"  title="菜单导航" id="accordion1" >--%>
+        <%--<div title="功能列表" class="l-scroll" style="height: 100%">--%>
+            <%--<ul id="tree1" style="margin-top:3px;"></ul>--%>
+        <%--</div>--%>
+    <%--</div>--%>
     <div position="center" id="framecenter">
         <div tabid="home" title="我的主页" style="height:300px" >
             <iframe frameborder="0" name="home" id="home" src="welcome.jsp"></iframe>
