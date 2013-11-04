@@ -117,12 +117,15 @@
                     上传附件:
                 </td>
                 <td  class="container" colspan="3">
-                    <ul id="files">
-                         <c:forEach items=""></c:forEach>
-                    </ul>
-                    <%--<input type="text" name="filePath" id="filePath"  class="table_input"  readonly="true" style="width: 300px;"/>&nbsp;--%>
-                    <img src="${ctx}/skin/icons/add.gif" onclick="uploadFiles();">
+
+                        <%--<input type="text" name="filePath" id="filePath"  class="table_input"  readonly="true" style="width: 300px;"/>&nbsp;--%>
+                    <img src="${ctx}/skin/icons/add.gif" style="cursor: pointer" onclick="uploadFiles();">
                     <input type="hidden" name="docId" id="docId"  value="${bean.docId}" />
+                    <ul id="files">
+                        <c:forEach items="${docAttachments}" var="attachment">
+                            <li style='float: left;padding-right: 20px;'><a href='${ctx}${attachment.filePath}' target='_blank'>${attachment.orginName}</a><img src='${ctx}/skin/icons/tc.png' style="cursor: pointer" onclick='deleteFile(${attachment.id},this);'></li>
+                        </c:forEach>
+                    </ul>
                 </td>
             </tr>
             <tr class="inputTr">
@@ -317,9 +320,10 @@
     }
 
     function uploadFiles(){
+        var docId = $("#docId").val();
         var settings = {
             height: 400,
-            url: "${ctx}/fileUpload/fileUploadInit.html?id=${bean.path.id}&type=2",
+            url: "${ctx}/fileUpload/fileUploadInit.html?id=${bean.path.id}&type=2&docId="+docId,
             width: 500
         };
         $.extend(settings,options);
@@ -331,10 +335,31 @@
     }
 
     function setPicPath(data){
-       $("#attachPath").val(data[0].url);
+        $("#attachPath").val(data[0].url);
     }
 
     function setFilePath(data,docId){
         $("#docId").val(docId);
+        var htmlArr = [];
+        for(var i=0;i<data.length;i++){
+            htmlArr.push("<li style='float: left;padding-right: 20px;'><a href='${ctx}"+data[0].url+"' target='_blank'>"+data[i].original+"</a><img src='${ctx}/skin/icons/tc.png' style='cursor:pointer;' onclick='deleteFile("+data[i].attachmentId+",this);'></li>");
+        }
+        $("#files").append(htmlArr.join(""));
+    }
+
+    function deleteFile(id,btn){
+        $.ajax({
+            type: 'POST',
+            url: "${ctx}/fileUpload/deleteAttachment.do?catagoryId=${bean.path.id}",
+            data: {id:id},
+            dataType: 'json',
+            success: function(ret) {
+                $(btn).parent().remove();
+                alert(ret.msg);
+            },
+            error: function(xmlR, status, e) {
+                window.top.$.juiceDialog.error("[" + e + "]" + xmlR.responseText);
+            }
+        });
     }
 </script>

@@ -60,6 +60,7 @@
     </table>
     <div align="center">
         <input type="hidden" name="id" value="${id}"/>&nbsp;
+        <input type="hidden" name="docId" value="${docId}"/>&nbsp;
         <input type="submit" value="保存" class="btn_Ok"/>
     </div>
 </form:form>
