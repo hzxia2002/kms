@@ -14,7 +14,7 @@
     <div position="center">
         <div id="cmsCatalogQuery" title="查询窗口"  icon="search">
             <form id="cmsCatalogForm" action="">
-                <input type="hidden" value="" id="treeId" name="treeId" op="like" entity="t" />
+                <input type="hidden" value="" id="treeId" name="treeId" op="leftLike" entity="t" />
                 <table style="width: 100%">
                     <tr>
                         <td width="10%" align="right">
