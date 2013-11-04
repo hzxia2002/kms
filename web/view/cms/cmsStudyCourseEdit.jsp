@@ -38,19 +38,19 @@
             </td>
         </tr>
         <tr class="inputTr">
-            <td  align="right" style="vertical-align: top;height: 30px;">
+            <td  align="right" >
                 开始时间:
             </td>
             <td  class="container">
-                <input type="text"  name="startTime" id="startTime" readonly="true" value="${bean.startTime}"  >&nbsp;
+                <input type="text"  name="startTime" id="startTime" readonly="true" value="${bean.startTime}"  >
             </td>
         </tr>
-        <tr class="inputTr" style="vertical-align: top;height: 30px;">
+        <tr class="inputTr" >
             <td  align="right">
                 结束时间:
             </td>
             <td  class="container" >
-                <input type="text"  name="endTime"  id="endTime"  readonly="true" value="${bean.startTime}" >&nbsp;
+                <input type="text"  name="endTime"  id="endTime"  readonly="true" value="${bean.endTime}" >
             </td>
         </tr>
         <tr class="inputTr">
