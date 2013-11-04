@@ -1,11 +1,10 @@
 package com.article.controller;
 
-import com.article.daoservice.CmsArticleService;
-import com.article.daoservice.CmsCatalogService;
-import com.article.daoservice.CmsCommentService;
+import com.article.daoservice.*;
 import com.article.domain.CmsArticle;
 import com.article.domain.CmsCatalog;
 import com.article.domain.CmsComment;
+import com.article.domain.DocAttachments;
 import com.article.util.Constants;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Condition;
@@ -57,6 +56,8 @@ public class CmsArticleController extends BaseCRUDActionController<CmsArticle> {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private DocAttachmentsService docAttachmentsService;
 
     @RequestMapping
     @ResponseBody
@@ -86,6 +87,10 @@ public class CmsArticleController extends BaseCRUDActionController<CmsArticle> {
                 entity.setIsValid(true);
                 entity.setIsPublished(true);
                 entity.setAuthor(SpringSecurityUtils.getCurrentUser().getLoginName());
+            }
+            if(entity.getDocId()!=null){
+                List<DocAttachments> docAttachments = docAttachmentsService.find("from DocAttachments t where t.doc.id=" + entity.getDocId());
+                model.addAttribute("docAttachments", docAttachments);
             }
             model.addAttribute("bean", entity);
         } catch (Exception e) {

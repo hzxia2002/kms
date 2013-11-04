@@ -98,10 +98,11 @@ public class FileUploadController extends BaseCRUDActionController {
 
 
     @RequestMapping
-    public String fileUploadInit(Model model, String id,String type) throws Exception {
+    public String fileUploadInit(Model model, String id,String type,String docId) throws Exception {
         try {
 
             model.addAttribute("id", id);
+            model.addAttribute("docId", StringUtils.isNotEmpty(docId)?docId:"");
         } catch (Exception e) {
             log.error("error", e);
         }
@@ -162,14 +163,12 @@ public class FileUploadController extends BaseCRUDActionController {
     }
 
     @RequestMapping
-    public String uploadFiles(HttpServletResponse response,HttpServletRequest request,Long id,Model model) throws Exception {
+    public String uploadFiles(HttpServletResponse response,HttpServletRequest request,Long id,Long docId,Model model) throws Exception {
         ArrayList arrayList = new ArrayList();
         CmsCatalog cmsCatalog = cmsCatalogService.get(id);
         String catalogPath = catalogManager.getCatalogPath(cmsCatalog);
         String wholePath = request.getSession().getServletContext().getRealPath("")+File.separator+catalogPath;
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)(request);
-        Map<String,MultipartFile> fileMap = multipartRequest.getFileMap();
 
         String oldStr = getFileDirByDate();
         String dateStr = oldStr.substring(1, (oldStr.length()-1));
@@ -178,7 +177,12 @@ public class FileUploadController extends BaseCRUDActionController {
         Date date = format1.parse(dateStr);
 
         //附件 Document
-        DocDocument docDocument = new DocDocument();
+        DocDocument docDocument ;
+        if(docId!=null){
+            docDocument = docDocumentService.get(docId);
+        }else{
+            docDocument = new DocDocument();
+        }
         docDocument.setPath(wholePath);
         docDocumentService.save(docDocument);
         Iterator fileNames = multipartRequest.getFileNames();
@@ -209,14 +213,8 @@ public class FileUploadController extends BaseCRUDActionController {
 
                 multipartFile.transferTo(new File(wholePath + File.separator + dateDir + chgName));
 
-                map.put("original", originalFileName);
-                String path = catalogPath.replace(File.separator, "/") + "/" + dateDir.replace(File.separator, "/") + chgName;
-                map.put("url", path);
 
-                map.put("title", request.getParameter("pictitle"));
-                map.put("state","SUCCESS");
-                map.put("fileType","."+extName);
-                arrayList.add(map);
+                String path = catalogPath.replace(File.separator, "/") + "/" + dateDir.replace(File.separator, "/") + chgName;
 
                 docAttachments.setOrginName(originalFileName);
                 docAttachments.setFilePath(path);
@@ -224,6 +222,16 @@ public class FileUploadController extends BaseCRUDActionController {
                 String uploadDate = new Timestamp(System.currentTimeMillis()).toString().substring(0,19);
                 docAttachments.setUploadDate(uploadDate);
                 docAttachmentsService.save(docAttachments);
+                map.put("url", path);
+                map.put("original", originalFileName);
+                map.put("attachmentId",docAttachments.getId());
+
+                map.put("title", request.getParameter("pictitle"));
+                map.put("state","SUCCESS");
+                map.put("fileType","."+extName);
+                arrayList.add(map);
+
+
             }
 
         }
@@ -236,6 +244,18 @@ public class FileUploadController extends BaseCRUDActionController {
     }
 
 
+    @RequestMapping
+    public void deleteAttachment(HttpServletResponse response,HttpServletRequest request,Long id,Long catagoryId,Model model){
+        DocAttachments docAttachments = docAttachmentsService.get(id);
+        String filePath = docAttachments.getFilePath();
+        filePath = filePath.replaceAll("\\\\", File.separator);
+        File file = new File(request.getSession().getServletContext().getRealPath("")+File.separator+filePath);
+        if(file.exists()){
+            file.delete();
+        }
+        docAttachmentsService.delete(docAttachments);
+        sendSuccessJSON(response, "删除成功");
+    }
     /**
      * 拼接日期为目录
      * @return
