@@ -92,7 +92,7 @@
 		<many-to-one
 			name="user"
 			column="USER_ID"
-			class="SysUser"
+			class="com.comet.system.domain.SysUser"
 			not-null="false"
 		>
 		</many-to-one>
