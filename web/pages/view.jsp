@@ -29,6 +29,16 @@
             <div class="mainmuen">
                 ${bean.content}
             </div>
+            <div>
+                <div>
+                    <div style="float:left;font-weight: bold;">附件：</div>
+                    <ul>
+                        <c:forEach items="${docAttachmentses}" var="attachment">
+                            <li><a href='${ctx}${attachment.filePath}' target='_blank'>${attachment.orginName}</a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="leftyj">
             <div class="title">

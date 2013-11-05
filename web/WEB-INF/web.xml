@@ -80,7 +80,10 @@
         <filter-name>osivFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
-
+    <filter-mapping>
+        <filter-name>osivFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
     <!--压缩-->
     <filter>
         <filter-name>compressionFilter</filter-name>
