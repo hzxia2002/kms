@@ -1,16 +1,12 @@
 package com.article.controller;
 
-import com.article.daoservice.CmsArticleService;
-import com.article.daoservice.CmsCatalogService;
-import com.article.daoservice.CmsCollectArticleService;
-import com.article.daoservice.CmsCollectCatagoryService;
-import com.article.domain.CmsArticle;
-import com.article.domain.CmsCatalog;
-import com.article.domain.CmsCollectArticle;
-import com.article.domain.CmsCollectCatagory;
+import com.article.daoservice.*;
+import com.article.domain.*;
 import com.article.util.Constants;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
+import com.comet.core.security.util.SpringSecurityUtils;
+import com.comet.system.daoservice.SysUserService;
 import com.comet.system.tree.Node;
 import com.comet.system.tree.TreeBranch;
 import com.comet.system.tree.ZTreeNode;
@@ -47,6 +43,11 @@ public class PageController extends BaseCRUDActionController {
     @Autowired
     private CmsCollectArticleService cmsCollectArticleService;
 
+    @Autowired
+    private SysUserService sysUserService;
+
+    @Autowired
+    private DocAttachmentsService docAttachmentsService;
 
 
     @RequestMapping
@@ -76,6 +77,11 @@ public class PageController extends BaseCRUDActionController {
                 visitTimes += 1L;
             }
             cmsArticle.setVisitTimes(visitTimes);
+            Long docId = cmsArticle.getDocId();
+            if(docId!=null){
+                List<DocAttachments> docAttachmentses = docAttachmentsService.find("from DocAttachments where doc.id=" + docId);
+                model.addAttribute("docAttachmentses", docAttachmentses);
+            }
             model.addAttribute("bean", cmsArticle);
             model.addAttribute("paths",paths);
 
@@ -109,6 +115,8 @@ public class PageController extends BaseCRUDActionController {
                 }
                 path = path.getParent();
             }
+
+//            Long docId = cmsArticle.getDocId();
             //点击次数增加1
             Long visitTimes = cmsArticle.getVisitTimes();
             if(visitTimes==null){
@@ -198,7 +206,8 @@ public class PageController extends BaseCRUDActionController {
         cmsCollectArticle.setCatagory(cmsCollectCatagoryService.get(dictory_val));
         cmsCollectArticle.setRemark(title);
         cmsCollectArticle.setUrl(request.getRequestURL().substring(request.getRequestURI().length() + request.getContextPath().length()));
-        cmsCollectArticle.setUser(UserSessionUtils.getInstance().getLoginedUser());
+        Long id = SpringSecurityUtils.getCurrentUser().getId();
+        cmsCollectArticle.setUser(sysUserService.get(id));
         cmsCollectArticleService.save(cmsCollectArticle);
         sendSuccessJSON(response, "添加收藏成功");
     }
