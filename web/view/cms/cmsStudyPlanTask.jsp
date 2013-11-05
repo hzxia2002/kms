@@ -6,7 +6,7 @@
     <%@ include file="../common/header_new.jsp" %>
 </head>
 <body>
-<form:form id="cmsStudyPlanEditForm" modelAttribute="bean" name="cmsStudyPlanEditForm" action="${ctx}/cmsStudyPlan/save.do" method="post">
+<form:form id="cmsStudyPlanEditForm" modelAttribute="bean" name="cmsStudyPlanEditForm" action="${ctx}/cmsStudyPlan/saveUsers.do" method="post">
     <input type="hidden" name="id" value="${bean.id}" />
     <table border="0" cellspacing="1" width="100%" class="inputTable">
 
@@ -24,10 +24,15 @@
                 参加学习人员:
             </td>
             <td  class="container">
-                <select id="users" name="users" multiple="multiple">
-                </select>
-                <%--<input type="text" name="userName" id="userName" value="${bean.user.displayName}" class="table_input" validate="{required:true}"/>--%>
-                <%--<input type="hidden" name="user" id="user" value="${bean.user.id}" class="table_input"/>--%>
+                <div style="float: left">
+                    <select id="users" name="users" multiple="multiple" size="8" style="width: 200px;" class="textarea_table">
+                    </select>
+                </div>
+                <div><img src="${ctx}/skin/icons/edit_add.png" onclick="selectUsers();"></div>
+                <div><img src="${ctx}/skin/icons/edit_remove.png" onclick="deleteUsers();"></div>
+                <input type="hidden" name="userIds" id="userIds">
+                    <%--<input type="text" name="userName" id="userName" value="${bean.user.displayName}" class="table_input" validate="{required:true}"/>--%>
+                    <%--<input type="hidden" name="user" id="user" value="${bean.user.id}" class="table_input"/>--%>
             </td>
         </tr>
 
@@ -83,6 +88,7 @@
             onBeforeOpen: selectUser, valueFieldID: 'course',width:300
         });
 
+        $("#userIds").val(getUserIds());
         $.metadata.setType("attr", "validate");
         v = $('#cmsStudyPlanEditForm').validate();
     });
@@ -97,14 +103,13 @@
     }
 
     function selectUser(){
-        window.top.$.juiceDialog.open({ title: '选择知识点', name:'userselector',width: 1024, height: 500, url: '${ctx}/view/sys_new/sysUserGridSelect.jsp', buttons: [
+        window.top.$.juiceDialog.open({ title: '选择学习人员', name:'userselector',width: 1024, height: 500, url: '${ctx}/view/sys_new/sysUserGridSelect.jsp', buttons: [
             { text: '确定', onclick: selectUserOK },
             { text: '取消', onclick: dialogCancel }
         ]
         });
         return false;
     }
-
 
     function selectCourseOK(item, dialog){
         var fn = dialog.frame.f_select || dialog.frame.window.f_select;
@@ -134,5 +139,61 @@
 
     function dialogCancel(item, dialog){
         dialog.close();
+    }
+
+    function selectUsers(){
+        window.top.$.juiceDialog.open({ title: '选择学习人员', name:'usersSelector',width: 1024, height: 500, url: '${ctx}/view/sys_new/sysUsersGridSelect.jsp', buttons: [
+            { text: '确定', onclick: selectUsersOK },
+            { text: '关闭', onclick: dialogCancel }
+        ]
+        });
+        return false;
+    }
+    /**
+     * 获取用户Ids
+     * @return {string}
+     */
+    function getUserIds() {
+        var allOptios = $("#users option");
+        var userIds = ",";
+        for (var i = 0; i < allOptios.length; i++) {
+            userIds += $(allOptios[i]).val() + ",";
+        }
+        return userIds;
+    }
+
+    function selectUsersOK(item, dialog){
+        var fn = dialog.frame.f_select || dialog.frame.window.f_select;
+        var datas = fn();
+        if (!datas)
+        {
+            alert('请选择行!');
+            return;
+        }
+        var userIds = getUserIds();
+        var htmlArr = [];
+        for(var j=0;j<datas.length;j++){
+            if(userIds.indexOf(","+datas[j].id+",")>=0){
+                continue;
+            }else{
+                userIds += datas[j].id +",";
+            }
+            htmlArr.push("<option value='"+datas[j].id+"'>"+datas[j].displayName+"</option>");
+        }
+        $("#users").append(htmlArr.join(""));
+        if(!window.confirm("添加成功,是否继续添加?")){
+            dialog.close();
+        }else{
+            var cancel = dialog.frame.f_cancel || dialog.frame.window.f_cancel;
+            cancel();
+        }
+        $("#userIds").val(getUserIds());
+    }
+
+    function deleteUsers(){
+        if(window.confirm("您是否要删除选中的人员?")){
+            $("#users option:selected").remove();
+        }
+        $("#userIds").val(getUserIds());
     }
 </script>
