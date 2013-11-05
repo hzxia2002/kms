@@ -5,7 +5,10 @@ import com.article.domain.CmsStudyPlan;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
+import com.comet.core.security.util.SpringSecurityUtils;
 import com.comet.core.utils.ReflectionUtils;
+import com.comet.system.daoservice.SysUserService;
+import com.comet.system.domain.SysUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -28,14 +32,15 @@ public class CmsStudyPlanController extends BaseCRUDActionController<CmsStudyPla
     private static Log log = LogFactory.getLog(CmsStudyPlanController.class);
 
     @Autowired
-	private CmsStudyPlanService cmsStudyPlanService;
+    private CmsStudyPlanService cmsStudyPlanService;
 
+    @Autowired
+    private SysUserService sysUserService;
 
-
-	@RequestMapping
+    @RequestMapping
     @ResponseBody
-	public Page<CmsStudyPlan> grid(Page page, String condition) {
-		try {
+    public Page<CmsStudyPlan> grid(Page page, String condition) {
+        try {
             page.setAutoCount(true);
 
             String hql = "from CmsStudyPlan t where 1=1 ";
@@ -44,12 +49,12 @@ public class CmsStudyPlanController extends BaseCRUDActionController<CmsStudyPla
 
             // 查询
             page = cmsStudyPlanService.findByPage(page, queryTranslate.toString());
-		} catch (Exception e) {
+        } catch (Exception e) {
             log.error("error", e);
-		}
+        }
 
         return page;
-	}
+    }
 
     @RequestMapping
     public String init(Model model, CmsStudyPlan entity) throws Exception {
@@ -100,23 +105,51 @@ public class CmsStudyPlanController extends BaseCRUDActionController<CmsStudyPla
                     "studyDuration",
                     "studyTimes",
                     "user",
-                    "course",
-                    "createTime",
-                    "createUser",
-                    "updateTime",
-                    "updateUser"
+                    "course"
             };
 
             CmsStudyPlan target;
             if (entity.getId() != null) {
                 target = cmsStudyPlanService.get(entity.getId());
-
+                target.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+                target.setUpdateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
                 ReflectionUtils.copyBean(entity, target, columns);
             } else {
                 target = entity;
+                target.setCreateTime(new Timestamp(System.currentTimeMillis()));
+                target.setCreateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
             }
 
             cmsStudyPlanService.save(target);
+        } catch (Exception e) {
+            log.error("error", e);
+            super.processException(response, e);
+        }
+
+        sendSuccessJSON(response, "保存成功");
+    }
+
+
+    @RequestMapping
+    public void saveUsers(HttpServletResponse response, Model model, @ModelAttribute("bean") CmsStudyPlan entity,String userIds)
+            throws Exception {
+        try {
+            String[] userIdArr = userIds.split(",");
+            for (String id : userIdArr) {
+               if(StringUtils.isNotEmpty(id)){
+                   SysUser sysUser = sysUserService.get(Long.valueOf(id));
+                   CmsStudyPlan cmsStudyPlan = new CmsStudyPlan();
+                   cmsStudyPlan.setCourse(entity.getCourse());
+                   cmsStudyPlan.setLastStudyDuration(0L);
+                   cmsStudyPlan.setStudyDuration(entity.getStudyDuration());
+                   cmsStudyPlan.setUser(sysUser);
+                   cmsStudyPlan.setCreateTime(new Timestamp(System.currentTimeMillis()));
+                   cmsStudyPlan.setCreateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
+
+                   cmsStudyPlanService.save(cmsStudyPlan);
+               }
+            }
+
         } catch (Exception e) {
             log.error("error", e);
             super.processException(response, e);
