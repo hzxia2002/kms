@@ -447,23 +447,40 @@ public class PageController extends BaseCRUDActionController {
     }
 
     @RequestMapping
-    public String myCollect(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
+    public String myCollect(Long id,Integer pageNo,Integer pageSize,String articleName,Model model) throws Exception {
         Page page = getPage(pageNo, pageSize);
 
         Long userId = SpringSecurityUtils.getCurrentUser().getId();
 
         String hql = "from CmsCollectArticle c left join fetch c.catagory where c.user.id="+ userId;
         String countSql = "select * from Cms_Collect_Article c where c.user_id="+ userId;
-
         if(id!=null){
             hql = "from CmsCollectArticle c where c.user.id="+ userId+" and c.catagory.id="+id;
             countSql = "select * from Cms_Collect_Article c   where c.user_id="+ userId +" and c.catagory_id="+id;
-
+        }
+        if(StringUtils.isNotEmpty(articleName)){
+            hql += " and c.remark like '%"+articleName.trim()+"%'";
+            countSql +=  " and c.remark like '%"+articleName.trim()+"%'";
         }
         Page<CmsCollectArticle> byPage = cmsCollectArticleService.findByPage(page ,countSql,hql);
         model.addAttribute("page",byPage);
         model.addAttribute("id",id);
+        model.addAttribute("articleName",articleName);
         return "pages/collect";
     }
+
+    /**
+     *  删除收藏
+     * @param response
+     * @param id
+     * @throws Exception
+     */
+    @RequestMapping
+    public void deleteCollect(HttpServletResponse response,Long id) throws Exception {
+        cmsCollectArticleService.delete(id) ;
+        sendSuccessJSON(response, "成功删除收藏");
+    }
+
+
 
 }
