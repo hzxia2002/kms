@@ -37,8 +37,7 @@ function treeNodeClick(node){
         loadCollect();
     }else if(node.data.id==-3){
         loadHistory();
-    }
-    else{
+    }else{
         nodeId = node.data.id;
         loadCollect(nodeId);
     }
@@ -82,9 +81,27 @@ function loadCollect(id,pageNo){
     }
     $.ajax({
         url:url,
+        type:"post",
+        data:{articleName:$("#articleName").val()},
         dataType: "text",
         success:function(ret){
             $("#studyContent").html(ret);
         }
     });
 }
+
+function deleteCollect(catagoryId,pageNo,id){
+    var url = context_path+"/page/deleteCollect.do?id="+id;
+    if(confirm("您确定要删除此记录?")){
+        $.ajax({
+            url:url,
+            dataType: "json",
+            success:function(ret){
+                loadCollect(catagoryId,pageNo);
+                alert(ret.msg);
+            }
+        });
+    }
+
+}
+

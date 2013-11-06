@@ -26,7 +26,7 @@
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.lastStudyDuration}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.lastStudyTime}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                        <a target="_blank" style="color:blue" href="course.html?id=${bean.course.id}">进入>></a>
+                        <a target="_blank" style="color:blue" href="${ctx}/study/init.html?studyPlanId=${bean.id}">进入>></a>
                     </td>
                 </tr>
             </c:forEach>
