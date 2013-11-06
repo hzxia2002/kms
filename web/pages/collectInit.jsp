@@ -27,6 +27,7 @@
                 </td>
                 <td  class="container" >
                     <input type="text" name="dictory" id="dictory"   maxlength="100" validate="{required:true}"/>&nbsp;
+                    <input type="hidden" name="articleId"   value="${articleId}"/>&nbsp;
                 </td>
             </tr>
         </table>

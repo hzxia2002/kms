@@ -21,6 +21,7 @@
                 <div class="two" id="addCollect" style="cursor: pointer;"><a href="javascript:void(0);"> 收藏本页</a></div>
             </div>
             <div class="main">
+                <input type="hidden" id="articleId" value="${bean.id}">
                 <p class="text" align="center" id="title">${bean.title}</p>
                 <p>
                     关键字：${bean.keyWord}<br />

@@ -6,7 +6,7 @@ $(function(){
         var settings = {
             height: 350,
             title:"添加到收藏夹",
-            url: "collectInit.do?title="+encodeURI($("#title").html()),
+            url: "collectInit.do?title="+encodeURI($("#title").html())+"&articleId="+$("#articleId").val(),
             width: 450,
             buttons:[
                 { text: '保存', onclick: function (item, dialog) {

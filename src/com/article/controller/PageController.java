@@ -10,7 +10,6 @@ import com.comet.system.daoservice.SysUserService;
 import com.comet.system.tree.Node;
 import com.comet.system.tree.TreeBranch;
 import com.comet.system.tree.ZTreeNode;
-import com.comet.system.utils.UserSessionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Date: 13-10-30
@@ -45,6 +47,9 @@ public class PageController extends BaseCRUDActionController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private CmsStudyPlanService cmsStudyPlanService;
 
     @Autowired
     private DocAttachmentsService docAttachmentsService;
@@ -201,20 +206,26 @@ public class PageController extends BaseCRUDActionController {
     }
 
     @RequestMapping
-    public void collect(HttpServletResponse response,HttpServletRequest request,Model model,String title,Long dictory_val) throws Exception {
-        CmsCollectArticle cmsCollectArticle = new CmsCollectArticle();
-        cmsCollectArticle.setCatagory(cmsCollectCatagoryService.get(dictory_val));
-        cmsCollectArticle.setRemark(title);
-        cmsCollectArticle.setUrl(request.getRequestURL().substring(request.getRequestURI().length() + request.getContextPath().length()));
-        Long id = SpringSecurityUtils.getCurrentUser().getId();
-        cmsCollectArticle.setUser(sysUserService.get(id));
-        cmsCollectArticleService.save(cmsCollectArticle);
-        sendSuccessJSON(response, "添加收藏成功");
+    public void collect(HttpServletResponse response,HttpServletRequest request,Model model,String title,Long dictory_val,Long articleId) throws Exception {
+        if(cmsCollectArticleService.find("from CmsCollectArticle where article.id=" + articleId).size()>0){
+            sendSuccessJSON(response, "该文章已经收藏");
+        }else{
+            CmsCollectArticle cmsCollectArticle = new CmsCollectArticle();
+            cmsCollectArticle.setCatagory(cmsCollectCatagoryService.get(dictory_val));
+            cmsCollectArticle.setRemark(title);
+            cmsCollectArticle.setUrl("/page/view.html?id="+articleId);
+            Long id = SpringSecurityUtils.getCurrentUser().getId();
+            cmsCollectArticle.setUser(sysUserService.get(id));
+            cmsCollectArticle.setArticle(articleService.get(articleId));
+            cmsCollectArticleService.save(cmsCollectArticle);
+            sendSuccessJSON(response, "添加收藏成功");
+        }
     }
 
     @RequestMapping
-    public String collectInit(HttpServletResponse response,Model model,String title) throws Exception {
+    public String collectInit(HttpServletResponse response,Model model,String title,Long articleId) throws Exception {
         model.addAttribute("title", new String(title.getBytes("iso-8859-1"),"utf-8"));
+        model.addAttribute("articleId", articleId);
         return "pages/collectInit";
     }
 
@@ -340,4 +351,119 @@ public class PageController extends BaseCRUDActionController {
         dataMap.put("data",dataList);
         return dataMap;
     }
+
+
+    @RequestMapping
+    @ResponseBody
+    public List<Map> studyTree(String type,String uid, String id) throws Exception {
+        List<Map> treeDataList = new ArrayList<Map>();
+
+        String hql = "from CmsCollectCatagory";
+        List<CmsCollectCatagory> cmsCollectCatagories = cmsCollectCatagoryService.findByQuery(hql);
+
+
+        HashMap rootMap = new HashMap();
+        rootMap.put("text","收藏夹");
+        rootMap.put("id",-1L);
+        rootMap.put("isLoaded", true);
+
+        treeDataList.add(rootMap);
+
+
+        for (CmsCollectCatagory cmsCollectCatagory : cmsCollectCatagories) {
+            HashMap map = new HashMap();
+            map.put("text",cmsCollectCatagory.getName());
+            map.put("id",cmsCollectCatagory.getId());
+            if(cmsCollectCatagory.getParent()!=null){
+                map.put("pid",cmsCollectCatagory.getParent().getId());
+            }else{
+                map.put("pid",-1L);
+            }
+            map.put("isLoaded",true);
+            treeDataList.add(map);
+        }
+
+        rootMap = new HashMap();
+        rootMap.put("text","我的学习");
+        rootMap.put("id",-2L);
+        rootMap.put("isLoaded", true);
+
+        treeDataList.add(rootMap);
+
+        rootMap = new HashMap();
+        rootMap.put("text","历史学习任务");
+        rootMap.put("id",-3L);
+        rootMap.put("isLoaded", true);
+
+        treeDataList.add(rootMap);
+
+        return treeDataList;
+    }
+
+    @RequestMapping
+    public String myStudy(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
+        Page page = getPage(pageNo, pageSize);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String currendTimeStr = format.format(new Date());
+        Long userId = SpringSecurityUtils.getCurrentUser().getId();
+        String hql = "from CmsStudyPlan p left join fetch p.course where p.course.startTime<='"+currendTimeStr+"' and p.course.endTime>='"+currendTimeStr+"' and p.user.id="+userId;
+        String countHql = "select * from Cms_Study_Plan p  left join Cms_Study_Course c on c.id=p.course_id where c.start_Time<='"+currendTimeStr+"' and c.end_Time>='"+currendTimeStr+"' and p.user_id="+userId;
+        Page<CmsStudyPlan> byPage = cmsStudyPlanService.findByPage(page,countHql ,hql);
+        model.addAttribute("page",byPage);
+        return "pages/myStudy";
+    }
+
+    @RequestMapping
+    public String studyHistory(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
+        Page page = getPage(pageNo, pageSize);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String currendTimeStr = format.format(new Date());
+        Long userId = SpringSecurityUtils.getCurrentUser().getId();
+        String hql = "from CmsStudyPlan p left join fetch p.course where  p.course.endTime<'"+currendTimeStr+"' and p.user.id="+userId;
+        String countHql = "select * from Cms_Study_Plan p  left join Cms_Study_Course c on c.id=p.course_id where c.end_Time<'"+currendTimeStr+"' and p.user_id="+userId;
+        Page<CmsStudyPlan> byPage = cmsStudyPlanService.findByPage(page,countHql ,hql);
+        model.addAttribute("page",byPage);
+        return "pages/studyHistory";
+    }
+
+    /**
+     * 创建分页对象
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public Page getPage(Integer pageNo, Integer pageSize) {
+        if(pageNo==null){
+            pageNo = 1;
+        }
+        if(pageSize==null){
+            pageSize = 10;
+        }
+        Page page = new Page();
+        page.setPageSize(pageSize);
+        page.setAutoCount(true);
+        page.setPage(pageNo);
+        return page;
+    }
+
+    @RequestMapping
+    public String myCollect(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
+        Page page = getPage(pageNo, pageSize);
+
+        Long userId = SpringSecurityUtils.getCurrentUser().getId();
+
+        String hql = "from CmsCollectArticle c left join fetch c.catagory where c.user.id="+ userId;
+        String countSql = "select * from Cms_Collect_Article c where c.user_id="+ userId;
+
+        if(id!=null){
+            hql = "from CmsCollectArticle c where c.user.id="+ userId+" and c.catagory.id="+id;
+            countSql = "select * from Cms_Collect_Article c   where c.user_id="+ userId +" and c.catagory_id="+id;
+
+        }
+        Page<CmsCollectArticle> byPage = cmsCollectArticleService.findByPage(page ,countSql,hql);
+        model.addAttribute("page",byPage);
+        model.addAttribute("id",id);
+        return "pages/collect";
+    }
+
 }

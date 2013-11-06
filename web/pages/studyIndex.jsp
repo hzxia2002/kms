@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="common/header.jsp"%>
+    <script type="text/javascript" src="${ctx}/pages/studyIndex.js"></script>
 </head>
 
 <body>
@@ -15,53 +16,14 @@
     <div class="leftxxyhkuang">
         <div class="leftxxyh">
             <div class="title"><img src="../skin/images/sc.png" width="16" height="16" />&nbsp;&nbsp;我的收藏</div>
-            <div class="tree"><img src="../skin/images/tree.png" width="241" height="203" /></div>
+            <div class="tree">
+                <ul id="catalogTree" style="margin-top:3px;"></ul>
+            </div>
         </div>
         <div class="leftxxyh1"><img src="../skin/images/ksdl.jpg" width="246" height="39" /></div>
     </div>
-    <div class="rightxxyh">
-        <div class="one">
-            <div class="title">学习任务</div>
-            <div class="main">
-                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
-                    <tr>
-                        <td align="center" class="tabtit">序号</td>
-                        <td align="center" class="tabtit">课程名称</td>
-                        <td align="center" class="tabtit">完成情况</td>
-                        <td align="center" class="tabtit">进度</td>
-                        <td align="center" class="tabtit">学习时间</td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                        <td bgcolor="#f9f9f9" class="tabmain">&nbsp;</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+    <div class="rightxxyh" id="studyContent">
+
     </div>
 
     <div class="clr"></div>
