@@ -53,9 +53,29 @@ function loadContent(id,pageNo){
             var htmlArr = [];
             var pNo = ret.page;
             for(var i=0;i<datas.length;i++){
-                htmlArr.push('<li style="width: 40%;float: left;padding-left: 20px;">' +
-                    '<a target="_blank" style="color:blue" href="view.html?id='+datas[i]["id"]+'">'+datas[i]["title"]+
-                    '<span style="color:black;font-size:12px;">&nbsp;('+datas[i]["publishDate"]+')</span>'+'</a></li>');
+                htmlArr.push('<li style="position: relative;float: left;width: 42%;margin-left: 5%;margin-right: 3%;height: 180px;margin-bottom: 15px;">');
+                htmlArr.push('    <div style="width: 100%">');
+                htmlArr.push('        <img src="../skin/images/kck1_bg.jpg" width="100%" height="180px;">');
+                htmlArr.push('    </div>');
+                htmlArr.push('    <div style="float: left;z-index: 10;position: absolute;top:3px;left:3px;" >');
+                htmlArr.push('        <a href="showCase.html?id='+datas[i].id+'" target="_blank">');
+                htmlArr.push('          《'+datas[i].title+'》');
+                htmlArr.push( '       </a>');
+                htmlArr.push( '    </div>');
+                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;top:50px;left:60px;" >');
+                htmlArr.push( '       <span>'+datas[i].author+'</span>');
+                htmlArr.push( '    </div>');
+                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;left:15px;" >');
+                htmlArr.push( '       <span>侦查办案民警 法制员<br />上海市公安局经侦总队</span>');
+                htmlArr.push( '    </div>');
+                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;right:15px;" >');
+                htmlArr.push( '        <img src="'+context_path+datas[i].path+'" style="height:104px;width:118px;">');
+                htmlArr.push( '     </div>');
+                htmlArr.push( '</li>');
+//
+//                htmlArr.push('<li style="width: 49%;float: left;padding-left: 1%;  height:170px;background:url('+context_path+datas[i]["path"]+')">' +
+//                    '<a target="_blank" style="color:blue" href="view.html?id='+datas[i]["id"]+'">'+datas[i]["title"]+
+//                    '<span style="color:black;font-size:12px;">&nbsp;('+datas[i]["publishDate"]+')</span>'+'</a></li>');
             }
             $("#content").html(htmlArr.join(""));
             createPage(total,pNo);
