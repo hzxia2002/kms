@@ -8,20 +8,20 @@
 
 <body>
 <div class="Header">
-    <%--<%@include file="common/nav.jsp"%>--%>
+    <%@include file="common/nav.jsp"%>
     <div style="display: none;" id="pageType" type="${type}"></div>
 </div>
 <div class="clr"></div>
 <div class="ContentHome">
     <div class="left">
-        <%--<div class="title">技战法案例课程库</div>--%>
+        <div class="title">技战法案例课程库</div>
         <div class="tree">
             <ul id="catalogTree" style="margin-top:3px;"></ul>
         </div>
     </div>
     <div class="right">
         <div class="one">
-            <%--<div class="title">课程展示</div>--%>
+            <div class="title">课程展示</div>
             <div class="maintp">
                 <br />
                 <ul width="80%"  id="content" style="height:350px;">
@@ -36,6 +36,6 @@
 
     <div class="clr"></div>
 </div>
-<%--<%@include file="common/footer.jsp"%>--%>
+<%@include file="common/footer.jsp"%>
 </body>
 </html>
