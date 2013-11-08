@@ -7,6 +7,7 @@ import com.article.domain.CmsCatalog;
 import com.article.domain.DocAttachments;
 import com.article.domain.DocDocument;
 import com.article.manager.CatalogManager;
+import com.article.util.PPTConvertHander;
 import com.comet.core.controller.BaseCRUDActionController;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -211,8 +212,15 @@ public class FileUploadController extends BaseCRUDActionController {
                     dest.mkdirs();
                 }
 
-                multipartFile.transferTo(new File(wholePath + File.separator + dateDir + chgName));
-
+                String pathName = wholePath + File.separator + dateDir + chgName;
+                multipartFile.transferTo(new File(pathName));
+                if("ppt".equalsIgnoreCase(extName)){
+                    String pptDir = wholePath + File.separator + dateDir + dateLong;
+                    File file = new File(pptDir);
+                    file.mkdir();
+                    PPTConvertHander pptConvertHander = new PPTConvertHander(pathName,pptDir,"pack");
+                    pptConvertHander.start();
+                }
 
                 String path = catalogPath.replace(File.separator, "/") + "/" + dateDir.replace(File.separator, "/") + chgName;
 

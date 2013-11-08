@@ -25,6 +25,8 @@ public interface Constants {
     public static final String INVESTIGATION_KMS = "zczsdk";
 
     public static final String CASE_KMS = "jzfalkck";
+
+    public static final String TJZT_KMS = "tjzt";
     /***********************目录编码**********/
 
 }

@@ -10,6 +10,7 @@ import com.comet.system.daoservice.SysUserService;
 import com.comet.system.tree.Node;
 import com.comet.system.tree.TreeBranch;
 import com.comet.system.tree.ZTreeNode;
+import org.apache.commons.io.filefilter.FileFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileFilter;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -147,7 +149,7 @@ public class PageController extends BaseCRUDActionController {
     @RequestMapping
     public String index(Model model) throws Exception {
         //取推荐主题
-        String hql = "from CmsArticle t where t.isTop=1 order by t.publishTime desc";
+        String hql = "from CmsArticle t where t.path.path='"+Constants.TJZT_KMS+"' and t.isPublished=1 and t.isValid=1 and t.path.isValid=1 order by t.publishTime desc";
         Page page = new Page();
         page = articleService.findByPage(page, hql);
         List rows = page.getRows();
@@ -157,13 +159,13 @@ public class PageController extends BaseCRUDActionController {
         model.addAttribute("recommends",rows);
 
         //取最新知识
-        hql = "from CmsArticle t  order by t.publishDate desc";
+        hql = "from CmsArticle t  where t.isPublished=1 and t.isValid=1 and t.path.isValid=1 order by t.publishDate desc";
         page = articleService.findByPage(page, hql);
         List newKmsRows = page.getRows();
         model.addAttribute("newKmsRows",newKmsRows);
 
         //取热点知识
-        hql = "from CmsArticle t  order by t.visitTimes desc";
+        hql = "from CmsArticle t where t.isPublished=1 and t.isValid=1 and t.path.isValid=1 order by t.visitTimes desc";
         page = articleService.findByPage(page, hql);
         List hotKmsRows = page.getRows();
         model.addAttribute("hotKmsRows",hotKmsRows);
@@ -171,6 +173,62 @@ public class PageController extends BaseCRUDActionController {
         //首页样式控制
         model.addAttribute("type","1");
         return "pages/index";
+    }
+
+
+    @RequestMapping
+    public String showCase(HttpServletRequest request,Model model,Long id) throws Exception {
+        try {
+            CmsArticle cmsArticle = articleService.get(id);
+            CmsCatalog path = cmsArticle.getPath();
+            model.addAttribute("type","4");
+            //点击次数增加1
+            Long visitTimes = cmsArticle.getVisitTimes();
+            if(visitTimes==null){
+                visitTimes = 1L;
+            }else{
+                visitTimes += 1L;
+            }
+            cmsArticle.setVisitTimes(visitTimes);
+            Long docId = cmsArticle.getDocId();
+            if(docId!=null){
+                List<DocAttachments> docAttachmentses = docAttachmentsService.find("from DocAttachments where doc.id=" + docId);
+                ArrayList attachments = new ArrayList();
+                for (DocAttachments docAttachmentse : docAttachmentses) {
+                    HashMap<String, Object> attachment = new HashMap<String, Object>();
+                    attachment.put("id",docAttachmentse.getId());
+                    attachment.put("path",docAttachmentse.getFilePath());
+                    String orginName = docAttachmentse.getOrginName();
+                    attachment.put("orginName", orginName);
+                    attachment.put("name", orginName.substring(0, orginName.lastIndexOf(".")));
+                    boolean isPPT = orginName.substring(orginName.lastIndexOf(".") + 1).equalsIgnoreCase("ppt");
+                    attachment.put("isPPT", isPPT);
+                    if(isPPT){
+                        String pptPath = docAttachmentse.getFilePath().replaceAll("\\\\", File.separator);
+                        pptPath = pptPath.substring(0,pptPath.lastIndexOf("."));
+                        attachment.put("pptPath", pptPath);
+                        attachment.put("total", new File(request.getSession().getServletContext().getRealPath("")+File.separator+pptPath).listFiles(new FileFilter() {
+                            public boolean accept(File file) {
+                                return file.getName().endsWith("png");
+                            }
+                        }).length);
+
+                    }
+                    attachment.put("isAVI", "dat,wmv,avi,mp3".indexOf(orginName.substring(orginName.lastIndexOf(".") + 1)) >= 0);
+                    attachments.add(attachment);
+                }
+                model.addAttribute("attachments", attachments);
+            }
+            model.addAttribute("bean", cmsArticle);
+
+            //文章保存
+            articleService.save(cmsArticle);
+
+        } catch (Exception e) {
+            log.error("error", e);
+        }
+
+        return "pages/case";
     }
 
     @RequestMapping
@@ -245,9 +303,9 @@ public class PageController extends BaseCRUDActionController {
         TreeBranch treeBranch = new TreeBranch();
         type = StringUtils.defaultString(type, "");
 
-        String hql = "from CmsCollectCatagory where parent.id is null order by treeId";
+        String hql = "from CmsCollectCatagory where parent.id is null and isValid=1 order by treeId";
         if(StringUtils.isNotEmpty(uid)) {
-            hql = "from CmsCollectCatagory where parent.id = " + uid + " order by treeId";
+            hql = "from CmsCollectCatagory where parent.id = " + uid + " and isValid=1 order by treeId";
         }
 
         List<CmsCollectCatagory> cmsCollectCatagorys = cmsCollectCatagoryService.findByQuery(hql);
@@ -277,7 +335,7 @@ public class PageController extends BaseCRUDActionController {
     public List<Map> cagalogTree(String type,String uid, String id,String treeType) throws Exception {
         List<Map> treeDataList = new ArrayList<Map>();
 
-        String hql = "from CmsCatalog where parent.id is null and path='"+treeType+"'";
+        String hql = "from CmsCatalog where parent.id is null and isValid=1 and path='"+treeType+"'";
         List<CmsCatalog> cmsCatalogs = cmsCatalogService.findByQuery(hql);
         if(cmsCatalogs.size()>0){
             String treeId = cmsCatalogs.get(0).getTreeId();
@@ -290,7 +348,7 @@ public class PageController extends BaseCRUDActionController {
 
             treeDataList.add(rootMap);
 
-            hql = "from CmsCatalog where treeId like '" + treeId + "%' order by treeId";
+            hql = "from CmsCatalog where treeId like '" + treeId + "%' and isValid=1 order by treeId";
             cmsCatalogs = cmsCatalogService.findByQuery(hql);
             for (CmsCatalog cmsCatalog : cmsCatalogs) {
                 HashMap map = new HashMap();
@@ -316,7 +374,7 @@ public class PageController extends BaseCRUDActionController {
         List<Map> dataList = new ArrayList<Map>();
         String treeId ;
         if(id==null){
-            String hql = "from CmsCatalog where parent.id is null and path='"+treeType+"'";
+            String hql = "from CmsCatalog where parent.id is null and isValid=1 and path='"+treeType+"'";
             List<CmsCatalog> cmsCatalogs = cmsCatalogService.findByQuery(hql);
             treeId = cmsCatalogs.get(0).getTreeId();
         }else{
@@ -324,7 +382,7 @@ public class PageController extends BaseCRUDActionController {
             treeId = cmsCatalog.getTreeId();
         }
 
-        String hql = "from CmsArticle c where c.path.treeId like'"+treeId+"' order by publishDate desc";
+        String hql = "from CmsArticle c where c.path.treeId like'"+treeId+"' c.isPublished=1 and c.isValid=1 and c.path.isValid=1 order by publishDate desc";
         if(pageNo==null){
             pageNo = 1;
         }
@@ -343,6 +401,8 @@ public class PageController extends BaseCRUDActionController {
             map.put("id",row.getId());
             map.put("title",row.getTitle());
             map.put("publishDate",row.getPublishDate());
+            map.put("path",row.getAttachPath());
+            map.put("author",row.getAuthor());
             dataList.add(map);
         }
         dataMap.put("total",cmsArticlePage.getTotal());
