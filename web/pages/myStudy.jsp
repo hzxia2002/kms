@@ -10,7 +10,7 @@
                 <td align="center" class="tabtit">总时长(分钟)</td>
                 <td align="center" class="tabtit">已学习次数</td>
                 <td align="center" class="tabtit">已学习时长(分钟)</td>
-                <td align="center" class="tabtit">末次学习时长(分钟)</td>
+                <td align="center" class="tabtit">学习完成率</td>
                 <td align="center" class="tabtit">末次学习时间</td>
                 <td align="center" class="tabtit">开始学习</td>
             </tr>
@@ -23,7 +23,7 @@
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.course.studyDuration}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.studyTimes}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.studyDuration}&nbsp;</td>
-                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.lastStudyDuration}&nbsp;</td>
+                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.studyDuration*100/bean.course.studyDuration}%&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.lastStudyTime}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
                         <a target="_blank" style="color:blue" href="${ctx}/study/init.html?studyPlanId=${bean.id}">进入>></a>

@@ -5,6 +5,10 @@
 <head>
     <%@include file="common/header.jsp"%>
     <script type="text/javascript" src="${ctx}/pages/view.js"></script>
+    <style type="text/css">
+        .submitCss{background: url("../skin/images/tj1.jpg") no-repeat;background-position: -8 0;}
+        .submitCss:hover{background: url("../skin/images/tj.jpg") no-repeat;}
+    </style>
 </head>
 
 <body>
@@ -41,17 +45,39 @@
                 </div>
             </div>
         </div>
-        <div class="leftyj">
-            <div class="title">
-                <div class="one">提交修改意见</div>
+        <c:if test="${type==2||type==3}">
+            <div class="leftyj">
+                <div class="title">
+                    <div class="one">评论与意见</div>
+                </div>
+                <div>
+                    <c:forEach items="${comments}" var="comment">
+                          <div style="border-bottom: 1px dashed #dcdcdc;">
+                              <span style="color: #dcdcdc">${comment.replyer.displayName}发表评论(<fmt:formatDate value="${comment.replyTime}" type="both"></fmt:formatDate>)：</span>
+                              <br>      <%request.setAttribute("vEnter","\n");%>
+                              <span style="word-spacing: 2"> ${fn:replace(comment.content,vEnter,"<br>")}</span>
+                          </div>
+                    </c:forEach>
+                </div>
+                <div class="main">
+                    <input type="radio" name="commentType"  value="1">意见
+                    <input type="radio" name="commentType"  value="2" checked="checked">评论
+                    <textarea rows="6" cols="70" style="width: 705px;height: 175px;" id="comment">
+                    </textarea>
+                    <%--<img src="../skin/images/yj1.jpg" width="705" height="175" />--%>
+                </div>
             </div>
-            <div class="main"><img src="../skin/images/yj1.jpg" width="705" height="175" /></div>
-        </div>
-        <div class="lefttj">
-            <div class="onetj">验证码：
-                <input name="textfield" type="text" id="textfield" size="10" />&nbsp;&nbsp;<img src="../skin/images/yzm.jpg" width="69" height="31" /> </div>
-            <div class="twotj"><img src="../skin/images/tj.jpg" width="78" height="29" /></div>
-        </div>
+            <div class="lefttj">
+                <%--<div class="onetj">验证码：--%>
+                    <%--<input name="textfield" type="text" id="textfield" size="10" />&nbsp;&nbsp;--%>
+                    <%--<img src="../skin/images/yzm.jpg" width="69" height="31" />--%>
+                <%--</div>--%>
+                <div class="twotj" align="center" style="width: 100%">
+                    <div class="submitCss" style="width: 78px;height: 29px;" onclick="submitComment('${bean.id}')"></div>
+                    <%--<img src="../skin/images/tj.jpg" width="78" height="29"  class="submitCss"/>--%>
+                </div>
+            </div>
+        </c:if>
     </div>
     <div class="rightct">
         <div class="rightzf">

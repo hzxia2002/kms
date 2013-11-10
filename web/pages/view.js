@@ -37,3 +37,16 @@ $(function(){
 //        });
     });
 });
+
+function submitComment(id){
+    $.ajax({
+        url: context_path+"/page/comment.do?id="+id,
+        dataType: "json",
+        type:"post",
+        data:{content:$("#comment").html(),commentType:$("input[name='commentType']").val()},
+        success:function(ret){
+            alert(ret.msg);
+            $("#comment").html("");
+        }
+    });
+}
