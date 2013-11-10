@@ -70,8 +70,8 @@
 
 <script type="text/javascript">
     $(function(){
-        $("#startTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:ss",width:200 ,initValue:'<fmt:formatDate type="both" value="${bean.startTime}"></fmt:formatDate>'});
-        $("#endTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:ss",width:200 ,initValue:'<fmt:formatDate type="both" value="${bean.endTime}"></fmt:formatDate>'});
+        $("#startTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:ss",width:200 ,initValue:'<fmt:formatDate type="both" value="${bean.startTime}" pattern="yyyy-MM-dd hh:mm:ss"></fmt:formatDate>'});
+        $("#endTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:ss",width:200 ,initValue:'<fmt:formatDate type="both" value="${bean.endTime}" pattern="yyyy-MM-dd hh:mm:ss"></fmt:formatDate>'});
 
         $("#articleName").juiceComboBox({
                onBeforeOpen: selectArticle, valueFieldID: 'article',width:300
