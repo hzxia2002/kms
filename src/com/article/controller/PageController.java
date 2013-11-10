@@ -56,6 +56,9 @@ public class PageController extends BaseCRUDActionController {
     @Autowired
     private DocAttachmentsService docAttachmentsService;
 
+    @Autowired
+    private CmsCommentService cmsCommentService;
+
 
     @RequestMapping
     public String view(Model model,Long id) throws Exception {
@@ -89,6 +92,11 @@ public class PageController extends BaseCRUDActionController {
                 List<DocAttachments> docAttachmentses = docAttachmentsService.find("from DocAttachments where doc.id=" + docId);
                 model.addAttribute("docAttachmentses", docAttachmentses);
             }
+
+            //取评论
+            String commentHql = "from CmsComment where knowledge.id="+id+" order by replyTime desc";
+            List<CmsComment> cmsComments = cmsCommentService.find(commentHql);
+            model.addAttribute("comments", cmsComments);
             model.addAttribute("bean", cmsArticle);
             model.addAttribute("paths",paths);
 
@@ -382,7 +390,7 @@ public class PageController extends BaseCRUDActionController {
             treeId = cmsCatalog.getTreeId();
         }
 
-        String hql = "from CmsArticle c where c.path.treeId like'"+treeId+"' c.isPublished=1 and c.isValid=1 and c.path.isValid=1 order by publishDate desc";
+        String hql = "from CmsArticle c where c.path.treeId like'"+treeId+"' and c.isPublished=1 and c.isValid=1 and c.path.isValid=1 order by publishDate desc";
         if(pageNo==null){
             pageNo = 1;
         }
@@ -541,6 +549,18 @@ public class PageController extends BaseCRUDActionController {
         sendSuccessJSON(response, "成功删除收藏");
     }
 
-
+    @RequestMapping
+    public void comment(HttpServletResponse response,String content,Long id,String commentType) throws Exception {
+        CmsArticle cmsArticle = articleService.get(id);
+        CmsComment cmsComment = new CmsComment();
+        cmsComment.setContent(content);
+        cmsComment.setCommentType(commentType);
+        cmsComment.setReplyer(sysUserService.get(SpringSecurityUtils.getCurrentUser().getId()));
+        cmsComment.setKnowledge(cmsArticle);
+        cmsComment.setReplyTime(new Timestamp(System.currentTimeMillis()));
+        cmsComment.setIsAdopt(false);
+        cmsCommentService.save(cmsComment);
+        sendSuccessJSON(response, "添加评论成功");
+    }
 
 }
