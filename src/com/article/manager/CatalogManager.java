@@ -61,6 +61,7 @@ public class CatalogManager {
         CmsCatalog parent = cmsCatalog.getParent();
         while (parent!=null){
             path += File.separator + parent.getPath();
+            parent = parent.getParent();
         }
         return path;
     }
@@ -75,6 +76,7 @@ public class CatalogManager {
         CmsCatalog parent = cmsCatalog.getParent();
         while (parent!=null){
             path += File.separator + parent.getPath();
+            parent = parent.getParent();
         }
         return path;
     }
