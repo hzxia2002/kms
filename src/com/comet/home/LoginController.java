@@ -45,7 +45,7 @@ public class LoginController extends SysLogController {
     public String dispatch(Model model, HttpSession session,
                            HttpServletRequest request, HttpServletResponse response) throws Exception {
         BaseUser loginUser = SpringSecurityUtils.getCurrentUser();
-        String url = "/main.jsp";
+        String url = "/page/index.do";
         
         if(loginUser != null) {
             Map<String, SysRole> map = sysUserManager.getUserRolesAsMap(loginUser.getId());

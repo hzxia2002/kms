@@ -6,6 +6,6 @@
     if(url.indexOf("index.jsp") > -1) {
         response.sendRedirect(request.getContextPath() + url);
     } else {
-        response.sendRedirect(request.getContextPath() + url + "?path=jkzx");
+        response.sendRedirect(request.getContextPath() + url);
     }
 %>

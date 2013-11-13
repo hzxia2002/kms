@@ -31,6 +31,7 @@ public abstract class BaseCmsCollectCatagory  implements Serializable,com.comet.
     public static String PROP_PARENT = "parent";
     public static String PROP_CODE = "code";
     public static String PROP_IS_LEAF = "isLeaf";
+    public static String PROP_IS_VALID = "isValid";
     public static String PROP_NAME = "name";
     public static String PROP_ID = "id";
 
@@ -77,6 +78,10 @@ public abstract class BaseCmsCollectCatagory  implements Serializable,com.comet.
     /*IS_LEAF*/
     /*叶节点*/
     private Boolean isLeaf;
+
+    /*IS_VALID*/
+    /*是否有效*/
+    private Boolean isValid;
 
     /*TREE_ID*/
     /*树形层次*/
@@ -190,6 +195,13 @@ public abstract class BaseCmsCollectCatagory  implements Serializable,com.comet.
         this.isLeaf = isLeaf;
     }
 
+    public Boolean getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Boolean isValid) {
+        isValid = isValid;
+    }
 
     /**
      * Return the value associated with the column: TREE_ID

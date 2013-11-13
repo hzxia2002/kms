@@ -1,3 +1,4 @@
+<%@ page import="com.comet.core.security.util.SpringSecurityUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script>
     $(function(){
@@ -15,7 +16,18 @@
             </div>
             <div class="kuang1"><img src="../skin/images/button_searth.jpg" width="92" height="33" />
             </div>
+            <div style="text-align: right;">
+                <%
+                    if(SpringSecurityUtils.getCurrentUser() != null) {
+                %>
+                欢迎您,<%=SpringSecurityUtils.getCurrentUser().getRealName()%>！
+                <a href="<c:url value="/j_spring_security_logout"/>">退出登录</a>
+                <%
+                    }
+                %>
+            </div>
         </div>
+
     </div>
 
     <div class="nav">

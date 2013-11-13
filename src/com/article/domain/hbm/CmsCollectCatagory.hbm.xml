@@ -82,6 +82,17 @@
             <meta attribute="ColumnComment">叶节点</meta>
         </property>
 
+        <property
+                name="isValid"
+                column="IS_VALID"
+                type="boolean"
+                not-null="false"
+                length="19"
+                >
+            <meta attribute="ColumnName">IS_VALID</meta>
+            <meta attribute="ColumnComment">是否有效</meta>
+        </property>
+
 		<property
 			name="treeId"
 			column="TREE_ID"

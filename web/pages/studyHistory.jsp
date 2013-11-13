@@ -7,9 +7,9 @@
             <tr>
                 <td align="center" class="tabtit" width="5%">序号</td>
                 <td align="center" class="tabtit" >课程名称</td>
-                <td align="center" class="tabtit">总时长(分钟)</td>
-                <td align="center" class="tabtit">已学习次数</td>
-                <td align="center" class="tabtit">已学习时长(分钟)</td>
+                <td align="center" class="tabtit">总时长<br/>(分钟)</td>
+                <td align="center" class="tabtit">已学习<br/>次数</td>
+                <td align="center" class="tabtit">已学习时长<br/>(分钟)</td>
                  <td align="center" class="tabtit">学习完成率</td>
                 <td align="center" class="tabtit">末次学习时间</td>
             </tr>

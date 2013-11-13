@@ -584,15 +584,10 @@ a:active { color: #333;}
     border-bottom-color: #ccdde7;
 }
 
-
-
-
-
-/* ��ҳ */
 .ContentHome .one{
     width: 980px;
     border: 1px solid #cedce9;
-    padding-bottom: 5px;
+    /*padding-bottom: 5px;*/
 }
 .ContentHome .one .zttj_title{
     width: 100%;

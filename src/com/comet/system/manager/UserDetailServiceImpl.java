@@ -1,11 +1,12 @@
 package com.comet.system.manager;
 
-import com.comet.system.domain.SysPrivilege;
-import com.comet.system.domain.SysUser;
-import com.comet.system.utils.UserSessionUtils;
 import com.comet.core.security.privilege.Privilege;
 import com.comet.core.security.user.BaseUser;
 import com.comet.core.webservice.security.WSUserService;
+import com.comet.system.domain.SysPrivilege;
+import com.comet.system.domain.SysRole;
+import com.comet.system.domain.SysUser;
+import com.comet.system.utils.UserSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
@@ -90,7 +91,16 @@ public class UserDetailServiceImpl implements UserDetailsService, WSUserService 
 		// 取得用户所拥有的权限
 		Set<GrantedAuthority> authsList = new HashSet<GrantedAuthority>();
 
-		authsList.add(new GrantedAuthorityImpl("ROLE_USER"));
+        // 取得用户角色
+        List<SysRole> roles = userManager.getUserRoles(user);
+
+        if(roles == null || roles.size() == 0) {
+		    authsList.add(new GrantedAuthorityImpl("ROLE_USER"));
+        } else {
+            for(SysRole role : roles) {
+                authsList.add(new GrantedAuthorityImpl(role.getCode()));
+            }
+        }
 
 		Map<String, Privilege> set = new HashMap<String, Privilege>();
 

@@ -10,8 +10,9 @@
     <http auto-config="true" access-denied-page="/error/permissionDeny.jsp"
           access-decision-manager-ref="myAccessDecisionManager">
         <intercept-url pattern="/sys*/**" access="ROLE_USER"/>
-        <intercept-url pattern="/main.jsp*" access="ROLE_USER"/>
+        <intercept-url pattern="/main.jsp*" access="ROLE_USER, ROLE_SYS_ADMIN"/>
         <intercept-url pattern="/home/**.do*" access="ROLE_USER"/>
+        <intercept-url pattern="/page/**.do*" access="ROLE_USER"/>
         <intercept-url pattern="/admin/**.do*" access="ROLE_USER"/>
         <intercept-url pattern="/view/**" access="ROLE_USER"/>
         <intercept-url pattern="/mon*/**" access="ROLE_USER"/>
@@ -103,7 +104,6 @@
             <filter-security-metadata-source lowercase-comparisons="true">
                 <intercept-url pattern=".*login\.jsp($|\?.*)" access="ROLE_USER,IS_AUTHENTICATED_ANONYMOUSLY"/>
                 <intercept-url pattern=".*index\.jsp($|\?.*)" access="ROLE_USER,IS_AUTHENTICATED_ANONYMOUSLY"/>
-                <intercept-url pattern=".*index1\.jsp($|\?.*)" access="ROLE_USER"/>
                 <intercept-url pattern=".*\.jsp($|\?.*)" access="ROLE_USER"/>
                 <intercept-url pattern=".*\.do($|\?.*)" access="ROLE_USER"/>
             </filter-security-metadata-source>
