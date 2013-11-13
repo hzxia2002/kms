@@ -17815,7 +17815,7 @@
             if( $(me.body).find("#contentTitle").length>0){
                 $(me.body).find("#contentTitle").html(titleArr.join(""));
             }else{
-                $(me.body).prepend("<div id='contentTitle'>"+titleArr.join("")+"</div>");
+                $(me.body).prepend("<span id='contentTitle'>"+titleArr.join("")+"</span>");
             }
 
         }
