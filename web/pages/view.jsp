@@ -6,8 +6,7 @@
     <%@include file="common/header.jsp"%>
     <script type="text/javascript" src="${ctx}/pages/view.js"></script>
     <style type="text/css">
-        .submitCss{background: url("../skin/images/tj1.jpg") no-repeat;background-position: -8 0;}
-        .submitCss:hover{background: url("../skin/images/tj.jpg") no-repeat;}
+        .submitCss{background: url("../skin/images/tj.jpg") no-repeat;}
     </style>
 </head>
 
@@ -22,48 +21,87 @@
         <div class="leftzf">
             <div class="title">
                 <div class="one"><c:out value="${paths}"></c:out></div>
-                <div class="two" id="addCollect" style="cursor: pointer;"><a href="javascript:void(0);"> 收藏本页</a></div>
+                <div class="two" id="addCollect" style="cursor: pointer;vertical-align: top;padding-top: 2px;">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <img src="<c:url value="/skin/images/favorite.jpg"/>" width="24" height="24">
+                            </td>
+                            <td style="vertical-align: middle;">
+                                <a href="javascript:void(0);">收藏本页</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
                 <p class="text" align="center" id="title">${bean.title}</p>
+                <c:if test="${not empty bean.keyWord}">
                 <p>
                     关键字：${bean.keyWord}<br />
                 </p>
+                </c:if>
             </div>
             <div class="mainmuen">
                 ${bean.content}
             </div>
+    <c:if test="${not empty docAttachmentses}">
             <div>
                 <div>
-                    <div style="float:left;font-weight: bold;">附件：</div>
-                    <ul>
+                    <table width="100%">
+                        <tr>
+                            <td width="35"><img src="<c:url value="/skin/images/attaches.jpg" />" height="35" width="35"></td>
+                            <td width="60"><b>附件：</b></td>
+                        <td>
+                    <ul style="line-height: 35px; vertical-align: bottom;">
                         <c:forEach items="${docAttachmentses}" var="attachment">
-                            <li><a href='${ctx}${attachment.filePath}' target='_blank'>${attachment.orginName}</a></li>
+                            <a href='${ctx}${attachment.filePath}' title="点击下载" target='_blank'>${attachment.orginName}</a>&nbsp;
                         </c:forEach>
                     </ul>
+                        </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
+    </c:if>
         </div>
         <c:if test="${type==2||type==3}">
             <div class="leftyj">
-                <div class="title">
-                    <div class="one">评论与意见</div>
-                </div>
+                <c:if test="${type==2}">
+                    <div class="title">
+                        <div class="one">修订建议：</div>
+                        <input type="hidden" name="commentType" value="1">
+                    </div>
+                </c:if>
+                <c:if test="${type==3}">
+                    <div class="title">
+                        <div class="one"><b>最新点评：</b></div>
+                        <input type="hidden" name="commentType" value="2">
+                    </div>
+                </c:if>
                 <div>
+                    <table width="100%">
                     <c:forEach items="${comments}" var="comment">
-                          <div style="border-bottom: 1px dashed #dcdcdc;">
-                              <span style="color: #dcdcdc">${comment.replyer.displayName}发表评论(<fmt:formatDate value="${comment.replyTime}" type="both"></fmt:formatDate>)：</span>
-                              <br>      <%request.setAttribute("vEnter","\n");%>
+                        <tr>
+                            <td>
+                              <span>${comment.replyer.displayName}发表评论(<fmt:formatDate value="${comment.replyTime}" pattern="yyyy-MM-dd HH:mm" type="both"></fmt:formatDate>)：</span>
+                              <br><%request.setAttribute("vEnter","\n");%>${comment.content}
                               <span style="word-spacing: 2"> ${fn:replace(comment.content,vEnter,"<br>")}</span>
-                          </div>
+                                <hr>
+                            </td>
+                        </tr>
                     </c:forEach>
+                    </table>
                 </div>
                 <div class="main">
-                    <input type="radio" name="commentType"  value="1">意见
-                    <input type="radio" name="commentType"  value="2" checked="checked">评论
-                    <textarea rows="6" cols="70" style="width: 705px;height: 175px;" id="comment">
-                    </textarea>
+                    <c:if test="${type==2}">
+                        提交修订建议：
+                    </c:if>
+                    <c:if test="${type==3}">
+                        发表评论：
+                    </c:if>
+                    <textarea rows="6" cols="70" style="width: 778px;height: 175px;" id="comment"></textarea>
                     <%--<img src="../skin/images/yj1.jpg" width="705" height="175" />--%>
                 </div>
             </div>
@@ -83,11 +121,20 @@
         <div class="rightzf">
             <div class="title">词条统计</div>
             <div class="mainct">
-                <p>          浏览次数：${bean.visitTimes}次<br />
-                    更新时间：<fmt:formatDate value="${bean.updateTime}" type="both"></fmt:formatDate><br />
-                    创建者：${bean.createUser}</p>
-                <p><br />
-                </p>
+                <table width="180">
+                    <tr>
+                        <td align="right" width="70">浏览次数：</td>
+                        <td>${bean.visitTimes}</td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="vertical-align: top;">更新时间：</td>
+                        <td><fmt:formatDate value="${bean.updateTime}" type="both"></fmt:formatDate></td>
+                    </tr>
+                    <tr>
+                        <td align="right">创建者：</td>
+                        <td>${bean.createUser}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

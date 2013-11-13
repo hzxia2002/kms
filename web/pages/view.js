@@ -39,14 +39,21 @@ $(function(){
 });
 
 function submitComment(id){
+    var comment = $("#comment").val().trim();
+
+    if(comment == null || comment == '') {
+        alert('请选填写内容！');
+        return;
+    }
+
     $.ajax({
         url: context_path+"/page/comment.do?id="+id,
         dataType: "json",
         type:"post",
-        data:{content:$("#comment").html(),commentType:$("input[name='commentType']").val()},
+        data:{content:comment,commentType:$("input[name='commentType']").val()},
         success:function(ret){
             alert(ret.msg);
-            $("#comment").html("");
+            $("#comment").val("");
         }
     });
 }
