@@ -19,7 +19,7 @@ a:active { color: #333;}
 .clr{ clear: both;}
 
 /* ̧ͷ */
-.Header{width: 981px; margin: 0 auto; clear:both;}
+.Header{width: 1022px; margin: 0 auto; clear:both;}
 .Header .logo{
     float:left;
     padding: 0px;
@@ -110,7 +110,7 @@ a:active { color: #333;}
     background-repeat: no-repeat;
 }
 /* ���� */
-.ContentHome{ width: 980px; margin: 0 auto; padding: 7px 0; clear:both; background-color: #fff;min-height: 390px;}
+.ContentHome{ width: 1022px; margin: 0 auto; padding: 7px 0; clear:both; background-color: #fff;min-height: 390px;}
 
 /* ȫ�ļ��� */
 
@@ -296,7 +296,7 @@ a:active { color: #333;}
 
 
 .ContentHome .left{
-    width: 247px;
+    width: 202px;
     float:left;
     border: 1px solid #dfdfdf;}
 .ContentHome .left .title{
@@ -498,11 +498,11 @@ a:active { color: #333;}
 }
 /* ѧϰ���� */
 .ContentHome .leftxxyhkuang{
-    width: 247px;
+    width: 202px;
     float:left;
 }
 .ContentHome .leftxxyhkuang .leftxxyh{
-    width: 247px;
+    width: 202px;
     float:left;
     margin-bottom: 5px;
     border: 1px solid #cfdbe7;
@@ -526,7 +526,7 @@ a:active { color: #333;}
     background-repeat: repeat-x;
 }
 .ContentHome .leftxxyhkuang .leftxxyh1{
-    width: 247px;
+    width: 202px;
     float:left;
     border: 1px solid #cfdbe7;
     margin-top: 8px;
@@ -585,7 +585,7 @@ a:active { color: #333;}
 }
 
 .ContentHome .one{
-    width: 980px;
+    width: 1022px;
     border: 1px solid #cedce9;
     /*padding-bottom: 5px;*/
 }
