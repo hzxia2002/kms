@@ -117,11 +117,11 @@ a:active { color: #333;}
 
 /* ִ���참����� */
 .ContentHome .leftzfwk{
-    width: 723px;
+    width: 800px;
     float:left;
 }
 .ContentHome .leftzf{
-    width: 723px;
+    width: 800px;
     float:left;
     border: 1px solid #cedce9;}
 
@@ -134,7 +134,7 @@ a:active { color: #333;}
     height: 32px;
 }
 .ContentHome .lefttj{
-    width: 723px;
+    width: 800px;
     float:left;
     margin-top: 8px;
     height: 50px;
@@ -155,7 +155,7 @@ a:active { color: #333;}
     font-size: 14px;
 }
 .ContentHome .leftyj{
-    width: 723px;
+    width: 800px;
     float:left;
     border: 1px solid #cedce9;
     margin-top: 8px;
@@ -177,7 +177,7 @@ a:active { color: #333;}
     border: 1px solid #eef7ff;
 }
 .ContentHome .leftyj .main{
-    width: 707px;
+    width: 780px;
     float:left;
     font-size: 14px;
     color: #444444;
@@ -202,7 +202,7 @@ a:active { color: #333;}
     border: 1px solid #eef7ff;
 }
 .ContentHome .leftzf .title .two{
-    width: 8%;
+    width: 12%;
     float:right;
     font-size: 12px;
 }
@@ -225,7 +225,7 @@ a:active { color: #333;}
     font-weight: bold;
 }
 .ContentHome .leftzf .mainmuen{
-    width: 707px;
+    width: 780px;
     float:left;
     font-size: 14px;
     color: #444444;
@@ -241,7 +241,7 @@ a:active { color: #333;}
     padding-left: 8px;
 }
 .ContentHome .leftzf .mainmuen .ml{
-    width: 707px;
+    width: 780px;
     float:left;
     font-size: 16px;
     color: #444444;
@@ -256,21 +256,21 @@ a:active { color: #333;}
     padding-left: 33px;
 }
 .ContentHome .leftzf .mainmuen .mltwo{
-    width: 707px;
+    width: 780px;
     float:left;
     text-indent: 400px;
 }
 .ContentHome .leftzf .mainmuen .mlthree{
-    width: 707px;
+    width: 780px;
     float:left;
 }
 
 .ContentHome .rightct{
-    width: 247px;
+    width: 170px;
     float:right;
 }
 .ContentHome .rightct .rightzf{
-    width: 247px;
+    width: 170px;
     float:right;
     border: 1px solid #dfdfdf;}
 
@@ -317,11 +317,11 @@ a:active { color: #333;}
 
 }
 .ContentHome .right{
-    width: 723px;
+    width: 800px;
     float:right;}
 
 .ContentHome .right .one{
-    width: 723px;
+    width: 800px;
     float:left;
     border: 1px solid #cedce9;
     padding-bottom: 5px;
@@ -532,11 +532,11 @@ a:active { color: #333;}
     margin-top: 8px;
 }
 .ContentHome .rightxxyh{
-    width: 723px;
+    width: 800px;
     float:right;}
 
 .ContentHome .rightxxyh .one{
-    width: 723px;
+    width: 800px;
     float:left;
     border: 1px solid #cedce9;
     padding-bottom: 5px;
