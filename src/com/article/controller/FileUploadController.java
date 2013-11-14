@@ -7,6 +7,7 @@ import com.article.domain.CmsCatalog;
 import com.article.domain.DocAttachments;
 import com.article.domain.DocDocument;
 import com.article.manager.CatalogManager;
+import com.article.manager.UploadConfig;
 import com.article.util.PPTConvertHander;
 import com.comet.core.controller.BaseCRUDActionController;
 import net.sf.json.JSONArray;
@@ -47,11 +48,15 @@ public class FileUploadController extends BaseCRUDActionController {
     @Autowired
     private DocAttachmentsService docAttachmentsService;
 
+    @Autowired
+    private UploadConfig uploadConfig;
+
+
     @RequestMapping
     public void uploadImage(HttpServletResponse response,HttpServletRequest request,Long id) throws Exception {
         CmsCatalog cmsCatalog = cmsCatalogService.get(id);
         String catalogPath = catalogManager.getCatalogPath(cmsCatalog);
-        String wholePath = request.getSession().getServletContext().getRealPath("")+File.separator+catalogPath;
+        String wholePath = getUploadPath(request, catalogPath);
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)(request);
 
         String oldStr = getFileDirByDate();
@@ -97,6 +102,11 @@ public class FileUploadController extends BaseCRUDActionController {
 
     }
 
+    public String  getUploadPath(HttpServletRequest request, String catalogPath) {
+        return (StringUtils.isNotEmpty(uploadConfig.getPath())?uploadConfig.getPath():
+                (request.getSession().getServletContext().getRealPath("")+File.separator+"uploadFile"))+catalogPath;
+    }
+
 
     @RequestMapping
     public String fileUploadInit(Model model, String id,String type,String docId) throws Exception {
@@ -119,7 +129,7 @@ public class FileUploadController extends BaseCRUDActionController {
         ArrayList arrayList = new ArrayList();
         CmsCatalog cmsCatalog = cmsCatalogService.get(id);
         String catalogPath = catalogManager.getCatalogPath(cmsCatalog);
-        String wholePath = request.getSession().getServletContext().getRealPath("")+File.separator+catalogPath;
+        String wholePath = getUploadPath(request, catalogPath);
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)(request);
 
         String oldStr = getFileDirByDate();
@@ -168,7 +178,7 @@ public class FileUploadController extends BaseCRUDActionController {
         ArrayList arrayList = new ArrayList();
         CmsCatalog cmsCatalog = cmsCatalogService.get(id);
         String catalogPath = catalogManager.getCatalogPath(cmsCatalog);
-        String wholePath = request.getSession().getServletContext().getRealPath("")+File.separator+catalogPath;
+        String wholePath = getUploadPath(request, catalogPath);
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)(request);
 
         String oldStr = getFileDirByDate();

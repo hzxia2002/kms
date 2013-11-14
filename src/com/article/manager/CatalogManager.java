@@ -57,7 +57,7 @@ public class CatalogManager {
      * @return
      */
     public String getWholePath(CmsCatalog cmsCatalog,String path){
-        path += File.separator+ "uploadFile" + File.separator + cmsCatalog.getPath();
+        path += File.separator + cmsCatalog.getPath();
         CmsCatalog parent = cmsCatalog.getParent();
         while (parent!=null){
             path += File.separator + parent.getPath();
@@ -71,7 +71,7 @@ public class CatalogManager {
      * @return
      */
     public String getCatalogPath(CmsCatalog cmsCatalog){
-        String path = File.separator+ "uploadFile";
+        String path = "";
         path += File.separator + cmsCatalog.getPath();
         CmsCatalog parent = cmsCatalog.getParent();
         while (parent!=null){
