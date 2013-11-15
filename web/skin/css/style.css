@@ -629,12 +629,12 @@ a:active { color: #333;}
     color: #0075cc;
 }
 .ContentHome .two{
-    width: 982px;
+    width: 1022px;
     padding-top: 8px;
     padding-bottom: 5px;
 }
 .ContentHome .two .rdzt{
-    width: 485px;
+    width: 502px;
     float:left;
     border: 1px solid #cedce9;
 }
@@ -679,7 +679,7 @@ a:active { color: #333;}
 
 
 .ContentHome .two .zxzt{
-    width: 485px;
+    width: 502px;
     float:right;
     border: 1px solid #cedce9;
 }
@@ -703,7 +703,7 @@ a:active { color: #333;}
 }
 .ContentHome .two .zxzt .neirong li{
     line-height: 23px;
-    height: 33px;
+    height: 28px;
     text-align: left;
 }
 .ContentHome .two .zxzt .neirong .line{
@@ -727,9 +727,9 @@ a:active { color: #333;}
     background-image: url(../images/foot.jpg);
     background-repeat: repeat-x;
     text-align: center;
-    height: 81px;
+    /*height: 81px;*/
     width: 100%;
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .shadow{
