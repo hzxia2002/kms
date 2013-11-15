@@ -5,14 +5,14 @@
     <div class="main">
         <table width="100%" border="1" cellpadding="1" cellspacing="1" class="tabkuang" style="background-color: #ffffff">
             <tr style="height:60px; background-color: #F0F9FF;">
-                <td align="center" width="5%">序号</td>
-                <td align="center" >课程名称</td>
-                <td align="center">总时长<br/>(分钟)</td>
-                <td align="center">学习次数</td>
-                <td align="center">学习时长<br/>(分钟)</td>
-                <td align="center">完成率</td>
-                <td align="center">末次学习时间</td>
-                <td align="center">开始学习</td>
+                <td align="center" class="tabtit" width="5%">序号</td>
+                <td align="center" class="tabtit" >课程名称</td>
+                <td align="center" class="tabtit">总时长<br/>(分钟)</td>
+                <td align="center" class="tabtit">学习次数</td>
+                <td align="center" class="tabtit">学习时长<br/>(分钟)</td>
+                <td align="center" class="tabtit">完成率</td>
+                <td align="center" class="tabtit">末次学习时间</td>
+                <td align="center" class="tabtit">开始学习</td>
             </tr>
             <c:forEach var="bean" items="${page.rows}" varStatus="status">
                 <tr>
