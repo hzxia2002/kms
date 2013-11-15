@@ -561,8 +561,9 @@ a:active { color: #333;}
     line-height: 25px;
 }
 .ContentHome .rightxxyh .one .main .tabtit{
-    background-image: url(../images/xxk.jpg);
+    background-image: url(../images/tree_bg.jpg);
     background-repeat: repeat-x;
+    background-position: 0 -60px;
     line-height: 25px;
     font-size: 12px;
     font-weight: bold;
