@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="one">
-            <div class="title">法律法规</div>
+            <div class="title" id="contentTitle">法律法规</div>
             <div class="main1">
                 <ul width="80%"  id="content" style="height: 250px;">
                 </ul>

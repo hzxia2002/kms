@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="one">
-            <div class="title">新法速递</div>
+            <div class="title" id="contentTitle">新法速递</div>
             <div class="main1">
                 <ul width="80%"  id="content" style="height: 250px;">
                 </ul>

@@ -32,6 +32,7 @@ var nodeId = "";
 function treeNodeClick(node){
     if(node.data.id>0){
         nodeId = node.data.id;
+        $("#contentTitle").html(node.data.text);
         loadContent(nodeId);
     }
 }
@@ -55,7 +56,7 @@ function loadContent(id,pageNo){
             for(var i=0;i<datas.length;i++){
                 htmlArr.push('<li style="width: 40%;float: left;padding-left: 20px;">' +
                     '<a target="_blank" style="color:blue" href="view.html?id='+datas[i]["id"]+'">'+datas[i]["title"]+
-                    '<span style="color:black;font-size:12px;">&nbsp;('+datas[i]["publishDate"]+')</span>'+'</a></li>');
+                    '<span style="color:black;font-size:12px;">&nbsp;('+datas[i]["publishDate"].substring(0,16)+')</span>'+'</a></li>');
             }
             $("#content").html(htmlArr.join(""));
             createPage(total,pNo);

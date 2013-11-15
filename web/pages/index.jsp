@@ -44,7 +44,7 @@
             <div class="neirong">
                 <c:forEach var="bean" items="${newKmsRows}">
                     <ul class="line">
-                        <li ><img src="../skin/images/dit.jpg" />&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">${bean.title}</a>&nbsp;&nbsp;（<fmt:formatDate value="${bean.updateTime!=null?bean.updateTime:bean.createTime}" type="both"></fmt:formatDate>）</li>
+                        <li ><img src="../skin/images/dit.jpg" />&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">${bean.title}</a>&nbsp;&nbsp;（<fmt:formatDate value="${bean.updateTime!=null?bean.updateTime:bean.createTime}" type="both" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>）</li>
                     </ul>
                 </c:forEach>
             </div>

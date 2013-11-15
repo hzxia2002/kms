@@ -13,18 +13,18 @@
 
 </head>
 
-<body>
+<body onload="loadPPT('${ctx}${pptPath}','${total}')">
 <div class="Header">
     <%@include file="common/nav.jsp"%>
     <div style="display: none;" id="pageType" type="${type}"></div>
 </div>
 <div class="clr"></div>
-<div class="ContentHome">
+<div class="ContentHome" style="width: 1019px;">
     <div class="leftkck">
         <div class="leftkckone">
             <div class="title">${bean.title}</div>
-            <div class="tree">
-                <img src="${ctx}${bean.attachPath}" width="327px" height="222px" />
+            <div class="tree" id="ppt">
+                <img src="${ctx}${bean.attachPath}" width="370px" height="222px" />
             </div>
         </div>
         <div class="leftkckone">
@@ -59,7 +59,7 @@
     <div class="rightkck">
         <div class="two" width="627" height="483" id="media">
             <OBJECT ID="hutia" height="483" width="627" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
-                <param name="URL" value="" />
+                <param name="URL" value="${ctx}${aviPath}" />
                 <param name="AutoStart" value="true" />
                 <param name="AudioStream" value="-1">
                 <param name="AutoSize" value="0">
