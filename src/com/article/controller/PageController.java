@@ -485,7 +485,7 @@ public class PageController extends BaseCRUDActionController {
     @RequestMapping
     public String myStudy(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
         Page page = getPage(pageNo, pageSize);
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currendTimeStr = format.format(new Date());
         Long userId = SpringSecurityUtils.getCurrentUser().getId();
         String hql = "from CmsStudyPlan p left join fetch p.course where p.course.startTime<='"+currendTimeStr+"' and p.course.endTime>='"+currendTimeStr+"' and p.user.id="+userId;
