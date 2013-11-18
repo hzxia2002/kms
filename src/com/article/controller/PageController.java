@@ -343,6 +343,9 @@ public class PageController extends BaseCRUDActionController {
             }
             treeNode.setName(cmsCollectCatagory.getName());
             treeNode.setText(cmsCollectCatagory.getName());
+            if(cmsCollectCatagory.getName().length()>20){
+                treeNode.setText(cmsCollectCatagory.getName().substring(0,20)+"...");
+            }
             treeNode.setUid(cmsCollectCatagory.getId().toString());
             treeNode.setType(cmsCollectCatagory.getClass().getSimpleName());
             treeNode.setTreeId(cmsCollectCatagory.getTreeId());
@@ -374,7 +377,11 @@ public class PageController extends BaseCRUDActionController {
             cmsCatalogs = cmsCatalogService.findByQuery(hql);
             for (CmsCatalog cmsCatalog : cmsCatalogs) {
                 HashMap map = new HashMap();
+
                 map.put("text",cmsCatalog.getName());
+                if(cmsCatalog.getName().length()>14){
+                    map.put("text",cmsCatalog.getName().substring(0,14)+"...");
+                }
                 map.put("id",cmsCatalog.getId());
                 if(cmsCatalog.getParent()!=null){
                     map.put("pid",cmsCatalog.getParent().getId());
