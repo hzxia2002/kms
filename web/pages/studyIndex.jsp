@@ -17,7 +17,7 @@
         <div class="leftxxyh">
             <div class="title"><img src="../skin/images/sc.png" width="16" height="16" />&nbsp;&nbsp;我的收藏</div>
             <div class="tree">
-                <ul id="catalogTree" style="margin-top:3px;"></ul>
+                <ul id="catalogTree" style="margin-top:3px;overflow: auto"></ul>
             </div>
         </div>
         <div class="leftxxyh1"><img src="../skin/images/ksdl.jpg" width="212px" height="39" /></div>

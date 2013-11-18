@@ -8,8 +8,8 @@
 <body style="width: 100%">
 
 <div id="cmsArticleLayout" style="width:100%;overflow-y: hidden;overflow-x: hidden;margin:0; padding:0;">
-    <div position="left"  title="目录树" id="accordion1">
-        <ul id="cmsArticleTree" style="margin-top:3px;"></ul>
+    <div position="left"  title="目录树" id="accordion1" style="">
+        <ul id="cmsArticleTree" style="margin-top:3px;overflow:auto;"></ul>
     </div>
     <div position="center">
         <div id="cmsArticleQuery" title="查询窗口"  icon="search">

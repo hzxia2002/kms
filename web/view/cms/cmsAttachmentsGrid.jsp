@@ -8,7 +8,7 @@
 <body style="width: 100%">
 
 <div id="cmsAttachmentsLayout" style="width:100%;overflow-y: hidden;overflow-x: hidden;margin:0; padding:0;">
-    <div position="left"  title="知识点附件树" id="accordion1">
+    <div position="left"  title="知识点附件树" id="accordion1" style="overflow:auto;height:95%;">
         <ul id="cmsAttachmentsTree" style="margin-top:3px;"></ul>
     </div>
     <div position="center">

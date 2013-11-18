@@ -128,7 +128,7 @@
                     </tr>
                     <tr>
                         <td align="right" style="vertical-align: top;">更新时间：</td>
-                        <td><fmt:formatDate value="${bean.updateTime}" type="both"></fmt:formatDate></td>
+                        <td><fmt:formatDate value="${bean.updateTime}" type="both" pattern="yyyy-MM-dd HH"></fmt:formatDate></td>
                     </tr>
                     <tr>
                         <td align="right">创建者：</td>
