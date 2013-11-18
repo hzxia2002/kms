@@ -23,7 +23,7 @@
                 <div class="two" id="addCollect" style="cursor: pointer;"></div>
             </div>
             <div class="main">
-                <p class="text" align="center" id="title">${bean.title}</p>
+                <p class="text" align="center" id="title"  style="font-size: 18px;">${bean.title}</p>
                 <p>
                     关键字：${bean.keyWord}<br />
                 </p>
@@ -39,7 +39,7 @@
             <div class="mainct">
                 <p>          浏览次数：${bean.visitTimes}次<br />
                     更新时间：<fmt:formatDate value="${bean.updateTime}" type="both"></fmt:formatDate><br />
-                    创建者：${bean.createUser}</p>
+                 创建者：${bean.createUser}</p>
                 <p><br />
                 </p>
             </div>

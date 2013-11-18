@@ -36,7 +36,7 @@
             </div>
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
-                <p class="text" align="center" id="title">${bean.title}</p>
+                <p class="text" align="center" id="title"  style="font-size: 18px;"> ${bean.title}</p>
                 <c:if test="${not empty bean.keyWord}">
                 <p>
                     关键字：${bean.keyWord}<br />
@@ -131,7 +131,7 @@
                         <td><fmt:formatDate value="${bean.updateTime}" type="both" pattern="yyyy-MM-dd HH"></fmt:formatDate></td>
                     </tr>
                     <tr>
-                        <td align="right">创建者：</td>
+                        <td align="left">创建者：</td>
                         <td>${bean.createUser}</td>
                     </tr>
                 </table>
