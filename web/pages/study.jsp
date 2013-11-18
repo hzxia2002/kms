@@ -23,7 +23,7 @@
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
                 <input type="hidden" id="planId" value="${planId}">
-                <p class="text" align="center" id="title"  style="font-size: 18px;">${bean.title}</p>
+                <p class="text" align="center" id="title"  style="font-size: 32px;">${bean.title}</p>
                 <p>
                     关键字：${bean.keyWord}<br />
                 </p>

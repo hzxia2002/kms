@@ -22,7 +22,7 @@
 <div class="ContentHome" style="width: 1019px;">
     <div class="leftkck">
         <div class="leftkckone">
-            <div class="title" style="font-size: 18px;">${bean.title}</div>
+            <div class="title" style="font-size: 32px;">${bean.title}</div>
             <div class="tree" id="ppt">
                 <img src="${ctx}${bean.attachPath}" width="370px" height="222px" />
             </div>

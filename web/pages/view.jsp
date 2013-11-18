@@ -36,7 +36,7 @@
             </div>
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
-                <p class="text" align="center" id="title"  style="font-size: 18px;"> ${bean.title}</p>
+                <p class="text" align="center" id="title"  style="font-size: 32px;"> ${bean.title}</p>
                 <c:if test="${not empty bean.keyWord}">
                 <p>
                     关键字：${bean.keyWord}<br />
