@@ -314,6 +314,7 @@ a:active { color: #333;}
     width: 100%;
     font-size: 12px;
     height: 470px;
+    overflow: auto;
 
 }
 .ContentHome .right{
@@ -480,6 +481,7 @@ a:active { color: #333;}
 }
 .ContentHome .leftkckone .tree{
     width: 100%;
+    overflow: auto;
     font-size: 12px;
     text-align: center;
     padding-top: 3px;
@@ -489,6 +491,7 @@ a:active { color: #333;}
     width: 100%;
     font-size: 12px;
     text-align: center;
+    overflow: auto;
     padding-top: 3px;
     padding-bottom: 3px;
     background-image: url(../images/kck3.jpg);
