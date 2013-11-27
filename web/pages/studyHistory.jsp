@@ -4,7 +4,7 @@
     <div class="title">历史学习任务</div>
     <div class="main">
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
-            <tr>
+            <tr style="height: 60px">
                 <td align="center" class="tabtit" width="5%">序号</td>
                 <td align="center" class="tabtit" >课程名称</td>
                 <td align="center" class="tabtit">总时长<br/>(分钟)</td>

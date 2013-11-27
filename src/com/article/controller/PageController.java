@@ -61,7 +61,7 @@ public class PageController extends BaseCRUDActionController {
 
 
     @RequestMapping
-    public String view(Model model,Long id) throws Exception {
+    public String view(HttpServletRequest request,Model model,Long id) throws Exception {
         try {
             CmsArticle cmsArticle = articleService.get(id);
             CmsCatalog path = cmsArticle.getPath();
@@ -75,6 +75,7 @@ public class PageController extends BaseCRUDActionController {
                         model.addAttribute("type","3");
                     }else if (path.getPath().equals(Constants.CASE_KMS)){
                         model.addAttribute("type","4");
+                        return showCase(request,model,id);
                     }
                 }
                 path = path.getParent();
@@ -112,7 +113,7 @@ public class PageController extends BaseCRUDActionController {
     }
 
     @RequestMapping
-    public String preView(Model model,Long id) throws Exception {
+    public String preView(HttpServletRequest request,Model model,Long id) throws Exception {
         try {
             CmsArticle cmsArticle = articleService.get(id);
             CmsCatalog path = cmsArticle.getPath();
@@ -126,6 +127,7 @@ public class PageController extends BaseCRUDActionController {
                         model.addAttribute("type","3");
                     }else if (path.getPath().equals(Constants.CASE_KMS)){
                         model.addAttribute("type","4");
+                        return showCase(request,model,id);
                     }
                 }
                 path = path.getParent();
@@ -202,6 +204,8 @@ public class PageController extends BaseCRUDActionController {
             if(docId!=null){
                 List<DocAttachments> docAttachmentses = docAttachmentsService.find("from DocAttachments where doc.id=" + docId);
                 ArrayList attachments = new ArrayList();
+                boolean hasPpt = false;
+                boolean hasAVI = false;
                 for (DocAttachments docAttachmentse : docAttachmentses) {
                     HashMap<String, Object> attachment = new HashMap<String, Object>();
                     attachment.put("id",docAttachmentse.getId());
@@ -220,9 +224,19 @@ public class PageController extends BaseCRUDActionController {
                                 return file.getName().endsWith("png");
                             }
                         }).length);
+                        //直接播放第一个ppt
+                        if(!hasPpt){
+                            model.addAttribute("pptPath", pptPath);
+                            model.addAttribute("total", attachment.get("total"));
+                            hasPpt = true;
+                        }
 
                     }
-                    attachment.put("isAVI", "dat,wmv,avi,mp3".indexOf(orginName.substring(orginName.lastIndexOf(".") + 1)) >= 0);
+                    boolean isTV = "dat,wmv,avi,mp3".indexOf(orginName.substring(orginName.lastIndexOf(".") + 1)) >= 0;
+                    attachment.put("isAVI", isTV);
+                    if(isTV&&!hasAVI){
+                        model.addAttribute("aviPath", docAttachmentse.getFilePath());
+                    }
                     attachments.add(attachment);
                 }
                 model.addAttribute("attachments", attachments);
@@ -329,6 +343,9 @@ public class PageController extends BaseCRUDActionController {
             }
             treeNode.setName(cmsCollectCatagory.getName());
             treeNode.setText(cmsCollectCatagory.getName());
+            if(cmsCollectCatagory.getName().length()>20){
+                treeNode.setText(cmsCollectCatagory.getName().substring(0,20)+"...");
+            }
             treeNode.setUid(cmsCollectCatagory.getId().toString());
             treeNode.setType(cmsCollectCatagory.getClass().getSimpleName());
             treeNode.setTreeId(cmsCollectCatagory.getTreeId());
@@ -360,7 +377,11 @@ public class PageController extends BaseCRUDActionController {
             cmsCatalogs = cmsCatalogService.findByQuery(hql);
             for (CmsCatalog cmsCatalog : cmsCatalogs) {
                 HashMap map = new HashMap();
+
                 map.put("text",cmsCatalog.getName());
+                if(cmsCatalog.getName().length()>14){
+                    map.put("text",cmsCatalog.getName().substring(0,14)+"...");
+                }
                 map.put("id",cmsCatalog.getId());
                 if(cmsCatalog.getParent()!=null){
                     map.put("pid",cmsCatalog.getParent().getId());
@@ -390,7 +411,7 @@ public class PageController extends BaseCRUDActionController {
             treeId = cmsCatalog.getTreeId();
         }
 
-        String hql = "from CmsArticle c where c.path.treeId like'"+treeId+"' and c.isPublished=1 and c.isValid=1 and c.path.isValid=1 order by publishDate desc";
+        String hql = "from CmsArticle c where c.path.treeId like'"+treeId+"%' and c.isPublished=1 and c.isValid=1 and c.path.isValid=1 order by publishDate desc";
         if(pageNo==null){
             pageNo = 1;
         }
@@ -471,7 +492,7 @@ public class PageController extends BaseCRUDActionController {
     @RequestMapping
     public String myStudy(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
         Page page = getPage(pageNo, pageSize);
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currendTimeStr = format.format(new Date());
         Long userId = SpringSecurityUtils.getCurrentUser().getId();
         String hql = "from CmsStudyPlan p left join fetch p.course where p.course.startTime<='"+currendTimeStr+"' and p.course.endTime>='"+currendTimeStr+"' and p.user.id="+userId;

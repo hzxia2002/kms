@@ -8,7 +8,7 @@
 <body style="width: 100%">
 
 <div id="cmsArticleLayout" style="width:100%;overflow-y: hidden;overflow-x: hidden;margin:0; padding:0;">
-    <div position="left"  title="目录树" id="accordion1">
+    <div position="left"  title="目录树" id="accordion1" style="overflow:auto;height:95%;">
         <ul id="cmsArticleTree" style="margin-top:3px;"></ul>
     </div>
     <div position="center">

@@ -19,7 +19,7 @@ a:active { color: #333;}
 .clr{ clear: both;}
 
 /* ̧ͷ */
-.Header{width: 981px; margin: 0 auto; clear:both;}
+.Header{width: 1022px; margin: 0 auto; clear:both;}
 .Header .logo{
     float:left;
     padding: 0px;
@@ -110,7 +110,7 @@ a:active { color: #333;}
     background-repeat: no-repeat;
 }
 /* ���� */
-.ContentHome{ width: 980px; margin: 0 auto; padding: 7px 0; clear:both; background-color: #fff;min-height: 390px;}
+.ContentHome{ width: 1022px; margin: 0 auto; padding: 7px 0; clear:both; background-color: #fff;min-height: 390px;}
 
 /* ȫ�ļ��� */
 
@@ -296,7 +296,7 @@ a:active { color: #333;}
 
 
 .ContentHome .left{
-    width: 247px;
+    width: 212px;
     float:left;
     border: 1px solid #dfdfdf;}
 .ContentHome .left .title{
@@ -314,6 +314,7 @@ a:active { color: #333;}
     width: 100%;
     font-size: 12px;
     height: 470px;
+    overflow: auto;
 
 }
 .ContentHome .right{
@@ -321,7 +322,7 @@ a:active { color: #333;}
     float:right;}
 
 .ContentHome .right .one{
-    width: 800px;
+    width: 798px;
     float:left;
     border: 1px solid #cedce9;
     padding-bottom: 5px;
@@ -457,11 +458,11 @@ a:active { color: #333;}
     color: #FFF;
 }
 .ContentHome .leftkck{
-    width: 333px;
+    width: 375px;
     float:left;
 }
 .ContentHome .leftkckone{
-    width: 333px;
+    width: 375px;
     float:left;
     margin-bottom: 8px;
     border: 1px solid #dfdfdf;
@@ -480,6 +481,7 @@ a:active { color: #333;}
 }
 .ContentHome .leftkckone .tree{
     width: 100%;
+    overflow: auto;
     font-size: 12px;
     text-align: center;
     padding-top: 3px;
@@ -489,6 +491,7 @@ a:active { color: #333;}
     width: 100%;
     font-size: 12px;
     text-align: center;
+    overflow: auto;
     padding-top: 3px;
     padding-bottom: 3px;
     background-image: url(../images/kck3.jpg);
@@ -498,11 +501,11 @@ a:active { color: #333;}
 }
 /* ѧϰ���� */
 .ContentHome .leftxxyhkuang{
-    width: 247px;
+    width: 212px;
     float:left;
 }
 .ContentHome .leftxxyhkuang .leftxxyh{
-    width: 247px;
+    width: 212px;
     float:left;
     margin-bottom: 5px;
     border: 1px solid #cfdbe7;
@@ -526,7 +529,7 @@ a:active { color: #333;}
     background-repeat: repeat-x;
 }
 .ContentHome .leftxxyhkuang .leftxxyh1{
-    width: 247px;
+    width: 212px;
     float:left;
     border: 1px solid #cfdbe7;
     margin-top: 8px;
@@ -536,7 +539,7 @@ a:active { color: #333;}
     float:right;}
 
 .ContentHome .rightxxyh .one{
-    width: 800px;
+    width: 798px;
     float:left;
     border: 1px solid #cedce9;
     padding-bottom: 5px;
@@ -561,8 +564,9 @@ a:active { color: #333;}
     line-height: 25px;
 }
 .ContentHome .rightxxyh .one .main .tabtit{
-    background-image: url(../images/xxk.jpg);
+    background-image: url(../images/tree_bg.jpg);
     background-repeat: repeat-x;
+    background-position: 0 -60px;
     line-height: 25px;
     font-size: 12px;
     font-weight: bold;
@@ -585,7 +589,7 @@ a:active { color: #333;}
 }
 
 .ContentHome .one{
-    width: 980px;
+    width: 1020px;
     border: 1px solid #cedce9;
     /*padding-bottom: 5px;*/
 }
@@ -628,12 +632,12 @@ a:active { color: #333;}
     color: #0075cc;
 }
 .ContentHome .two{
-    width: 982px;
+    width: 1022px;
     padding-top: 8px;
     padding-bottom: 5px;
 }
 .ContentHome .two .rdzt{
-    width: 485px;
+    width: 502px;
     float:left;
     border: 1px solid #cedce9;
 }
@@ -657,7 +661,7 @@ a:active { color: #333;}
 }
 .ContentHome .two .rdzt .neirong li{
     line-height: 23px;
-    height: 33px;
+    height: 28px;
     text-align: left;
 }
 .ContentHome .two .rdzt .neirong .line{
@@ -678,7 +682,7 @@ a:active { color: #333;}
 
 
 .ContentHome .two .zxzt{
-    width: 485px;
+    width: 502px;
     float:right;
     border: 1px solid #cedce9;
 }
@@ -702,7 +706,7 @@ a:active { color: #333;}
 }
 .ContentHome .two .zxzt .neirong li{
     line-height: 23px;
-    height: 33px;
+    height: 28px;
     text-align: left;
 }
 .ContentHome .two .zxzt .neirong .line{
@@ -726,9 +730,9 @@ a:active { color: #333;}
     background-image: url(../images/foot.jpg);
     background-repeat: repeat-x;
     text-align: center;
-    height: 81px;
+    /*height: 81px;*/
     width: 100%;
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .shadow{

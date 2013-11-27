@@ -15,7 +15,7 @@
 <div class="ContentHome">
     <div class="left">
         <div class="title">侦查知识点库</div>
-        <div class="tree">  <ul id="catalogTree" style="margin-top:3px;"></ul></div>
+        <div class="tree">  <ul id="catalogTree" style="margin-top:3px;overflow: auto"></ul></div>
     </div>
     <div class="right">
         <div class="one">
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="one">
-            <div class="title">法律法规</div>
+            <div class="title" id="contentTitle">法律法规</div>
             <div class="main1">
                 <ul width="80%"  id="content" style="height: 250px;">
                 </ul>

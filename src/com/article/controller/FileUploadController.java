@@ -104,7 +104,7 @@ public class FileUploadController extends BaseCRUDActionController {
 
     public String  getUploadPath(HttpServletRequest request, String catalogPath) {
         return (StringUtils.isNotEmpty(uploadConfig.getPath())?uploadConfig.getPath():
-                (request.getSession().getServletContext().getRealPath("")+File.separator+"uploadFile"))+catalogPath;
+                (request.getSession().getServletContext().getRealPath("")))+catalogPath;
     }
 
 

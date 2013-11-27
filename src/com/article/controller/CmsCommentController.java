@@ -7,6 +7,8 @@ import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
 import com.comet.core.security.util.SpringSecurityUtils;
 import com.comet.core.utils.ReflectionUtils;
+import com.ctc.wstx.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +33,14 @@ public class CmsCommentController extends BaseCRUDActionController<CmsComment> {
 
     @RequestMapping
     @ResponseBody
-    public Page<CmsComment> grid(Page page, String condition) {
+    public Page<CmsComment> grid(Page page, String condition,String type) {
         try {
             page.setAutoCount(true);
+            if(StringUtils.isEmpty(type)){
+                type = "1";
+            }
 
-            String hql = "from CmsComment t where commentType='1' ";
+            String hql = "from CmsComment t where commentType= "+type;
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
