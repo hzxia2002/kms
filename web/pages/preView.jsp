@@ -37,11 +37,20 @@
         <div class="rightzf">
             <div class="title">词条统计</div>
             <div class="mainct">
-                <p>          浏览次数：${bean.visitTimes}次<br />
-                    更新时间：<fmt:formatDate value="${bean.updateTime}" type="both"></fmt:formatDate><br />
-                 创建者：${bean.createUser}</p>
-                <p><br />
-                </p>
+                <table width="180">
+                    <tr>
+                        <td align="right" width="70">浏览次数：</td>
+                        <td>${bean.visitTimes}</td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="vertical-align: top;">更新时间：</td>
+                        <td><fmt:formatDate value="${bean.updateTime}" type="both" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
+                    </tr>
+                    <tr>
+                        <td align="left">创建者：</td>
+                        <td>${bean.createUser}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

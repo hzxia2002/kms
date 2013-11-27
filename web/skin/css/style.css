@@ -18,7 +18,6 @@ a:active { color: #333;}
 
 .clr{ clear: both;}
 
-/* ̧ͷ */
 .Header{width: 1022px; margin: 0 auto; clear:both;}
 .Header .logo{
     float:left;
@@ -54,7 +53,7 @@ a:active { color: #333;}
     float:left;
     width: 360px;
     border: 2px solid #008eca;
-    font-family: "����";
+    font-family: "微软雅黑";
     font-size: 14px;
     color: #444444;
     height: 27px;
@@ -91,7 +90,7 @@ a:active { color: #333;}
     height: 40px;
     font-size: 12px;
     overflow:hidden;
-    font-family: "����";
+    font-family: "微软雅黑";
     color: #FFFFFF;
     line-height: 40px;
     text-align: center;
@@ -109,19 +108,15 @@ a:active { color: #333;}
     color: #444444;
     background-repeat: no-repeat;
 }
-/* ���� */
+
 .ContentHome{ width: 1022px; margin: 0 auto; padding: 7px 0; clear:both; background-color: #fff;min-height: 390px;}
 
-/* ȫ�ļ��� */
-
-
-/* ִ���참����� */
 .ContentHome .leftzfwk{
-    width: 800px;
+    width: 840px;
     float:left;
 }
 .ContentHome .leftzf{
-    width: 800px;
+    width: 840px;
     float:left;
     border: 1px solid #cedce9;}
 
@@ -155,7 +150,7 @@ a:active { color: #333;}
     font-size: 14px;
 }
 .ContentHome .leftyj{
-    width: 800px;
+    width: 840px;
     float:left;
     border: 1px solid #cedce9;
     margin-top: 8px;
@@ -177,7 +172,7 @@ a:active { color: #333;}
     border: 1px solid #eef7ff;
 }
 .ContentHome .leftyj .main{
-    width: 780px;
+    width: 820px;
     float:left;
     font-size: 14px;
     color: #444444;
@@ -213,7 +208,7 @@ a:active { color: #333;}
     line-height: 25px;
 }
 .ContentHome .leftzf .main{
-    width: 707px;
+    width: 807px;
     float:left;
     font-size: 14px;
     color: #444444;
@@ -225,7 +220,7 @@ a:active { color: #333;}
     font-weight: bold;
 }
 .ContentHome .leftzf .mainmuen{
-    width: 780px;
+    width: 825px;
     float:left;
     font-size: 14px;
     color: #444444;
@@ -386,7 +381,7 @@ a:active { color: #333;}
     float:left;
     width: 360px;
     border: 2px solid #008eca;
-    font-family: "����";
+    font-family: "微软雅黑";
     font-size: 14px;
     color: #444444;
     height: 27px;
@@ -400,7 +395,7 @@ a:active { color: #333;}
     padding-top: 5px;
 
 }
-/* �γ̿� */
+
 .ContentHome .right .one .maintp{
     float:left;
     width: 100%;
@@ -724,7 +719,7 @@ a:active { color: #333;}
     border-bottom-color: #e0e1e3;
     border-left-color: #FFF;
 }
-/* �ײ� */
+
 .Foot{
     font-size: 12px;
     background-image: url(../images/foot.jpg);
