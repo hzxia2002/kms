@@ -3,12 +3,16 @@
 <div>
     <table width="100%">
         <c:forEach items="${page.rows}" var="comment">
-            <tr>
-                <td>
-                    <span>${comment.replyer.displayName}发表评论(<fmt:formatDate value="${comment.replyTime}" pattern="yyyy-MM-dd HH:mm" type="both"></fmt:formatDate>)：</span>
-                    <br><%request.setAttribute("vEnter","\n");%>
-                    <span style="word-spacing: 2"> ${fn:replace(comment.content,vEnter,"<br>")}</span>
-                    <hr>
+            <tr style="border-bottom: 1px solid #dcdcdc;min-height: 50px;">
+                <td style="width: 10%;vertical-align: top" nowrap>
+                    <span style="font-weight: bold;float: left">${comment.replyer.displayName}发表评论：</span>
+                    <br>
+                    (<fmt:formatDate value="${comment.replyTime}" pattern="yyyy-MM-dd HH:mm" type="both"></fmt:formatDate>)
+                    <%--<hr>--%>
+                </td>
+                <td style="text-align: left;vertical-align: top;border-left: 1px solid #dcdcdc;">
+                    <%request.setAttribute("vEnter","\n");%>
+                    <span style="word-spacing: 2;color: #0075cc;"> ${fn:replace(comment.content,vEnter,"<br>")}</span>
                 </td>
             </tr>
         </c:forEach>
