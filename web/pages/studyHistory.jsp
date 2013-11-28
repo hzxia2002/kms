@@ -35,7 +35,7 @@
             <c:if test="${page.total>5}">
                 <c:set var="min" value="${page.total-4}"></c:set>
             </c:if>
-            <span style="float:left;">共计${page.total}条记录</span>
+            <span style="float:left;">共计${page.records}条记录</span>
             <c:if test="${min>1}">
                 <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(1)" >第一页\</a></span>
                 <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(${min-1})" >上一页</a></span>;

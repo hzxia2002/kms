@@ -36,6 +36,8 @@ $(function(){
 //            }
 //        });
     });
+
+    loadComments("");
 });
 
 function submitComment(id){
@@ -54,6 +56,21 @@ function submitComment(id){
         success:function(ret){
             alert(ret.msg);
             $("#comment").val("");
+            loadComments("",$("#articleId").val());
+        }
+    });
+}
+
+function loadComments(pageNo){
+    var url = context_path+"/page/loadComment.do?id="+$("#articleId").val();
+    if(pageNo){
+        url += "&pageNo=" + pageNo;
+    }
+    $.ajax({
+        url:url,
+        dataType: "text",
+        success:function(ret){
+            $("#comments").html(ret);
         }
     });
 }

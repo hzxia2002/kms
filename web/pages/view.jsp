@@ -80,19 +80,8 @@
                         <input type="hidden" name="commentType" value="2">
                     </div>
                 </c:if>
-                <div>
-                    <table width="100%">
-                    <c:forEach items="${comments}" var="comment">
-                        <tr>
-                            <td>
-                              <span>${comment.replyer.displayName}发表评论(<fmt:formatDate value="${comment.replyTime}" pattern="yyyy-MM-dd HH:mm" type="both"></fmt:formatDate>)：</span>
-                              <br><%request.setAttribute("vEnter","\n");%>${comment.content}
-                              <span style="word-spacing: 2"> ${fn:replace(comment.content,vEnter,"<br>")}</span>
-                                <hr>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </table>
+                <div id="comments">
+
                 </div>
                 <div class="main">
                     <c:if test="${type==2}">
