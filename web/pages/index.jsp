@@ -33,7 +33,10 @@
             <div class="neirong">
                 <c:forEach var="bean" items="${hotKmsRows}">
                     <ul class="line">
-                        <li ><img src="../skin/images/dit.jpg" />&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">${bean.title}</a>&nbsp;&nbsp;（点击量：${bean.visitTimes}次）</li>
+                        <li><img src="../skin/images/dit.jpg" style="float: left;margin-top: 10px"/>&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">
+                        <div style="color:blue;text-overflow:ellipsis; width:308px;margin-left: 12px;overflow: hidden;float:left">${bean.title}</div>
+                        </a>&nbsp;&nbsp;（点击量：${bean.visitTimes}次）
+                        </li>
                     </ul>
                 </c:forEach>
 
@@ -44,7 +47,9 @@
             <div class="neirong">
                 <c:forEach var="bean" items="${newKmsRows}">
                     <ul class="line">
-                        <li ><img src="../skin/images/dit.jpg" />&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">${bean.title}</a>&nbsp;&nbsp;（<fmt:formatDate value="${bean.updateTime!=null?bean.updateTime:bean.createTime}" type="both" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>）</li>
+                        <li ><img src="../skin/images/dit.jpg" style="float: left;margin-top: 10px"/>&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">
+                            <div style="color:blue;text-overflow:ellipsis; width:280px;float: left;margin-left: 12px;overflow: hidden">${bean.title}</div>
+                        </a>&nbsp;&nbsp;（<fmt:formatDate value="${bean.updateTime!=null?bean.updateTime:bean.createTime}" type="both" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>）</li>
                     </ul>
                 </c:forEach>
             </div>
