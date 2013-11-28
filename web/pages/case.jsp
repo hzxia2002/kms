@@ -22,7 +22,7 @@
 <div class="ContentHome" style="width: 1019px;">
     <div class="leftkck">
         <div class="leftkckone">
-            <div class="title" style="font-size: 32px;">${bean.title}</div>
+            <div class="title2" style="font-size: 18px;">${bean.title}</div>
             <div class="tree" id="ppt">
                 <img src="${ctx}${bean.attachPath}" width="370px" height="222px" />
             </div>
@@ -30,25 +30,25 @@
         <div class="leftkckone">
             <div class="title">相关学习资料</div>
             <div class="tree1">
-                <table width="250" border="0" align="center">
+                <table width="95%" border="0" align="center">
                     <tr>
                         <td>&nbsp;</td>
                     </tr>
                     <c:forEach items="${attachments}" var="attachment" varStatus="status">
                         <tr>
                             <td height="30" align="left">
-                                <a href="javascript:void(0)"
+
                                         <c:if test="${attachment.isPPT}">
+                                            <a href="javascript:void(0)" title="点击查看"
                                             onclick="loadPPT('${ctx}${attachment.pptPath}','${attachment.total}')"
-                                            style="cursor: hand"
+                                            style="cursor: hand">
                                         </c:if>
                                         <c:if test="${attachment.isAVI}">
+                                            <a href="javascript:void(0)" title="点击查看"
                                             onclick="loadAVI('${ctx}${attachment.path}')"
-                                            style="cursor: hand"
+                                            style="cursor: hand">
                                         </c:if>
-                                        >
-                                        ${status.index+1}、${attachment.name}(<a href="${ctx}${attachment.path}" target="_blank" style="color: blue;font-size: 12px;">下载</a>)
-                                </a>
+                                        ${status.index+1}、${attachment.name}</a>(<a href="${ctx}${attachment.path}" target="_blank" style="color: blue;font-size: 12px;">下载</a>)
                             </td>
                         </tr>
                     </c:forEach>

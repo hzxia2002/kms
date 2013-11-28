@@ -32,11 +32,11 @@
 
     <div class="nav">
         <ul>
-            <li class="n1"><a href="index.html" id="pageIndex1" >首页</a></li>
-            <li class="n1"><a href="lawProgramIndex.html" id="pageIndex2">执法办案程序库</a></li>
-            <li class="n1"><a href="kmsIndex.html" id="pageIndex3">侦查知识点库</a></li>
-            <li class="n1"><a href="caseIndex.html" id="pageIndex4">技战法案例课程库</a></li>
-            <li class="n1"><a href="studyIndex" id="pageIndex5">学习银行</a></li>
+            <li class="n1"><a href="<c:url value="/page/index.html"/>" id="pageIndex1" >首页</a></li>
+            <li class="n1"><a href="<c:url value="/page/lawProgramIndex.html"/>" id="pageIndex2">执法办案程序库</a></li>
+            <li class="n1"><a href="<c:url value="/page/kmsIndex.html"/>" id="pageIndex3">侦查知识点库</a></li>
+            <li class="n1"><a href="<c:url value="/page/caseIndex.html"/>" id="pageIndex4">技战法案例课程库</a></li>
+            <li class="n1"><a href="<c:url value="/page/studyIndex"/>" id="pageIndex5">学习银行</a></li>
             <li class="n1"><a href="../main.jsp">系统管理</a></li>
         </ul>
     </div>

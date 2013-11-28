@@ -1,6 +1,9 @@
 package com.article.controller;
 
-import com.article.daoservice.*;
+import com.article.daoservice.CmsArticleService;
+import com.article.daoservice.CmsCatalogService;
+import com.article.daoservice.CmsCommentService;
+import com.article.daoservice.DocAttachmentsService;
 import com.article.domain.CmsArticle;
 import com.article.domain.CmsCatalog;
 import com.article.domain.CmsComment;
@@ -11,16 +14,10 @@ import com.comet.core.orm.hibernate.Condition;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
 import com.comet.core.security.util.SpringSecurityUtils;
-import com.comet.core.session.UserSession;
+import com.comet.core.utils.DateTimeHelper;
 import com.comet.core.utils.ReflectionUtils;
 import com.comet.system.daoservice.SysUserService;
-import com.comet.system.domain.SysPrivilege;
 import com.comet.system.domain.SysUser;
-import com.comet.system.manager.UserSessionManager;
-import com.comet.system.tree.Node;
-import com.comet.system.tree.TreeBranch;
-import com.comet.system.tree.ZTreeNode;
-import com.ctc.wstx.util.StringUtil;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -34,7 +31,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -156,6 +157,9 @@ public class CmsArticleController extends BaseCRUDActionController<CmsArticle> {
                     target.setPublishDate(new Timestamp(System.currentTimeMillis()));
                 }
             }
+
+            target.setUpdateTime(DateTimeHelper.getTimestamp());
+
             cmsArticleService.save(target);
         } catch (Exception e) {
             log.error("error", e);
