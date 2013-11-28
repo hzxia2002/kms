@@ -584,4 +584,16 @@ public class PageController extends BaseCRUDActionController {
         sendSuccessJSON(response, "添加评论成功");
     }
 
+    @RequestMapping
+    public String loadComment(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
+        Page page = getPage(pageNo, pageSize);
+        page.setAutoCount(true);
+
+        String commentHql = "from CmsComment where knowledge.id="+id+" order by replyTime desc";
+        Page<CmsComment> byPage = cmsCommentService.findByPage(page,commentHql);
+
+        model.addAttribute("page",byPage);
+        return "pages/comment";
+    }
+
 }
