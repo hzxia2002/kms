@@ -1,7 +1,19 @@
 package com.article.controller;
 
-import com.article.daoservice.*;
-import com.article.domain.*;
+import com.article.daoservice.CmsArticleService;
+import com.article.daoservice.CmsCatalogService;
+import com.article.daoservice.CmsCollectArticleService;
+import com.article.daoservice.CmsCollectCatagoryService;
+import com.article.daoservice.CmsCommentService;
+import com.article.daoservice.CmsStudyPlanService;
+import com.article.daoservice.DocAttachmentsService;
+import com.article.domain.CmsArticle;
+import com.article.domain.CmsCatalog;
+import com.article.domain.CmsCollectArticle;
+import com.article.domain.CmsCollectCatagory;
+import com.article.domain.CmsComment;
+import com.article.domain.CmsStudyPlan;
+import com.article.domain.DocAttachments;
 import com.article.util.Constants;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
@@ -10,7 +22,6 @@ import com.comet.system.daoservice.SysUserService;
 import com.comet.system.tree.Node;
 import com.comet.system.tree.TreeBranch;
 import com.comet.system.tree.ZTreeNode;
-import org.apache.commons.io.filefilter.FileFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,10 +35,12 @@ import java.io.File;
 import java.io.FileFilter;
 import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Date: 13-10-30
@@ -502,10 +515,20 @@ public class PageController extends BaseCRUDActionController {
         return "pages/myStudy";
     }
 
+    /**
+     * 学习历史
+     *
+     * @param id
+     * @param pageNo
+     * @param pageSize
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @RequestMapping
     public String studyHistory(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
         Page page = getPage(pageNo, pageSize);
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currendTimeStr = format.format(new Date());
         Long userId = SpringSecurityUtils.getCurrentUser().getId();
         String hql = "from CmsStudyPlan p left join fetch p.course where  p.course.endTime<'"+currendTimeStr+"' and p.user.id="+userId;
