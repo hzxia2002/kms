@@ -302,6 +302,16 @@
         </property>
 
         <property
+                name="catalogue"
+                column="CATALOGUE"
+                type="string"
+                not-null="false"
+                >
+            <meta attribute="ColumnName">CATALOGUE</meta>
+            <meta attribute="ColumnComment">目录</meta>
+        </property>
+
+        <property
                 name="studyStartTime"
                 column="STUDY_START_TIME"
                 type="timestamp"

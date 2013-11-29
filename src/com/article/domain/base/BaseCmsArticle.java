@@ -163,6 +163,16 @@ public abstract class BaseCmsArticle  implements Serializable{
     private String extension4;
     private String extension5;
 
+    private String catalogue;
+
+    public String getCatalogue() {
+        return catalogue;
+    }
+
+    public void setCatalogue(String catalogue) {
+        this.catalogue = catalogue;
+    }
+
     public Long getDocId() {
         return docId;
     }

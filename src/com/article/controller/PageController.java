@@ -232,11 +232,16 @@ public class PageController extends BaseCRUDActionController {
                         String pptPath = docAttachmentse.getFilePath().replaceAll("\\\\", File.separator);
                         pptPath = pptPath.substring(0,pptPath.lastIndexOf("."));
                         attachment.put("pptPath", pptPath);
-                        attachment.put("total", new File(request.getSession().getServletContext().getRealPath("")+File.separator+pptPath).listFiles(new FileFilter() {
-                            public boolean accept(File file) {
-                                return file.getName().endsWith("png");
-                            }
-                        }).length);
+                        File file = new File(request.getSession().getServletContext().getRealPath("") + File.separator + pptPath);
+                        if(file.exists()){
+                            attachment.put("total", file.listFiles(new FileFilter() {
+                                public boolean accept(File file) {
+                                    return file.getName().endsWith("png");
+                                }
+                            }).length);
+                        }else {
+                            attachment.put("total",0);
+                        }
                         //直接播放第一个ppt
                         if(!hasPpt){
                             model.addAttribute("pptPath", pptPath);
