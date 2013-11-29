@@ -289,4 +289,44 @@ public class FileUploadController extends BaseCRUDActionController {
         return sb.toString();
     }
 
+    /**
+     * 获取图片
+     * @param response
+     * @param request
+     * @param id
+     * @throws Exception
+     */
+    @RequestMapping
+    public void getPictures(HttpServletResponse response,HttpServletRequest request,Long id) throws Exception {
+        CmsCatalog cmsCatalog = cmsCatalogService.get(id);
+        String catalogPath = catalogManager.getCatalogPath(cmsCatalog);
+        String wholePath = getUploadPath(request, catalogPath);
+        ArrayList list = new ArrayList();
+        getFileList(wholePath,list,request.getSession().getServletContext().getRealPath(""));
+        StringBuffer sb = new StringBuffer();
+        for (Object o : list) {
+            sb.append(o).append("ue_separate_ue");
+        }
+        response.getWriter().print(sb.toString());
+    }
+
+
+    public void getFileList(String path,List<String> list,String contextPath){
+        File fileDir = new File(path);
+        if(fileDir.exists()){
+            File[] files = fileDir.listFiles();
+            for (File file : files) {
+                if(file.isDirectory()){
+                    getFileList(file.getPath(),list,contextPath);
+                }else{
+                    String extName = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+                    if("|gif|jpeg|jpg|png|bmp|".contains(extName)&&!file.getName().contains("pack")){
+                        list.add(file.getPath().substring(contextPath.length()+1).replaceAll("\\\\", "/"));
+                    }
+                }
+            }
+        }
+
+    }
+
 }
