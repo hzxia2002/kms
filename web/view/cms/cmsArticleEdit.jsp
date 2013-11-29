@@ -4,6 +4,73 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@ include file="../common/header_new.jsp" %>
+    <style>
+        #directionContainer ul{
+            margin:0px;
+            padding: 0px 0px 0px 20px;
+        }
+        .main{
+            width:1024px;
+        }
+        .left{
+            width:250px;
+            height: 50px;
+            float:left;
+            margin-right:4px;
+        }
+        .right{
+            width:730px;
+            float:left;
+        }
+        #directionWrapper{
+            padding:15px 7px;
+            width:234px;
+            border:1px solid #CCC;
+        }
+        .directionTitle{
+            font-weight: bold;
+            font-size: 14px;
+            padding-bottom:3px;
+            border-bottom: 1px dashed #ccc;
+        }
+        .sectionItem{
+            height:20px;
+            padding: 4px;
+        }
+        .sectionItem span{
+            *zoom:1;
+            display:inline-block;
+        }
+        .itemTitle{
+            _float:left;
+        }
+        .selectIcon,.deleteIcon,.moveUp,.moveDown{
+            float:right;
+            color:red;
+            font-size:0px;
+            line-height: 20px;
+            height:20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .selectIcon,.moveUp,.moveDown{
+            width:14px;
+            font-size:10px;
+        }
+        .selectIcon:hover,.moveUp:hover,.moveDown:hover{
+            text-decoration: underline;
+        }
+        .deleteIcon{
+            width:20px;
+            margin-left:3px;
+            background: url(${ctx}/js/ueditor/themes/default/images/icons-all.gif) 0 -89px;
+        }
+        .fixTop{
+            position: fixed;
+            top: -1px;
+        }
+    </style>
+
     <script type="text/javascript" src="${ctx}/js/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="${ctx}/js/ueditor/ueditor.all.js"></script>
     <script type="text/javascript" src="${ctx}/js/ueditor/zh-cn.js"></script>
@@ -44,7 +111,7 @@
                 <td  class="container" width="40%">
                     <input type="text" name="title"  class="table_input" value="${bean.title}" validate="{required:true}" style="width:300px;"/>&nbsp;
                 </td>
-                <td align="right" width="10%">
+                <td align="right" width="10%" nowrap="nowrap">
                     所在目录:
                 </td>
                 <td  class="container">
@@ -69,10 +136,10 @@
                     <input type="text" name="author"  class="table_input" value="${bean.author}" />&nbsp;
                         <%--<input type="text" name="isValid" value="${bean.isValid}" />&nbsp;--%>
                 </td>
-                <td  align="right">
+                <td  align="right"  nowrap="nowrap">
                     是否推荐:
                 </td>
-                <td  class="container">
+                <td  class="container"  nowrap="nowrap">
                     <form:checkbox path="isRecommend" />
                     是否发布:<form:checkbox path="isPublished" />
                     是否有效: <form:checkbox path="isValid" />
@@ -86,7 +153,7 @@
                 <td  class="container">
                     <input type="text" name="keyWord" value="${bean.keyWord}" class="table_input" style="width: 300px;" />(多个关键字以逗号分隔)&nbsp;
                 </td>
-                <td  align="right">
+                <td  align="right"  nowrap="nowrap">
                     学习时间:
                 </td>
                 <td class="container" colspan="3">
@@ -127,8 +194,15 @@
                 </td>
             </tr>
             <tr class="inputTr">
-                <td align="right" style="vertical-align: top;">
-                    内容:
+                <td style="vertical-align: top;">
+                    <div style="text-align: right;width: 100%">内容与目录:</div>
+                    <div class="left">
+                        <div id="directionWrapper">
+                            <div class="directionTitle">目录</div>
+                            <div id="directionContainer"></div>
+                        </div>
+                    </div>
+
                 </td>
                 <td  class="container" colspan="3">
                     <script id="editor" type="text/plain" style="width:90%;height:300px"></script>
@@ -203,9 +277,77 @@
     var ue = UE.getEditor('editor',options);
 
     ue.ready(function(){
+        ue.addListener('updateSections', resetHandler);
         ue.setContent($("#content").val());
+
     });
 
+
+    var resetHandler = function(){
+        var dirmap = {}, dir = ue.execCommand('getsections');
+
+        // 更新目录树
+        $('#directionContainer').html(traversal(dir) || null);
+        // 删除章节按钮
+        $('.deleteIcon').click(function(e){
+            var $target = $(this),
+                    address = $target.parent().attr('data-address');
+            ue.execCommand('deletesection', dirmap[address]);
+        });
+        // 选中章节按钮
+        $('.selectIcon').click(function(e){
+            var $target = $(this),
+                    address = $target.parent().attr('data-address');
+            ue.execCommand('selectsection', dirmap[address], true);
+        });
+        // 章节上移
+        $('.moveUp,.moveDown').click(function(e){
+            var $target = $(this),
+                    address = $target.parent().attr('data-address'),
+                    moveUp = $target.hasClass('moveUp') ? true:false;
+            if($target.hasClass('moveUp')) {
+                ue.execCommand('movesection', dirmap[address], dirmap[address].previousSection);
+            } else {
+                ue.execCommand('movesection', dirmap[address], dirmap[address].nextSection, true);
+            }
+        });
+        // 页面网上滚动时，让目录固定在顶部
+        $(window).scroll(function(e) {
+            if($('.left').offset().top < (document.body.scrollTop||document.documentElement.scrollTop)) {
+                $('#directionWrapper').addClass('fixTop');
+            } else {
+                $('#directionWrapper').removeClass('fixTop');
+            }
+        });
+
+        function traversal(section) {
+            var $list, $item, $itemContent, child, childList;
+            if(section.children.length) {
+                $list = $('<ul>');
+                for(var i = 0; i< section.children.length; i++) {
+                    child = section.children[i];
+                    //设置目录节点内容标签
+                    $itemContent = $('<div class="sectionItem"></div>').html($('<span class="itemTitle">' + child['title'] + '</span>'));
+                    $itemContent.attr('data-address', child['startAddress'].join(','));
+                    $itemContent.append($('<span class="deleteIcon">删</span>' +
+                            '<span class="selectIcon">选</span>' +
+                            '<span class="moveUp">↑</span>' +
+                            '<span class="moveDown">↓</span>'));
+                    dirmap[child['startAddress'].join(',')] = child;
+                    //设置目录节点容器标签
+                    $item = $('<li>');
+                    $item.append($itemContent);
+                    //继续遍历子节点
+                    if($item.children.length) {
+                        childList = traversal(child);
+                        childList && $item.append(childList);
+                    }
+                    $list.append($item);
+                }
+            }
+            return $list;
+        }
+    }
 
     function insertHtml() {
         var value = prompt('插入html代码', '');
