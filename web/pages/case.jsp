@@ -24,7 +24,7 @@
         <div class="leftkckone">
             <div class="title2" style="font-size: 18px;">${bean.title}</div>
             <div class="tree" id="ppt">
-                <img src="${ctx}${bean.attachPath}" width="370px" height="222px" />
+                <img src="${ctx}${bean.attachPath}" width="370px" height="222px" alt="未添加图片" />
             </div>
         </div>
         <div class="leftkckone">
@@ -38,17 +38,17 @@
                         <tr>
                             <td height="30" align="left">
 
-                                        <c:if test="${attachment.isPPT}">
-                                            <a href="javascript:void(0)" title="点击查看"
-                                            onclick="loadPPT('${ctx}${attachment.pptPath}','${attachment.total}')"
-                                            style="cursor: hand">
+                                <c:if test="${attachment.isPPT}">
+                                <a href="javascript:void(0)" title="点击查看"
+                                   onclick="loadPPT('${ctx}${attachment.pptPath}','${attachment.total}')"
+                                   style="cursor: hand">
+                                    </c:if>
+                                    <c:if test="${attachment.isAVI}">
+                                    <a href="javascript:void(0)" title="点击查看"
+                                       onclick="loadAVI('${ctx}${attachment.path}')"
+                                       style="cursor: hand">
                                         </c:if>
-                                        <c:if test="${attachment.isAVI}">
-                                            <a href="javascript:void(0)" title="点击查看"
-                                            onclick="loadAVI('${ctx}${attachment.path}')"
-                                            style="cursor: hand">
-                                        </c:if>
-                                        ${status.index+1}、${attachment.name}</a>(<a href="${ctx}${attachment.path}" target="_blank" style="color: blue;font-size: 12px;">下载</a>)
+                                            ${status.index+1}、${attachment.name}</a>(<a href="${ctx}${attachment.path}" target="_blank" style="color: blue;font-size: 12px;">下载</a>)
                             </td>
                         </tr>
                     </c:forEach>
@@ -57,16 +57,21 @@
         </div>
     </div>
     <div class="rightkck">
-        <div class="two" width="627" height="483" id="media">
-            <OBJECT ID="hutia" height="483" width="627" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
-                <param name="URL" value="${ctx}${aviPath}" />
-                <param name="AutoStart" value="true" />
-                <param name="AudioStream" value="-1">
-                <param name="AutoSize" value="0">
-                <param name="AnimationAtStart" value="0">
-                <param name="AllowScan" value="true">
-                <param name="AllowChangeDisplaySize" value="-1">
-            </OBJECT>
+        <div class="two" width="627px" height="483px" id="media">
+            <c:if test="${aviPath!=null}">
+                <OBJECT ID="hutia" height="483" width="627" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+                    <param name="URL" value="${ctx}${aviPath}" />
+                    <param name="AutoStart" value="true" />
+                    <param name="AudioStream" value="-1">
+                    <param name="AutoSize" value="0">
+                    <param name="AnimationAtStart" value="0">
+                    <param name="AllowScan" value="true">
+                    <param name="AllowChangeDisplaySize" value="-1">
+                </OBJECT>
+            </c:if>
+            <c:if test="${aviPath==null}">
+              <div style="height: 483px;width: 627px;vertical-align: middle;color: red"> 未添加视频</div>
+            </c:if>
         </div>
     </div>
     <div class="rightkck">

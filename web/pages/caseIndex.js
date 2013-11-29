@@ -69,7 +69,12 @@ function loadContent(id,pageNo){
                 htmlArr.push( '       <span>侦查办案民警 法制员<br />上海市公安局经侦总队</span>');
                 htmlArr.push( '    </div>');
                 htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;right:15px;" >');
-                htmlArr.push( '        <img src="'+context_path+datas[i].path+'" style="height:104px;width:118px;">');
+                if(context_path+datas[i].path){
+                    htmlArr.push( '        <img src="'+context_path+datas[i].path+'" style="height:104px;width:118px;" alt="无图片">');
+                }else{
+                    htmlArr.push( '        无图片');
+                }
+
                 htmlArr.push( '     </div>');
                 htmlArr.push( '</li>');
 //
