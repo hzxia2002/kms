@@ -46,7 +46,7 @@ function treeNodeClick(node){
 function loadContent(pageNo){
     var url = context_path+"/page/myStudy.do";
     if(pageNo){
-        url += "&pageNo=" + pageNo;
+        url += "?pageNo=" + pageNo;
     }
     $.ajax({
         url:url,
@@ -60,7 +60,7 @@ function loadContent(pageNo){
 function loadHistory(pageNo){
     var url = context_path+"/page/studyHistory.do";
     if(pageNo){
-        url += "&pageNo=" + pageNo;
+        url += "?pageNo=" + pageNo;
     }
     $.ajax({
         url:url,

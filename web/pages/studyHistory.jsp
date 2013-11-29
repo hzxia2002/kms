@@ -37,15 +37,15 @@
             </c:if>
             <span style="float:left;">共计${page.records}条记录</span>
             <c:if test="${min>1}">
-                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(1)" >第一页\</a></span>
-                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(${min-1})" >上一页</a></span>;
+                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadHistory(1)" >第一页\</a></span>
+                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadHistory(${min-1})" >上一页</a></span>;
             </c:if>
             <c:forEach  begin="${min}" end="${max}" var="index">
-                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:${(index==page.page)?"red":"blue"}" onclick="loadContent(${index})" >${index}</a></span>
+                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:${(index==page.page)?"red":"blue"}" onclick="loadHistory(${index})" >${index}</a></span>
             </c:forEach>
             <c:if test="${max>=5&&page.page<page.total}">
-                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(${max+1})" >下一页</a></span>
-                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(${page.total})" >最后一页</a></span>
+                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadHistory(${max+1})" >下一页</a></span>
+                <span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadHistory(${page.total})" >最后一页</a></span>
             </c:if>
 
         </div>
