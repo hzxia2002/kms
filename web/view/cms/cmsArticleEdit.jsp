@@ -176,8 +176,8 @@
         catcherUrl:UEDITOR_HOME_URL + "/cmsArticle/init.do",
         catcherPath:UEDITOR_HOME_URL + "php/",
 
-        imageManagerUrl:UEDITOR_HOME_URL + "/cmsArticle/init.do",
-        imageManagerPath:"http://",
+        imageManagerUrl:UEDITOR_HOME_URL + "/fileUpload/getPictures.do?id=${bean.path.id}",
+        imageManagerPath:UEDITOR_HOME_URL+"/",
 
         snapscreenHost:'ueditor.baidu.com',
         snapscreenServerUrl:UEDITOR_HOME_URL + "../yunserver/yunSnapImgUp.php",
