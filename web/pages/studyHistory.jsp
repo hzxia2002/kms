@@ -6,24 +6,25 @@
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
             <tr style="height: 60px">
                 <td align="center" class="tabtit" width="5%">序号</td>
-                <td align="center" class="tabtit" >课程名称</td>
-                <td align="center" class="tabtit">总时长<br/>(分钟)</td>
-                <td align="center" class="tabtit">已学习<br/>次数</td>
-                <td align="center" class="tabtit">已学习时长<br/>(分钟)</td>
-                 <td align="center" class="tabtit">学习完成率</td>
-                <td align="center" class="tabtit">末次学习时间</td>
+                <td align="center" class="tabtit">课程名称</td>
+                <td align="center" class="tabtit" width="8%">总时长<br/>(分钟)</td>
+                <td align="center" class="tabtit" width="8%">已学习<br/>次数</td>
+                <td align="center" class="tabtit" width="8%">已学习时长<br/>(分钟)</td>
+                <td align="center" class="tabtit" width="8%">完成率</td>
+                <td align="center" class="tabtit" width="20%">末次学习时间</td>
             </tr>
             <c:forEach var="bean" items="${page.rows}" varStatus="status">
                 <tr>
                     <td bgcolor="#f9f9f9" class="tabmain" width="5%" nowrap align="center">${status.index+1}&nbsp;</td>
-                    <td bgcolor="#f9f9f9" class="tabmain" nowrap>
+                    <td bgcolor="#f9f9f9" class="tabmain" align="center" nowrap>
                             ${bean.course.name}
                     </td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.course.studyDuration}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.studyTimes}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.studyDuration}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center"><fmt:formatNumber pattern="#.##" value="${bean.studyDuration*100/bean.course.studyDuration}"/>%&nbsp;</td>
-                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.lastStudyTime}&nbsp;</td>
+                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
+                        <fmt:formatDate value="${bean.lastStudyTime}" type="both" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>&nbsp;</td>
                 </tr>
             </c:forEach>
         </table>
