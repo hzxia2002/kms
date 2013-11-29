@@ -55,7 +55,7 @@ function loadContent(id,pageNo){
             var pNo = ret.page;
             for(var i=0;i<datas.length;i++){
                 htmlArr.push('<li style="width: 375px;float: left;margin-left: 12px;padding-left:5px;border-bottom:1px dashed gray">' +
-                    '<a target="_blank" href="view.html?id='+datas[i]["id"]+'"><div style="color:blue;text-overflow:ellipsis; width:260px;overflow: hidden;float:left" >'+datas[i]["title"]+
+                    '<a target="_blank" href="view.html?id='+datas[i]["id"]+'"><div style="color:blue;overflow: hidden;text-overflow:ellipsis; width:260px;float:left;white-space:nowrap;" >'+datas[i]["title"]+
                     '</div><span style="color:black;font-size:12px;float:left;">&nbsp;('+datas[i]["publishDate"].substring(0,16)+')</span>'+'</a></li>');
             }
             $("#content").html(htmlArr.join(""));
