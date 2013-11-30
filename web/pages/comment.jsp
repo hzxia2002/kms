@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="common/header.jsp"%>
+<%@ include file="/common/taglibs.jsp" %>
 <div>
     <table width="100%">
         <c:forEach items="${page.rows}" var="comment">
