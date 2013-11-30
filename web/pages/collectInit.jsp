@@ -7,7 +7,7 @@
     <%@include file="common/header.jsp"%>
 </head>
 <body>
-<form:form id="configTableEditForm" modelAttribute="bean" name="configTableEditForm"  method="post">
+<form:form id="configTableEditForm" modelAttribute="bean" name="configTableEditForm"  method="post" action="${ctx}/">
     <input type="hidden" name="id" value="${bean.id}" />
     <div>
         <table border="0" cellspacing="1" width="100%"  class="inputTable">
@@ -17,7 +17,7 @@
                     <span class="needInfo">*</span>主题名:
                 </td>
                 <td  class="container">
-                    <input type="text" name="title" value="${title}" class="table_input" style="height: 24px;" maxlength="100" validate="{required:true}"/>&nbsp;
+                    <input type="text" name="title" id="title" value="${title}" class="table_input" style="height: 24px;" maxlength="100" validate="{required:true}"/>&nbsp;
                 </td>
             </tr>
 
@@ -28,6 +28,12 @@
                 <td  class="container" >
                     <input type="text" name="dictory" id="dictory"   maxlength="100" validate="{required:true}"/>&nbsp;
                     <input type="hidden" name="articleId"   value="${articleId}"/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="button" value="提交" class="btn_Ok" onclick="submitData()"/>
+                    <input type="button" value="关闭" class="btn_Del" onclick="window.close()"/>
                 </td>
             </tr>
         </table>
@@ -48,4 +54,25 @@
         $.metadata.setType("attr", "validate");
         v = $('#configTableEditForm').validate();
     });
+
+    function submitData(){
+        if(!$("#title").val()){
+            alert("主题不能为空");
+        }else if(!$("#dictory").val()){
+            alert("目录不能为空");
+        }else{
+            $.ajax({
+                url: CONTEXT_PATH+"/page/collect.do",
+                dataType: "json",
+                type:"post",
+                data:{title:$("#title").val(),dictory:$("#dictory").val()},
+                success:function(ret){
+                    alert(ret.msg);
+                    window.close();
+                }
+            });
+        }
+
+
+    }
 </script>

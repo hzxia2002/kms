@@ -32,7 +32,7 @@ $(function(){
         var iHeight=250;//窗口高度
         var iTop=(window.screen.height-iHeight)/2;
         var iLeft=(window.screen.width-iWidth)/2;
-        window.showModalDialog(url,window,"dialogHeight: "+iHeight+"px; dialogWidth: "+iWidth+"px;dialogTop: "+iTop+"; dialogLeft: "+iLeft+"; resizable: no; status: no;scroll:no");
+        window.showModalDialog(url,window,"dialogHeight: "+iHeight+"px; dialogWidth: "+iWidth+"px;dialogTop: "+iTop+"; dialogLeft: "+iLeft+"; resizable: no; localtion:no;status: no;scroll:no");
  //       $.ajax({
 //            url:"collect.do",
 //            data:{url:window.location.href},
