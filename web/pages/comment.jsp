@@ -12,7 +12,8 @@
                 </td>
                 <td style="text-align: left;vertical-align: top;border-left: 1px solid #dcdcdc;">
                     <%request.setAttribute("vEnter","\n");%>
-                    <span style="word-spacing: 2;color: #0075cc;"> ${fn:replace(comment.content,vEnter,"<br>")}</span>
+                    <%request.setAttribute("br","<br>");%>
+                    <span style="word-spacing: 2;color: #0075cc;"> <c:out value="${fn:replace(comment.content,vEnter,br)}" escapeXml="true"></c:out></span>
                 </td>
             </tr>
         </c:forEach>
