@@ -207,6 +207,7 @@
                 <td  class="container" colspan="3">
                     <script id="editor" type="text/plain" style="width:90%;height:300px"></script>
                     <input type="hidden" id="content" name="content" value='${bean.content}'/>&nbsp;
+                    <input type="hidden" id="catalogue" name="catalogue" value='${bean.catalogue}'/>&nbsp;
                 </td>
             </tr>
 
@@ -237,6 +238,7 @@
 
 <script type="text/javascript">
     var UEDITOR_HOME_URL = "${ctx}";
+    var titleIndex = 0;
     var options = {
         imageUrl: "${ctx}/fileUpload/uploadImage.do?id=${bean.path.id}",
         imagePath:"http://",
@@ -284,6 +286,7 @@
 
 
     var resetHandler = function(){
+        titleIndex = 0;
         var dirmap = {}, dir = ue.execCommand('getsections');
 
         // 更新目录树
@@ -320,14 +323,17 @@
             }
         });
 
+
         function traversal(section) {
             var $list, $item, $itemContent, child, childList;
             if(section.children.length) {
                 $list = $('<ul>');
                 for(var i = 0; i< section.children.length; i++) {
                     child = section.children[i];
+                    var titleId = "title_"+(titleIndex++);
+                    $(child.dom).attr("id",titleId);
                     //设置目录节点内容标签
-                    $itemContent = $('<div class="sectionItem"></div>').html($('<span class="itemTitle">' + child['title'] + '</span>'));
+                    $itemContent = $('<div class="sectionItem"></div>').html($('<div class="itemTitle" style="color:blue;overflow: hidden;text-overflow:ellipsis; width:140px;float:left;white-space:nowrap;"><a href="#'+titleId+'" >' + child['title'] + '</a></div>'));
                     $itemContent.attr('data-address', child['startAddress'].join(','));
                     $itemContent.append($('<span class="deleteIcon">删</span>' +
                             '<span class="selectIcon">选</span>' +
@@ -440,11 +446,17 @@
 
     function customerValidate(){
         var content = UE.getEditor('editor').getContent();
+        var clone = $("#directionContainer").clone();
+        $(".deleteIcon,.moveDown,.moveUp,.selectIcon",clone).remove();
+        $(".itemTitle",clone).css("width","100%");
+        var catalogue = clone.html();
+        alert(catalogue);
         if(!content){
             window.top.$.juiceDialog.warn('内容不能为空!');
             return false;
         }else{
             $("#content").val(content);
+            $("#catalogue").val(catalogue);
             return true;
         }
     }
