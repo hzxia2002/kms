@@ -132,6 +132,7 @@ public class CmsArticleController extends BaseCRUDActionController<CmsArticle> {
                     "summary",
                     "classHour",
                         "docId",
+                    "catalogue",
                     "isRecommend"
 //                    "accessRange"
             };
