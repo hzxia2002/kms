@@ -3,7 +3,7 @@
 <div class="one">
     <div class="title">收藏夹内容</div>
     <div>
-        <input type="text" name="articleName" id="articleName" value="${articleName}" style="height: 22px;width:200px;border: #71ccff 1px solid;">
+        <input type="text" name="articleName" id="articleName" value="${bean.title}" style="height: 22px;width:200px;border: #71ccff 1px solid;">
         <input type="button" onclick="loadCollect('${id}');" style="height: 24px;width: 60px;" value="查询">
     </div>
     <div class="main">
