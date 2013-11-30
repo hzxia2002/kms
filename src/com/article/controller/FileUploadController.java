@@ -17,10 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +26,12 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Date: 13-8-27
@@ -320,7 +323,7 @@ public class FileUploadController extends BaseCRUDActionController {
                     getFileList(file.getPath(),list,contextPath);
                 }else{
                     String extName = file.getName().substring(file.getName().lastIndexOf(".") + 1);
-                    if("|gif|jpeg|jpg|png|bmp|".contains(extName)&&!file.getName().contains("pack")){
+                    if("|gif|jpeg|jpg|png|bmp|".contains(extName.toLowerCase())&&!file.getName().contains("pack")){
                         list.add(file.getPath().substring(contextPath.length()+1).replaceAll("\\\\", "/"));
                     }
                 }
