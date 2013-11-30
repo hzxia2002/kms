@@ -23,7 +23,7 @@
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
                 <input type="hidden" id="planId" value="${planId}">
-                <p class="text" align="center" id="title"  style="font-size: 32px;">${bean.title}</p>
+                <p class="text" align="center" id="title"  style="font-size: 20px;">${bean.title}</p>
                 <p>
                     关键字：${bean.keyWord}<br />
                 </p>
@@ -57,7 +57,7 @@
                         <td><fmt:formatDate value="${bean.updateTime}" type="both" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                     </tr>
                     <tr>
-                        <td align="left">创建者：</td>
+                        <td align="right">创建者：</td>
                         <td>${bean.createUser}</td>
                     </tr>
                 </table>

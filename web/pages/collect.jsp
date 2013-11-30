@@ -10,18 +10,23 @@
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
             <tr>
                 <td align="center" class="tabtit" width="5%">序号</td>
-                <td align="center" class="tabtit" >所属收藏夹</td>
+                <td align="center" class="tabtit" width="30%">所属收藏夹</td>
                 <td align="center" class="tabtit">知识点名称</td>
-                <td align="center" class="tabtit">操作</td>
+                <td align="center" class="tabtit" width="10%">操作</td>
             </tr>
             <c:forEach var="bean" items="${page.rows}" varStatus="status">
                 <tr>
-                    <td bgcolor="#f9f9f9" class="tabmain" width="5%" nowrap align="center">${status.index+1}&nbsp;</td>
-                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center" width="45%">${bean.catagory.name}&nbsp;</td>
-                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center" width="45%">
-                        <a target="_blank" style="color:blue" href="${ctx}${bean.url}">${bean.remark}</a>
+                    <td bgcolor="#f9f9f9" class="tabmain"nowrap align="center">${status.index+1}&nbsp;</td>
+                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.catagory.name}&nbsp;</td>
+                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
+                        <c:if test="${bean.article == null}">
+                            <a target="_blank" style="color:blue" href="${ctx}${bean.url}">${bean.remark}</a>
+                        </c:if>
+                        <c:if test="${bean.article != null}">
+                            <a target="_blank" style="color:blue" href="${ctx}/page/view.html?id=${bean.article.id}">${bean.remark}</a>
+                        </c:if>
                     </td>
-                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center" width="10%">
+                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
                         <a style="color:blue" href="javascript:void(0)" onclick="deleteCollect('${id}',1,${bean.id})">删除</a>
                     </td>
                 </tr>
