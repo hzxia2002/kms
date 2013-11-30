@@ -322,7 +322,8 @@ public class PageController extends BaseCRUDActionController {
 
     @RequestMapping
     public String collectInit(HttpServletResponse response,Model model,String title,Long articleId) throws Exception {
-        model.addAttribute("title", new String(title.getBytes("iso-8859-1"),"utf-8"));
+        CmsArticle cmsArticle = articleService.get(articleId);
+        model.addAttribute("title", cmsArticle.getTitle());
         model.addAttribute("articleId", articleId);
         return "pages/collectInit";
     }
