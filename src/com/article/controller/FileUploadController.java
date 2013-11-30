@@ -122,13 +122,15 @@ public class FileUploadController extends BaseCRUDActionController {
         }
         if(type.equals("1")){
             return "view/cms/imageUpload";
+        }else if(type.equals("3")) {
+            return "view/cms/imageUploadEditor";
         }else {
             return "view/cms/fileUpload";
         }
     }
 
     @RequestMapping
-    public String uploadFile(HttpServletResponse response,HttpServletRequest request,Long id,Model model) throws Exception {
+    public String uploadFile(HttpServletResponse response,HttpServletRequest request,Long id,Model model,String type) throws Exception {
         ArrayList arrayList = new ArrayList();
         CmsCatalog cmsCatalog = cmsCatalogService.get(id);
         String catalogPath = catalogManager.getCatalogPath(cmsCatalog);
@@ -173,6 +175,10 @@ public class FileUploadController extends BaseCRUDActionController {
 
         model.addAttribute("msg","上传成功");
         model.addAttribute("ret", JSONArray.fromObject(arrayList).toString());
+        model.addAttribute("list", arrayList);
+        if(StringUtils.isNotEmpty(type)){
+            return "view/cms/uploadResultEditor";
+        }
         return "view/cms/uploadResult";
     }
 
