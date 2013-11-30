@@ -3,7 +3,11 @@
 <%@ include file="/common/taglibs.jsp" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <%@include file="common/header.jsp"%>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%--<title>经侦辅助办案知识库</title>--%>
+    <link href="${ctx}/skin/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="${ctx}/js/jquery/jquery-1.7.2.js"></script>
+
     <link href="${ctx}/js/ueditor/themes/default/css/ueditor.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="${ctx}/pages/view.js"></script>
     <style type="text/css">
