@@ -18,7 +18,7 @@ var imageUploader = {},
     imageUploader.init = function (opt, callbacks) {
         switchTab("imageTab");
         createAlignButton(["remoteFloat", "localFloat"]);
-        createFlash(opt, callbacks);
+//        createFlash(opt, callbacks);
         var srcImg = editor.selection.getRange().getClosedNode();
         if (srcImg) {
             showImageInfo(srcImg);
@@ -189,8 +189,8 @@ var imageUploader = {},
     }
 
     function hideFlash() {
-        flashObj = null;
-        flashContainer.innerHTML = "";
+//        flashObj = null;
+//        flashContainer.innerHTML = "";
     }
 
     /**
@@ -283,7 +283,7 @@ var imageUploader = {},
             imgObjs.push(tmpObj);
         }
         insertImage(imgObjs);
-        hideFlash();
+//        hideFlash();
     }
 
     /**

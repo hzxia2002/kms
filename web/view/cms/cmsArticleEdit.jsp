@@ -250,7 +250,9 @@ var UEDITOR_HOME_URL = "${ctx}";
 var titleIndex = 0;
 var options = {
     imageUrl: "${ctx}/fileUpload/uploadImage.do?id=${bean.path.id}",
-    imagePath:"http://",
+    imagePath:"${ctx}/",
+
+    imageInitUrl:"${ctx}/fileUpload/fileUploadInit.do?id=${bean.path.id}&type=3",
 
     scrawlUrl:UEDITOR_HOME_URL + "/cmsArticle/init.do",
     scrawlPath:"http://",
