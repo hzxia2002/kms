@@ -34,7 +34,7 @@ public class CmsProposeController extends BaseCRUDActionController<CmsComment> {
         try {
             page.setAutoCount(true);
 
-            String hql = "from CmsComment t where commentType='2' ";
+            String hql = "from CmsComment t where commentType='2' order by replyTime desc";
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
