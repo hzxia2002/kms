@@ -5,9 +5,17 @@
 <head>
     <%@ include file="../common/header_new.jsp" %>
     <style>
+        #directionContainer{
+            margin-left: -20px;
+        }
         #directionContainer ul{
+            margin-left: 0px;
+            list-style-type:none;
             margin:0px;
             padding: 0px 0px 0px 20px;
+        }
+        #directionContainer ul li{
+            margin-left: 0px;
         }
         .main{
             width:1024px;
@@ -28,6 +36,7 @@
             border:1px solid #CCC;
         }
         .directionTitle{
+            text-align: center;
             font-weight: bold;
             font-size: 14px;
             padding-bottom:3px;
@@ -237,281 +246,282 @@
 </html>
 
 <script type="text/javascript">
-    var UEDITOR_HOME_URL = "${ctx}";
-    var titleIndex = 0;
-    var options = {
-        imageUrl: "${ctx}/fileUpload/uploadImage.do?id=${bean.path.id}",
-        imagePath:"http://",
+var UEDITOR_HOME_URL = "${ctx}";
+var titleIndex = 0;
+var options = {
+    imageUrl: "${ctx}/fileUpload/uploadImage.do?id=${bean.path.id}",
+    imagePath:"http://",
 
-        scrawlUrl:UEDITOR_HOME_URL + "/cmsArticle/init.do",
-        scrawlPath:"http://",
+    scrawlUrl:UEDITOR_HOME_URL + "/cmsArticle/init.do",
+    scrawlPath:"http://",
 
-        fileUrl:"${ctx}/fileUpload/uploadImage.do?id=${bean.path.id}",
-        filePath:"http://",
+    fileUrl:"${ctx}/fileUpload/uploadImage.do?id=${bean.path.id}",
+    filePath:"http://",
 
-        catcherUrl:UEDITOR_HOME_URL + "/cmsArticle/init.do",
-        catcherPath:UEDITOR_HOME_URL + "php/",
+    catcherUrl:UEDITOR_HOME_URL + "/cmsArticle/init.do",
+    catcherPath:UEDITOR_HOME_URL + "php/",
 
-        imageManagerUrl:UEDITOR_HOME_URL + "/fileUpload/getPictures.do?id=${bean.path.id}",
-        imageManagerPath:UEDITOR_HOME_URL+"/",
+    imageManagerUrl:UEDITOR_HOME_URL + "/fileUpload/getPictures.do?id=${bean.path.id}",
+    imageManagerPath:UEDITOR_HOME_URL+"/",
 
-        snapscreenHost:'ueditor.baidu.com',
-        snapscreenServerUrl:UEDITOR_HOME_URL + "../yunserver/yunSnapImgUp.php",
-        snapscreenPath:"http://",
+    snapscreenHost:'ueditor.baidu.com',
+    snapscreenServerUrl:UEDITOR_HOME_URL + "../yunserver/yunSnapImgUp.php",
+    snapscreenPath:"http://",
 
-        wordImageUrl:UEDITOR_HOME_URL + "../yunserver/yunImageUp.php",
-        wordImagePath:"http://", //
+    wordImageUrl:UEDITOR_HOME_URL + "../yunserver/yunImageUp.php",
+    wordImagePath:"http://", //
 
-        getMovieUrl:UEDITOR_HOME_URL + "../yunserver/getMovie.php",
+    getMovieUrl:UEDITOR_HOME_URL + "../yunserver/getMovie.php",
 
-        lang:/^zh/.test(navigator.language || navigator.browserLanguage || navigator.userLanguage) ? 'zh-cn' : 'en',
-        langPath:"${ctx}/js/ueditor/lang/",
+    lang:/^zh/.test(navigator.language || navigator.browserLanguage || navigator.userLanguage) ? 'zh-cn' : 'en',
+    langPath:"${ctx}/js/ueditor/lang/",
 
-        webAppKey:"9HrmGf2ul4mlyK8ktO2Ziayd",
-        initialFrameWidth:860,
-        initialFrameHeight:400,
-        focus:true
-    };
+    webAppKey:"9HrmGf2ul4mlyK8ktO2Ziayd",
+    initialFrameWidth:860,
+    initialFrameHeight:400,
+    focus:true
+};
 
 
 
-    //实例化编辑器
-    var ue = UE.getEditor('editor',options);
+//实例化编辑器
+var ue = UE.getEditor('editor',options);
 
-    ue.ready(function(){
-        ue.addListener('updateSections', resetHandler);
-        ue.setContent($("#content").val());
+ue.ready(function(){
+    ue.addListener('updateSections', resetHandler);
+    ue.setContent($("#content").val());
 
+});
+
+
+var resetHandler = function(){
+    titleIndex = 0;
+    var dirmap = {}, dir = ue.execCommand('getsections');
+
+    // 更新目录树
+    $('#directionContainer').html(traversal(dir) || null);
+    // 删除章节按钮
+    $('.deleteIcon').click(function(e){
+        var $target = $(this),
+                address = $target.parent().attr('data-address');
+        ue.execCommand('deletesection', dirmap[address]);
+    });
+    // 选中章节按钮
+    $('.selectIcon').click(function(e){
+        var $target = $(this),
+                address = $target.parent().attr('data-address');
+        ue.execCommand('selectsection', dirmap[address], true);
+    });
+    // 章节上移
+    $('.moveUp,.moveDown').click(function(e){
+        var $target = $(this),
+                address = $target.parent().attr('data-address'),
+                moveUp = $target.hasClass('moveUp') ? true:false;
+        if($target.hasClass('moveUp')) {
+            ue.execCommand('movesection', dirmap[address], dirmap[address].previousSection);
+        } else {
+            ue.execCommand('movesection', dirmap[address], dirmap[address].nextSection, true);
+        }
+    });
+    // 页面网上滚动时，让目录固定在顶部
+    $(window).scroll(function(e) {
+        if($('.left').offset().top < (document.body.scrollTop||document.documentElement.scrollTop)) {
+            $('#directionWrapper').addClass('fixTop');
+        } else {
+            $('#directionWrapper').removeClass('fixTop');
+        }
     });
 
 
-    var resetHandler = function(){
-        titleIndex = 0;
-        var dirmap = {}, dir = ue.execCommand('getsections');
-
-        // 更新目录树
-        $('#directionContainer').html(traversal(dir) || null);
-        // 删除章节按钮
-        $('.deleteIcon').click(function(e){
-            var $target = $(this),
-                    address = $target.parent().attr('data-address');
-            ue.execCommand('deletesection', dirmap[address]);
-        });
-        // 选中章节按钮
-        $('.selectIcon').click(function(e){
-            var $target = $(this),
-                    address = $target.parent().attr('data-address');
-            ue.execCommand('selectsection', dirmap[address], true);
-        });
-        // 章节上移
-        $('.moveUp,.moveDown').click(function(e){
-            var $target = $(this),
-                    address = $target.parent().attr('data-address'),
-                    moveUp = $target.hasClass('moveUp') ? true:false;
-            if($target.hasClass('moveUp')) {
-                ue.execCommand('movesection', dirmap[address], dirmap[address].previousSection);
-            } else {
-                ue.execCommand('movesection', dirmap[address], dirmap[address].nextSection, true);
-            }
-        });
-        // 页面网上滚动时，让目录固定在顶部
-        $(window).scroll(function(e) {
-            if($('.left').offset().top < (document.body.scrollTop||document.documentElement.scrollTop)) {
-                $('#directionWrapper').addClass('fixTop');
-            } else {
-                $('#directionWrapper').removeClass('fixTop');
-            }
-        });
-
-
-        function traversal(section) {
-            var $list, $item, $itemContent, child, childList;
-            if(section.children.length) {
-                $list = $('<ul>');
-                for(var i = 0; i< section.children.length; i++) {
-                    child = section.children[i];
-                    var titleId = "title_"+(titleIndex++);
-                    $(child.dom).attr("id",titleId);
-                    //设置目录节点内容标签
-                    $itemContent = $('<div class="sectionItem"></div>').html($('<div class="itemTitle" style="color:blue;overflow: hidden;text-overflow:ellipsis; width:140px;float:left;white-space:nowrap;"><a href="#'+titleId+'" >' + child['title'] + '</a></div>'));
-                    $itemContent.attr('data-address', child['startAddress'].join(','));
-                    $itemContent.append($('<span class="deleteIcon">删</span>' +
-                            '<span class="selectIcon">选</span>' +
-                            '<span class="moveUp">↑</span>' +
-                            '<span class="moveDown">↓</span>'));
-                    dirmap[child['startAddress'].join(',')] = child;
-                    //设置目录节点容器标签
-                    $item = $('<li>');
-                    $item.append($itemContent);
-                    //继续遍历子节点
-                    if($item.children.length) {
-                        childList = traversal(child);
-                        childList && $item.append(childList);
-                    }
-                    $list.append($item);
+    function traversal(section) {
+        var $list, $item, $itemContent, child, childList;
+        if(section.children.length) {
+            $list = $('<ul>');
+            for(var i = 0; i< section.children.length; i++) {
+                child = section.children[i];
+                var titleId = "title_"+(titleIndex++);
+                $(child.dom).attr("id",titleId);
+                //设置目录节点内容标签
+                $itemContent = $('<div class="sectionItem"></div>').html($('<div class="itemTitle" style="color:blue;overflow: hidden;text-overflow:ellipsis; width:140px;float:left;white-space:nowrap;"><a href="#'+titleId+'" >' + child['title'] + '</a></div>'));
+                $itemContent.attr('data-address', child['startAddress'].join(','));
+                $itemContent.append($(
+//                            '<span class="deleteIcon">删</span>' +
+                        '<span class="selectIcon">选</span>'
+//                            '<span class="moveUp">↑</span>' +
+//                            '<span class="moveDown">↓</span>'
+                ) );
+                dirmap[child['startAddress'].join(',')] = child;
+                //设置目录节点容器标签
+                $item = $('<li>');
+                $item.append($itemContent);
+                //继续遍历子节点
+                if($item.children.length) {
+                    childList = traversal(child);
+                    childList && $item.append(childList);
                 }
-            }
-            return $list;
-        }
-    }
-
-    function insertHtml() {
-        var value = prompt('插入html代码', '');
-        ue.execCommand('insertHtml', value)
-    }
-    function createEditor() {
-        enableBtn();
-        UE.getEditor('editor');
-    }
-    function getAllHtml() {
-        alert(UE.getEditor('editor').getAllHtml())
-    }
-    function getContent() {
-        var arr = [];
-        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
-        arr.push("内容为：");
-        arr.push(UE.getEditor('editor').getContent());
-        alert(arr.join("\n"));
-    }
-    function getPlainTxt() {
-        var arr = [];
-        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
-        arr.push("内容为：");
-        arr.push(UE.getEditor('editor').getPlainTxt());
-        alert(arr.join('\n'))
-    }
-    function setContent(isAppendTo) {
-        var arr = [];
-        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
-        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
-        alert(arr.join("\n"));
-    }
-    function setDisabled() {
-        UE.getEditor('editor').setDisabled('fullscreen');
-        disableBtn("enable");
-    }
-
-    function setEnabled() {
-        UE.getEditor('editor').setEnabled();
-        enableBtn();
-    }
-
-    function getText() {
-        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
-        var range = UE.getEditor('editor').selection.getRange();
-        range.select();
-        var txt = UE.getEditor('editor').selection.getText();
-        alert(txt)
-    }
-
-    function getContentTxt() {
-        var arr = [];
-        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
-        arr.push("编辑器的纯文本内容为：");
-        arr.push(UE.getEditor('editor').getContentTxt());
-        alert(arr.join("\n"));
-    }
-    function hasContent() {
-        var arr = [];
-        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
-        arr.push("判断结果为：");
-        arr.push(UE.getEditor('editor').hasContents());
-        alert(arr.join("\n"));
-    }
-    function setFocus() {
-        UE.getEditor('editor').focus();
-    }
-    function deleteEditor() {
-        disableBtn();
-        UE.getEditor('editor').destroy();
-    }
-    function disableBtn(str) {
-        var div = document.getElementById('btns');
-        var btns = domUtils.getElementsByTagName(div, "button");
-        for (var i = 0, btn; btn = btns[i++];) {
-            if (btn.id == str) {
-                domUtils.removeAttributes(btn, ["disabled"]);
-            } else {
-                btn.setAttribute("disabled", "true");
+                $list.append($item);
             }
         }
+        return $list;
     }
-    function enableBtn() {
-        var div = document.getElementById('btns');
-        var btns = domUtils.getElementsByTagName(div, "button");
-        for (var i = 0, btn; btn = btns[i++];) {
+}
+
+function insertHtml() {
+    var value = prompt('插入html代码', '');
+    ue.execCommand('insertHtml', value)
+}
+function createEditor() {
+    enableBtn();
+    UE.getEditor('editor');
+}
+function getAllHtml() {
+    alert(UE.getEditor('editor').getAllHtml())
+}
+function getContent() {
+    var arr = [];
+    arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+    arr.push("内容为：");
+    arr.push(UE.getEditor('editor').getContent());
+    alert(arr.join("\n"));
+}
+function getPlainTxt() {
+    var arr = [];
+    arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+    arr.push("内容为：");
+    arr.push(UE.getEditor('editor').getPlainTxt());
+    alert(arr.join('\n'))
+}
+function setContent(isAppendTo) {
+    var arr = [];
+    arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+    UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+    alert(arr.join("\n"));
+}
+function setDisabled() {
+    UE.getEditor('editor').setDisabled('fullscreen');
+    disableBtn("enable");
+}
+
+function setEnabled() {
+    UE.getEditor('editor').setEnabled();
+    enableBtn();
+}
+
+function getText() {
+    //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+    var range = UE.getEditor('editor').selection.getRange();
+    range.select();
+    var txt = UE.getEditor('editor').selection.getText();
+    alert(txt)
+}
+
+function getContentTxt() {
+    var arr = [];
+    arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+    arr.push("编辑器的纯文本内容为：");
+    arr.push(UE.getEditor('editor').getContentTxt());
+    alert(arr.join("\n"));
+}
+function hasContent() {
+    var arr = [];
+    arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+    arr.push("判断结果为：");
+    arr.push(UE.getEditor('editor').hasContents());
+    alert(arr.join("\n"));
+}
+function setFocus() {
+    UE.getEditor('editor').focus();
+}
+function deleteEditor() {
+    disableBtn();
+    UE.getEditor('editor').destroy();
+}
+function disableBtn(str) {
+    var div = document.getElementById('btns');
+    var btns = domUtils.getElementsByTagName(div, "button");
+    for (var i = 0, btn; btn = btns[i++];) {
+        if (btn.id == str) {
             domUtils.removeAttributes(btn, ["disabled"]);
+        } else {
+            btn.setAttribute("disabled", "true");
         }
     }
+}
+function enableBtn() {
+    var div = document.getElementById('btns');
+    var btns = domUtils.getElementsByTagName(div, "button");
+    for (var i = 0, btn; btn = btns[i++];) {
+        domUtils.removeAttributes(btn, ["disabled"]);
+    }
+}
 
-    function customerValidate(){
-        var content = UE.getEditor('editor').getContent();
-        var clone = $("#directionContainer").clone();
-        $(".deleteIcon,.moveDown,.moveUp,.selectIcon",clone).remove();
-        $(".itemTitle",clone).css("width","100%");
-        var catalogue = clone.html();
-        alert(catalogue);
-        if(!content){
-            window.top.$.juiceDialog.warn('内容不能为空!');
-            return false;
-        }else{
-            $("#content").val(content);
-            $("#catalogue").val(catalogue);
-            return true;
+function customerValidate(){
+    var content = UE.getEditor('editor').getContent();
+    var clone = $("#directionContainer").clone();
+    $(".deleteIcon,.moveDown,.moveUp,.selectIcon",clone).remove();
+    $(".itemTitle",clone).css("width","100%");
+    var catalogue = clone.html();
+    if(!content){
+        window.top.$.juiceDialog.warn('内容不能为空!');
+        return false;
+    }else{
+        $("#content").val(content);
+        $("#catalogue").val(catalogue);
+        return true;
+    }
+}
+
+function uploadImage(){
+    var settings = {
+        height: 250,
+        url: "${ctx}/fileUpload/fileUploadInit.html?id=${bean.path.id}&type=1",
+        width: 500
+    };
+    $.extend(settings,options);
+    winDialog = $.juiceDialog.open(settings);
+}
+
+function uploadFiles(){
+    var docId = $("#docId").val();
+    var settings = {
+        height: 400,
+        url: "${ctx}/fileUpload/fileUploadInit.html?id=${bean.path.id}&type=2&docId="+docId,
+        width: 500
+    };
+    $.extend(settings,options);
+    winDialog = $.juiceDialog.open(settings);
+}
+
+function closeDialog(){
+    winDialog.close();
+}
+
+function setPicPath(data){
+    $("#attachPath").val(data[0].url);
+}
+
+function setFilePath(data,docId){
+    $("#docId").val(docId);
+    var htmlArr = [];
+    for(var i=0;i<data.length;i++){
+        htmlArr.push("<li style='float: left;padding-right: 20px;'><a href='${ctx}"+data[0].url+"' target='_blank'>"+data[i].original+"</a><img src='${ctx}/skin/icons/tc.png' style='cursor:pointer;' onclick='deleteFile("+data[i].attachmentId+",this);'></li>");
+    }
+    $("#files").append(htmlArr.join(""));
+}
+
+function deleteFile(id,btn){
+    $.ajax({
+        type: 'POST',
+        url: "${ctx}/fileUpload/deleteAttachment.do?catagoryId=${bean.path.id}",
+        data: {id:id},
+        dataType: 'json',
+        success: function(ret) {
+            $(btn).parent().remove();
+            alert(ret.msg);
+        },
+        error: function(xmlR, status, e) {
+            window.top.$.juiceDialog.error("[" + e + "]" + xmlR.responseText);
         }
-    }
-
-    function uploadImage(){
-        var settings = {
-            height: 250,
-            url: "${ctx}/fileUpload/fileUploadInit.html?id=${bean.path.id}&type=1",
-            width: 500
-        };
-        $.extend(settings,options);
-        winDialog = $.juiceDialog.open(settings);
-    }
-
-    function uploadFiles(){
-        var docId = $("#docId").val();
-        var settings = {
-            height: 400,
-            url: "${ctx}/fileUpload/fileUploadInit.html?id=${bean.path.id}&type=2&docId="+docId,
-            width: 500
-        };
-        $.extend(settings,options);
-        winDialog = $.juiceDialog.open(settings);
-    }
-
-    function closeDialog(){
-        winDialog.close();
-    }
-
-    function setPicPath(data){
-        $("#attachPath").val(data[0].url);
-    }
-
-    function setFilePath(data,docId){
-        $("#docId").val(docId);
-        var htmlArr = [];
-        for(var i=0;i<data.length;i++){
-            htmlArr.push("<li style='float: left;padding-right: 20px;'><a href='${ctx}"+data[0].url+"' target='_blank'>"+data[i].original+"</a><img src='${ctx}/skin/icons/tc.png' style='cursor:pointer;' onclick='deleteFile("+data[i].attachmentId+",this);'></li>");
-        }
-        $("#files").append(htmlArr.join(""));
-    }
-
-    function deleteFile(id,btn){
-        $.ajax({
-            type: 'POST',
-            url: "${ctx}/fileUpload/deleteAttachment.do?catagoryId=${bean.path.id}",
-            data: {id:id},
-            dataType: 'json',
-            success: function(ret) {
-                $(btn).parent().remove();
-                alert(ret.msg);
-            },
-            error: function(xmlR, status, e) {
-                window.top.$.juiceDialog.error("[" + e + "]" + xmlR.responseText);
-            }
-        });
-    }
+    });
+}
 </script>
