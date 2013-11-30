@@ -4,9 +4,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="common/header.jsp"%>
+    <link href="${ctx}/js/ueditor/themes/default/css/ueditor.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="${ctx}/pages/view.js"></script>
     <style type="text/css">
         .submitCss{background: url("../skin/images/tj.jpg") no-repeat;}
+    </style>
+    <style>
+        #directionContainer ul{
+            margin:0px;
+            padding: 0px 0px 0px 20px;
+        }
+        .main{
+            width:1024px;
+        }
+
+        #directionWrapper{
+            padding:15px 7px;
+            width:234px;
+            border:1px solid #CCC;
+        }
+        .directionTitle{
+            font-weight: bold;
+            font-size: 14px;
+            padding-bottom:3px;
+            border-bottom: 1px dashed #ccc;
+        }
+        .sectionItem{
+            height:20px;
+            padding: 4px;
+        }
+        .sectionItem span{
+            *zoom:1;
+            display:inline-block;
+        }
+        .itemTitle span{
+            color: #0000ff;
+            float:left;
+        }
+
+
+        /*.fixTop{*/
+            /*position: fixed;*/
+            /*top: -1px;*/
+        /*}*/
     </style>
 </head>
 
@@ -20,7 +60,7 @@
     <div class="leftzfwk">
         <div class="leftzf">
             <div class="title">
-                <div class="one"><c:out value="${paths}"></c:out></div>
+                <div class="one" style="overflow: hidden;text-overflow:ellipsis; width:40%;white-space:nowrap;font-size: 14px;font-weight: bold"><c:out value="${paths}"></c:out></div>
                 <div class="two" id="addCollect" style="cursor: pointer;vertical-align: top;padding-top: 2px;">
                     <table width="100%">
                         <tr>
@@ -36,16 +76,26 @@
             </div>
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
-                <p class="text" align="center" id="title"  style="font-size: 20px;"> ${bean.title}</p>
+                <p class="text" align="center" id="title"  style="font-size: 20px;color:blue;overflow: hidden;text-overflow:ellipsis; width:40%;margin-left:30%;white-space:nowrap;"> ${bean.title}</p>
                 <c:if test="${not empty bean.keyWord}">
                 <p>
                     关键字：${bean.keyWord}<br />
                 </p>
                 </c:if>
             </div>
+            <div id="directionContainer" style="border: dashed 1px blue;float: left;width: 50%;">
+                <div style="color: #000000;font-size: 14px;font-weight: bold;text-align: center">目录:</div>
+                <div>
+                    ${bean.catalogue}
+                </div>
+
+            </div>
             <div class="mainmuen">
                 ${bean.content}
             </div>
+
+
+
     <c:if test="${not empty docAttachmentses}">
             <div>
                 <div>
