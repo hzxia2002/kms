@@ -62,7 +62,7 @@
                 <div class="two" id="addCollect" style="cursor: pointer;"></div>
             </div>
             <div class="main">
-                <p class="text" align="center" id="title"  style="font-size: 20px;color:blue;overflow: hidden;text-overflow:ellipsis; width:40%;margin-left:30%;white-space:nowrap;"> ${bean.title}</p>
+                <p class="text" align="center" id="title"  style="font-size: 20px;color:blue;"> ${bean.title}</p>
                 <p>
                     关键字：${bean.keyWord}<br />
                 </p>

@@ -76,7 +76,7 @@
             </div>
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
-                <p class="text" align="center" id="title"  style="font-size: 20px;color:blue;overflow: hidden;text-overflow:ellipsis; width:40%;margin-left:30%;white-space:nowrap;"> ${bean.title}</p>
+                <p class="text" align="center" id="title"  style="font-size: 20px;color:blue;"> ${bean.title}</p>
                 <c:if test="${not empty bean.keyWord}">
                 <p>
                     关键字：${bean.keyWord}<br />
