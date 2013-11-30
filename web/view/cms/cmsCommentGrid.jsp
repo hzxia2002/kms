@@ -77,7 +77,7 @@
             columns: [
 				{display: 'ID', name: 'id', width: 50,hide:true },
 				{display: '评论知识点', name: 'knowledge.title', width: 300,hide:false },
-				{display: '评论内容', name: 'content', width: 400},
+				{display: '评论内容', name: 'content', width: 400, showAsXml: true},
 				{display: '评论人', name: 'replyer.displayName', width: 100,hide:false },
 				{display: '评论时间', name: 'replyTime', width: 150,hide:false },
 				{display: '查看', name: 'view', width: 60,hide:false, render: titleRender }
