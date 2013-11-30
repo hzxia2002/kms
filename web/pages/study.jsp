@@ -57,7 +57,7 @@
                         <td><fmt:formatDate value="${bean.updateTime}" type="both" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
                     </tr>
                     <tr>
-                        <td align="left">创建者：</td>
+                        <td align="right">创建者：</td>
                         <td>${bean.createUser}</td>
                     </tr>
                 </table>
