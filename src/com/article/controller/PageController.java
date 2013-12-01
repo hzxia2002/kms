@@ -178,6 +178,9 @@ public class PageController extends BaseCRUDActionController {
         List rows = page.getRows();
         if(rows.size()>3){
             rows = rows.subList(0, 3);
+            model.addAttribute("hasMore",true);
+        }else{
+            model.addAttribute("hasMore",false);
         }
         model.addAttribute("recommends",rows);
 
@@ -196,6 +199,18 @@ public class PageController extends BaseCRUDActionController {
         //首页样式控制
         model.addAttribute("type","1");
         return "pages/index";
+    }
+
+    @RequestMapping
+    public String more(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
+        Page page = getPage(pageNo, pageSize);
+        page.setAutoCount(true);
+        //取推荐主题
+        String hql = "from CmsArticle t where t.path.path='"+Constants.TJZT_KMS+"' and t.isPublished=1 and t.isValid=1 and t.path.isValid=1 order by t.publishTime desc";
+        page = articleService.findByPage(page, hql);
+
+        model.addAttribute("page",page);
+        return "pages/more";
     }
 
 
