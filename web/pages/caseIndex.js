@@ -66,7 +66,7 @@ function loadContent(id,pageNo){
                 htmlArr.push( '       <span>'+datas[i].author+'</span>');
                 htmlArr.push( '    </div>');
                 htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;left:15px;" >');
-                htmlArr.push( '       <span>侦查办案民警 法制员<br />上海市公安局经侦总队</span>');
+//                htmlArr.push( '       <span>侦查办案民警 法制员<br />上海市公安局经侦总队</span>');
                 htmlArr.push( '    </div>');
                 htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;right:15px;" >');
                 if(context_path+datas[i].path){

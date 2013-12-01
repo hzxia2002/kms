@@ -13,8 +13,11 @@
 </div>
 <div class="clr"></div>
 <div class="ContentHome">
-    <div class="one">
-        <div class="zttj_title">推荐主题</div>
+    <div class="one" style="position: relative">
+        <div class="zttj_title" style="float: left">推荐主题</div>
+        <c:if test="${hasMore}">
+            <div style="float: right;position: absolute;top:6px;right: 6px;font-weight: bold;cursor: pointer" ><a href="${ctx}/page/more.html" style="color: #0000ff;">更多>></a></div>
+        </c:if>
         <c:forEach var="bean" items="${recommends}">
             <div class="zttj_main">
                 <div class="left"><img src="${ctx}/${bean.attachPath}" width="208" height="121" /></div>
@@ -34,7 +37,7 @@
                 <c:forEach var="bean" items="${hotKmsRows}">
                     <ul class="line">
                         <li><img src="../skin/images/dit.jpg" style="float: left;margin-top: 10px"/>&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">
-                        <div style="color:blue;text-overflow:ellipsis; width:308px;margin-left: 12px;overflow: hidden;float:left;white-space: nowrap;">${bean.title}</div>
+                            <div style="color:blue;text-overflow:ellipsis; width:308px;margin-left: 12px;overflow: hidden;float:left;white-space: nowrap;">${bean.title}</div>
                         </a>&nbsp;&nbsp;（点击量：${bean.visitTimes}次）
                         </li>
                     </ul>
