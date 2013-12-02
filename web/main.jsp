@@ -163,7 +163,7 @@
 <div  class="l-topmenu">
     <table border="0" cellpadding="0" cellspacing="0" style="height: 62px;width:100% ">
         <tr>
-            <td style="height: 42px; padding-top: 2px;"><img src="${ctx}/skin/images/title_1_1.gif" width="229" style="height:40px;" /></td>
+            <td style="height: 42px; padding-top: 2px;"><img src="${ctx}/skin/images/title.png" width="229" style="height:40px;" /></td>
             <td align="right">
                 <table cellpadding=3 width="180">
                     <tr>
