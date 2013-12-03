@@ -250,7 +250,7 @@ var UEDITOR_HOME_URL = "${ctx}";
 var titleIndex = 0;
 var options = {
     imageUrl: "${ctx}/fileUpload/uploadImage.do?id=${bean.path.id}",
-    imagePath:"${ctx}/",
+    imagePath:"${ctx}",
 
     imageInitUrl:"${ctx}/fileUpload/fileUploadInit.do?id=${bean.path.id}&type=3",
 
