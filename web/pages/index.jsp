@@ -15,9 +15,9 @@
 <div class="ContentHome">
     <div class="one" style="position: relative">
         <div class="zttj_title" style="float: left">推荐主题</div>
-        <c:if test="${hasMore}">
+        <%--<c:if test="${hasMore}">--%>
             <div style="float: right;position: absolute;top:6px;right: 6px;font-weight: bold;cursor: pointer" ><a href="${ctx}/page/more.html" style="color: #0000ff;">更多>></a></div>
-        </c:if>
+        <%--</c:if>--%>
         <c:forEach var="bean" items="${recommends}">
             <div class="zttj_main">
                 <div class="left"><img src="${ctx}/${bean.attachPath}" width="208" height="121" /></div>
