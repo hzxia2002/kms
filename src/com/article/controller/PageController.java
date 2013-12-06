@@ -174,24 +174,24 @@ public class PageController extends BaseCRUDActionController {
         //取推荐主题
         String hql = "from CmsArticle t where t.path.path='"+Constants.TJZT_KMS+"' and t.isPublished=1 and t.isValid=1 and t.path.isValid=1 order by t.publishTime desc";
         Page page = new Page();
+        page.setPage(1);
+        page.setPageSize(3);
         page = articleService.findByPage(page, hql);
+
         List rows = page.getRows();
-        if(rows.size()>3){
-            rows = rows.subList(0, 3);
-            model.addAttribute("hasMore",true);
-        }else{
-            model.addAttribute("hasMore",false);
-        }
+
         model.addAttribute("recommends",rows);
 
         //取最新知识
         hql = "from CmsArticle t  where t.isPublished=1 and t.isValid=1 and t.path.isValid=1 order by t.publishDate desc";
+        page.setPageSize(10);
         page = articleService.findByPage(page, hql);
         List newKmsRows = page.getRows();
         model.addAttribute("newKmsRows",newKmsRows);
 
         //取热点知识
         hql = "from CmsArticle t where t.isPublished=1 and t.isValid=1 and t.path.isValid=1 order by t.visitTimes desc";
+        page.setPageSize(10);
         page = articleService.findByPage(page, hql);
         List hotKmsRows = page.getRows();
         model.addAttribute("hotKmsRows",hotKmsRows);

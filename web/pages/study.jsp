@@ -73,8 +73,8 @@
                     关键字：${bean.keyWord}<br />
                 </p>
             </div>
-            <div id="directionContainer" style="border: dashed 1px blue;float: left;width: 50%;">
-                <div style="color: #000000;font-size: 14px;font-weight: bold;text-align: center">目录:</div>
+            <div id="directionContainer" style="border: dashed 1px blue;float: left;width: 75%;">
+                <div style="color: #000000;font-size: 14px;font-weight: bold;text-align: left">目录:</div>
                 <div>
                     ${bean.catalogue}
                 </div>
