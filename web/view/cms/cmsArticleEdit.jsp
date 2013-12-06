@@ -344,6 +344,9 @@ var resetHandler = function(){
                 var titleId = "title_"+(titleIndex++);
                 $(child.dom).attr("id",titleId);
                 //设置目录节点内容标签
+                if(child['title'].indexOf("span")>=0){
+                    child['title'] = $(child['title']).html();
+                }
                 $itemContent = $('<div class="sectionItem"></div>').html($('<div class="itemTitle" style="color:blue;overflow: hidden;text-overflow:ellipsis; width:140px;float:left;white-space:nowrap;"><a href="#'+titleId+'" >' + child['title'] + '</a></div>'));
                 $itemContent.attr('data-address', child['startAddress'].join(','));
                 $itemContent.append($(
