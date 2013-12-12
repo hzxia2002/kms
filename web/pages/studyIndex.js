@@ -1,3 +1,4 @@
+var tree;
 $(function(){
 
     $.jui.controls.Tree.prototype.expandAll = function(){
@@ -9,7 +10,7 @@ $(function(){
         url: context_path+"/page/studyTree.do",
         dataType: "json",
         success:function(datas){
-            var tree = $("#catalogTree").juiceTree({
+            tree = $("#catalogTree").juiceTree({
                 data : datas,
                 checkbox: false,
                 slide: false,
@@ -103,5 +104,44 @@ function deleteCollect(catagoryId,pageNo,id){
         });
     }
 
+}
+
+function addCatalogue(){
+    var url = context_path+"/page/catagoryInit.do";
+    commonAddOrUpdate(url,"cmsCollectCatagoryGrid",null,"cmsCollectCatagoryEditForm",{title:"新增收藏夹",height:300,width:500,callback:refreshNode});
+}
+
+function editCatalogue(){
+    var selectNode =  tree.getSelected();
+    if(selectNode&&selectNode.data.id>0){
+        if(selectNode.data.type=="no_del"){
+            alert("系统默认收藏夹,您不能修改");
+            return;
+        }
+        var url = context_path+"/page/catagoryInit.do?id="+selectNode.data.id;
+        commonAddOrUpdate(url,"cmsCollectCatagoryGrid",null,"cmsCollectCatagoryEditForm",{title:"编辑收藏夹",height:300,width:500,callback:refreshNode});
+    }else{
+        alert("请选择收藏夹节点")
+    }
+}
+
+function refreshNode(){
+    window.location.href = context_path+"/page/studyIndex";
+}
+
+function delCatalogue(){
+    var selectNode =  tree.getSelected();
+    if(selectNode&&selectNode.data.id>0){
+        $.ajax({
+            url:context_path+"/page/deleteCatalogue.do?id="+selectNode.data.id,
+            dataType: "json",
+            success:function(ret){
+                alert(ret.msg);
+                refreshNode();
+            }
+        });
+    }else{
+        alert("请选择收藏夹节点")
+    }
 }
 
