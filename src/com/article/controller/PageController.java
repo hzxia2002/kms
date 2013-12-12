@@ -18,14 +18,18 @@ import com.article.util.Constants;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.security.util.SpringSecurityUtils;
+import com.comet.core.session.UserSession;
+import com.comet.core.utils.ReflectionUtils;
 import com.comet.system.daoservice.SysUserService;
 import com.comet.system.tree.Node;
 import com.comet.system.tree.TreeBranch;
 import com.comet.system.tree.ZTreeNode;
+import com.comet.system.utils.PrivilegeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -359,10 +363,14 @@ public class PageController extends BaseCRUDActionController {
         TreeBranch treeBranch = new TreeBranch();
         type = StringUtils.defaultString(type, "");
 
-        String hql = "from CmsCollectCatagory where parent.id is null and isValid=1 order by treeId";
+        String hql = "from CmsCollectCatagory where parent.id is null ";
         if(StringUtils.isNotEmpty(uid)) {
-            hql = "from CmsCollectCatagory where parent.id = " + uid + " and isValid=1 order by treeId";
+            hql = "from CmsCollectCatagory where parent.id = " + uid + "";
         }
+        if(!PrivilegeUtils.isSysAdmin()){
+            hql += " and (user_id is null or user_id="+SpringSecurityUtils.getCurrentUser().getId()+")";
+        }
+        hql += " order by treeId";
 
         List<CmsCollectCatagory> cmsCollectCatagorys = cmsCollectCatagoryService.findByQuery(hql);
 
@@ -502,6 +510,9 @@ public class PageController extends BaseCRUDActionController {
             }else{
                 map.put("pid",-1L);
             }
+            if(cmsCollectCatagory.getType().equals("0")||StringUtils.isEmpty(cmsCollectCatagory.getUserId())){
+                map.put("type","no_del");
+            }
             map.put("isLoaded",true);
             treeDataList.add(map);
         }
@@ -640,4 +651,37 @@ public class PageController extends BaseCRUDActionController {
         return "pages/comment";
     }
 
+    @RequestMapping
+    public String catagoryInit(Model model, CmsCollectCatagory entity) throws Exception {
+        try {
+            if(entity != null && entity.getId() != null) {
+                entity = cmsCollectCatagoryService.get(entity.getId());
+            }
+            model.addAttribute("bean", entity);
+        } catch (Exception e) {
+            log.error("error", e);
+        }
+
+        return "pages/cmsCollectCatagoryEdit";
+    }
+
+    @RequestMapping
+    public void deleteCatalogue(HttpServletResponse response,Long id) throws Exception {
+        try {
+            CmsCollectCatagory cmsCollectCatagory = cmsCollectCatagoryService.get(id);
+            if(cmsCollectCatagory.getIsLeaf()){
+                if(cmsCollectCatagory.getUserId()!=null&&cmsCollectCatagory.getUserId().equals(SpringSecurityUtils.getCurrentUser().getId().toString())){
+                    cmsCollectCatagoryService.delete(cmsCollectCatagory);
+                    sendSuccessJSON(response, "删除成功");
+                } else{
+                    sendSuccessJSON(response, "改收藏夹为默认收藏夹,不能删除");
+                }
+
+            } else{
+                sendSuccessJSON(response, "请删除子目录后再删除");
+            }
+        } catch (Exception e) {
+            sendSuccessJSON(response, "请先删除收藏夹里的文章");
+        }
+    }
 }

@@ -145,9 +145,7 @@ public class CmsCollectCatagoryController extends BaseCRUDActionController<CmsCo
             String[] columns = new String[]{
                     "id",
                     "name",
-                    "code",
-                    "type",
-                    "parent"
+                    "code"
             };
 
             CmsCollectCatagory target;
@@ -155,6 +153,9 @@ public class CmsCollectCatagoryController extends BaseCRUDActionController<CmsCo
                 target = cmsCollectCatagoryService.get(entity.getId());
 
                 ReflectionUtils.copyBean(entity, target, columns);
+                if(entity.getParent()!=null){
+                    target.setParent(entity.getParent());
+                }
             } else {
                 target = entity;
                 if(!PrivilegeUtils.isSysAdmin()){
