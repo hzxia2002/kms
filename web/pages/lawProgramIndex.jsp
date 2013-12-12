@@ -16,7 +16,7 @@
     <div class="left">
         <div class="title">执法办案程序库</div>
         <div class="tree">
-            <ul id="catalogTree" style="margin-top:3px;overflow: auto"></ul>
+            <ul id="catalogTree" style="margin-top:3px;overflow-x: auto;overflow-y: hidden"></ul>
         </div>
     </div>
     <div class="right">
