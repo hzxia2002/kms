@@ -22923,7 +22923,10 @@ UE.plugin.register('section', function (){
     return {
         bindMultiEvents:{
             type: 'aftersetcontent aftergetscene afterscencerestore',
-            handler: function(){
+            handler: function(eventName){
+                if(eventName=="aftergetscene"){
+                    return;
+                }
                 me.fireEvent('updateSections');
             }
         },
