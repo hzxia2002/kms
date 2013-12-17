@@ -10,7 +10,7 @@
     <http auto-config="true" access-denied-page="/error/permissionDeny.jsp"
           access-decision-manager-ref="myAccessDecisionManager">
         <intercept-url pattern="/sys*/**" access="ROLE_USER"/>
-        <intercept-url pattern="/main.jsp*" access="ROLE_USER, ROLE_SYS_ADMIN"/>
+        <!--<intercept-url pattern="/main.jsp*" access="ROLE_USER, ROLE_SYS_ADMIN"/>-->
         <intercept-url pattern="/home/**.do*" access="ROLE_USER"/>
         <intercept-url pattern="/page/**.do*" access="ROLE_USER"/>
         <intercept-url pattern="/admin/**.do*" access="ROLE_USER"/>
