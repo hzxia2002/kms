@@ -51,6 +51,7 @@ function loadContent(id,pageNo){
         success:function(ret){
             var datas = ret.data;
             var total = ret.total;
+            var records = ret.records;
             var htmlArr = [];
             var pNo = ret.page;
             for(var i=0;i<datas.length;i++){
@@ -59,22 +60,22 @@ function loadContent(id,pageNo){
                     '</div><span style="color:black;font-size:12px;float:left;">&nbsp;['+datas[i]["publishDate"].substring(0,10)+']</span>'+'</a></li>');
             }
             $("#content").html(htmlArr.join(""));
-            createPage(total,pNo);
+            createPage(total,pNo,records);
         }
     });
 }
 
 
-function createPage(total,pageNo){
+function createPage(total,pageNo,records){
     var htmlArr = [];
-    if(total>1){
+    if(total>0){
         var min = 1;
         var max = total>=5?5:total;
         if(pageNo>5){
             min = pageNo - 4;
             max = pageNo;
         }
-        htmlArr.push('<span style="float:left;">共计'+total+'条记录</span>');
+        htmlArr.push('<span style="float:left;">共计'+records+'条记录</span>');
         if(min>1){
             htmlArr.push('<span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(\''+nodeId+'\','+(1)+')" >'+'第一页'+'</a></span>');
             htmlArr.push('<span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(\''+nodeId+'\','+(min-1)+')" >'+'上一页'+'</a></span>');
