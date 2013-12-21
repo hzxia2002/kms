@@ -2,6 +2,8 @@ package com.article.util;
 
 import org.apache.poi.hslf.HSLFSlideShow;
 import org.apache.poi.hslf.model.Slide;
+import org.apache.poi.hslf.model.TextRun;
+import org.apache.poi.hslf.usermodel.RichTextRun;
 import org.apache.poi.hslf.usermodel.SlideShow;
 
 import java.awt.*;
@@ -42,6 +44,18 @@ public class PPTConvertHander extends Thread{
             Dimension pgsize = ppt.getPageSize();
             Slide[] slide = ppt.getSlides();
             for (int i = 0; i < slide.length; i++) {
+                TextRun[] truns = slide[i].getTextRuns();
+                for (TextRun trun : truns) {
+                    RichTextRun[] rtruns = trun.getRichTextRuns();
+                    for (RichTextRun rtrun : rtruns) {
+                        int index = rtrun.getFontIndex();
+                        String name = rtrun.getFontName();
+                        rtrun.setFontIndex(1);
+                        rtrun.setFontName("宋体");
+                        System.out.println(rtrun.getText());
+                    }
+                }
+
                 BufferedImage img = new BufferedImage(pgsize.width, pgsize.height, BufferedImage.TYPE_INT_RGB);
                 Graphics2D graphics = img.createGraphics();
                 //clear the drawing area
