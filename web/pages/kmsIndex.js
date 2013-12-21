@@ -89,5 +89,7 @@ function createPage(total,pageNo,records){
             htmlArr.push('<span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(\''+nodeId+'\','+(total)+')" >'+'最后一页'+'</a></span>');
         }
         $("#page").html(htmlArr.join(""));
+    }else{
+        $("#page").html('<span style="float:left;">共计'+records+'条记录</span>');
     }
 }
