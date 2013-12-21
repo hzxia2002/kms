@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="SurOptions"
+		table="sur_options"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">sur_options</meta>
+        <meta attribute="tableComment">选项</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+			name="id"
+			type="long"
+			column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="content"
+			column="CONTENT"
+			type="string"
+			not-null="false"
+			length="500"
+        >
+            <meta attribute="ColumnName">CONTENT</meta>
+            <meta attribute="ColumnComment">选项描述</meta>
+        </property>
+
+		<property
+			name="indexNo"
+			column="INDEX_NO"
+			type="string"
+			not-null="false"
+			length="20"
+        >
+            <meta attribute="ColumnName">INDEX_NO</meta>
+            <meta attribute="ColumnComment">编号</meta>
+        </property>
+
+		<many-to-one
+			name="question"
+			column="QUESTION_ID"
+			class="SurQuestion"
+			not-null="false"
+		>
+		</many-to-one>
+	
+<!--
+
+		<set name="surAnswers" inverse="true">
+			<key column="OPTION_ID"/>
+			<one-to-many class="SurAnswer"/>
+		</set>
+
+-->
+
+
+	</class>	
+    <query name="suroptions_all_data_query">
+        <![CDATA[FROM SurOptions]]>
+    </query>
+</hibernate-mapping>

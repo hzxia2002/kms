@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="SurQuestion"
+		table="sur_question"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">sur_question</meta>
+        <meta attribute="tableComment">调查题目</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+			name="id"
+			type="long"
+			column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="title"
+			column="TITLE"
+			type="string"
+			not-null="false"
+			length="1000"
+        >
+            <meta attribute="ColumnName">TITLE</meta>
+            <meta attribute="ColumnComment">题干</meta>
+        </property>
+
+		<property
+			name="type"
+			column="TYPE"
+			type="string"
+			not-null="false"
+			length="2"
+        >
+            <meta attribute="ColumnName">TYPE</meta>
+            <meta attribute="ColumnComment">题型</meta>
+        </property>
+
+		<property
+			name="remark"
+			column="REMARK"
+			type="string"
+			not-null="false"
+			length="200"
+        >
+            <meta attribute="ColumnName">REMARK</meta>
+            <meta attribute="ColumnComment">备注</meta>
+        </property>
+
+		<many-to-one
+			name="questionary"
+			column="QUESTIONARY_ID"
+			class="SurQuestionary"
+			not-null="false"
+		>
+		</many-to-one>
+	
+<!--
+
+		<set name="surOptions" inverse="true">
+			<key column="QUESTION_ID"/>
+			<one-to-many class="SurOptions"/>
+		</set>
+
+-->
+<!--
+
+		<set name="surAnswers" inverse="true">
+			<key column="QUESTION_ID"/>
+			<one-to-many class="SurAnswer"/>
+		</set>
+
+-->
+
+
+	</class>	
+    <query name="surquestion_all_data_query">
+        <![CDATA[FROM SurQuestion]]>
+    </query>
+</hibernate-mapping>
