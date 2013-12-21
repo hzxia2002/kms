@@ -208,6 +208,7 @@ a:active { color: #333;}
     line-height: 25px;
 }
 .ContentHome .leftzf .main{
+    margin-top: -20px;
     width: 807px;
     float:left;
     font-size: 14px;
@@ -765,14 +766,178 @@ text-align: center;
     -webkit-box-shadow:2px 2px 4px #d7e2ee;
     box-shadow:2px 2px 4px #d7e2ee;
     *filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color="#d7e2ee");
-height: 88px;
-width: 118px;
-margin-left: auto;
-margin-right: auto;
-
-    }
+    height: 88px;
+    width: 118px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .shadow .txt{
     padding-top: 40px;
     font-size: 12px;
     color: #3d4e6a;
+}
+
+h1.title1 {
+    font-family: 微软雅黑, 黑体, Verdana;
+    font-size: 34px;
+    line-height: 34px;
+    margin-bottom: 18px;
+    color: #000;
+    font-weight: 500;
+    padding-top: 22px;
+    z-index: 0;
+    position: relative;
+    overflow: hidden
+}
+
+h1.title1 .lemmaTitleH1 {
+    float: left;
+    height: 100%;
+    padding: 0 0 5px 0
+}
+
+h1.sub-title {
+    font-size: 25px;
+    margin-bottom: 0;
+    margin-top: 0
+}
+
+h1 span[style] {
+    font-size: 24px !important;
+    font-family: 微软雅黑,黑体,Verdana !important;
+    font-weight: 500 !important;
+    line-height: 22px !important;
+}
+
+.z-catalog {
+    z-index: 0;
+    position: relative;
+    /*background: #fbfbfb url(/static/lemma/view3/img/cate_top_06_391b8d2d.png) 0 0 no-repeat;*/
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+    padding-top: 6px;
+    clear: both
+}
+
+.z-catalog .hideholder .hide {
+    visibility: hidden
+}
+
+.z-catalog h2 {
+    float: left;
+    width: 83px;
+    height: 100%;
+    background: #fbfbfb;
+    font-size: 20px;
+    color: #333;
+    font-family: 微软雅黑, 黑体, sans-serif;
+    padding-top: 22px;
+    line-height: 22px;
+    font-weight: 200;
+    text-align: center
+}
+
+.z-catalog h2 span {
+    border-bottom: 5px solid #64a0de;
+    display: inline-block;
+    padding-bottom: 8px
+}
+
+.z-catalog-i1 {
+    position: relative;
+    padding-left: 25px;
+    display: block
+}
+
+.z-catalog-i1 a {
+    font-size: 16px;
+    font-weight: 500;
+    color: #136ec2;
+    text-decoration: none;
+    background-color: #fff;
+    padding-right: 10px;
+    font-family: 微软雅黑, 黑体
+}
+
+.z-catalog-i1 a:link {
+    color: #136ec2
+}
+
+.z-catalog-i1 a:visited {
+    color: #136ec2
+}
+
+.z-catalog-i1 a:hover {
+    color: #136ec2;
+    text-decoration: underline
+}
+
+.z-catalog dl {
+    border-left: 1px solid #ebebeb;
+    padding: 6px 0 6px 0;
+    background: #fff
+}
+
+.z-catalog-i2n {
+    color: #aaa;
+    margin-right: 7px
+}
+
+.z-catalog .hold-catalog-li {
+    line-height: 24px
+}
+
+.z-catalog .er {
+    font-size: 12px;
+    color: #333;
+    padding: 3px 0 2px 26px;
+    line-height: 16px
+}
+
+.z-catalog .hold-catalog-li a {
+    color: #333;
+    text-decoration: none
+}
+
+.z-catalog .hold-catalog-li a:link {
+    color: #333
+}
+
+.z-catalog .hold-catalog-li a:visited {
+    color: #333
+}
+
+.z-catalog .hold-catalog-li a:hover {
+    color: #136ec2;
+    text-decoration: underline
+}
+
+.z-catalog .hold-catalog-li a:active {
+    color: #333
+}
+
+.z-catalog .hideholder {
+    overflow: hidden;
+    height: 100%
+}
+
+.z-catalog .holder2 {
+    left: -9999px;
+    width: 100%;
+    position: absolute;
+    top: 62px;
+    z-index: 999;
+    padding-left: 0;
+    background-color: #fff
+}
+
+.z-catalog .holder2 dd {
+    padding-left: 70px
+}
+
+.z-catalog .holder2 dd.lastone {
+    text-indent: 0;
+    bottom: 0;
+    padding-left: 0
 }

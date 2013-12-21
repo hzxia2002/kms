@@ -12,11 +12,9 @@
         <intercept-url pattern="/sys*/**" access="ROLE_USER"/>
         <!--<intercept-url pattern="/main.jsp*" access="ROLE_USER, ROLE_SYS_ADMIN"/>-->
         <intercept-url pattern="/home/**.do*" access="ROLE_USER"/>
-        <intercept-url pattern="/page/**.do*" access="ROLE_USER"/>
+        <intercept-url pattern="/page/**" access="ROLE_USER"/>
         <intercept-url pattern="/admin/**.do*" access="ROLE_USER"/>
         <intercept-url pattern="/view/**" access="ROLE_USER"/>
-        <intercept-url pattern="/mon*/**" access="ROLE_USER"/>
-        <intercept-url pattern="/proj*/**" access="ROLE_USER"/>
         <intercept-url pattern="/imageCode.jsp*" filters="none"/>
         <intercept-url pattern="/monitor.jsp*" filters="none"/>
         <intercept-url pattern="/theme/**" filters="none"/>

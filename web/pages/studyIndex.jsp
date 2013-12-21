@@ -24,7 +24,7 @@
                 <ul id="catalogTree" style="margin-top:3px;overflow: auto"></ul>
             </div>
         </div>
-        <div class="leftxxyh1"><img src="../skin/images/ksdl.jpg" width="212px" height="39" /></div>
+        <div class="leftxxyh1"><a href="http://10.15.69.230/wsks/wsks/wsks.asp" target="_blank"><img src="../skin/images/ksdl.jpg" width="212px" height="39" border="0"/></a></div>
     </div>
     <div class="rightxxyh" id="studyContent">
 
