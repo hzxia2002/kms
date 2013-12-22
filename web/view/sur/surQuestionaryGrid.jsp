@@ -8,18 +8,40 @@
 <body style="width: 100%">
 
 <div id="surQuestionaryLayout" style="width:100%;overflow-y: hidden;overflow-x: hidden;margin:0; padding:0;">
-    <div position="left"  title="调查表树" id="accordion1">
-        <ul id="surQuestionaryTree" style="margin-top:3px;"></ul>
-    </div>
     <div position="center">
         <div id="surQuestionaryQuery" title="查询窗口"  icon="search">
             <form id="surQuestionaryForm" action="">
                 <table style="width: 100%">
                     <tr>
-					  <td>
-                         <input type="button" value="查询" class="btn_Search" onclick="javascript:search('surQuestionaryGrid','surQuestionaryForm');"/>&nbsp;
-                      </td>
-					 </tr>
+                        <td width="10%" align="right">
+                            问卷名称：
+                        </td>
+                        <td width="20%">
+                            <input type="text" value="" class="table_input" id="title" name="title" op="like" entity="t"/>
+                        </td>
+
+                        <td width="10%" align="right">
+                            发起人：
+                        </td>
+                        <td width="20%">
+                            <input type="text" value="" class="table_input" id="sponsor" name="sponsor" op="like" entity="t"/>
+                        </td>
+                        <td width="10%" align="right">
+                            创建时间：
+                        </td>
+                        <td width="100" align="right">
+                            <input type="text" value="" class="jui-dateEditor" name="createTime" op="greatAndEq" entity="t" dType="date"/>
+                        </td>
+                        <td width="10" align="center">
+                            ~
+                        </td>
+                        <td align="left" width="100">
+                            <input type="text" value="" class="jui-dateEditor" name="createTime" op="lessAndEq" entity="t" dType="date"/>
+                        </td>
+                        <td>
+                            <input type="button" value="查询" class="btn_Search" onclick="javascript:search('surQuestionaryGrid','surQuestionaryForm');"/>&nbsp;
+                        </td>
+                    </tr>
                 </table>
                 <div style="display: none;height:30px" id="advanced_condition">
 
@@ -36,6 +58,7 @@
 
 <script type="text/javascript">
     $(function(){
+        $.jui.parse();
         //布局
         $("#surQuestionaryLayout").juiceLayout({ leftWidth: 190 , onAfterResize:function(width){
             $.jui.get("surQuestionaryGrid").setWidth(width);
@@ -59,65 +82,36 @@
         $("#surQuestionaryGrid").juiceGrid({
             toolbar:toolbar,
             columns: [
-				{display: 'ID', name: 'id', width: 50,hide:true },
-				{display: '问卷名称', name: 'title', width: 50,hide:true },
-				{display: '发起人', name: 'sponsor', width: 50,hide:true },
-				{display: '类型：0问卷,1试卷', name: 'type', width: 50,hide:true },
-				{display: '备注', name: 'remark', width: 50,hide:true },
-				{display: '创建时间', name: 'createTime', width: 50,hide:true },
-				{display: '创建人(记录帐号）', name: 'createUser', width: 50,hide:true },
-				{display: '更新时间', name: 'updateTime', width: 50,hide:true },
-				{ display: '更新人(记录帐号）', name: 'updateUser', width: 50,hide:true }
+                {display: 'ID', name: 'id', width: 50,hide:true },
+                {display: '问卷名称', name: 'title', width: '30%' },
+                {display: '发起人', name: 'sponsor', width: '10%'},
+//				{display: '类型：0问卷,1试卷', name: 'type', width: 50 },
+                {display: '备注', name: 'remark', width: '20%' },
+                {display: '创建时间', name: 'createTime', width: '10%' },
+                {display: '操作', name: 'createTime', width: '20%',render:renderOp }
+//				{display: '创建人(记录帐号）', name: 'createUser', width: 50},
+//				{display: '更新时间', name: 'updateTime', width: 50},
+//				{ display: '更新人(记录帐号）', name: 'updateUser', width: 50 }
             ]
 //        enabledEdit: true
         });
         //创建树
 
     });
-    //树的右键菜单
-    function createMenu(treeNode){
-        var menu;
-        if(treeNode.data.uid == 'root') {
-            menu = $.juiceMenu({ top: 100, left: 100, width: 120, items:
-                    [
-                        { text: '增加', icon:'add', click:function(item){doAdd(treeNode.data.uid)}},
-//                        { text: '修改', click:function(item){doEdit(treeNode.uid)}},
-//                        { text: '查看', icon:'add', click:function(item){doView(treeNode.uid)}}
-                { line: true },
-                { text: '刷新', click:function(item){refreshNode();}}
-            ]
-            });
-        } else {
-            menu = $.juiceMenu({ top: 100, left: 100, width: 120, items:
-                    [
-                        { text: '增加', icon:'add', click:function(item){doAdd(treeNode.data.uid)}},
-                        { text: '修改', click:function(item){doEdit(treeNode.data.uid)}},
-//                        { text: '查看', icon:'view', click:function(item){doView(treeNode.data.uid)}},
-                { line: true },
-                { text: '上移', click:function(item){doMoveup(treeNode)}},
-                { text: '下移', click:function(item){doMovedown(treeNode)}},
-                { line: true },
-                { text: '刷新', click:function(item){refreshNode();}}
-            ]
-            });
-        }
-        return menu;
-    }
 
-
-     function doView(id) {
+    function doView(id) {
         var url = "${ctx}/surQuestionary/view.do";
 
         commonView(url, "surQuestionaryGrid");
     }
 
     function doDelete(){
-        commonDelete("surQuestionaryGrid","${ctx}/surQuestionary/delete.do",refreshRootNode);
+        commonDelete("surQuestionaryGrid","${ctx}/surQuestionary/delete.do");
     }
 
-    function doAdd(){        
+    function doAdd(){
         var url = "${ctx}/surQuestionary/init.do";
-        commonAddOrUpdate(url,"surQuestionaryGrid",null,"surQuestionaryGridForm",{title:"新增调查表",height:530,width:600});
+        commonAddOrUpdate(url,"surQuestionaryGrid",null,"surQuestionaryEditForm",{title:"新增调查表",height:330,width:500});
     }
 
     function doEdit(id){
@@ -128,10 +122,24 @@
             url = initUrl(url,"surQuestionaryGrid");
         }
         if(url){
-            commonAddOrUpdate(url,"surQuestionaryGrid",null,"surQuestionaryForm",{title:"编辑调查表",height:530,width:600});
+            commonAddOrUpdate(url,"surQuestionaryGrid",null,"surQuestionaryEditForm",{title:"编辑调查表",height:330,width:500});
         }
     }
 
+    function renderOp(item,rowIndex){
+        var opStr = "<input type='button' style='padding: 1px' value='添加试题' onclick='doAddQuestion("+item.id+")'/>";
+        opStr += "&nbsp;<input type='button' style='padding: 1px' value='查看试题' onclick='doViewQuestion("+item.id+")'/>";
+        return opStr;
+    }
 
+    function doAddQuestion(id){
+        var url = "${ctx}/surQuestion/init.do?questionaryId="+id;
+        commonAddOrUpdate(url,"",null,"surQuestionEditForm",{title:"新增调查题目",height:530,width:600});
+    }
+
+    function doViewQuestion(id){
+        var url = "${ctx}/surQuestion/view.do";
+        commonView(url,null,null,id);
+    }
 </script>
 
