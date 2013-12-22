@@ -6,9 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <%--<title>经侦辅助办案知识库</title>--%>
     <link href="${ctx}/skin/css/style.css" rel="stylesheet" type="text/css" />
-
-
-    <link href="${ctx}/js/ueditor/themes/default/css/ueditor.min.css" rel="stylesheet" type="text/css" />
+    <link href="${ctx}/js/jui/skins/Aqua/css/jui-all.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="${ctx}/js/jquery/jquery-1.7.2.js"></script>
 
