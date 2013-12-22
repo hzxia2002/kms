@@ -54,17 +54,23 @@ function loadPPT(path,total){
 }
 
 function loadAVI(path){
-    var htmlArr = [];
-    htmlArr.push('<OBJECT ID="hutia" height="483" width="627" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6"> ');
-    htmlArr.push('   <param name="URL" value="'+path+'" /> ');
-    htmlArr.push('   <param name="AutoStart" value="true" /> ') ;
-    htmlArr.push('   <param name="AudioStream" value="-1">') ;
-    htmlArr.push('   <param name="AutoSize" value="0">') ;
-    htmlArr.push('   <param name="AnimationAtStart" value="0">') ;
-    htmlArr.push('   <param name="AllowScan" value="true">') ;
-    htmlArr.push('   <param name="AllowChangeDisplaySize" value="-1">') ;
-    htmlArr.push('</OBJECT>') ;
-    $("#media").html(htmlArr.join(""));
+    if(document.hutia){
+        document.hutia.URL=path;
+    }else{
+        var htmlArr = [];
+        document.hutia.URL=path;
+        htmlArr.push('<OBJECT ID="hutia" height="370" width="370" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6"> ');
+        htmlArr.push('   <param name="URL" value="'+path+'" /> ');
+        htmlArr.push('   <param name="AutoStart" value="true" /> ') ;
+        htmlArr.push('   <param name="AudioStream" value="-1">') ;
+        htmlArr.push('   <param name="AutoSize" value="0">') ;
+        htmlArr.push('   <param name="AnimationAtStart" value="0">') ;
+        htmlArr.push('   <param name="AllowScan" value="true">') ;
+        htmlArr.push('   <param name="AllowChangeDisplaySize" value="-1">') ;
+        htmlArr.push('</OBJECT>') ;
+        $("#media").html(htmlArr.join(""));
+    }
+
 }
 
 $(function(){

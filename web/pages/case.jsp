@@ -23,9 +23,9 @@
     <div class="leftkck">
         <div class="leftkckone">
             <div class="title2" style="font-size: 18px;">${bean.title}</div>
-            <div class="two" width="370px" height="222px" id="media">
+            <div class="two" width="370px" height="372px" id="media">
                 <c:if test="${aviPath!=null}">
-                    <OBJECT ID="hutia" height="370" width="220" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+                    <OBJECT ID="hutia" height="370" width="370" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
                         <param name="URL" value="${ctx}${aviPath}" />
                         <param name="AutoStart" value="true" />
                         <param name="AudioStream" value="-1">
@@ -36,7 +36,7 @@
                     </OBJECT>
                 </c:if>
                 <c:if test="${aviPath==null}">
-                    <div style="height: 222px;width: 370px;vertical-align: middle;color: red"> 未添加视频</div>
+                    <div style="height: 372px;width: 370px;vertical-align: middle;color: red"> 未添加视频</div>
                 </c:if>
             </div>
         </div>
