@@ -90,6 +90,18 @@
         /*position: fixed;*/
         /*top: -1px;*/
         /*}*/
+
+        .Header .logo .search .kuang .input11{
+            float:left;
+            width: 360px;
+            border: 2px solid #008eca;
+            font-family: "微软雅黑";
+            font-size: 14px;
+            color: #444444;
+            height: 27px;
+            line-height: 27px;
+            text-indent: 10px;
+        }
     </style>
 
 </head>
