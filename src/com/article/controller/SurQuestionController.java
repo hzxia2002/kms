@@ -1,12 +1,12 @@
 package com.article.controller;
 
 import com.article.daoservice.SurQuestionService;
+import com.article.daoservice.SurQuestionaryService;
 import com.article.domain.SurQuestion;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
 import com.comet.core.utils.ReflectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * @version 1.0
@@ -30,7 +29,8 @@ public class SurQuestionController extends BaseCRUDActionController<SurQuestion>
     @Autowired
 	private SurQuestionService surQuestionService;
 
-
+    @Autowired
+    private SurQuestionaryService surQuestionaryService;
 
 	@RequestMapping
     @ResponseBody
@@ -52,13 +52,14 @@ public class SurQuestionController extends BaseCRUDActionController<SurQuestion>
 	}
 
     @RequestMapping
-    public String init(Model model, SurQuestion entity) throws Exception {
+    public String init(Model model, SurQuestion entity,Long questionaryId) throws Exception {
         try {
             if(entity != null && entity.getId() != null) {
                 entity = surQuestionService.get(entity.getId());
 
-                model.addAttribute("bean", entity);
             }
+            entity.setQuestionary(surQuestionaryService.get(questionaryId));
+            model.addAttribute("bean", entity);
         } catch (Exception e) {
             log.error("error", e);
         }

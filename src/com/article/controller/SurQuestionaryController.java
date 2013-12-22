@@ -5,6 +5,7 @@ import com.article.domain.SurQuestionary;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
+import com.comet.core.security.util.SpringSecurityUtils;
 import com.comet.core.utils.ReflectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public class SurQuestionaryController extends BaseCRUDActionController<SurQuesti
 		try {
             page.setAutoCount(true);
 
-            String hql = "from SurQuestionary t where 1=1 " + page.getOrderByString("t.treeId asc");
+            String hql = "from SurQuestionary t where 1=1 ";
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
@@ -57,8 +59,10 @@ public class SurQuestionaryController extends BaseCRUDActionController<SurQuesti
             if(entity != null && entity.getId() != null) {
                 entity = surQuestionaryService.get(entity.getId());
 
-                model.addAttribute("bean", entity);
+            }else{
+                entity.setSponsor(SpringSecurityUtils.getCurrentUser().getRealName());
             }
+            model.addAttribute("bean", entity);
         } catch (Exception e) {
             log.error("error", e);
         }
@@ -83,11 +87,7 @@ public class SurQuestionaryController extends BaseCRUDActionController<SurQuesti
                     "title",
                     "sponsor",
                     "type",
-                    "remark",
-                    "createTime",
-                    "createUser",
-                    "updateTime",
-                    "updateUser"
+                    "remark"
             };
 
             SurQuestionary target;
@@ -95,8 +95,13 @@ public class SurQuestionaryController extends BaseCRUDActionController<SurQuesti
                 target = surQuestionaryService.get(entity.getId());
 
                 ReflectionUtils.copyBean(entity, target, columns);
+                target.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+                target.setUpdateUser(SpringSecurityUtils.getCurrentUser().getRealName());
             } else {
                 target = entity;
+                target.setCreateTime(new Timestamp(System.currentTimeMillis()));
+                target.setCreateUser(SpringSecurityUtils.getCurrentUser().getRealName());
+                target.setSponsor(SpringSecurityUtils.getCurrentUser().getRealName());
             }
 
             surQuestionaryService.save(target);
