@@ -20,16 +20,16 @@ function toPage(){
 
 function loadPPT(path,total){
     var htmlArr = [];
-    htmlArr.push('<div   style="width: 370px;height:222px;position: relative;border: 1px solid #dcdcdc;background-color: #d2d8ff"> ');
+    htmlArr.push('<div style="width: 635px;height:476px;position: relative;border: 1px solid #dcdcdc;background-color: #d2d8ff"> ');
     htmlArr.push('   <img src="'+path+'/pack1.png" style="width: 635px;height: 476px;z-index: 1" id="pic"> ');
-    htmlArr.push('   <div style="position: absolute; left: 0px;bottom:105px;cursor: pointer;z-index: 11"> ') ;
+    htmlArr.push('   <div style="position: absolute; left: 0px;bottom:230px;cursor: pointer;z-index: 11"> ') ;
     htmlArr.push('   <div class="prev" onclick="goPrev()"></div>') ;
     htmlArr.push('   </div>') ;
-    htmlArr.push('   <div style="position: absolute; right: 0px;bottom:105px;cursor: pointer;z-index: 11">') ;
+    htmlArr.push('   <div style="position: absolute; right: 0px;bottom:230px;cursor: pointer;z-index: 11">') ;
     htmlArr.push('   <div class="next" onclick="goNext()"></div>') ;
     htmlArr.push('   </div>') ;
-    htmlArr.push('   <div style="position: absolute; right: 150px;bottom: -2px;cursor: pointer;z-index: 11">') ;
-    htmlArr.push('       <input type="text" value="1" id="page" width="60px" style="width: 20px; text-align: center;border:1px solid #dcdcdc " />/'+total+'页') ;
+    htmlArr.push('   <div style="position: absolute; right: 300px;bottom: -2px;cursor: pointer;z-index: 11;background-color: #ffffff; color: #000000;">') ;
+    htmlArr.push('       &nbsp;<input type="text" value="1" id="page" width="80px" style="width: 20px; text-align: center;border:1px solid #dcdcdc " />/'+total+'页&nbsp;') ;
     htmlArr.push('       <input type="hidden" value="'+total+'" id="total"/>') ;
     htmlArr.push('       <input type="hidden" value="'+path+'" id="path"/>') ;
     htmlArr.push('    </div>') ;

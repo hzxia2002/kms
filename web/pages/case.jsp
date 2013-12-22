@@ -79,7 +79,7 @@
             </c:if>
         </div>
     </div>
-    <div class="rightkck">
+    <div class="rightkck" style="padding-top: 10px;">
         <div class="one">
             <div class="title">课程介绍</div>
             <div class="mainkjs">
