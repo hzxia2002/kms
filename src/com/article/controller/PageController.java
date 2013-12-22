@@ -377,7 +377,7 @@ public class PageController extends BaseCRUDActionController {
         for (CmsCollectCatagory cmsCollectCatagory : cmsCollectCatagorys) {
             ZTreeNode treeNode = new ZTreeNode();
             treeNode.setId(cmsCollectCatagory.getClass().getSimpleName() + "_" + cmsCollectCatagory.getId());
-            if(!cmsCollectCatagory.getIsLeaf()){
+            if(cmsCollectCatagory.getIsLeaf() != null && !cmsCollectCatagory.getIsLeaf()){
                 treeNode.setIsParent(true);
                 treeNode.setOpen(false);
             }else{

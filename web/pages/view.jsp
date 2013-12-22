@@ -61,12 +61,23 @@
             display:inline-block;
         }
 
+        .itemTitle a {
+            color: #136ec2;
+        }
+
         .itemTitle {
+            color: #136ec2;
             padding-left: -10px;
         }
 
-        .itemTitle span{
-            float:left;
+        .itemTitle span[style]{
+            float:left !important;
+            color: #136ec2 !important;
+            margin-bottom: 5px !important;
+            line-height: 22px !important;
+            font-size: 14px !important;
+            font-family: 微软雅黑,黑体 !important;
+            font-weight: 500 !important;
         }
 
         p span {
@@ -97,14 +108,14 @@
         <div class="leftzf">
             <div class="title">
                 <div class="one" style="overflow: hidden;text-overflow:ellipsis; width:80%;white-space:nowrap;font-size: 14px;font-weight: bold"><c:out value="${paths}"></c:out></div>
-                <div class="two" id="addCollect" style="cursor: pointer;vertical-align: top;padding-top: 2px;">
+                <div class="two" style="cursor: pointer;vertical-align: top;padding-top: 2px;">
                     <table width="100%">
                         <tr>
                             <td>
                                 <img src="<c:url value="/skin/images/favorite.jpg"/>" width="24" height="24">
                             </td>
                             <td style="vertical-align: middle;">
-                                <a href="javascript:void(0);">收藏本页</a>
+                                <a href="javascript:void(0);" id="addCollect">收藏本页</a>
                             </td>
                         </tr>
                     </table>
@@ -122,10 +133,10 @@
                 </c:if>
             </div>
             <div id="directionContainer" class="z-catalog nslog-area log-set-param" style="width: 75%;">
-                <table width="100%">
+                <table width="100%" style="border: 1px solid #dcdcdc;">
                     <tr>
-                        <td width="10%"><h2><span>目录:</span></h2></td>
-                        <td style="background-color: #fff;">${bean.catalogue}</td>
+                        <td width="10%" bgcolor="#FBFBFB"><h2><span>目录:</span></h2></td>
+                        <td style="background-color: #fff;" valign="top">${bean.catalogue}</td>
                     </tr>
                 </table>
             </div>

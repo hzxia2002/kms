@@ -17,7 +17,7 @@
                     <span class="needInfo">*</span>主题名:
                 </td>
                 <td  class="container">
-                    <input type="text" name="title" id="title" value="${title}" class="table_input" style="height: 24px;" maxlength="100" validate="{required:true}"/>&nbsp;
+                    <input type="text" name="title" id="title" value="${title}" class="table_input" style="height: 24px;width:260px;" maxlength="100" validate="{required:true}"/>&nbsp;
                 </td>
             </tr>
 
@@ -26,8 +26,8 @@
                     <span class="needInfo">*</span>目录:
                 </td>
                 <td  class="container" >
-                    <input type="text" name="dictory" id="dictory"   maxlength="100" validate="{required:true}"/>&nbsp;
-                    <input type="hidden" name="articleId"   value="${articleId}"/>&nbsp;
+                    <input type="text" name="dictory" id="dictory" maxlength="100" validate="{required:true}"/>&nbsp;
+                    <input type="hidden" name="articleId" value="${articleId}"/>&nbsp;
                 </td>
             </tr>
             <tr>
