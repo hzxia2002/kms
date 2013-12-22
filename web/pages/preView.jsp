@@ -54,23 +54,12 @@
             display:inline-block;
         }
 
-        .itemTitle a {
-            color: #136ec2;
-        }
-
         .itemTitle {
-            color: #136ec2;
             padding-left: -10px;
         }
 
-        .itemTitle span[style]{
-            float:left !important;
-            color: #136ec2 !important;
-            margin-bottom: 5px !important;
-            line-height: 22px !important;
-            font-size: 14px !important;
-            font-family: 微软雅黑,黑体 !important;
-            font-weight: 500 !important;
+        .itemTitle span{
+            float:left;
         }
 
         p span {
@@ -115,10 +104,10 @@
                 </c:if>
             </div>
             <div id="directionContainer" class="z-catalog nslog-area log-set-param" style="width: 75%;">
-                <table width="100%" style="border: 1px solid #dcdcdc;">
+                <table width="100%">
                     <tr>
-                        <td width="10%" bgcolor="#FBFBFB"><h2><span>目录:</span></h2></td>
-                        <td style="background-color: #fff;" valign="top">${bean.catalogue}</td>
+                        <td width="10%"><h2><span>目录:</span></h2></td>
+                        <td style="background-color: #fff;">${bean.catalogue}</td>
                     </tr>
                 </table>
             </div>

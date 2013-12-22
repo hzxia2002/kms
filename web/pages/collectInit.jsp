@@ -17,7 +17,7 @@
                     <span class="needInfo">*</span>主题名:
                 </td>
                 <td  class="container">
-                    <input type="text" name="title" id="title" value="${title}" class="table_input" style="height: 24px;width:260px;" maxlength="100" validate="{required:true}"/>&nbsp;
+                    <input type="text" name="title" id="title" value="${title}" class="table_input" style="height: 24px;" maxlength="100" validate="{required:true}"/>&nbsp;
                 </td>
             </tr>
 
@@ -26,8 +26,8 @@
                     <span class="needInfo">*</span>目录:
                 </td>
                 <td  class="container" >
-                    <input type="text" name="dictory" id="dictory" maxlength="100" validate="{required:true}"/>&nbsp;
-                    <input type="hidden" name="articleId" value="${articleId}"/>&nbsp;
+                    <input type="text" name="dictory" id="dictory"   maxlength="100" validate="{required:true}"/>&nbsp;
+                    <input type="hidden" name="articleId"   id="articleId" value="${articleId}"/>&nbsp;
                 </td>
             </tr>
             <tr>
@@ -65,7 +65,7 @@
                 url: CONTEXT_PATH+"/page/collect.do",
                 dataType: "json",
                 type:"post",
-                data:{title:$("#title").val(),dictory:$("#dictory").val()},
+                data:{title:$("#title").val(),dictory_val:$("#dictory_val").val(),articleId:$("#articleId").val()},
                 success:function(ret){
                     alert(ret.msg);
                     window.close();
