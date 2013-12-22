@@ -24,7 +24,7 @@
             <div class="title">搜索</div>
             <div class="main">
                 <div class="search">
-                    <div class="kuang"><input name="" type="text" class="input1" value="请输入关键词" />
+                    <div class="kuang"><input name="" type="text" class="input11" value="请输入关键词" />
                     </div>
                     <div class="kuang1"><img src="../skin/images/button_searth.jpg" width="92" height="33" />
                     </div>
