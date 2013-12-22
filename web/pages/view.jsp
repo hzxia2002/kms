@@ -6,7 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <%--<title>经侦辅助办案知识库</title>--%>
     <link href="${ctx}/skin/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="${ctx}/js/jui/skins/Aqua/css/jui-all.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="${ctx}/js/jquery/jquery-1.7.2.js"></script>
 
@@ -59,12 +58,23 @@
             display:inline-block;
         }
 
+        .itemTitle a {
+            color: #136ec2;
+        }
+
         .itemTitle {
+            color: #136ec2;
             padding-left: -10px;
         }
 
-        .itemTitle span{
-            float:left;
+        .itemTitle span[style]{
+            float:left !important;
+            color: #136ec2 !important;
+            margin-bottom: 5px !important;
+            line-height: 22px !important;
+            font-size: 14px !important;
+            font-family: 微软雅黑,黑体 !important;
+            font-weight: 500 !important;
         }
 
         p span {
@@ -77,8 +87,8 @@
         }
 
         /*.fixTop{*/
-            /*position: fixed;*/
-            /*top: -1px;*/
+        /*position: fixed;*/
+        /*top: -1px;*/
         /*}*/
     </style>
 
@@ -95,14 +105,14 @@
         <div class="leftzf">
             <div class="title">
                 <div class="one" style="overflow: hidden;text-overflow:ellipsis; width:80%;white-space:nowrap;font-size: 14px;font-weight: bold"><c:out value="${paths}"></c:out></div>
-                <div class="two" id="addCollect" style="cursor: pointer;vertical-align: top;padding-top: 2px;">
+                <div class="two" style="cursor: pointer;vertical-align: top;padding-top: 2px;">
                     <table width="100%">
                         <tr>
                             <td>
                                 <img src="<c:url value="/skin/images/favorite.jpg"/>" width="24" height="24">
                             </td>
                             <td style="vertical-align: middle;">
-                                <a href="javascript:void(0);">收藏本页</a>
+                                <a href="javascript:void(0);" id="addCollect">收藏本页</a>
                             </td>
                         </tr>
                     </table>
@@ -114,44 +124,44 @@
                     <div class="lemmaTitleH1">${bean.title}</div>
                 </h1>
                 <c:if test="${not empty bean.keyWord}">
-                <p>
-                    关键字：${bean.keyWord}<br />
-                </p>
+                    <p>
+                        关键字：${bean.keyWord}<br />
+                    </p>
                 </c:if>
             </div>
             <div id="directionContainer" class="z-catalog nslog-area log-set-param" style="width: 75%;">
-                <table width="100%">
+                <table width="100%" style="border: 1px solid #dcdcdc;">
                     <tr>
-                        <td width="10%"><h2><span>目录:</span></h2></td>
-                        <td style="background-color: #fff;">${bean.catalogue}</td>
+                        <td width="10%" bgcolor="#FBFBFB"><h2><span>目录:</span></h2></td>
+                        <td style="background-color: #fff;" valign="top">${bean.catalogue}</td>
                     </tr>
                 </table>
             </div>
-            <div class="mainmuen">
+            <div class="mainmuen" style="margin-top: 20px;">
                 ${bean.content}
             </div>
 
 
 
-    <c:if test="${not empty docAttachmentses}">
-            <div>
+            <c:if test="${not empty docAttachmentses}">
                 <div>
-                    <table width="100%">
-                        <tr>
-                            <td width="35"><img src="<c:url value="/skin/images/attaches.jpg" />" height="35" width="35"></td>
-                            <td width="60"><b>附件：</b></td>
-                        <td>
-                    <ul style="line-height: 35px; vertical-align: bottom;">
-                        <c:forEach items="${docAttachmentses}" var="attachment">
-                            <a href='${ctx}${attachment.filePath}' title="点击下载" target='_blank'>${attachment.orginName}</a>&nbsp;
-                        </c:forEach>
-                    </ul>
-                        </td>
-                        </tr>
-                    </table>
+                    <div>
+                        <table width="100%">
+                            <tr>
+                                <td width="35"><img src="<c:url value="/skin/images/attaches.jpg" />" height="35" width="35"></td>
+                                <td width="60"><b>附件：</b></td>
+                                <td>
+                                    <ul style="line-height: 35px; vertical-align: bottom;">
+                                        <c:forEach items="${docAttachmentses}" var="attachment">
+                                            <a href='${ctx}${attachment.filePath}' title="点击下载" target='_blank'>${attachment.orginName}</a>&nbsp;
+                                        </c:forEach>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
-    </c:if>
+            </c:if>
         </div>
         <c:if test="${type==2||type==3}">
             <div class="leftyj">
@@ -178,17 +188,17 @@
                         发表评论：
                     </c:if>
                     <textarea rows="6" cols="70" style="width: 778px;height: 175px;" id="comment"></textarea>
-                    <%--<img src="../skin/images/yj1.jpg" width="705" height="175" />--%>
+                        <%--<img src="../skin/images/yj1.jpg" width="705" height="175" />--%>
                 </div>
             </div>
             <div class="lefttj">
-                <%--<div class="onetj">验证码：--%>
+                    <%--<div class="onetj">验证码：--%>
                     <%--<input name="textfield" type="text" id="textfield" size="10" />&nbsp;&nbsp;--%>
                     <%--<img src="../skin/images/yzm.jpg" width="69" height="31" />--%>
-                <%--</div>--%>
+                    <%--</div>--%>
                 <div class="twotj" align="center" style="width: 100%">
                     <div class="submitCss" style="width: 78px;height: 29px;" onclick="submitComment('${bean.id}')"></div>
-                    <%--<img src="../skin/images/tj.jpg" width="78" height="29"  class="submitCss"/>--%>
+                        <%--<img src="../skin/images/tj.jpg" width="78" height="29"  class="submitCss"/>--%>
                 </div>
             </div>
         </c:if>

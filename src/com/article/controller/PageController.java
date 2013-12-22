@@ -674,7 +674,7 @@ public class PageController extends BaseCRUDActionController {
                     cmsCollectCatagoryService.delete(cmsCollectCatagory);
                     sendSuccessJSON(response, "删除成功");
                 } else{
-                    sendSuccessJSON(response, "改收藏夹为默认收藏夹,不能删除");
+                    sendSuccessJSON(response, "该收藏夹为默认收藏夹,不能删除");
                 }
 
             } else{

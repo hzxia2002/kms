@@ -208,7 +208,7 @@ a:active { color: #333;}
     line-height: 25px;
 }
 .ContentHome .leftzf .main{
-    margin-top: -20px;
+    /*margin-top: -20px;*/
     width: 807px;
     float:left;
     font-size: 14px;
@@ -757,7 +757,7 @@ height: 160px;
 width: 75%;
 text-align: center;
 
-    }
+}
 .shadow .main{
     border:1px solid #bec6d3;
     background:#fff;
@@ -766,10 +766,10 @@ text-align: center;
     -webkit-box-shadow:2px 2px 4px #d7e2ee;
     box-shadow:2px 2px 4px #d7e2ee;
     *filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color="#d7e2ee");
-    height: 88px;
-    width: 118px;
-    margin-left: auto;
-    margin-right: auto;
+height: 88px;
+width: 118px;
+margin-left: auto;
+margin-right: auto;
 }
 .shadow .txt{
     padding-top: 40px;
@@ -784,7 +784,7 @@ h1.title1 {
     margin-bottom: 18px;
     color: #000;
     font-weight: 500;
-    padding-top: 22px;
+    /*padding-top: 22px;*/
     z-index: 0;
     position: relative;
     overflow: hidden
@@ -807,6 +807,15 @@ h1 span[style] {
     font-family: 微软雅黑,黑体,Verdana !important;
     font-weight: 500 !important;
     line-height: 22px !important;
+    color: #000 !important;
+}
+
+h1 span span[style] {
+    font-size: 24px !important;
+    font-family: 微软雅黑,黑体,Verdana !important;
+    font-weight: 500 !important;
+    line-height: 22px !important;
+    color: #000 !important;
 }
 
 .z-catalog {
