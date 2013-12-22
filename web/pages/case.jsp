@@ -25,7 +25,7 @@
             <div class="title2" style="font-size: 18px;">${bean.title}</div>
             <div class="two" width="370px" height="372px" id="media">
                 <c:if test="${aviPath!=null}">
-                    <OBJECT ID="hutia" height="370" width="370" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+                    <OBJECT ID="hutia" height="349" width="370" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
                         <param name="URL" value="${ctx}${aviPath}" />
                         <param name="AutoStart" value="true" />
                         <param name="AudioStream" value="-1">

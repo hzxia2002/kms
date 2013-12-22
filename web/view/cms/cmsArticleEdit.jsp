@@ -188,7 +188,8 @@
             </tr>
             <tr class="inputTr">
                 <td  align="right">
-                    上传附件:
+                    上传附件:<br/>
+                    (说明：技战法案例库视频支持wmv、avi格式;<br/>ppt请上传后缀名为ppt格式的文件)
                 </td>
                 <td  class="container" colspan="3">
 
