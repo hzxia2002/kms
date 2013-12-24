@@ -7,7 +7,8 @@ import com.article.domain.base.BaseSurQuestion;
 public class SurQuestion extends BaseSurQuestion {
 	private static final long serialVersionUID = 1L;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+
+    /*[CONSTRUCTOR MARKER BEGIN]*/
 	public SurQuestion () {
 		super();
 	}

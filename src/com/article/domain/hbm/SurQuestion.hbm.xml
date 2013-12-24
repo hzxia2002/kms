@@ -60,6 +60,17 @@
             <meta attribute="ColumnComment">备注</meta>
         </property>
 
+        <property
+                name="indexNo"
+                column="INDEX_NO"
+                type="string"
+                not-null="false"
+                length="20"
+                >
+            <meta attribute="ColumnName">INDEX_NO</meta>
+            <meta attribute="ColumnComment">编号</meta>
+        </property>
+
 		<many-to-one
 			name="questionary"
 			column="QUESTIONARY_ID"

@@ -1,5 +1,7 @@
 package com.article.domain.base;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 
@@ -19,7 +21,7 @@ import java.io.Serializable;
  * @hibernate.class
  *  table="sur_question"
  */
-
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 public abstract class BaseSurQuestion  implements Serializable{
 
 	public static String REF = "SurQuestion";
@@ -56,7 +58,10 @@ public abstract class BaseSurQuestion  implements Serializable{
     /*TITLE*/
     /*题干*/
 	private String title;
-	
+
+    private String indexNo;
+
+
     /*TYPE*/
     /*题型*/
 	private String type;
@@ -70,6 +75,13 @@ public abstract class BaseSurQuestion  implements Serializable{
 	private com.article.domain.SurQuestionary questionary;
 
 
+    public String getIndexNo() {
+        return indexNo;
+    }
+
+    public void setIndexNo(String indexNo) {
+        this.indexNo = indexNo;
+    }
 
 	/**
 	 * Return the unique identifier of this class
