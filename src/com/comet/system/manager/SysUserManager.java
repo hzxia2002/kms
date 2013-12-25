@@ -241,7 +241,7 @@ public class SysUserManager {
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
             // 查询
-            page = sysUserService.findByPage(page, queryTranslate.toString());
+            page = sysUserService.findByPage(page,"select t.* from Sys_User t", queryTranslate.toString());
 
             List<Object[]> list = page.getRows();
 
