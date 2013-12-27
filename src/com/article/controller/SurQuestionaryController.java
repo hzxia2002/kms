@@ -1,10 +1,13 @@
 package com.article.controller;
 
+import com.article.daoservice.SurQuestionService;
 import com.article.daoservice.SurQuestionaryService;
+import com.article.domain.SurQuestion;
 import com.article.domain.SurQuestionary;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
+import com.comet.core.security.user.BaseUser;
 import com.comet.core.security.util.SpringSecurityUtils;
 import com.comet.core.utils.ReflectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +35,8 @@ public class SurQuestionaryController extends BaseCRUDActionController<SurQuesti
     @Autowired
 	private SurQuestionaryService surQuestionaryService;
 
-
+    @Autowired
+    private SurQuestionService surQuestionService;
 
 	@RequestMapping
     @ResponseBody
@@ -73,8 +77,10 @@ public class SurQuestionaryController extends BaseCRUDActionController<SurQuesti
     @RequestMapping
     public String view(Model model, Long id) {
         SurQuestionary surQuestionary = surQuestionaryService.get(id);
-
+        String hql = "select distinct q from SurQuestion q left join fetch q.surOptions where q.questionary.id="+id+" order by q.indexNo";
+        List<SurQuestion> surQuestions = surQuestionService.find(hql);
         model.addAttribute("bean", surQuestionary);
+        model.addAttribute("questions", surQuestions);
         return "view/sur/surQuestionaryView";
     }
 
@@ -119,4 +125,5 @@ public class SurQuestionaryController extends BaseCRUDActionController<SurQuesti
 
         sendSuccessJSON(response, "删除成功");
     }
+
 }

@@ -5,6 +5,7 @@ import com.article.daoservice.SurQuestionService;
 import com.article.daoservice.SurQuestionaryService;
 import com.article.domain.SurOptions;
 import com.article.domain.SurQuestion;
+import com.article.domain.SurQuestionary;
 import com.article.manager.QuestionManager;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,11 +49,11 @@ public class SurQuestionController extends BaseCRUDActionController<SurQuestion>
 
 	@RequestMapping
     @ResponseBody
-	public Page<SurQuestion> grid(Page page, String condition) {
+	public Page<SurQuestion> grid(Page page, String condition,Long questionaryId) {
 		try {
             page.setAutoCount(true);
 
-            String hql = "from SurQuestion t where 1=1 " ;
+            String hql = "from SurQuestion t where 1=1 and t.questionary.id="+questionaryId +" order by t.indexNo";
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
@@ -73,6 +75,11 @@ public class SurQuestionController extends BaseCRUDActionController<SurQuestion>
             }
             if(questionaryId!=null){
                 entity.setQuestionary(surQuestionaryService.get(questionaryId));
+                String hql = "from SurQuestion t where 1=1 and t.questionary.id="+questionaryId ;
+                List<SurQuestion> surQuestions = surQuestionService.find(hql);
+                if(entity.getIndexNo()==null){
+                    entity.setIndexNo(surQuestions.size()+1L);
+                }
             }
             model.addAttribute("bean", entity);
         } catch (Exception e) {
@@ -130,16 +137,14 @@ public class SurQuestionController extends BaseCRUDActionController<SurQuestion>
     }
 
     @RequestMapping
-    public void saveData(HttpServletResponse response, Model model, @ModelAttribute("bean") SurQuestion entity,String option,String opIndexNo,String opIds,Integer flag)
+    public void saveData(HttpServletResponse response, Model model, @ModelAttribute("bean") SurQuestion entity,String option,String opIndexNo,String opIds,Integer flag,Long questionary_id)
             throws Exception {
         try {
             String[] columns = new String[]{
                     "id",
                     "title",
                     "type",
-                    "indexNo",
-
-                    "questionary"
+                    "indexNo"
             };
 
             SurQuestion target;
@@ -151,6 +156,8 @@ public class SurQuestionController extends BaseCRUDActionController<SurQuestion>
                 target = entity;
                 target.setId(null);
             }
+            SurQuestionary surQuestionary = surQuestionaryService.get(questionary_id);
+            target.setQuestionary(surQuestionary);
             //保存题目及选项
             ArrayList arrayList = new ArrayList();
             String[] options = option.split(",");

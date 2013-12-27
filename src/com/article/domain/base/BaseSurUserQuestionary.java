@@ -85,7 +85,10 @@ public abstract class BaseSurUserQuestionary  implements Serializable{
     /*UPDATE_USER*/
     /*更新人(记录帐号）*/
 	private String updateUser;
-	
+
+
+    private String status;
+
 
 	// many to one
 	private com.article.domain.SurQuestionary questionary;
@@ -259,7 +262,13 @@ public abstract class BaseSurUserQuestionary  implements Serializable{
 		this.user = user;
 	}
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

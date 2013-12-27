@@ -1,8 +1,12 @@
 package com.article.domain.base;
 
+import com.article.domain.SurOptions;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Set;
 
 
 /**
@@ -59,7 +63,7 @@ public abstract class BaseSurQuestion  implements Serializable{
     /*题干*/
 	private String title;
 
-    private String indexNo;
+    private Long indexNo;
 
 
     /*TYPE*/
@@ -74,12 +78,22 @@ public abstract class BaseSurQuestion  implements Serializable{
 	// many to one
 	private com.article.domain.SurQuestionary questionary;
 
+    @JsonIgnore
+    private Set<SurOptions> surOptions;
 
-    public String getIndexNo() {
+    public Set<SurOptions> getSurOptions() {
+        return surOptions;
+    }
+    public void setSurOptions(Set<SurOptions> surOptions) {
+        this.surOptions = surOptions;
+    }
+
+
+    public Long getIndexNo() {
         return indexNo;
     }
 
-    public void setIndexNo(String indexNo) {
+    public void setIndexNo(Long indexNo) {
         this.indexNo = indexNo;
     }
 

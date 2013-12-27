@@ -6,74 +6,36 @@
     <%@ include file="../common/header_new.jsp" %>
 </head>
 <body>
-    <div>
-        <table border="0" cellspacing="1" width="100%" class="inputTable">
-
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        问卷名称:
-                    </td>
-                    <td class="container">
-                      ${bean.title}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        发起人:
-                    </td>
-                    <td class="container">
-                      ${bean.sponsor}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        类型：0问卷,1试卷:
-                    </td>
-                    <td class="container">
-                      ${bean.type}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        备注:
-                    </td>
-                    <td class="container">
-                      ${bean.remark}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        创建时间:
-                    </td>
-                    <td class="container">
-                      ${bean.createTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        创建人(记录帐号）:
-                    </td>
-                    <td class="container">
-                      ${bean.createUser}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        更新时间:
-                    </td>
-                    <td class="container">
-                      ${bean.updateTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        更新人(记录帐号）:
-                    </td>
-                    <td class="container">
-                      ${bean.updateUser}
-                    </td>
-                </tr>
-        </table>
+<div style="width: 100%;">
+    <div style="text-align: center;padding-bottom: 20px">
+            <span style="font-size: 24px;font-weight: bold">
+                ${bean.title}
+            </span>
     </div>
+    <ul style="padding-left: 10%;padding-right: 5%">
+        <c:forEach items="${questions}" var="question" varStatus="status">
+            <li style="padding-bottom: 20px;clear: both">
+                <div style="font-size: 16px;font-family: 宋体;padding-bottom: 8px;">
+                       <span style="font-size: 16px;font-weight: bold"> ${status.index+1}.</span>${question.title}
+                </div>
+                <ul>
+                    <c:forEach items="${question.surOptions}" var="option">
+                        <li style="padding-bottom: 5px;float:left;padding-right: 25px;height: 28px;">
+                            <c:choose >
+                                <c:when test="${question.type==0}">
+                                    <span style="font-size: 14px;font-weight: bold">${option.indexNo}.</span>&nbsp;<input type="radio" name="question_${question.id}" value="${option.id}">${option.content}
+                                </c:when>
+                                <c:when test="${question.type==1}">
+                                    <span style="font-size: 14px;font-weight: bold">${option.indexNo}.</span>&nbsp;<input type="checkbox" name="question_${question.id}" value="${option.id}">${option.content}
+                                </c:when>
+                            </c:choose>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </li>
+        </c:forEach>
+    </ul>
+
+</div>
 </body>
 </html>

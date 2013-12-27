@@ -24,7 +24,7 @@
                             用户：
                         </td>
                         <td width="15%">
-                            <input type="text" value="" class="table_input" id="dislayName" name="dislayName" op="like" entity="t.user"/>
+                            <input type="text" value="" class="table_input" id="displayName" name="displayName" op="like" entity="t.user"/>
                         </td>
                         <td width="4%" align="right" nowrap="nowrap">
                             学习时长(最少)：

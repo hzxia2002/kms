@@ -6,82 +6,38 @@
     <%@ include file="../common/header_new.jsp" %>
 </head>
 <body>
-    <div>
-        <table border="0" cellspacing="1" width="100%" class="inputTable">
-
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        问卷ID:
-                    </td>
-                    <td class="container">
-                      ${bean.questionary}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        用户ID:
-                    </td>
-                    <td class="container">
-                      ${bean.user}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        起始时间:
-                    </td>
-                    <td class="container">
-                      ${bean.startTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        结束时间:
-                    </td>
-                    <td class="container">
-                      ${bean.endTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        答题时间:
-                    </td>
-                    <td class="container">
-                      ${bean.answerTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        创建时间:
-                    </td>
-                    <td class="container">
-                      ${bean.createTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        创建人(记录帐号）:
-                    </td>
-                    <td class="container">
-                      ${bean.createUser}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        更新时间:
-                    </td>
-                    <td class="container">
-                      ${bean.updateTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        更新人(记录帐号）:
-                    </td>
-                    <td class="container">
-                      ${bean.updateUser}
-                    </td>
-                </tr>
-        </table>
+<div style="width: 100%;">
+    <div style="text-align: center;padding-bottom: 20px">
+            <span style="font-size: 24px;font-weight: bold">
+                ${bean.title}
+            </span>
     </div>
+    <ul style="padding-left: 10%;padding-right: 5%">
+        <c:forEach items="${questions}" var="question" varStatus="status">
+            <li style="padding-bottom: 20px;clear: both">
+                <div style="font-size: 16px;font-family: 宋体;padding-bottom: 8px;">
+                    <span style="font-size: 16px;font-weight: bold"> ${status.index+1}.</span>${question.title}
+                </div>
+                <ul>
+                    <c:forEach items="${question.surOptions}" var="option">
+                        <c:set var="opt" value=",${option.id},"/>
+                        <c:set var="key" value=",${answerKey[question.id]},"/>
+                        <li style="padding-bottom: 5px;float:left;padding-right: 25px;height: 28px;">
+                            <c:choose >
+                                <c:when test="${question.type==0}">
+                                    <span style="font-size: 14px;font-weight: bold">${option.indexNo}.</span>&nbsp;<input type="radio" disabled="disabled" name="question_${question.id}" <c:if test="${fn:contains(key,opt)}">checked="checked" </c:if> value="${option.id}">${option.content}
+                                </c:when>
+                                <c:when test="${question.type==1}">
+                                    <span style="font-size: 14px;font-weight: bold">${option.indexNo}.</span>&nbsp;<input type="checkbox" disabled="disabled" name="question_${question.id}" <c:if test="${fn:contains(key,opt)}">checked="checked" </c:if> value="${option.id}" >${option.content}
+                                </c:when>
+                            </c:choose>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </li>
+        </c:forEach>
+    </ul>
+
+</div>
 </body>
 </html>

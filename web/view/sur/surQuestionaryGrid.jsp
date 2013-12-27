@@ -127,19 +127,68 @@
     }
 
     function renderOp(item,rowIndex){
-        var opStr = "<input type='button' style='padding: 1px' value='添加试题' onclick='doAddQuestion("+item.id+")'/>";
+        var opStr = "<input type='button' style='padding: 1px' value='试题管理' onclick='doAddQuestion("+item.id+")'/>";
         opStr += "&nbsp;<input type='button' style='padding: 1px' value='查看试题' onclick='doViewQuestion("+item.id+")'/>";
+        opStr += "&nbsp;<input type='button' style='padding: 1px' value='调研人员' onclick='doResign("+item.id+")'/>";
+        opStr += "&nbsp;<input type='button' style='padding: 1px' value='结果查看' onclick='doViewStat("+item.id+")'/>";
         return opStr;
     }
 
     function doAddQuestion(id){
-        var url = "${ctx}/surQuestion/init.do?questionaryId="+id;
-        commonAddOrUpdate(url,"",null,"surQuestionEditForm",{title:"新增调查题目",height:530,width:600});
+        var juiId =  window.top.$.jui.getId();
+        var url = "${ctx}/surQuestion/init.do?questionaryId="+id+"&dialogJuiId="+juiId;
+        var settings = {
+            url: url,
+            id:juiId,
+            title:"新增调查题目",
+            height: $(window.top.document.body).height()-10,
+            width:$(window.top.document.body).width()
+        };
+        window.top.$.juiceDialog.open(settings);
     }
 
     function doViewQuestion(id){
-        var url = "${ctx}/surQuestion/view.do";
-        commonView(url,null,null,id);
+        var juiId =  window.top.$.jui.getId();
+        var url = "${ctx}/surQuestionary/view.do?id="+id;
+        var settings = {
+            url: url,
+            id:juiId,
+            title:"试题查看",
+            height: $(window.top.document.body).height()-10,
+            width:$(window.top.document.body).width()*3/4
+        };
+        window.top.$.juiceDialog.open(settings);
     }
+    /**
+     * 试卷分配
+     * @param id
+     */
+    function doResign(id){
+        var juiId =  window.top.$.jui.getId();
+        var url = "${ctx}/surUserQuestionary/initGrid.do?questionaryId="+id;
+        var settings = {
+            url: url,
+            id:juiId,
+            title:"调研人员管理",
+            height: $(window.top.document.body).height()-10,
+            width:$(window.top.document.body).width()*3/4
+        };
+        window.top.$.juiceDialog.open(settings);
+    }
+
+    function doViewStat(id){
+        var juiId =  window.top.$.jui.getId();
+        var url = "${ctx}/surUserQuestionary/statReport.do?id="+id;
+        var settings = {
+            url: url,
+            id:juiId,
+            title:"调查结果查看",
+            height: $(window.top.document.body).height()-10,
+            width:$(window.top.document.body).width()*3/4
+        };
+        window.top.$.juiceDialog.open(settings);
+    }
+
+
 </script>
 

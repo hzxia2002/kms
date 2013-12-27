@@ -60,10 +60,10 @@
             toolbar:toolbar,
             columns: [
 				{display: 'ID', name: 'id', width: 50,hide:true },
-				{display: '题干', name: 'title', width: 50,hide:true },
-				{display: '题型', name: 'type', width: 50,hide:true },
-				{display: '备注', name: 'remark', width: 50,hide:true },
-				{ display: '问卷ID', name: 'questionary', width: 50,hide:true }
+				{display: '题干', name: 'title', width: 50},
+				{display: '题型', name: 'type', width: 50},
+				{display: '备注', name: 'remark', width: 50},
+				{ display: '问卷ID', name: 'questionary', width: 50 }
             ]
 //        enabledEdit: true
         });
