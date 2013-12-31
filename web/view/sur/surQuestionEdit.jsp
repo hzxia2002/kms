@@ -160,7 +160,8 @@
                 {display: 'ID', name: 'id', width: 50,hide:true },
                 {display: '排序号', name: 'indexNo', width: 100},
                 {display: '题干', name: 'title', width:"40%"},
-                {display: '题型', name: 'type', width:"20%",render:questionType}
+                {display: '题型', name: 'type', width:"20%",render:questionType},
+                {display: '操作', name: 'type', width:"20%",render:opModify},
             ]
 //        enabledEdit: true
         });
@@ -302,5 +303,14 @@
         }else if(data.type==1){
             return "多选题";
         }
+    }
+
+    function opModify(data, rowindex, rowobj){
+        return "<input type='button' style='padding: 1px' value='修改' onclick='doEdit("+rowindex+")'/>";
+    }
+
+    function doEdit(rowindex){
+        var data = $.jui.get("surQuestionGrid").getRow(rowindex) ;
+        dbclick(data,rowindex);
     }
 </script>
