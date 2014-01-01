@@ -20,24 +20,24 @@
         </div>
     </div>
     <div class="right">
-        <div class="one">
-            <div class="title">搜索</div>
-            <div class="main">
-                <div class="search">
-                    <div class="kuang"><input name="" type="text" class="input11" value="请输入关键词" />
-                    </div>
-                    <div class="kuang1"><img src="../skin/images/button_searth.jpg" width="92" height="33" />
-                    </div>
-                </div>
-                <div class="search">
-                    <input type="radio" name="radio" id="radio" value="radio" />
-                    标题
-                    <input type="radio" name="radio" id="radio2" value="radio" />
-                    内容
-                    <input type="radio" name="radio" id="radio3" value="radio" />
-                    标题和内容</div>
-            </div>
-        </div>
+        <%--<div class="one">--%>
+            <%--<div class="title">搜索</div>--%>
+            <%--<div class="main">--%>
+                <%--<div class="search">--%>
+                    <%--<div class="kuang"><input name="" type="text" class="input11" value="请输入关键词" />--%>
+                    <%--</div>--%>
+                    <%--<div class="kuang1"><img src="../skin/images/button_searth.jpg" width="92" height="33" />--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="search">--%>
+                    <%--<input type="radio" name="radio" id="radio" value="radio" />--%>
+                    <%--标题--%>
+                    <%--<input type="radio" name="radio" id="radio2" value="radio" />--%>
+                    <%--内容--%>
+                    <%--<input type="radio" name="radio" id="radio3" value="radio" />--%>
+                    <%--标题和内容</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <div class="one">
             <div class="title" id="contentTitle">新法速递</div>
             <div class="main1">

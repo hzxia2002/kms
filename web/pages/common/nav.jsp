@@ -1,4 +1,5 @@
 <%@ page import="com.comet.core.security.util.SpringSecurityUtils" %>
+<%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script>
     $(function(){
@@ -6,16 +7,38 @@
         if(pageType){
             $("#pageIndex"+pageType).addClass("tag");
         }
+
+        $("#key").focus(function(){
+            if($("#key").val() == '请输入关键词') {
+                $("#key").val("");
+            }
+        });
+
+        $("#search_button").click(function(){
+            var key = $("#key").val().trim();
+
+            if(key == null || key == '' || key == '请输入关键词') {
+                alert('请输入检索关键词');
+                return;
+            }
+
+            $("#searchForm").submit();
+        });
     });
 </script>
+<%
+String initValue = StringUtils.defaultIfEmpty((String)request.getAttribute("key"), "请输入关键词");
+%>
 <div class="Header">
     <div class="logo">
         <div class="title"><img src="../skin/images/title.png" /></div>
         <div class="search">
-            <div class="kuang"><input name="" type="text" class="input11" value="请输入关键词" />
+            <form id="searchForm" name="searchForm" action="${ctx}/search/search.do" method="post">
+            <div class="kuang"><input name="key" id="key" type="text" class="input11" value="<%=initValue%>" />
             </div>
-            <div class="kuang1"><img src="../skin/images/button_searth.jpg" width="92" height="33" />
+            <div class="kuang1" ><img id="search_button" src="../skin/images/button_searth.jpg" width="92" height="33"/>
             </div>
+            </form>
             <div style="text-align: right;">
                 <%
                     if(SpringSecurityUtils.getCurrentUser() != null) {
