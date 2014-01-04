@@ -227,7 +227,7 @@ public class SurUserQuestionaryController extends BaseCRUDActionController<SurUs
             String status = surUserQuestionary.getStatus();
             //已提交
             if("1".equals(status)){
-                model.addAttribute("msg","改调查问卷已经作答");
+                model.addAttribute("msg","该调查问卷已经作答!");
                 return "view/common/error";
             }else{
                 Long questionaryId = surUserQuestionary.getQuestionary().getId();
@@ -237,13 +237,15 @@ public class SurUserQuestionaryController extends BaseCRUDActionController<SurUs
                 for (SurQuestion surQuestion : surQuestions) {
                     String[] answerStrs =(String[]) request.getParameterValues("question_" + surQuestion.getId());
 //                    String[] answerStrs = answer.split(",");
-                    for (String answerStr : answerStrs) {
-                        SurAnswer surAnswer = new SurAnswer();
-                        surAnswer.setQuestion(surQuestion);
-                        surAnswer.setUser(sysUserService.get(currentUser.getId()));
-                        surAnswer.setOption(new SurOptions(Long.valueOf(answerStr)));
-                        surAnswer.setUserQuestionary(surUserQuestionary);
-                        surAnswerService.save(surAnswer);
+                    if(answerStrs != null && answerStrs.length > 0) {
+                        for (String answerStr : answerStrs) {
+                            SurAnswer surAnswer = new SurAnswer();
+                            surAnswer.setQuestion(surQuestion);
+                            surAnswer.setUser(sysUserService.get(currentUser.getId()));
+                            surAnswer.setOption(new SurOptions(Long.valueOf(answerStr)));
+                            surAnswer.setUserQuestionary(surUserQuestionary);
+                            surAnswerService.save(surAnswer);
+                        }
                     }
                 }
 
@@ -253,7 +255,7 @@ public class SurUserQuestionaryController extends BaseCRUDActionController<SurUs
             }
         }
         model.addAttribute("msg","您已成功完成答卷");
-        model.addAttribute("path","view/common/successMsg.jsp");
+        model.addAttribute("path","view/sur/successMsg.jsp");
         return "view/common/success";
     }
 
