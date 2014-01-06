@@ -46,11 +46,11 @@
         var toolbar={
             align:"right",
             items: [
-                { text: '增加', click: doAdd, icon: 'add' },
-                { line: true },
-                { text: '修改', click: doEdit, icon: 'modify' },
-                { line: true },
-                { text: '删除', click: doDelete, icon:'delete' }
+//                { text: '增加', click: doAdd, icon: 'add' },
+//                { line: true },
+//                { text: '修改', click: doEdit, icon: 'modify' },
+//                { line: true },
+//                { text: '删除', click: doDelete, icon:'delete' }
             ]
         };
         //grid

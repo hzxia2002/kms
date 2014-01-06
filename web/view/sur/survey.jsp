@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
 <script src="${ctx}/view/sur/survey.js"></script>
+<script src="${ctx}/js/jquery/jquery-1.7.2.js"></script>
 <div class="ContentHome">
 <form id="surveyForm"  name="surveyForm" action="${ctx}/surUserQuestionary/saveQuestionary.do" method="post" onsubmit="return checkAnswer()">
     <input type="hidden" id="questionSize" value="${fn:length(questions)}">
     <%--<input type="hidden" id="userQuestioanryId" name="userQuestioanryId" value="${bean.id}">--%>
-    <input type="hidden" id="questioanryId" name="questioanryId" value="${bean.id}">
+    <input type="hidden" id="questionaryId" name="questionaryId" value="${bean.id}">
     <div style="width: 100%;">
         <div style="text-align: center;padding-bottom: 20px">
              <h1 class="title1">${bean.title}</h1>

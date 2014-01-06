@@ -7,7 +7,6 @@ import com.article.daoservice.SurUserQuestionaryService;
 import com.article.domain.*;
 import com.article.manager.QuestionManager;
 import com.comet.core.controller.BaseCRUDActionController;
-import com.comet.core.orm.hibernate.EntityService;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
 import com.comet.core.security.user.BaseUser;
@@ -18,9 +17,6 @@ import com.comet.system.domain.SysUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -216,10 +212,10 @@ public class SurUserQuestionaryController extends BaseCRUDActionController<SurUs
 
 
     @RequestMapping
-    public String saveQuestionary(HttpServletRequest request,HttpServletResponse response,Long questioanryId,Model model) throws Exception {
+    public String saveQuestionary(HttpServletRequest request,HttpServletResponse response,Long questionaryId,Model model) throws Exception {
         BaseUser currentUser = SpringSecurityUtils.getCurrentUser();
 
-        String hql = "from SurUserQuestionary sq left join fetch sq.questionary where sq.user.id="+ currentUser.getId()+" and sq.questionary.id="+questioanryId;
+        String hql = "from SurUserQuestionary sq left join fetch sq.questionary where sq.user.id="+ currentUser.getId()+" and sq.questionary.id="+ questionaryId;
         List<SurUserQuestionary> surUserQuestionaries = surUserQuestionaryService.find(hql);
         if(surUserQuestionaries.size()>0){
             SurUserQuestionary surUserQuestionary = surUserQuestionaries.get(0);
@@ -229,31 +225,36 @@ public class SurUserQuestionaryController extends BaseCRUDActionController<SurUs
             if("1".equals(status)){
                 model.addAttribute("msg","该调查问卷已经作答!");
                 return "view/common/error";
-            }else{
-                Long questionaryId = surUserQuestionary.getQuestionary().getId();
-                String questionHql = "from SurQuestion where questionary.id = " + questionaryId;
-                List<SurQuestion> surQuestions = surQuestionService.find(questionHql);
-                HashMap hashMap = new HashMap();
-                for (SurQuestion surQuestion : surQuestions) {
-                    String[] answerStrs =(String[]) request.getParameterValues("question_" + surQuestion.getId());
+            }
+        }else{
+            SurQuestionary surQuestionary = surQuestionaryService.get(questionaryId);
+            SurUserQuestionary surUserQuestionary = new SurUserQuestionary();
+            SysUser user = sysUserService.get(currentUser.getId());
+            surUserQuestionary.setUser(user);
+            surUserQuestionary.setAnswerTime(new Timestamp(System.currentTimeMillis()));
+            surUserQuestionary.setStatus("1");
+            surUserQuestionary.setQuestionary(surQuestionary);
+            surUserQuestionaryService.save(surUserQuestionary);
+
+            String questionHql = "from SurQuestion where questionary.id = " + questionaryId;
+            List<SurQuestion> surQuestions = surQuestionService.find(questionHql);
+            HashMap hashMap = new HashMap();
+            for (SurQuestion surQuestion : surQuestions) {
+                String[] answerStrs =(String[]) request.getParameterValues("question_" + surQuestion.getId());
 //                    String[] answerStrs = answer.split(",");
-                    if(answerStrs != null && answerStrs.length > 0) {
-                        for (String answerStr : answerStrs) {
-                            SurAnswer surAnswer = new SurAnswer();
-                            surAnswer.setQuestion(surQuestion);
-                            surAnswer.setUser(sysUserService.get(currentUser.getId()));
-                            surAnswer.setOption(new SurOptions(Long.valueOf(answerStr)));
-                            surAnswer.setUserQuestionary(surUserQuestionary);
-                            surAnswerService.save(surAnswer);
-                        }
+                if(answerStrs != null && answerStrs.length > 0) {
+                    for (String answerStr : answerStrs) {
+                        SurAnswer surAnswer = new SurAnswer();
+                        surAnswer.setQuestion(surQuestion);
+                        surAnswer.setUser(user);
+                        surAnswer.setOption(new SurOptions(Long.valueOf(answerStr)));
+                        surAnswer.setUserQuestionary(surUserQuestionary);
+                        surAnswerService.save(surAnswer);
                     }
                 }
-
-                surUserQuestionary.setStatus("1");
-                surUserQuestionary.setAnswerTime(new Timestamp(System.currentTimeMillis()));
-                surUserQuestionaryService.save(surUserQuestionary);
             }
         }
+
         model.addAttribute("msg","您已成功完成答卷");
         model.addAttribute("path","view/sur/successMsg.jsp");
         return "view/common/success";
@@ -263,14 +264,15 @@ public class SurUserQuestionaryController extends BaseCRUDActionController<SurUs
     @RequestMapping
     public String survey(Model model, Long id) {
         BaseUser currentUser = SpringSecurityUtils.getCurrentUser();
+        List<SurQuestionary> surQuestionaries = surQuestionaryService.find("from SurQuestionary where id=" + id);
         String hql = "from SurUserQuestionary t left join fetch t.questionary where t.questionary.id="+ id +" and t.user.id=" + currentUser.getId();
 //        String currentTimeStr = new Timestamp(System.currentTimeMillis()).toString();
 //        hql +=" and (t.startTime<='"+ currentTimeStr +"' and t.endTime>='"+currentTimeStr+"')";
 //        hql +=" or t.startTime is null or endTime is null";
-        hql += " and t.status=0";
+//        hql += " and t.status=0";
         List<SurUserQuestionary> surUserQuestionaries = surUserQuestionaryService.find(hql);
-        if(surUserQuestionaries.size()==1){
-            SurQuestionary surQuestionary = surUserQuestionaries.get(0).getQuestionary();
+        if(surUserQuestionaries.size()==0&&surQuestionaries.size()>0){
+            SurQuestionary surQuestionary = surQuestionaries.get(0);
             String questionHql = "select distinct q from SurQuestion q left join fetch q.surOptions where q.questionary.id="+id+" order by q.indexNo";
             List<SurQuestion> surQuestions = surQuestionService.find(questionHql);
             model.addAttribute("bean", surQuestionary);
