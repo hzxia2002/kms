@@ -17,21 +17,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Date: 13-8-27
@@ -275,7 +274,9 @@ public class FileUploadController extends BaseCRUDActionController {
     public void deleteAttachment(HttpServletResponse response,HttpServletRequest request,Long id,Long catagoryId,Model model){
         DocAttachments docAttachments = docAttachmentsService.get(id);
         String filePath = docAttachments.getFilePath();
-        filePath = filePath.replaceAll("\\\\", File.separator);
+        if(filePath.contains("\\\\")){
+            filePath = filePath.replaceAll("\\\\", File.separator);
+        }
         File file = new File(request.getSession().getServletContext().getRealPath("")+File.separator+filePath);
         if(file.exists()){
             file.delete();
@@ -336,6 +337,81 @@ public class FileUploadController extends BaseCRUDActionController {
             }
         }
 
+    }
+
+    @RequestMapping
+    @ResponseBody
+    public Map relativeTv(HttpServletRequest request,String filePath,String[] fileNames,Long docId){
+        HashMap retMap = new HashMap();
+        //附件 Document
+        DocDocument docDocument ;
+        if(docId!=null){
+            docDocument = docDocumentService.get(docId);
+        }else{
+            docDocument = new DocDocument();
+        }
+        docDocumentService.save(docDocument);
+        ArrayList arrayList = new ArrayList();
+
+        for (String fileName : fileNames) {
+
+            DocAttachments docAttachments = new DocAttachments();
+            docAttachments.setDoc(docDocument);
+
+            String path = filePath + File.separator + fileName;
+            docAttachments.setOrginName(fileName);
+            docAttachments.setFilePath(path);
+            docAttachments.setRemark("tv");
+            docAttachments.setName(fileName);
+            String uploadDate = new Timestamp(System.currentTimeMillis()).toString().substring(0,19);
+            docAttachments.setUploadDate(uploadDate);
+            docAttachmentsService.save(docAttachments);
+
+            String extName = "";
+            int index = fileName.lastIndexOf(".");
+            if(index>0){
+                extName = fileName.substring(index+1, fileName.length());
+            }
+
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("url", "/fileUpload/downloadTv.do?id="+docAttachments.getId());
+            map.put("original", fileName);
+            map.put("attachmentId",docAttachments.getId());
+
+            map.put("state","SUCCESS");
+            map.put("fileType","."+extName);
+            arrayList.add(map);
+
+        }
+        retMap.put("docId",docDocument.getId());
+        retMap.put("list",arrayList);
+        return retMap;
+    }
+
+    @RequestMapping
+    public void downloadTv(HttpServletResponse response,Long id) throws Exception {
+        FileInputStream in = null;
+        OutputStream outp = null;
+        try {
+            DocAttachments docAttachments = docAttachmentsService.get(id);
+            in = new FileInputStream("E:\\TDDOWNLOAD"+docAttachments.getFilePath());
+            response.reset();
+            outp = response.getOutputStream();
+            response.setContentType("application/x-msdownload");
+            response.setHeader("Content-Disposition", "attachment;filename=" +new String(docAttachments.getOrginName().getBytes("GB2312"),"ISO-8859-1"));
+            byte[] b = new byte[1024];
+            int i;
+            while ((i = in.read(b)) > 0) {
+                outp.write(b, 0, i);
+            }
+
+        } catch (IOException e) {
+            throw new Exception("下载文件在服务器中不存在");
+        } finally {
+            if (outp!=null){
+                outp.close();
+            }
+        }
     }
 
 }

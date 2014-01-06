@@ -193,7 +193,8 @@
                 <td  class="container" colspan="3">
 
                         <%--<input type="text" name="filePath" id="filePath"  class="table_input"  readonly="true" style="width: 300px;"/>&nbsp;--%>
-                    <img src="${ctx}/skin/icons/add.gif" style="cursor: pointer" onclick="uploadFiles();">
+                    <img src="${ctx}/skin/icons/add.gif" style="cursor: pointer" onclick="uploadFiles();" title="添加附件">
+                    <img src="${ctx}/skin/icons/edit_add.png" style="cursor: pointer" onclick="relativeTv();" title="添加视频">
                     <input type="hidden" name="docId" id="docId"  value="${bean.docId}" />
                     <ul id="files">
                         <c:forEach items="${docAttachments}" var="attachment">
@@ -491,6 +492,17 @@ function uploadFiles(){
     var settings = {
         height: 400,
         url: "${ctx}/fileUpload/fileUploadInit.html?id=${bean.path.id}&type=2&docId="+docId,
+        width: 500
+    };
+    $.extend(settings,options);
+    winDialog = $.juiceDialog.open(settings);
+}
+
+function relativeTv(){
+    var docId = $("#docId").val();
+    var settings = {
+        height: 400,
+        url: "${ctx}/view/common/browser.jsp?id=${bean.path.id}&type=2&docId="+docId,
         width: 500
     };
     $.extend(settings,options);

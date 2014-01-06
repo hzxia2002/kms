@@ -272,7 +272,12 @@ public class PageController extends BaseCRUDActionController {
                     boolean isTV = "dat,wmv,avi,mp3".indexOf(orginName.substring(orginName.lastIndexOf(".") + 1)) >= 0;
                     attachment.put("isAVI", isTV);
                     if(isTV&&!hasAVI){
-                        model.addAttribute("aviPath", docAttachmentse.getFilePath());
+                        String tvPath =  docAttachmentse.getFilePath();
+                        if(docAttachmentse.getRemark()!=null&&"tv".equals(docAttachmentse.getRemark())){
+                            tvPath = "/fileUpload/downloadTv.do?id=" + docAttachmentse.getId();
+                            attachment.put("path", tvPath);
+                        }
+                        model.addAttribute("aviPath", tvPath);
                     }
                     attachments.add(attachment);
                 }
