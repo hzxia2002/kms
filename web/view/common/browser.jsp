@@ -27,6 +27,7 @@
             String rootPath = "E:\\TDDOWNLOAD";
             String directory = StringUtils.defaultIfEmpty(request.getParameter("directory"), "");
 
+            String docId = StringUtils.defaultIfEmpty(request.getParameter("docId"), "");
             String lastDirectory = "";
             if(directory.lastIndexOf(File.separator) != -1) {
                 lastDirectory = directory.substring(0, directory.lastIndexOf(File.separator));
@@ -35,10 +36,12 @@
             String filePath = rootPath + File.separator + directory;
             File file = new File(filePath);
 
+
         %>
         <tr>
             <td align="center">
                 <input type="hidden" name="filePath" value="<%=directory%>">
+                <input type="hidden" name="docId" value="<%=docId%>">
             </td>
             <td>
                 <a href="browser.jsp?directory=.">根目录</a>&nbsp;
@@ -70,7 +73,7 @@
                 <%
                     if(tmp.isDirectory()) {
                 %>
-                <a href="browser.jsp?directory=<%=directory + File.separator + tmp.getName()%>"><%=tmp.getName()%></a>
+                <a href="browser.jsp?directory=<%=directory + File.separator + tmp.getName()%>&docId=<%=docId%>"><%=tmp.getName()%></a>
                 <%
                 } else {
                 %>
