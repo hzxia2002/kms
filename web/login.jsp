@@ -20,8 +20,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="${ctx}/js/jquery/jquery-1.7.2.js" type="text/javascript"></script>
-    <link href="./skin/dialog.css" media="screen" rel="stylesheet" type="text/css">
-    <link href="./skin/login.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="${ctx}/skin/login.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="${ctx}/skin/dialog.css" media="screen" rel="stylesheet" type="text/css">
     <script type="text/javascript">
         function reloadImage(){
             document.getElementById("pic").src = "<c:url value="/common/imageCode.jsp"/>?" + Math.random();;
@@ -57,7 +57,7 @@
     </script>
 </head>
 
-<body class="b-wk l-en">
+<body class="b-wk l-en" style="background:url(skin/images/bg.jpg)" >
 <div class="dialog center">
     <%
         if (session.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null) {
@@ -73,27 +73,32 @@
             <%--<img src="./skin/images/title_1_1.png" width="229" height="50">--%>
         </div>
 
-        <div id="logins">
-            <form id="loginForm" name="loginForm" action="j_spring_security_check" method="post">
+        <div id="logins" style="display: inline">
+            <form id="loginForm" name="loginForm" action="j_spring_security_check" method="post" >
             <%--<form action="#" id="signin_standard" method="post" name="signin_standard" style="">--%>
-                <div class="content" style="height:110px;">
+                <div class="content" style="height:110px;padding-top: 15px !important;">
                     <p>
-                        <label for="j_username" class="large" style="color:#10334D;line-height:24px;font-size:15px">用户名</label>
-                        <input id="j_username" name="j_username" style="width: 200px;" tabindex="1" type="text" value="">
+                        <span >
+                            <div style="float: left;color:#10334D;line-height:24px;font-size:13px;width:140px;font-weight:bold;text-align: right;padding-right: 2px;">用户名</div>
+                        </span><input id="j_username" name="j_username" style="width: 200px;" tabindex="1" type="text" value="">
                     </p>
 
                     <p>
-                        <label for="j_username" class="large" style="color:#10334D;line-height:24px;font-size:15px">密码</label>
+                        <span >
+                            <div style="float: left;color:#10334D;line-height:24px;font-size:13px;width:140px;font-weight:bold;text-align: right;padding-right: 2px;">密&nbsp;&nbsp;&nbsp;&nbsp;码</div>
+                        </span>
                         <input id="j_password" name="j_password" style="width: 200px;" tabindex="2" type="password" value="">
                     </p>
                     <p>
-                        <label for="j_validation_code" class="large" style="color:#10334D;line-height:24px;font-size:15px">验证码</label>
+                          <span >
+                            <div style="float: left;color:#10334D;line-height:24px;font-size:13px;width:140px;font-weight:bold;text-align: right;padding-right: 2px;">验证码</div>
+                        </span>
                         <input id="j_validation_code" name="j_validation_code" style="width: 80px;" tabindex="2" type="password" value="">
                         <img id="pic" src="<c:url value="/common/imageCode.jsp"/>" onclick="reloadImage();" height="20" alt="点击图片显示新的验证码" style="vertical-align: middle;">
                         <a href="#" onclick="reloadImage();">换一张</a>
                     </p>
-                    <p style="margin-bottom: 5px">
-                        <a href="#" class="indented large">忘记密码</a>
+                    <p style="display:inline;line-height: 20px;padding-left: 160px;">
+                        <a href="#"  style="font-size: 12px;">忘记密码</a>
                     </p>
 
                     <%--<p class="indented large">--%>
@@ -101,14 +106,14 @@
                         <%--<label for="remember_me" class="checkbox">记住密码</label>--%>
                     <%--</p>--%>
                 </div>
+                <div class="dialog_buttons" style="top:170px;">
+                    <input class="button default" id="btn_signin" name="commit" style="font-size:17px; float:left;background-color: #508fdb" tabindex="3" onclick="submitForm();" type="submit" value="登录">
+                    <input type="button" onclick="javascript:void(0)" class="button" style="font-size:14px;display: inline;margin-right: 20px" value="取消">
+                </div>
+
             </form>
-
         </div>
 
-        <div class="dialog_buttons">
-            <input class="button default" id="btn_signin" name="commit" style="font-size:17px; float:left" tabindex="3" onclick="submitForm();" type="submit" value="登录">
-            <input type="button" onclick="javascript:void(0)" class="button" style="font-size:14px" value="取消">
-        </div>
     </div>
 </div>
 </body>
