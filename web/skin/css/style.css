@@ -671,7 +671,9 @@ a:active { color: #333;}
 .ContentHome .two .rdzt .neirong li{
     line-height: 23px;
     height: 28px;
+    vertical-align: middle;
     text-align: left;
+    list-style: none;
 }
 .ContentHome .two .rdzt .neirong .line{
     text-align: left;
@@ -687,6 +689,8 @@ a:active { color: #333;}
     border-right-color: #FFF;
     border-bottom-color: #e0e1e3;
     border-left-color: #FFF;
+    list-style: none;
+    overflow:auto; zoom:1;
 }
 
 

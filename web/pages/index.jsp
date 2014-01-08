@@ -36,10 +36,12 @@
             <div class="neirong">
                 <c:forEach var="bean" items="${hotKmsRows}">
                     <ul class="line">
-                        <li><img src="../skin/images/dit.jpg" style="float: left;margin-top: 10px"/>&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">
+                        <li style="list-style: none"><img src="../skin/images/dit.jpg" style="float: left;margin-top: 10px"/>
+                            <a href="view.html?id=${bean.id}"  target="_blank">
                             <div style="color:blue;text-overflow:ellipsis; width:334px;margin-left: 12px;overflow: hidden;float:left;white-space: nowrap;">${bean.title}</div>
-                        </a>
-                            [<fmt:formatDate value="${bean.updateTime!=null?bean.updateTime:bean.createTime}" type="both" pattern="yy-MM-dd"></fmt:formatDate>/${bean.visitTimes}]
+                                <span style="float: left"> [<fmt:formatDate value="${bean.updateTime!=null?bean.updateTime:bean.createTime}" type="both" pattern="yy-MM-dd"></fmt:formatDate>/${bean.visitTimes}]</span>
+
+                            </a>
                         </li>
                     </ul>
                 </c:forEach>
@@ -51,9 +53,13 @@
             <div class="neirong">
                 <c:forEach var="bean" items="${newKmsRows}">
                     <ul class="line">
-                        <li ><img src="../skin/images/dit.jpg" style="float: left;margin-top: 10px"/>&nbsp;&nbsp;<a href="view.html?id=${bean.id}" target="_blank">
+                        <li ><a href="view.html?id=${bean.id}" target="_blank" >
+                            <div style="float: left;margin-top: 10px"><img src="../skin/images/dit.jpg" /></div>
                             <div style="color:blue;text-overflow:ellipsis; width:334px;float: left;margin-left: 12px;overflow: hidden;white-space: nowrap;">${bean.title}</div>
-                        </a>[<fmt:formatDate value="${bean.updateTime!=null?bean.updateTime:bean.createTime}" type="both" pattern="yy-MM-dd"></fmt:formatDate>/${bean.visitTimes}]</li>
+                        </a>
+                            <span style="float: left">[<fmt:formatDate value="${bean.updateTime!=null?bean.updateTime:bean.createTime}" type="both" pattern="yy-MM-dd"></fmt:formatDate>/${bean.visitTimes}]</span>
+
+                        </li>
                     </ul>
                 </c:forEach>
             </div>

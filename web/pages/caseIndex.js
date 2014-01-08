@@ -53,7 +53,7 @@ function loadContent(id,pageNo){
             var htmlArr = [];
             var pNo = ret.page;
             for(var i=0;i<datas.length;i++){
-                htmlArr.push('<li style="position: relative;float: left;width: 42%;margin-left: 5%;margin-right: 3%;height: 180px;margin-bottom: 15px;">');
+                htmlArr.push('<li style="display:inline;position: relative;float: '+(i%2==0?"left;margin-left: 6%;":"right;margin-right:6%;")+'width: 41%;height: 180px;margin-bottom: 15px;">');
                 htmlArr.push('    <div style="width: 100%">');
                 htmlArr.push('        <img src="../skin/images/kck1_bg.jpg" width="100%" height="180px;">');
                 htmlArr.push('    </div>');
