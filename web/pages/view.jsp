@@ -218,10 +218,10 @@
     <div class="rightct">
         <div class="rightzf">
             <div class="title">词条统计</div>
-            <div class="mainct">
-                <table width="180">
+            <div   style="width: 170px;font-size: 14px;color: #444444;padding: 8px; line-height: 25px;display: inline">
+                <table width="100%">
                     <tr>
-                        <td align="right" width="70">浏览次数：</td>
+                        <td align="right" width="70px">浏览次数：</td>
                         <td>${bean.visitTimes}</td>
                     </tr>
                     <tr>

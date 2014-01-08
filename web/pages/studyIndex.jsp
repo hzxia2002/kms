@@ -16,8 +16,8 @@
     <div class="leftxxyhkuang">
         <div class="leftxxyh">
             <div class="title"><img src="../skin/images/sc.png" width="16" height="16" />&nbsp;&nbsp;我的收藏   &nbsp;
-            <img src="${ctx}/skin/icons/edit_add.png" title="新增目录" style="margin-top: 4px"  width="16" height="16" onclick="addCatalogue()"/>  &nbsp;
-            <img src="${ctx}/skin/icons/pencil.png" title="修改" style="margin-top: 4px"  width="16" height="16" onclick="editCatalogue()"/>  &nbsp;
+            <img src="${ctx}/skin/icons/edit_add.png" title="新增目录" style="margin-top: 4px"  width="16" height="16" onclick="addCatalogue()"/>
+            <img src="${ctx}/skin/icons/pencil.png" title="修改" style="margin-top: 4px"  width="16" height="16" onclick="editCatalogue()"/>
             <img src="${ctx}/skin/icons/edit_remove.png" title="删除目录" style="margin-top: 4px"  width="16" height="16" onclick="delCatalogue()">
             </div>
             <div class="tree">

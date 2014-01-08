@@ -23,7 +23,7 @@
     <div class="leftkck">
         <div class="leftkckone">
             <div class="title2" style="font-size: 18px;">${bean.title}</div>
-            <div class="two" width="370px" height="372px" id="media">
+            <div class="two" width="370px" height="372px" id="media" style="width: 370px;height: 372px">
                 <c:if test="${aviPath!=null}">
                     <OBJECT ID="hutia" height="370" width="370" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
                         <param name="URL" value="${ctx}${aviPath}" />
@@ -70,12 +70,12 @@
         </div>
     </div>
     <div class="rightkck">
-        <div class="tree" id="ppt" width="627px" height="340px">
+        <div class="tree" id="ppt" style="width:637px ;height:340px">
             <c:if test="${bean.attachPath==null}">
-                <div style="color: red;width: 627px;height: 340px"> 未添加PPT     </div>
+                <div style="color: red;width: 637px;height: 340px"> 未添加PPT     </div>
             </c:if>
             <c:if test="${bean.attachPath!=null}">
-                <img src="${ctx}${bean.attachPath}" width="627px" height="340px" alt="未添加PPT" />
+                <img src="${ctx}${bean.attachPath}" width="637px" height="340px" alt="未添加PPT" />
             </c:if>
         </div>
     </div>
