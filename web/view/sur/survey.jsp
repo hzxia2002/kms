@@ -2,6 +2,7 @@
 <%@ include file="header.jsp" %>
 <script src="${ctx}/view/sur/survey.js"></script>
 <script src="${ctx}/js/jquery/jquery-1.7.2.js"></script>
+
 <div class="ContentHome">
 <form id="surveyForm"  name="surveyForm" action="${ctx}/surUserQuestionary/saveQuestionary.do" method="post" onsubmit="return checkAnswer()">
     <input type="hidden" id="questionSize" value="${fn:length(questions)}">
@@ -11,10 +12,10 @@
         <div style="text-align: center;padding-bottom: 20px">
              <h1 class="title1">${bean.title}</h1>
         </div>
-        <ul style="padding-left: 10%;padding-right: 5%">
+        <ul style="padding-right: 5%">
             <c:forEach items="${questions}" var="question" varStatus="status">
                 <li style="padding-bottom: 20px;clear: both">
-                    <div style="font-size: 16px;font-family: '微软雅黑 宋体';padding-bottom: 8px;">
+                    <div style="font-size: 16px;font-family: '微软雅黑 宋体';padding-bottom: 8px;text-align: left">
                         <span style="font-size: 16px;"> ${status.index+1}.</span>${question.title}
                     </div>
                     <ul>
@@ -41,6 +42,7 @@
     </div>
 </form>
 </div>
+
 <%@ include file="footer.jsp" %>
 </body>
 </html>

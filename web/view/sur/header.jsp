@@ -52,7 +52,8 @@
         -->
     </style>
 </head>
-<body onload="correctPNG()">
+<body onload="correctPNG()" style="text-align:center">
+<center>
 <div class="title_bg">
     <div class="clr"></div>
 </div>
@@ -97,3 +98,4 @@
     </div>
     <div class="clr"></div>
 </div>
+</center>
