@@ -99,6 +99,38 @@
             text-indent: 10px;
         }
     </style>
+
+    <script>
+        $(function(){
+            $(".itemTitle span").css({
+                "color":"#136ec2" ,
+                "float":"left" ,
+                "margin-bottom":"5px" ,
+                "font-size":"14px" ,
+                "font-family":"微软雅黑,宋体,黑体",
+                "font-weight":500,
+                "line-height":"22px"
+            });
+
+            $("h1 span").css({
+                "color":"#000" ,
+                "margin-bottom":"5px" ,
+                "font-size":"24px" ,
+                "font-family":"微软雅黑,宋体,黑体,Verdana",
+                "line-height":"22px"
+            });
+
+            $("h1").css({
+                "color":"#000" ,
+                "margin-bottom":"5px" ,
+                "font-size":"24px" ,
+                "font-family":"微软雅黑,宋体,黑体,Verdana",
+                "line-height":"22px",
+                "font-weight":"500"
+            });
+        });
+
+    </script>
     <script type="text/javascript" src="${ctx}/pages/view.js"></script>
 </head>
 
@@ -117,9 +149,9 @@
             </div>
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
-                <h1 class="title1" id="title">
+                <h2 class="title1" id="title">
                     <div class="lemmaTitleH1">${bean.title}</div>
-                </h1>
+                </h2>
                 <c:if test="${not empty bean.keyWord}">
                     <p>
                         关键字：${bean.keyWord}<br />

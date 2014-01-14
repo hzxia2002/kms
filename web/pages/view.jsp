@@ -114,16 +114,24 @@
                  "font-family":"微软雅黑,宋体,黑体",
                  "font-weight":500,
                  "line-height":"22px"
-             })  ;
+             });
 
             $("h1 span").css({
                 "color":"#000" ,
                 "margin-bottom":"5px" ,
                 "font-size":"24px" ,
                 "font-family":"微软雅黑,宋体,黑体,Verdana",
-                "font-weight":"bold",
                 "line-height":"22px"
-            })
+            });
+
+            $("h1").css({
+                "color":"#000" ,
+                "margin-bottom":"5px" ,
+                "font-size":"24px" ,
+                "font-family":"微软雅黑,宋体,黑体,Verdana",
+                "line-height":"22px",
+                "font-weight":"500"
+            });
         });
 
         </script>
@@ -156,9 +164,9 @@
             </div>
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
-                <h1 class="title1" id="title" style="text-align: left;overflow: hidden">
+                <h2 class="title1" id="title" style="text-align: left;overflow: hidden">
                     <div >${bean.title}</div>
-                </h1>
+                </h2>
                 <c:if test="${not empty bean.keyWord}">
                     <div style="clear: both">
                         关键字：${bean.keyWord}

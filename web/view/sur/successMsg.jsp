@@ -10,7 +10,7 @@
     </script>
 </head>
 <body>
-<p>保存成功,<a href="javascript:void(0)" onclick="closePage();">关闭该窗口</a></p>
+<p style="height: 100px;">保存成功,<a href="javascript:void(0)" onclick="closePage();">关闭该窗口</a></p>
 <%@ include file="footer.jsp" %>
 </body>
 </html>
