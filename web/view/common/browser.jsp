@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="ctx" value="<%=request.getContextPath()%>"/>
 <%@page import="java.util.*,
                 java.io.*"
         %>
@@ -12,17 +13,17 @@
     <title>文件浏览</title>
     <link href="${ctx}/js/jui/skins/Aqua/css/jui-all.css" rel="stylesheet" type="text/css" />
     <link href="${ctx}/skin/default.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body{
+            font-family: 宋体;
+            font-size: 12px;
+        }
+    </style>
     <script src="${ctx}/js/jquery/jquery-1.7.2.js" type="text/javascript"></script>
 </head>
 <body>
 <form id="fileForm">
-    <table width="100%" id="viewTable">
-        <tr bgcolor="#E5EFFE" align="center">
-            <td width="10%" height="22"></td>
-            <td width="60%"><b>文件名</b></td>
-            <td><b>大小</b></td>
-            <td><b>修改日期</b></td>
-        </tr>
+    <table width="100%" id="viewTable" class="inputTable" cellpadding="1" cellspacing="0">
         <%
             String rootPath = "E:\\TDDOWNLOAD";
             String directory = StringUtils.defaultIfEmpty(request.getParameter("directory"), "");
@@ -38,22 +39,28 @@
 
 
         %>
-        <tr>
-            <td align="center">
+        <tr  style="height: 22px; ">
+            <td align="left" colspan="4">
                 <input type="hidden" name="filePath" value="<%=directory%>">
                 <input type="hidden" name="docId" value="<%=docId%>">
-            </td>
-            <td>
-                <a href="browser.jsp?directory=.">根目录</a>&nbsp;
+                <a href="browser.jsp?directory=." style="cursor: pointer; font-weight: bold">根目录</a>&nbsp;
                 <%
                     if(!lastDirectory.equals("")){
                 %>
-                <a href="browser.jsp?directory=<%=lastDirectory%>">上一级</a>
+                <a href="browser.jsp?directory=<%=lastDirectory%>" style="cursor: pointer;font-weight: bold">上一级</a>
                 <%
                     }
                 %>
             </td>
         </tr>
+        <tr bgcolor="#E5EFFE" align="center" style="height: 28px">
+            <td width="10%" height="28px"></td>
+            <td width="60%"><b>文件名</b></td>
+            <td><b>大小</b></td>
+            <td><b>修改日期</b></td>
+        </tr>
+
+
         <%
             if(file.isDirectory()) {
                 File[] files = file.listFiles();
@@ -62,7 +69,7 @@
                 for(File tmp:files) {
                     i++;
         %>
-        <tr <%=(i%2 == 0) ? "" : "bgcolor='#F5F5F5'"%> align="center">
+        <tr <%=(i%2 == 0) ? "" : "bgcolor='#F5F5F5'"%> align="center" class="inputTr" style="height: 24px;">
             <td>
                 <%
                     if(!tmp.isDirectory()) {
