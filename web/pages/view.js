@@ -46,8 +46,7 @@ $(function(){
 });
 
 function submitComment(id){
-    var comment = $("#comment").val().trim();
-
+    var comment = $.trim($("#comment").val());
     if(comment == null || comment == '') {
         alert('请选填写内容！');
         return;
