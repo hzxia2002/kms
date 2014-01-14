@@ -104,6 +104,20 @@
         }
     </style>
 
+    <script>
+        $(function(){
+             $(".itemTitle span").css({
+                 "color":"#136ec2" ,
+                 "float":"left" ,
+                 "margin-bottom":"5px" ,
+                 "font-size":"14px" ,
+                 "font-family":"微软雅黑,宋体,黑体",
+                 "font-weight":500,
+                 "line-height":"22px"
+             })
+        })
+        </script>
+
 </head>
 
 <body>
@@ -243,3 +257,4 @@
 <%@include file="common/footer.jsp"%>
 </body>
 </html>
+
