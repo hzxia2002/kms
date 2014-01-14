@@ -114,8 +114,18 @@
                  "font-family":"微软雅黑,宋体,黑体",
                  "font-weight":500,
                  "line-height":"22px"
-             })
-        })
+             })  ;
+
+            $("h1 span").css({
+                "color":"#000" ,
+                "margin-bottom":"5px" ,
+                "font-size":"24px" ,
+                "font-family":"微软雅黑,宋体,黑体,Verdana",
+                "font-weight":"bold",
+                "line-height":"22px"
+            })
+        });
+
         </script>
 
 </head>
