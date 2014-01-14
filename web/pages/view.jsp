@@ -132,7 +132,7 @@
             </div>
             <div class="main">
                 <input type="hidden" id="articleId" value="${bean.id}">
-                <h1 class="title1" id="title" style="text-align: center;overflow: hidden">
+                <h1 class="title1" id="title" style="text-align: left;overflow: hidden">
                     <div >${bean.title}</div>
                 </h1>
                 <c:if test="${not empty bean.keyWord}">
