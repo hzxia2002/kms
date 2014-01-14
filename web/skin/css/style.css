@@ -176,7 +176,7 @@ a:active { color: #333;}
     float:left;
     font-size: 14px;
     color: #444444;
-    line-height: 25px;
+    /*line-height: 25px;*/
     padding-left: 8px;
     padding-right: 8px;
     background-color: #f4f4f4;
@@ -214,7 +214,7 @@ a:active { color: #333;}
     float:left;
     font-size: 14px;
     color: #444444;
-    line-height: 25px;
+    /*line-height: 25px;*/
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -830,7 +830,7 @@ h1 span span[style] {
     /*background: #fbfbfb url(/static/lemma/view3/img/cate_top_06_391b8d2d.png) 0 0 no-repeat;*/
     width: 100%;
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 3px;
     padding-top: 6px;
     clear: both
 }

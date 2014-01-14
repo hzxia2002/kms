@@ -136,9 +136,9 @@
                     <div >${bean.title}</div>
                 </h1>
                 <c:if test="${not empty bean.keyWord}">
-                    <p style="clear: both">
-                        关键字：${bean.keyWord}<br />
-                    </p>
+                    <div style="clear: both">
+                        关键字：${bean.keyWord}
+                    </div>
                 </c:if>
             </div>
             <div id="directionContainer" class="z-catalog nslog-area log-set-param" style="width: 75%;">
