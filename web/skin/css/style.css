@@ -53,7 +53,7 @@ a:active { color: #333;}
     float:left;
     width: 360px;
     border: 2px solid #008eca;
-    font-family: "微软雅黑";
+    font-family: "微软雅黑,宋体";
     font-size: 14px;
     color: #444444;
     height: 29px;
@@ -90,7 +90,7 @@ a:active { color: #333;}
     height: 40px;
     font-size: 12px;
     overflow:hidden;
-    font-family: "微软雅黑";
+    font-family: "微软雅黑,宋体";
     color: #FFFFFF;
     line-height: 40px;
     text-align: center;
@@ -382,7 +382,7 @@ a:active { color: #333;}
     float:left;
     width: 360px;
     border: 2px solid #008eca;
-    font-family: "微软雅黑";
+    font-family: "微软雅黑,宋体";
     font-size: 14px;
     color: #444444;
     height: 29px;
@@ -757,11 +757,11 @@ a:active { color: #333;}
     -webkit-box-shadow:2px 2px 4px #d7e2ee;
     box-shadow:2px 2px 4px #d7e2ee;
     *filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color="#d7e2ee");
-height: 160px;
-width: 75%;
-text-align: center;
-
+    height: 160px;
+    width: 75%;
+    text-align: center;
 }
+
 .shadow .main{
     border:1px solid #bec6d3;
     background:#fff;
@@ -782,7 +782,7 @@ margin-right: auto;
 }
 
 h1.title1 {
-    font-family: 微软雅黑, 黑体, Verdana;
+    font-family: 微软雅黑,宋体, 黑体, Verdana;
     font-size: 34px;
     line-height: 34px;
     margin-bottom: 18px;
@@ -808,7 +808,7 @@ h1.sub-title {
 
 h1 span[style] {
     font-size: 24px !important;
-    font-family: 微软雅黑,黑体,Verdana !important;
+    font-family: 微软雅黑,宋体,黑体,Verdana !important;
     font-weight: 500 !important;
     line-height: 22px !important;
     color: #000 !important;
@@ -816,7 +816,7 @@ h1 span[style] {
 
 h1 span span[style] {
     font-size: 24px !important;
-    font-family: 微软雅黑,黑体,Verdana !important;
+    font-family: 微软雅黑,宋体,黑体,Verdana !important;
     font-weight: 500 !important;
     line-height: 22px !important;
     color: #000 !important;
@@ -844,7 +844,7 @@ h1 span span[style] {
     background: #fbfbfb;
     font-size: 20px;
     color: #333;
-    font-family: 微软雅黑, 黑体, sans-serif;
+    font-family: 微软雅黑,宋体, 黑体, sans-serif;
     padding-top: 22px;
     line-height: 22px;
     font-weight: 200;
@@ -870,7 +870,7 @@ h1 span span[style] {
     text-decoration: none;
     background-color: #fff;
     padding-right: 10px;
-    font-family: 微软雅黑, 黑体
+    font-family: 微软雅黑,宋体, 黑体
 }
 
 .z-catalog-i1 a:link {

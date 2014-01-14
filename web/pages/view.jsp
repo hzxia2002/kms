@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  dir="ltr" lang="zh-CN" xml:lang="zh-CN">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/taglibs.jsp" %>
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <%--<title>经侦辅助办案知识库</title>--%>
@@ -39,7 +39,7 @@
             padding: 4px;
             font-size: 14px;
             font-weight: 500;
-            font-family: 微软雅黑,黑体;
+            font-family: 微软雅黑,宋体,黑体;
             color: #136ec2;
         }
 
@@ -73,7 +73,7 @@
             margin-bottom: 5px !important;
             line-height: 22px !important;
             font-size: 14px !important;
-            font-family: 微软雅黑,黑体 !important;
+            font-family: 微软雅黑,宋体,黑体 !important;
             font-weight: 500 !important;
         }
 
@@ -83,7 +83,7 @@
             text-indent: 2em !important;
             line-height: 22px !important;
             font-size: 14px !important;
-            font-family: 微软雅黑,黑体 !important;
+            font-family: 微软雅黑,宋体,黑体 !important;
         }
 
         /*.fixTop{*/
@@ -95,7 +95,7 @@
             float:left;
             width: 360px;
             border: 2px solid #008eca;
-            font-family: "微软雅黑";
+            font-family: "微软雅黑,宋体";
             font-size: 14px;
             color: #444444;
             height: 27px;
