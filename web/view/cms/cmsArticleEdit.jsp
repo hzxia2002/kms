@@ -503,7 +503,15 @@ function relativeTv(){
     var settings = {
         height: 400,
         url: "${ctx}/view/common/browser.jsp?id=${bean.path.id}&type=2&docId="+docId,
-        width: 500
+        width: 500,
+        buttons:[
+            { text: '保存', onclick: function (item, dialog) {
+                var g = this;
+                var frameWin = dialog.jiframe[0].contentWindow|| dialog.jiframe[0].contentWindow.document ;
+                frameWin.saveData();
+            } },
+            { text: '取消', onclick: function (item, dialog) { dialog.close(); } }
+        ]
     };
     $.extend(settings,options);
     winDialog = $.juiceDialog.open(settings);

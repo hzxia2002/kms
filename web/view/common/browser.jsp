@@ -98,7 +98,7 @@
         %>
     </table>
     <div style="text-align: center;width: 100%">
-        <input type="button" value="保存" class="btn_Ok" onclick="saveData()"/>
+        <%--<input type="button" value="保存" class="btn_Ok" onclick="saveData()"/>--%>
     </div>
 </form>
 </body>
