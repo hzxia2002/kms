@@ -954,3 +954,7 @@ h1 span span[style] {
     bottom: 0;
     padding-left: 0
 }
+
+a{
+    cursor: pointer;
+}
