@@ -23,7 +23,7 @@ a:active { color: #333;}
     float:left;
     padding: 0px;
     width: 100%;
-    height: 75px;
+    height:65px;
     background-color: #FFF;
 }
 .Header .logo .title{
@@ -36,7 +36,7 @@ a:active { color: #333;}
 }
 .Header .logo .search{
     float:right;
-    width: 452px;
+    width: 454px;
     height: 55px;
     padding-top: 10px;
     padding-bottom: 5px;
@@ -109,7 +109,7 @@ a:active { color: #333;}
     background-repeat: no-repeat;
 }
 
-.ContentHome{ width: 1022px; margin: 0 auto; padding: 7px 0; clear:both; background-color: #fff;min-height: 390px;}
+.ContentHome{ width: 1022px; margin: 0 auto; padding: 0 0; clear:both; background-color: #fff;min-height: 390px;}
 
 .ContentHome .leftzfwk{
     width: 840px;
@@ -176,8 +176,9 @@ a:active { color: #333;}
     float:left;
     font-size: 14px;
     color: #444444;
-    line-height: 25px;
-    padding: 8px;
+    /*line-height: 25px;*/
+    padding-left: 8px;
+    padding-right: 8px;
     background-color: #f4f4f4;
 }
 .ContentHome .leftzf .title .one{
@@ -213,8 +214,9 @@ a:active { color: #333;}
     float:left;
     font-size: 14px;
     color: #444444;
-    line-height: 25px;
-    padding: 8px;
+    /*line-height: 25px;*/
+    padding-left: 8px;
+    padding-right: 8px;
 }
 .ContentHome .leftzf .main .text{
     color: #0075cc;
@@ -828,7 +830,7 @@ h1 span span[style] {
     /*background: #fbfbfb url(/static/lemma/view3/img/cate_top_06_391b8d2d.png) 0 0 no-repeat;*/
     width: 100%;
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 3px;
     padding-top: 6px;
     clear: both
 }
