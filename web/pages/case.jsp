@@ -20,9 +20,10 @@
 </div>
 <div class="clr"></div>
 <div class="ContentHome" style="width: 1019px;">
+    <div class="title2" style="font-size: 18px;white-space: nowrap; text-overflow: ellipsis;height:40px;margin-top: 10px;">课程名称：${bean.title}</div>
     <div class="leftkck">
         <div class="leftkckone">
-            <div class="title2" style="font-size: 18px;white-space: nowrap; text-overflow: ellipsis;">${bean.title}</div>
+
             <div class="two" width="330px" height="332px" id="media" style="width: 330px;height: 332px">
                 <c:if test="${aviPath!=null}">
                     <OBJECT ID="hutia" height="330" width="330" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
@@ -36,7 +37,7 @@
                     </OBJECT>
                 </c:if>
                 <c:if test="${aviPath==null}">
-                    <div style="height: 372px;width: 370px;vertical-align: middle;color: red"> 未添加视频</div>
+                    <div style="width: 330px;height: 332px;vertical-align: middle;color: red"> 未添加视频</div>
                 </c:if>
             </div>
         </div>
