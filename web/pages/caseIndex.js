@@ -60,7 +60,7 @@ function loadContent(id,pageNo){
                 htmlArr.push('    </div>');
                 htmlArr.push('    <div style="float: left;z-index: 10;position: absolute;top:3px;left:3px;" >');
                 htmlArr.push('        <a href="showCase.html?id='+datas[i].id+'" target="_blank">');
-                htmlArr.push('          《'+datas[i].title+'》');
+                htmlArr.push('          '+datas[i].title);
                 htmlArr.push( '       </a>');
                 htmlArr.push( '    </div>');
                 htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;top:50px;left:60px;" >');
