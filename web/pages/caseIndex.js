@@ -72,7 +72,7 @@ function loadContent(id,pageNo){
                 htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;right:15px;" >');
 
                 if(""+datas[i].path != ''){
-                    htmlArr.push( '        <img src="'+context_path+datas[i].path+'" style="height:104px;width:118px;" alt="无图片">');
+                    htmlArr.push( '        <img src="'+context_path+datas[i].path+'" style="height:104px;width:118px;" alt="">');
                 }
 
                 htmlArr.push( '     </div>');
