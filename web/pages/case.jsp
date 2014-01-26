@@ -26,7 +26,7 @@
             <div class="two" width="370px" height="372px" id="media" style="width: 370px;height: 372px">
                 <c:if test="${aviPath!=null}">
                     <OBJECT ID="hutia" height="370" width="370" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
-                        <param name="URL" value="${ctx}${aviPath}" />
+                        <param name="URL" value="${aviPath}" />
                         <param name="AutoStart" value="true" />
                         <param name="AudioStream" value="-1">
                         <param name="AutoSize" value="0">
@@ -58,7 +58,7 @@
                                     </c:if>
                                     <c:if test="${attachment.isAVI}">
                                     <a href="javascript:void(0)" title="点击查看"
-                                       onclick="loadAVI('${ctx}${attachment.path}')"
+                                       onclick="loadAVI('${attachment.path}')"
                                        style="cursor: hand">
                                         </c:if>
                                             ${status.index+1}、${attachment.name}</a>(<a href="${ctx}${attachment.path}" target="_blank" style="color: blue;font-size: 12px;">下载</a>)

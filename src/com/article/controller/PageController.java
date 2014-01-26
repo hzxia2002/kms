@@ -15,6 +15,7 @@ import com.article.domain.CmsComment;
 import com.article.domain.CmsStudyPlan;
 import com.article.domain.DocAttachments;
 import com.article.util.Constants;
+import com.comet.core.config.CustomizedPropertyPlaceholderConfigurer;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.security.util.SpringSecurityUtils;
@@ -269,12 +270,14 @@ public class PageController extends BaseCRUDActionController {
                         }
 
                     }
-                    boolean isTV = "dat,wmv,avi,mp3".indexOf(orginName.substring(orginName.lastIndexOf(".") + 1)) >= 0;
+                    boolean isTV = "dat,wmv,avi,mp3,mpg".indexOf(orginName.substring(orginName.lastIndexOf(".") + 1)) >= 0;
                     attachment.put("isAVI", isTV);
                     if(isTV&&!hasAVI){
                         String tvPath =  docAttachmentse.getFilePath();
                         if(docAttachmentse.getRemark()!=null&&"tv".equals(docAttachmentse.getRemark())){
-                            tvPath = "/fileUpload/downloadTv.do?id=" + docAttachmentse.getId();
+                            // tvPath = "/fileUpload/downloadTv.do?id=" + docAttachmentse.getId();
+                            // tvPath = "/avi/" + docAttachmentse.getFilePath();
+                            tvPath = CustomizedPropertyPlaceholderConfigurer.getContextProperty("mediaServiceIp") + docAttachmentse.getFilePath();
                             attachment.put("path", tvPath);
                         }
                         model.addAttribute("aviPath", tvPath);

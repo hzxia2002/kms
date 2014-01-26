@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -60,11 +61,16 @@ public class LoginController extends SysLogController {
         sysLog.setPageUrl(url);
         sysLog.setLogTypeCode(Constants.LOG_TYPE_LOGIN);
 
-        super.save(response, request, sysLog);
+        super.saveLog(request, sysLog);
         
         model.addAttribute("url", url);
         session.setAttribute("defaultUrl", url);
-        
+
+//        Cookie cookie = new Cookie("JSESSIONID", request.getSession().getId());
+//        response.addCookie(cookie);
+
+//        response.sendRedirect("http://10.15.69.238" + request.getContextPath() + url);
+
         return "login_dispatch";
     }
 }

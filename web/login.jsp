@@ -97,9 +97,9 @@
                         <img id="pic" src="<c:url value="/common/imageCode.jsp"/>" onclick="reloadImage();" height="20" alt="点击图片显示新的验证码" style="vertical-align: middle;">
                         <a href="#" onclick="reloadImage();">换一张</a>
                     </p>
-                    <p style="display:inline;line-height: 20px;padding-left: 160px;">
-                        <a href="#"  style="font-size: 12px;">忘记密码</a>
-                    </p>
+                    <%--<p style="display:inline;line-height: 20px;padding-left: 160px;">--%>
+                        <%--<a href="#"  style="font-size: 12px;">忘记密码</a>--%>
+                    <%--</p>--%>
 
                     <%--<p class="indented large">--%>
                         <%--<input class="checkbox" id="remember_me" name="remember_me" type="checkbox" value="1">--%>

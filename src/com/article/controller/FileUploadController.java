@@ -9,6 +9,7 @@ import com.article.domain.DocDocument;
 import com.article.manager.CatalogManager;
 import com.article.manager.UploadConfig;
 import com.article.util.PPTConvertHander;
+import com.comet.core.config.CustomizedPropertyPlaceholderConfigurer;
 import com.comet.core.controller.BaseCRUDActionController;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -394,7 +395,7 @@ public class FileUploadController extends BaseCRUDActionController {
         OutputStream outp = null;
         try {
             DocAttachments docAttachments = docAttachmentsService.get(id);
-            in = new FileInputStream("E:\\TDDOWNLOAD"+docAttachments.getFilePath());
+            in = new FileInputStream(CustomizedPropertyPlaceholderConfigurer.getContextProperty("aviFilePath") + File.separator + docAttachments.getFilePath());
             response.reset();
             outp = response.getOutputStream();
             response.setContentType("application/x-msdownload");

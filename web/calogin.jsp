@@ -28,7 +28,9 @@
 <body class="userlogin_body">
     <div style="width:100%"  align="center">
         <div class="login_bg_div">
-            <div style="padding-top:150px;padding-left:0px">              <br />
+            <div style="padding-top:150px;padding-left:0px">
+            
+				<br />
                 <br />
                 <br />
                 <br />
@@ -39,6 +41,17 @@
                             <a href="https://10.15.69.238/calogin_action.jsp"><img src="${ctx}/skin/images/login.png" border="0" width="99" height="36" /></a>
                         </td>
                     </tr>
+					<%
+						if (session.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null) {
+					%>
+					<tr>
+                        <td width="42%" nowrap>
+                           ${SPRING_SECURITY_LAST_EXCEPTION.message}
+                        </td>
+                    </tr>
+					<%
+						}
+					%>
                 </table>
             </div>
         </div>

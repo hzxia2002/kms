@@ -1,3 +1,3 @@
 <script type="text/javascript">
-    window.location.href = "login.jsp";
+    window.location.href = "calogin.jsp";
 </script>

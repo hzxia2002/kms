@@ -70,15 +70,27 @@ public class UserDetailServiceImpl implements UserDetailsService, WSUserService 
 	 */
 	public UserDetails loadUserByUsername(String userName)
 			throws UsernameNotFoundException, DataAccessException {
+        boolean isKey = false;
 		List<SysUser> userList = userManager.findByProperty("loginName",
 				userName);
 
 		if (userList == null || userList.size() <= 0) {
-			throw new UsernameNotFoundException("用户[<font color='red'>"
+            // 如果用户名不存在，尝试通过身份证号进行登录
+            userList = userManager.findByProperty("userId", userName);
+            isKey = true;
+
+            if(userList == null || userList.size() <= 0) {
+			    throw new UsernameNotFoundException("用户[<font color='red'>"
 					+ userName + "</font>]不存在");
+            }
 		}
 
 		SysUser user = userList.get(0);
+
+        // 如果是通过u-key登录，将密码设为身份证号
+        if(isKey) {
+            user.setPassword(user.getUserId());
+        }
 
 		if (UserSessionUtils.getInstance().isUserInvalid(user)) {
 			throw new UsernameNotFoundException("用户[<font color='red'>"

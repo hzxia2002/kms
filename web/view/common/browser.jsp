@@ -7,6 +7,7 @@
         %>
 <%@ page import="com.comet.core.utils.FileUtils" %>
 <%@ page import="org.apache.commons.lang.StringUtils" %>
+<%@ page import="com.comet.core.config.CustomizedPropertyPlaceholderConfigurer" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -25,7 +26,7 @@
 <form id="fileForm">
     <table width="100%" id="viewTable" class="inputTable" cellpadding="1" cellspacing="0">
         <%
-            String rootPath = "E:\\TDDOWNLOAD";
+            String rootPath = CustomizedPropertyPlaceholderConfigurer.getContextProperty("aviFilePath").toString();
             String directory = StringUtils.defaultIfEmpty(request.getParameter("directory"), "");
 
             String docId = StringUtils.defaultIfEmpty(request.getParameter("docId"), "");

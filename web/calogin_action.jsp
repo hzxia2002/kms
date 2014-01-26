@@ -78,38 +78,8 @@
     catch(Exception e){
     }
 %>
-<body class="userlogin_body">
-<div style="width:100%"  align="center">
-    <div class="login_bg_div">
-        <div style="padding-top:150px;padding-left:0px">
-            <%
-                if (session.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY) != null) {
-            %>
-            <p>
-                ${SPRING_SECURITY_LAST_EXCEPTION.message}
-            </p>
-            <%
-                }
-            %>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <table width="367" border="0" align="left" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td width="42%" nowrap>
-                        <a href="https://10.15.69.238/calogin_action.jsp"><img src="${ctx}/skin/images/login.png" border="0" width="99" height="36" /></a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-
 <form action="<%=request.getContextPath()%>/j_spring_security_check" method="post" name="loginForm">
     <input id="j_username" name="j_username" type="password" size="15" value='<%=sfz%>' style='display:none'>
     <input id="j_password" name="j_password" type="hidden" size="15" value='<%=username%>' style='display:none'>
 </form>
-</body>
 <script>loginForm.submit();</script>

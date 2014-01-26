@@ -14,7 +14,7 @@
     <!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理，3.04新增功能，需要重新设置spring-mvc-3.0.xsd -->
     <!--<util:properties id="applicationProps" location="classpath:application.properties"/>-->
     <!--suppress SpringModelInspection -->
-    <mvc:resources mapping="/uploads/**" location="file:${filePath}"/>
+    <mvc:resources mapping="/avi/**" location="file:${aviFilePath}"/>
     <mvc:resources mapping="/common/**" location="/common/"/>
     <!--<mvc:resources mapping="/js/**" location="/js/"/>-->
     <!--<mvc:resources mapping="/img/**" location="/img/"/>-->

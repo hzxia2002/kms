@@ -84,38 +84,42 @@ public class SysLogController extends BaseCRUDActionController<SysLog> {
                      @ModelAttribute("bean") SysLog entity)
             throws Exception {
         try {
-            SysUser loginUser = UserSessionUtils.getInstance().getLoginedUser();
-
-            entity.setIpAddress(request.getRemoteAddr());
-            entity.setUser(loginUser);
-            entity.setSessionid(request.getRequestedSessionId());
-
-            // 获取浏览器及其版本
-            String agent = request.getHeader("User-Agent");
-//            String[] agents = agent.split(";");
-            entity.setIeVersion(agent);
-
-            if (StringUtils.isEmpty(entity.getLogTypeCode())) {
-                entity.setLogTypeCode(Constants.LOG_TYPE_NORMAL);
-            }
-
-            entity.setLogType(sysCodeManager.getCodeListByCode(
-                    Constants.LOG_TYPE_CODE, entity.getLogTypeCode()));
-
-            // 设置登入和登出时间
-            if(entity.getLogTypeCode().equals(Constants.LOG_TYPE_LOGIN)) {
-                entity.setEnterTime(DateTimeHelper.getTimestamp());
-            } else if(entity.getLogTypeCode().equals(Constants.LOG_TYPE_LOGOUT)) {
-                entity.setOutTime(DateTimeHelper.getTimestamp());
-            }
-
-            sysLogManager.save(entity);
+            saveLog(request, entity);
 
             sendSuccessJSON(response, "保存成功");
         } catch (Exception e) {
             log.error("error", e);
             super.processException(response, e);
         }
+    }
+
+    public void saveLog(HttpServletRequest request, SysLog entity) throws Exception {
+        SysUser loginUser = UserSessionUtils.getInstance().getLoginedUser();
+
+        entity.setIpAddress(request.getRemoteAddr());
+        entity.setUser(loginUser);
+        entity.setSessionid(request.getRequestedSessionId());
+
+        // 获取浏览器及其版本
+        String agent = request.getHeader("User-Agent");
+//            String[] agents = agent.split(";");
+        entity.setIeVersion(agent);
+
+        if (StringUtils.isEmpty(entity.getLogTypeCode())) {
+            entity.setLogTypeCode(Constants.LOG_TYPE_NORMAL);
+        }
+
+        entity.setLogType(sysCodeManager.getCodeListByCode(
+                Constants.LOG_TYPE_CODE, entity.getLogTypeCode()));
+
+        // 设置登入和登出时间
+        if(entity.getLogTypeCode().equals(Constants.LOG_TYPE_LOGIN)) {
+            entity.setEnterTime(DateTimeHelper.getTimestamp());
+        } else if(entity.getLogTypeCode().equals(Constants.LOG_TYPE_LOGOUT)) {
+            entity.setOutTime(DateTimeHelper.getTimestamp());
+        }
+
+        sysLogManager.save(entity);
     }
 
     @RequestMapping
