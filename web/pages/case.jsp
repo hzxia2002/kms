@@ -23,9 +23,9 @@
     <div class="leftkck">
         <div class="leftkckone">
             <div class="title2" style="font-size: 18px;">${bean.title}</div>
-            <div class="two" width="370px" height="372px" id="media" style="width: 370px;height: 372px">
+            <div class="two" width="330px" height="332px" id="media" style="width: 330px;height: 332px">
                 <c:if test="${aviPath!=null}">
-                    <OBJECT ID="hutia" height="370" width="370" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
+                    <OBJECT ID="hutia" height="330" width="330" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
                         <param name="URL" value="${aviPath}" />
                         <param name="AutoStart" value="true" />
                         <param name="AudioStream" value="-1">
@@ -44,9 +44,6 @@
             <div class="title">相关学习资料</div>
             <div class="tree1">
                 <table width="95%" border="0" align="center">
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
                     <c:forEach items="${attachments}" var="attachment" varStatus="status">
                         <tr>
                             <td height="30" align="left">
@@ -70,12 +67,12 @@
         </div>
     </div>
     <div class="rightkck">
-        <div class="tree" id="ppt" style="width:637px ;height:340px">
+        <div class="tree" id="ppt" style="width:677px ;height:477px">
             <c:if test="${bean.attachPath==null}">
-                <div style="color: red;width: 637px;height: 340px"> 未添加PPT     </div>
+                <div style="color: red;width: 677px;height: 477px"> 未添加PPT     </div>
             </c:if>
             <c:if test="${bean.attachPath!=null}">
-                <img src="${ctx}${bean.attachPath}" width="637px" height="340px" alt="未添加PPT" />
+                <img src="${ctx}${bean.attachPath}" width="677px" height="477px" alt="未添加PPT" />
             </c:if>
         </div>
     </div>

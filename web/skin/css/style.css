@@ -408,11 +408,11 @@ a:active { color: #333;}
 
 }
 .ContentHome .rightkck{
-    width: 635px;
+    width: 675px;
     float:right;}
 
 .ContentHome .rightkck .one{
-    width: 635px;
+    width: 675px;
     float:left;
     border: 1px solid #cedce9;
     padding-bottom: 5px;
@@ -456,11 +456,11 @@ a:active { color: #333;}
     color: #FFF;
 }
 .ContentHome .leftkck{
-    width: 375px;
+    width: 330px;
     float:left;
 }
 .ContentHome .leftkckone{
-    width: 375px;
+    width: 330px;
     float:left;
     margin-bottom: 8px;
     border: 1px solid #dfdfdf;
@@ -508,7 +508,7 @@ a:active { color: #333;}
     background-image: url(../images/kck3.jpg);
     background-repeat: no-repeat;
     background-position: bottom;
-    height: 370px;
+    height: 211px;
 }
 /* ѧϰ���� */
 .ContentHome .leftxxyhkuang{

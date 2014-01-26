@@ -20,8 +20,8 @@ function toPage(){
 
 function loadPPT(path,total){
     var htmlArr = [];
-    htmlArr.push('<div style="width: 635px;height:476px;position: relative;border: 1px solid #dcdcdc;background-color: #d2d8ff"> ');
-    htmlArr.push('   <img src="'+path+'/pack1.png" style="width: 635px;height: 476px;z-index: 1" id="pic"> ');
+    htmlArr.push('<div style="width: 675px;height:476px;position: relative;border: 1px solid #dcdcdc;background-color: #d2d8ff"> ');
+    htmlArr.push('   <img src="'+path+'/pack1.png" style="width: 675px;height: 476px;z-index: 1" id="pic"> ');
     htmlArr.push('   <div style="position: absolute; left: 0px;bottom:230px;cursor: pointer;z-index: 11"> ') ;
     htmlArr.push('   <div class="prev" onclick="goPrev()"></div>') ;
     htmlArr.push('   </div>') ;
@@ -59,7 +59,7 @@ function loadAVI(path){
     }else{
         var htmlArr = [];
         document.hutia.URL=path;
-        htmlArr.push('<OBJECT ID="hutia" height="370" width="370" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6"> ');
+        htmlArr.push('<OBJECT ID="hutia" height="330" width="330" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6"> ');
         htmlArr.push('   <param name="URL" value="'+path+'" /> ');
         htmlArr.push('   <param name="AutoStart" value="true" /> ') ;
         htmlArr.push('   <param name="AudioStream" value="-1">') ;
