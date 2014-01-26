@@ -68,11 +68,11 @@
         </div>
     </div>
     <div class="rightkck">
-        <div class="tree" id="ppt" style="width:677px ;height:477px">
-            <c:if test="${bean.attachPath==null}">
-                <div style="color: red;width: 677px;height: 477px"> 未添加PPT     </div>
+        <div class="tree" id="ppt" style="width:677px ;height:477px; border: 1px solid #cedce9;">
+            <c:if test="${bean.attachPath==null || bean.attachPath == ''}">
+                <div style="color: red;width: 677px;height: 477px;"> 未添加PPT</div>
             </c:if>
-            <c:if test="${bean.attachPath!=null}">
+            <c:if test="${bean.attachPath!=null && bean.attachPath != ''}">#${bean.attachPath}#
                 <img src="${ctx}${bean.attachPath}" width="677px" height="477px" alt="未添加PPT" />
             </c:if>
         </div>
