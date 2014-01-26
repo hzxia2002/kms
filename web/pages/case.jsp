@@ -22,7 +22,7 @@
 <div class="ContentHome" style="width: 1019px;">
     <div class="leftkck">
         <div class="leftkckone">
-            <div class="title2" style="font-size: 18px;">${bean.title}</div>
+            <div class="title2" style="font-size: 18px;white-space: nowrap; text-overflow: ellipsis;">${bean.title}</div>
             <div class="two" width="330px" height="332px" id="media" style="width: 330px;height: 332px">
                 <c:if test="${aviPath!=null}">
                     <OBJECT ID="hutia" height="330" width="330" CLASSID="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
