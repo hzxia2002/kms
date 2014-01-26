@@ -27,7 +27,7 @@
                 <ul  id="content" style="height:350px;width: 100%;padding-left: 0%">
 
                 </ul>
-                <div id="page" align="right">
+                <div id="page" align="right" style="clear: both">
                 </div>
                 <br />
             </div>
