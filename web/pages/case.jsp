@@ -81,8 +81,7 @@
             <div class="title">课程介绍</div>
             <div class="mainkjs">
                 <br />
-                <%  request.setAttribute("vEnter", "\n");%>
-                ${fn:replace(bean.summary,vEnter,"<br>")}
+                ${bean.content}
                 <br />
                 <br />
             </div>
