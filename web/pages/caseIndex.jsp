@@ -24,7 +24,7 @@
             <div class="title">课程展示</div>
             <div class="maintp">
                 <br />
-                <ul  id="content" style="height:350px;width: 100%;padding-left: 0%">
+                <ul  id="content" style="height:380px;width: 100%;padding-left: 0%">
 
                 </ul>
                 <div id="page" align="right" style="clear: both">
