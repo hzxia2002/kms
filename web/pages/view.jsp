@@ -148,15 +148,21 @@
     <div class="leftzfwk">
         <div class="leftzf">
             <div class="title">
-                <div class="one" style="overflow: hidden;text-overflow:ellipsis; width:80%;white-space:nowrap;font-size: 14px;font-weight: bold"><c:out value="${paths}"></c:out></div>
-                <div class="two" style="cursor: pointer;vertical-align: top;padding-top: 2px;">
+                <div class="one" style="overflow: hidden;text-overflow:ellipsis; width:70%;white-space:nowrap;font-size: 14px;font-weight: bold"><c:out value="${paths}"></c:out></div>
+                <div class="two" style="cursor: pointer;vertical-align: top;padding-top: 2px;width: 180px;">
                     <table width="100%">
                         <tr>
                             <td>
                                 <img src="<c:url value="/skin/images/favorite.jpg"/>" width="24" height="24">
                             </td>
-                            <td style="vertical-align: middle;">
+                            <td style="vertical-align: middle;" nowrap="nowrap">
                                 <a href="javascript:void(0);" id="addCollect">收藏本页</a>
+                            </td>
+                            <td>
+                                <img src="<c:url value="/skin/images/pop_up_win_inact.gif"/>" width="24" height="24">
+                            </td>
+                            <td style="vertical-align: middle;"  nowrap="nowrap">
+                                <a href="javascript:void(0);" id="print">打印预览</a>
                             </td>
                         </tr>
                     </table>

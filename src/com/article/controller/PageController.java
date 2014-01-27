@@ -172,6 +172,23 @@ public class PageController extends BaseCRUDActionController {
         return "pages/preView";
     }
 
+    @RequestMapping
+    public String printView(HttpServletRequest request,Model model,Long articleId) throws Exception {
+        try {
+            CmsArticle cmsArticle = articleService.get(articleId);
+            CmsCatalog path = cmsArticle.getPath();
+            String paths = cmsArticle.getTitle();
+
+            model.addAttribute("bean", cmsArticle);
+            model.addAttribute("paths",paths);
+
+
+        } catch (Exception e) {
+            log.error("error", e);
+        }
+
+        return "pages/printView";
+    }
 
 
     @RequestMapping
