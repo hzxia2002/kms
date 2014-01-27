@@ -15,7 +15,7 @@
         });
 
         $("#search_button").click(function(){
-            var key = $("#key").val().trim();
+            var key = $.trim($("#key").val());
 
             if(key == null || key == '' || key == '请输入关键词') {
                 alert('请输入检索关键词');
