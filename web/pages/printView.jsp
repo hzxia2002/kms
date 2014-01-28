@@ -153,7 +153,7 @@
                     <table width="100%">
                         <tr>
                             <td>
-                                <img src="<c:url value="/skin/images/ef_print.png"/>" width="16" height="16">
+                                <img src="<c:url value="/skin/icons/print.png"/>" width="16" height="16">
                             </td>
                             <td style="vertical-align: middle;font-size: 14px"  nowrap="nowrap">
                                 <a href="javascript:void(0);" id="print" onclick="doPrint();">打印</a>
