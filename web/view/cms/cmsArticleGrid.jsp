@@ -34,7 +34,7 @@
                             是否已发布：
                         </td>
                         <td width="10%">
-                            <select type="text" value="" style="width:80px;" id="isPublished" name="isPublished" op="eq" entity="t">
+                            <select type="text" value="" style="width:80px;" id="isPublished" name="isPublished" op="like" entity="t">
                                 <option value="">全部</option>
                                 <option value="1">是</option>
                                 <option value="0">否</option>
