@@ -1,3 +1,3 @@
 <script type="text/javascript">
-    window.location.href = "calogin.jsp";
+    window.location.href = "page/index.do";
 </script>

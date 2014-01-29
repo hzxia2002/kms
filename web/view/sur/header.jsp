@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>无标题文档</title>
+    <title>上海市公安局经济犯罪侦查总队</title>
     <link href="${ctx}/view/sur/images/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         //处理.Png格式图片周围显示成白色的Js代码
@@ -68,7 +68,7 @@
             <param name="expressinstall" value="Scripts/expressInstall.swf" />
             <!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
             <!--[if !IE]>-->
-            <object type="application/x-shockwave-flash" data="images/3_1.swf" width="1002" height="169">
+            <object type="application/x-shockwave-flash" data="${ctx}/view/sur/images/3_1.swf" width="1002" height="169">
                 <!--<![endif]-->
                 <param name="quality" value="high" />
                 <param name="wmode" value="opaque" />
@@ -83,18 +83,6 @@
             </object>
             <!--<![endif]-->
         </object>
-    </div>
-    <div class="nav">
-        <ul>
-            <li class="n1"><a href="index.html" >首页</a></li>
-            <li class="n2"><a href="main.html">通知文件</a></li>
-            <li class="n3"><a href="#">重要精神</a></li>
-            <li class="n4"><a href="#">创先争优</a></li>
-            <li class="n5"><a href="#">党务公开</a></li>
-            <li class="n6"><a href="#">组织人事</a></li>
-            <li class="n7"><a href="#">意见箱</a></li>
-            <li class="n8"><a href="#">意见箱</a></li>
-        </ul>
     </div>
     <div class="clr"></div>
 </div>

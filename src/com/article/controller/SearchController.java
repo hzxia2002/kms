@@ -22,14 +22,17 @@ public class SearchController {
     private CmsArticleService cmsArticleService;
 
     @RequestMapping
-    public String view(HttpServletRequest request,Model model,String key,Page page) throws Exception {
+    public String view(HttpServletRequest request,Model model,String key,Page page,Integer pageSize) throws Exception {
         String hql = "from CmsArticle t where (t.title like '%" + key + "%'";
         hql += " or t.content like '%" + key + "%'";
         hql += " or t.keyWord like '%" + key + "%')";
         hql += " order by t.publishDate desc";
 
         page.setAutoCount(true);
-        page.setPageSize(10);
+
+        if(pageSize == null) {
+            page.setPageSize(10);
+        }
 
         page = cmsArticleService.findByPage(page, hql);
 

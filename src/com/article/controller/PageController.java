@@ -478,7 +478,7 @@ public class PageController extends BaseCRUDActionController {
             treeId = cmsCatalog.getTreeId();
         }
 
-        String hql = "from CmsArticle c where c.path.treeId like'"+treeId+"%' and c.isPublished=1 and c.isValid=1 and c.path.isValid=1 order by id desc";
+        String hql = "from CmsArticle c where c.path.treeId like'"+treeId+"%' and c.isPublished=1 and c.isValid=1 and c.path.isValid=1 order by id asc";
         if(pageNo==null){
             pageNo = 1;
         }

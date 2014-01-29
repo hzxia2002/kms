@@ -6,6 +6,7 @@ import com.article.daoservice.SurQuestionaryService;
 import com.article.daoservice.SurUserQuestionaryService;
 import com.article.domain.*;
 import com.article.manager.QuestionManager;
+import com.article.util.highlight.HighlightUtils;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
@@ -271,18 +272,23 @@ public class SurUserQuestionaryController extends BaseCRUDActionController<SurUs
 //        hql +=" or t.startTime is null or endTime is null";
 //        hql += " and t.status=0";
         List<SurUserQuestionary> surUserQuestionaries = surUserQuestionaryService.find(hql);
-        if(surUserQuestionaries.size()==0&&surQuestionaries.size()>0){
-            SurQuestionary surQuestionary = surQuestionaries.get(0);
-            String questionHql = "select distinct q from SurQuestion q left join fetch q.surOptions where q.questionary.id="+id+" order by q.indexNo";
-            List<SurQuestion> surQuestions = surQuestionService.find(questionHql);
-            model.addAttribute("bean", surQuestionary);
-            model.addAttribute("questions", surQuestions);
-            return "view/sur/survey";
-        }else{
-            model.addAttribute("msg", "您的问卷不存在或者已作答");
+
+        if(surQuestionaries != null && surQuestionaries.size() <= 0) {
+            model.addAttribute("msg", "问卷不存在!");
             return "view/common/error";
         }
 
+        if(surUserQuestionaries != null && surUserQuestionaries.size() > 0) {
+            model.addAttribute("msg", "该问卷您已作答!");
+            return "view/common/error";
+        }
+
+        SurQuestionary surQuestionary = surQuestionaries.get(0);
+        String questionHql = "select distinct q from SurQuestion q left join fetch q.surOptions where q.questionary.id="+id+" order by q.indexNo";
+        List<SurQuestion> surQuestions = surQuestionService.find(questionHql);
+        model.addAttribute("bean", surQuestionary);
+        model.addAttribute("questions", surQuestions);
+        return "view/sur/survey";
     }
 
     @RequestMapping
@@ -360,5 +366,31 @@ public class SurUserQuestionaryController extends BaseCRUDActionController<SurUs
         List<SysUser> sysUsers = sysUserService.find("select t.user from SurAnswer t where t.option.id=" + id+" and t.question.id="+questionId);
         model.addAttribute("users",sysUsers);
         return "view/sur/statUser";
+    }
+
+    /**
+     * 获取当前正在使用的调研列表
+     *
+     * @param request
+     * @param model
+     * @param page
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping
+    public String list(HttpServletRequest request,Model model,Page page,Integer pageSize) throws Exception {
+        String hql = "from SurQuestionary t where 1=1 ";
+        hql += " order by t.id desc";
+
+        page.setAutoCount(true);
+
+        if(pageSize == null) {
+            page.setPageSize(10);
+        }
+
+        page = surQuestionaryService.findByPage(page, hql);
+        model.addAttribute("page", page);
+
+        return "view/sur/surveyList";
     }
 }

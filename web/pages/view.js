@@ -49,7 +49,7 @@ $(function(){
         var iHeight=600;//窗口高度
         var iTop=(window.screen.height-iHeight)/2;
         var iLeft=(window.screen.width-iWidth)/2;
-        window.showModalDialog(url,window,"dialogHeight: "+iHeight+"px; dialogWidth: "+iWidth+"px;dialogTop: "+iTop+"; dialogLeft: "+iLeft+"; resizable: no; location:no;status: no;");
+        window.showModalDialog(url,window,"dialogHeight: "+iHeight+"px; dialogWidth: "+iWidth+"px;dialogTop: "+iTop+"; dialogLeft: "+iLeft+"; resizable: no; location:no;status: no;scroll:yes;");
     });
     loadComments("");
 });

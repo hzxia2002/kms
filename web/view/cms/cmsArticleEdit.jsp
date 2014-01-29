@@ -183,7 +183,8 @@
                 </td>
                 <td  class="container" colspan="3">
                     <input type="text" name="attachPath" id="attachPath"  class="table_input" value="${bean.attachPath}"  readonly="true" style="width: 300px;"/>&nbsp;
-                    <img src="${ctx}/skin/icons/add.gif" onclick="uploadImage();">
+                    <img src="${ctx}/skin/icons/edit_add.png" onclick="uploadImage();">
+                    <img src="${ctx}/skin/icons/edit_remove.png" onclick="deleteImage();">
                 </td>
             </tr>
             <tr class="inputTr">
@@ -485,6 +486,10 @@ function uploadImage(){
     };
     $.extend(settings,options);
     winDialog = $.juiceDialog.open(settings);
+}
+
+function deleteImage(){
+    $("#attachPath").val("");
 }
 
 function uploadFiles(){

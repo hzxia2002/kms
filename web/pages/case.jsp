@@ -80,7 +80,8 @@
     <div class="rightkck" style="padding-top: 10px;">
         <div class="one">
             <div class="title">课程介绍</div>
-            <div class="mainkjs">
+            <%--<div class="mainkjs" style="height: 485px; overflow-x: hidden; overflow-y: auto ">--%>
+            <div class="mainkjs" style="width:652px; height:485px; overflow-x: hidden; overflow-y: auto ">
                 <br />
                 ${bean.content}
                 <br />

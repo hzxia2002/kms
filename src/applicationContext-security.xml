@@ -17,6 +17,7 @@
         <intercept-url pattern="/view/**" access="ROLE_USER"/>
         <intercept-url pattern="/search/**" access="ROLE_USER"/>
         <intercept-url pattern="/main**" access="ROLE_USER"/>
+        <intercept-url pattern="/surUserQuestionary/**" access="ROLE_USER"/>
         <intercept-url pattern="/imageCode.jsp*" filters="none"/>
         <intercept-url pattern="/monitor.jsp*" filters="none"/>
         <intercept-url pattern="/theme/**" filters="none"/>
