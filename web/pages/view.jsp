@@ -159,7 +159,7 @@
                                 <a href="javascript:void(0);" id="addCollect">收藏本页</a>
                             </td>
                             <td>
-                                <img src="<c:url value="/skin/images/pop_up_win_inact.gif"/>" width="24" height="24">
+                                <img src="<c:url value="/skin/icons/print.png"/>" width="24" height="24">
                             </td>
                             <td style="vertical-align: middle;"  nowrap="nowrap">
                                 <a href="javascript:void(0);" id="print">打印预览</a>
