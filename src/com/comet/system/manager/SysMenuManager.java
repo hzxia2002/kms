@@ -38,11 +38,11 @@ public class SysMenuManager {
     public List<SysMenu> getAllMenu(Boolean status) {
         String hql = "from SysMenu where 1=1 ";
 
-        if(status != null) {
-            hql += " and isValid = " + status;
-        }
-
-        hql += " order by treeId asc";
+//        if(status != null) {
+//            hql += " and isValid = " + status;
+//        }
+//
+//        hql += " order by treeId asc";
 
         return sysMenuService.find(hql);
     }

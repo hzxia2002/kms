@@ -154,7 +154,13 @@ function commonDelete(gridId,deleteUrl,callback) {
             if(yes){
                 for(var i=0;i<rows.length;i++){
                     id = rows[i].id;
-                    submitFormData(null,deleteUrl+"?id=" + id,null,"",((rows.length-1)==i?deleteCallback:function(){}));
+                    var tempUrl = deleteUrl;
+                    if(deleteUrl.indexOf("?")>=0){
+                        tempUrl += "&id=" + id;
+                    } else{
+                        tempUrl += "?id=" + id;
+                    }
+                    submitFormData(null,tempUrl,null,"",((rows.length-1)==i?deleteCallback:function(){}));
                 }
             }
         }) ;

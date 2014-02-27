@@ -9,9 +9,9 @@
     <bean name="privilegeService" class="com.comet.system.manager.PrivilegeServiceImpl">
     </bean>
 
-    <bean name="initPrivilegeBean" class="com.comet.core.security.privilege.InitPrivilegeBean">
-        <property name="privilegeService" ref="privilegeService"></property>
-    </bean>
+    <!--<bean name="initPrivilegeBean" class="com.comet.core.security.privilege.InitPrivilegeBean">-->
+        <!--<property name="privilegeService" ref="privilegeService"></property>-->
+    <!--</bean>-->
 
     <!--<bean name="initTableConfigBean" class="com.comet.core.orm.log.InitTableConfigBean">-->
         <!--<property name="tableConfigService" ref="configTableManager"></property>-->

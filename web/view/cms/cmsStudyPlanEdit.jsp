@@ -96,7 +96,7 @@
     }
 
     function selectUser(){
-        window.top.$.juiceDialog.open({ title: '选择知识点', name:'userselector',width: 1024, height: 500, url: '${ctx}/view/sys_new/sysUserGridSelect.jsp', buttons: [
+        window.top.$.juiceDialog.open({ title: '人员选择', name:'userselector',width: 1024, height: 500, url: '${ctx}/view/sys_new/sysUserGridSelect.jsp', buttons: [
             { text: '确定', onclick: selectUserOK },
             { text: '取消', onclick: dialogCancel }
         ]

@@ -107,6 +107,7 @@
                 <prop key="hibernate.connection.autoReconnect">true</prop>
                 <prop key="hibernate.connection.autoReconnectForPools">true</prop>
                 <prop key="hibernate.connection.is-connection-validation-required">true</prop>
+                <!--<prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</prop>-->
                 <!--<prop key="hibernate.cache.use_second_level_cache">true</prop>-->
                 <!--<prop key="hibernate.cache.provider_configuration_file_resource_path">/ehcache.xml</prop>-->
             </props>

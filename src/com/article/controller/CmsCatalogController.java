@@ -68,10 +68,10 @@ public class CmsCatalogController extends BaseCRUDActionController<CmsCatalog> {
             treeNode.setUid("root");
             treeBranch.addTreeNode(treeNode);
         } else {
-            String hql = "from CmsCatalog where parent.id is null and type=" + Constants.FILE_VISUAL +" order by treeId";
+            String hql = "from CmsCatalog where parent_id is null and type=" + Constants.FILE_VISUAL +" order by tree_Id";
 
             if (!StringUtils.equals(uid, "root")) {
-                hql = "from CmsCatalog where parent.id = " + uid + " and type=" + Constants.FILE_VISUAL +" order by treeId";
+                hql = "from CmsCatalog where parent_id = " + uid + " and type=" + Constants.FILE_VISUAL +" order by tree_Id";
             }
 
             List<CmsCatalog> cmsCatalogs = cmsCatalogService.findByQuery(hql);
