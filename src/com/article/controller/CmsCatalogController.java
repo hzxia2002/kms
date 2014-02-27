@@ -34,22 +34,22 @@ public class CmsCatalogController extends BaseCRUDActionController<CmsCatalog> {
     private static Log log = LogFactory.getLog(CmsCatalogController.class);
 
     @Autowired
-	private CmsCatalogService cmsCatalogService;
+    private CmsCatalogService cmsCatalogService;
 
     @Autowired
     private CatalogManager catalogManager;
 
 
-	/**
-	 * 取得树数据
-	 *
-	 * @param type
-	 *            节点类型
-	 * @param uid
-	 *            节点ID
-	 * @throws Exception
-	 *             异常
-	 */
+    /**
+     * 取得树数据
+     *
+     * @param type
+     *            节点类型
+     * @param uid
+     *            节点ID
+     * @throws Exception
+     *             异常
+     */
     @RequestMapping
     @ResponseBody
     public List<Node> tree(String type,String uid, String id) throws Exception {
@@ -68,10 +68,10 @@ public class CmsCatalogController extends BaseCRUDActionController<CmsCatalog> {
             treeNode.setUid("root");
             treeBranch.addTreeNode(treeNode);
         } else {
-            String hql = "from CmsCatalog where parent_id is null and type=" + Constants.FILE_VISUAL +" order by tree_Id";
+            String hql = "from CmsCatalog where parent.id is null and type=" + Constants.FILE_VISUAL +" order by treeId";
 
             if (!StringUtils.equals(uid, "root")) {
-                hql = "from CmsCatalog where parent_id = " + uid + " and type=" + Constants.FILE_VISUAL +" order by tree_Id";
+                hql = "from CmsCatalog where parent.id = " + uid + " and type=" + Constants.FILE_VISUAL +" order by treeId";
             }
 
             List<CmsCatalog> cmsCatalogs = cmsCatalogService.findByQuery(hql);
@@ -95,12 +95,12 @@ public class CmsCatalogController extends BaseCRUDActionController<CmsCatalog> {
         }
 
         return treeBranch.getTreeNodeList();
-	}
+    }
 
-	@RequestMapping
+    @RequestMapping
     @ResponseBody
-	public Page<CmsCatalog> grid(Page page, String condition) {
-		try {
+    public Page<CmsCatalog> grid(Page page, String condition) {
+        try {
             page.setAutoCount(true);
 
             String hql = "from CmsCatalog t where 1=1 and t.type=" + Constants.FILE_VISUAL ;
@@ -109,12 +109,12 @@ public class CmsCatalogController extends BaseCRUDActionController<CmsCatalog> {
 
             // 查询
             page = cmsCatalogService.findByPage(page, queryTranslate.toString());
-		} catch (Exception e) {
+        } catch (Exception e) {
             log.error("error", e);
-		}
+        }
 
         return page;
-	}
+    }
 
     @RequestMapping
     public String init(Model model, CmsCatalog entity) throws Exception {

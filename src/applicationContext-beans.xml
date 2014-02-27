@@ -3,18 +3,18 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <!--<bean name="menuParser" class="com.comet.system.manager.MenuManager" init-method="parse">-->
-        <!--<property name="filePath" value="menu.xml"/>-->
+    <!--<property name="filePath" value="menu.xml"/>-->
     <!--</bean>-->
 
     <bean name="privilegeService" class="com.comet.system.manager.PrivilegeServiceImpl">
     </bean>
 
-    <!--<bean name="initPrivilegeBean" class="com.comet.core.security.privilege.InitPrivilegeBean">-->
-        <!--<property name="privilegeService" ref="privilegeService"></property>-->
-    <!--</bean>-->
+    <bean name="initPrivilegeBean" class="com.comet.core.security.privilege.InitPrivilegeBean">
+        <property name="privilegeService" ref="privilegeService"></property>
+    </bean>
 
     <!--<bean name="initTableConfigBean" class="com.comet.core.orm.log.InitTableConfigBean">-->
-        <!--<property name="tableConfigService" ref="configTableManager"></property>-->
+    <!--<property name="tableConfigService" ref="configTableManager"></property>-->
     <!--</bean>-->
 
     <bean name="systemMap" class="java.util.HashMap">
