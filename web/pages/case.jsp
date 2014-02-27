@@ -8,6 +8,94 @@
         .next:hover{background-position: 0 0;}
         .prev{height: 30px; width: 30px;background: url(../skin/icons/gray_prev.png) no-repeat; background-position: 0 -30px;}
         .prev:hover{background-position: 0 0;}
+
+        #directionContainer ul{
+            margin:0px;
+            padding: 0px 0px 0px 20px;
+        }
+        .main{
+            width:600px;
+        }
+
+        #directionWrapper{
+            padding:15px 7px;
+            width:234px;
+            border:1px solid #CCC;
+        }
+        .directionTitle{
+            font-weight: bold;
+            font-size: 14px;
+            padding-bottom:3px;
+            border-bottom: 1px dashed #ccc;
+        }
+        .sectionItem{
+            height:20px;
+            padding: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 微软雅黑,宋体,黑体;
+            color: #136ec2;
+        }
+
+        .sectionItem a:hover {
+            color: #136ec2;
+            text-decoration: underline;
+        }
+
+        .sectionItem a:visited {
+            color: #136ec2;
+            text-decoration: none;
+        }
+
+        .sectionItem span{
+            *zoom:1;
+            display:inline-block;
+        }
+
+        .itemTitle a {
+            color: #136ec2;
+        }
+
+        .itemTitle {
+            color: #136ec2;
+            padding-left: -10px;
+        }
+
+        .itemTitle span[style]{
+            float:left !important;
+            color: #136ec2 !important;
+            margin-bottom: 5px !important;
+            line-height: 22px !important;
+            font-size: 14px !important;
+            font-family: 微软雅黑,宋体,黑体 !important;
+            font-weight: 500 !important;
+        }
+
+        p span {
+            color: #333 !important;
+            margin-bottom: 5px !important;
+            text-indent: 2em !important;
+            line-height: 22px !important;
+            font-size: 14px !important;
+            font-family: 微软雅黑,宋体,黑体 !important;
+        }
+
+            /*.fixTop{*/
+            /*position: fixed;*/
+            /*top: -1px;*/
+            /*}*/
+
+        .Header .logo .search .kuang .input11{
+            float:left;
+            width: 360px;
+            border: 2px solid #008eca;
+            font-family: "微软雅黑,宋体";
+            font-size: 14px;
+            color: #444444;
+            height: 27px;
+            line-height: 27px;
+            text-indent: 10px;
+        }
     </style>
     <script type="text/javascript" src="${ctx}/pages/case.js"></script>
 
@@ -81,11 +169,33 @@
         <div class="one">
             <div class="title">课程介绍</div>
             <%--<div class="mainkjs" style="height: 485px; overflow-x: hidden; overflow-y: auto ">--%>
-            <div class="mainkjs" style="width:652px; height:485px; overflow-x: hidden; overflow-y: auto ">
-                <br />
+            <%--<div class="mainkjs" style="width:652px; height:485px; overflow-x: hidden; overflow-y: auto ">--%>
+                <%--<br />--%>
+                <%--${bean.content}--%>
+                <%--<br />--%>
+                <%--<br />--%>
+            <%--</div>--%>
+            <div class="main">
+                <input type="hidden" id="articleId" value="${bean.id}">
+                <h2 class="title1" id="title" style="text-align: left;overflow: hidden">
+                    <div >${bean.title}</div>
+                </h2>
+                <c:if test="${not empty bean.keyWord}">
+                    <div style="clear: both">
+                        关键字：${bean.keyWord}
+                    </div>
+                </c:if>
+            </div>
+            <div id="directionContainer" class="z-catalog nslog-area log-set-param" style="width: 75%;">
+                <table width="100%" style="border: 1px solid #dcdcdc;">
+                    <tr>
+                        <td width="10%" bgcolor="#FBFBFB"><h2><span>目录:</span></h2></td>
+                        <td style="background-color: #fff;" valign="top">${bean.catalogue}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="mainmuen" style="margin-top: 20px;">
                 ${bean.content}
-                <br />
-                <br />
             </div>
         </div>
     </div>

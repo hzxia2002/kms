@@ -37,7 +37,7 @@ function treeNodeClick(node){
 }
 
 function loadContent(id,pageNo){
-    var url = context_path+"/page/getContent.do?pageSize=4&treeType=jzfalkck";
+    var url = context_path+"/page/getContent.do?pageSize=10&treeType=jzfalkck";
     if(id){
         url += "&id=" + id;
     }
@@ -54,36 +54,48 @@ function loadContent(id,pageNo){
             var htmlArr = [];
             var pNo = ret.page;
             for(var i=0;i<datas.length;i++){
-                htmlArr.push('<li style="display:inline;position: relative;float: '+(i%2==0?"left;margin-left: 6%;":"right;margin-right:6%;")+'width: 41%;height: 180px;margin-bottom: 15px;">');
-                htmlArr.push('    <div style="width: 100%">');
-                htmlArr.push('        <img src="../skin/images/kck1_bg.jpg" width="100%" height="180px;">');
-                htmlArr.push('    </div>');
-                htmlArr.push('    <div style="float: left;z-index: 10;position: absolute;top:3px;left:3px;" >');
-                htmlArr.push('        <a href="showCase.html?id='+datas[i].id+'" target="_blank">');
-                htmlArr.push('          '+datas[i].title);
-                htmlArr.push( '       </a>');
-                htmlArr.push( '    </div>');
-                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;top:50px;left:60px;" >');
-                htmlArr.push( '       <span>'+datas[i].author+'</span>');
-                htmlArr.push( '    </div>');
-                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;left:15px;" >');
-//                htmlArr.push( '       <span>侦查办案民警 法制员<br />上海市公安局经侦总队</span>');
-                htmlArr.push( '    </div>');
-                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;right:15px;" >');
-
-                if(""+datas[i].path != ''){
-                    htmlArr.push( '        <img src="'+context_path+datas[i].path+'" style="height:104px;width:118px;" alt="">');
-                }
-
-                htmlArr.push( '     </div>');
-                htmlArr.push( '</li>');
-//
-//                htmlArr.push('<li style="width: 49%;float: left;padding-left: 1%;  height:170px;background:url('+context_path+datas[i]["path"]+')">' +
-//                    '<a target="_blank" style="color:blue" href="view.html?id='+datas[i]["id"]+'">'+datas[i]["title"]+
-//                    '<span style="color:black;font-size:12px;">&nbsp;('+datas[i]["publishDate"]+')</span>'+'</a></li>');
+                htmlArr.push('<li style="width: 375px;float: left;margin-left: 12px;padding-left:5px;border-bottom:1px dashed gray">' +
+                    '<a target="_blank" href="view.html?id='+datas[i]["id"]+'"><div style="color:blue;overflow: hidden;text-overflow:ellipsis; width:290px;float:left;white-space:nowrap;" >'+datas[i]["title"]+
+                    '</div><span style="color:black;font-size:12px;float:left;">&nbsp;['+datas[i]["publishDate"].substring(0,10)+']</span>'+'</a></li>');
             }
             $("#content").html(htmlArr.join(""));
             createPage(total,pNo,records);
+//            var datas = ret.data;
+//            var total = ret.total;
+//            var records = ret.records;
+//            var htmlArr = [];
+//            var pNo = ret.page;
+//            for(var i=0;i<datas.length;i++){
+//                htmlArr.push('<li style="display:inline;position: relative;float: '+(i%2==0?"left;margin-left: 6%;":"right;margin-right:6%;")+'width: 41%;height: 180px;margin-bottom: 15px;">');
+//                htmlArr.push('    <div style="width: 100%">');
+//                htmlArr.push('        <img src="../skin/images/kck1_bg.jpg" width="100%" height="180px;">');
+//                htmlArr.push('    </div>');
+//                htmlArr.push('    <div style="float: left;z-index: 10;position: absolute;top:3px;left:3px;" >');
+//                htmlArr.push('        <a href="showCase.html?id='+datas[i].id+'" target="_blank">');
+//                htmlArr.push('          '+datas[i].title);
+//                htmlArr.push( '       </a>');
+//                htmlArr.push( '    </div>');
+//                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;top:50px;left:60px;" >');
+//                htmlArr.push( '       <span>'+datas[i].author+'</span>');
+//                htmlArr.push( '    </div>');
+//                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;left:15px;" >');
+////                htmlArr.push( '       <span>侦查办案民警 法制员<br />上海市公安局经侦总队</span>');
+//                htmlArr.push( '    </div>');
+//                htmlArr.push( '    <div style="float: left;z-index: 10;position: absolute;bottom:20px;right:15px;" >');
+//
+//                if(""+datas[i].path != ''){
+//                    htmlArr.push( '        <img src="'+context_path+datas[i].path+'" style="height:104px;width:118px;" alt="">');
+//                }
+//
+//                htmlArr.push( '     </div>');
+//                htmlArr.push( '</li>');
+////
+////                htmlArr.push('<li style="width: 49%;float: left;padding-left: 1%;  height:170px;background:url('+context_path+datas[i]["path"]+')">' +
+////                    '<a target="_blank" style="color:blue" href="view.html?id='+datas[i]["id"]+'">'+datas[i]["title"]+
+////                    '<span style="color:black;font-size:12px;">&nbsp;('+datas[i]["publishDate"]+')</span>'+'</a></li>');
+//            }
+//            $("#content").html(htmlArr.join(""));
+//            createPage(total,pNo,records);
         }
     });
 }
