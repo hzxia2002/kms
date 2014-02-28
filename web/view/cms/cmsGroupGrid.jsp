@@ -148,4 +148,12 @@
                 { text: '关闭', onclick: function (item, dialog) { dialog.close(); } }
             ]});
     }
+
+    function f_select(){
+        return $.jui.get("cmsGroupGrid").getSelectedRows();
+    }
+
+    function f_cancel(){
+        return $.jui.get("cmsGroupGrid").loadData(true);
+    }
 </script>

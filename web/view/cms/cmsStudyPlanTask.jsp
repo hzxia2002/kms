@@ -28,8 +28,10 @@
                     <select id="users" name="users" multiple="multiple" size="8" style="width: 200px;" class="textarea_table">
                     </select>
                 </div>
-                <div><img src="${ctx}/skin/icons/edit_add.png" onclick="selectUsers();"></div>
-                <div><img src="${ctx}/skin/icons/edit_remove.png" onclick="deleteUsers();"></div>
+                <div><img src="${ctx}/skin/icons/edit_add.png" onclick="selectUsers();" title="选择用户"></div>
+                <div><img src="${ctx}/skin/icons/edit_remove.png" onclick="deleteUsers();" title="删除用户"></div>
+                <div><img src="${ctx}/skin/images/es.png" onclick="addUsersByGroup();" width="20px" title="选择用户组"></div>
+                <div><img src="${ctx}/skin/images/eq.png" onclick="addAllUser();" width="20px" title="添加全体用户"></div>
                 <input type="hidden" name="userIds" id="userIds">
                     <%--<input type="text" name="userName" id="userName" value="${bean.user.displayName}" class="table_input" validate="{required:true}"/>--%>
                     <%--<input type="hidden" name="user" id="user" value="${bean.user.id}" class="table_input"/>--%>
@@ -196,4 +198,84 @@
         }
         $("#userIds").val(getUserIds());
     }
+
+    function addUsersByGroup(){
+        window.top.$.juiceDialog.open({ title: '选择用户组', name:'usersSelector',width: 1024, height: 500, url: '${ctx}/view/cms/cmsGroupGrid.jsp', buttons: [
+            { text: '确定', onclick: selectGroupOK },
+            { text: '关闭', onclick: dialogCancel }
+        ]
+        });
+        return false;
+    }
+
+    function selectGroupOK(item, dialog){
+        var fn = dialog.frame.f_select || dialog.frame.window.f_select;
+        var datas = fn();
+        if (!datas)
+        {
+            alert('请选择行!');
+            return;
+        }
+        var groupIds = [];
+        for(var j=0;j<datas.length;j++){
+            groupIds.push(datas[j].id);
+        }
+        $.ajax({
+            url:"${ctx}/cmsGroup/getUsers",
+            type:"post",
+            data:{groupIds:groupIds.join(",")},
+            success:function(retDatas){
+                var userIds = getUserIds();
+                var htmlArr = [];
+                for(var j=0;j<retDatas.length;j++){
+                    if(userIds.indexOf(","+retDatas[j].id+",")>=0){
+                        continue;
+                    }else{
+                        userIds += retDatas[j].id +",";
+                    }
+                    htmlArr.push("<option value='"+retDatas[j].id+"'>"+retDatas[j].displayName+"</option>");
+                }
+                $("#users").append(htmlArr.join(""));
+                if(!window.confirm("添加成功,是否继续添加?")){
+                    dialog.close();
+                }else{
+                    var cancel = dialog.frame.f_cancel || dialog.frame.window.f_cancel;
+                    cancel();
+                }
+                $("#userIds").val(getUserIds());
+            },failure:function(){
+                alert("添加失败") ;
+                dialog.close();
+            }
+        });
+
+
+    }
+
+
+   function addAllUser(){
+       $.ajax({
+           url:"${ctx}/cmsGroup/getAllUsers",
+           type:"post",
+           success:function(retDatas){
+               var userIds = getUserIds();
+               var htmlArr = [];
+               for(var j=0;j<retDatas.length;j++){
+                   if(userIds.indexOf(","+retDatas[j].id+",")>=0){
+                       continue;
+                   }else{
+                       userIds += retDatas[j].id +",";
+                   }
+                   htmlArr.push("<option value='"+retDatas[j].id+"'>"+retDatas[j].displayName+"</option>");
+               }
+               $("#users").append(htmlArr.join(""));
+               $("#userIds").val(getUserIds());
+               alert("添加成功")
+           },failure:function(){
+               alert("添加失败") ;
+           }
+       });
+
+   }
+
 </script>
