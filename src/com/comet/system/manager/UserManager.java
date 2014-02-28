@@ -1,9 +1,10 @@
 package com.comet.system.manager;
 
 import com.comet.system.daoservice.SysPrivilegeService;
+import com.comet.system.daoservice.SysRoleService;
 import com.comet.system.daoservice.SysUserService;
-import com.comet.system.domain.SysPerson;
 import com.comet.system.domain.SysPrivilege;
+import com.comet.system.domain.SysRole;
 import com.comet.system.domain.SysUser;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -23,6 +23,9 @@ import java.util.Map;
 public class UserManager {
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private SysRoleService sysRoleService;
 
     @Autowired
     private SysPrivilegeService sysPrivilegeService;
@@ -107,5 +110,17 @@ public class UserManager {
         }
 
         return ret;
+    }
+
+    /**
+     * 取得当前用户的角色
+     *
+     * @param user
+     * @return
+     */
+    public List<SysRole> getUserRoles(SysUser user) {
+        String sql = "select t.role from SysUserRole t where t.user.id = " + user.getId();
+
+        return sysRoleService.find(sql);
     }
 }
