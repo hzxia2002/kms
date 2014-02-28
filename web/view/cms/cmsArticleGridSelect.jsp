@@ -50,7 +50,7 @@
                 </div>
             </form>
         </div>
-        <div id="cmsArticleGrid"  rownumbers="true"  height="100%"  url='${ctx}/cmsArticle/grid.do' root="rows" record="records"  width="100%"  colDraggable="true" >
+        <div id="cmsArticleGrid" checkbox="true" rownumbers="true"  height="100%"  url='${ctx}/cmsArticle/grid.do' root="rows" record="records"  width="100%"  colDraggable="true" >
         </div>
 
     </div>
@@ -122,7 +122,7 @@
     }
 
     function f_select(){
-        return $.jui.get("cmsArticleGrid").getSelectedRow();
+        return $.jui.get("cmsArticleGrid").getSelectedRows();
     }
 </script>
 

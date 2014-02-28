@@ -88,7 +88,7 @@
             columns: [
                 {display: '标识', name: 'id', width: 50,hide:true },
                 {display: '课程名称', name: 'name', width: 150},
-                {display: '知识点', name: 'article.title', width: 150},
+                {display: '知识点', name: 'articles', width: 350,render:articleRender},
                 {display: '课程描述', name: 'remark', width: 200 },
                 {display: '开始时间', name: 'startTime', width: 120},
                 {display: '结束时间', name: 'endTime', width: 120 },
@@ -157,6 +157,17 @@
         }
     }
 
+    function articleRender(item){
+        if(item.articles&&item.articles.length>0){
+             var htmlArr = [];
+            for(var i=0;i<item.articles.length;i++){
+                htmlArr.push("<a style='cursor: pointer' href='${ctx}/page/preView.do?id="+item.articles[i].id+"' target='_blank'>"+item.articles[i].title+"</a>&nbsp;&nbsp;")
+            }
+            return htmlArr.join("");
+        }else{
+            return "";
+        }
+    }
 
 </script>
 

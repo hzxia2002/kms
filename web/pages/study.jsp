@@ -82,10 +82,10 @@
             font-family: 微软雅黑,黑体 !important;
         }
 
-        /*.fixTop{*/
-        /*position: fixed;*/
-        /*top: -1px;*/
-        /*}*/
+            /*.fixTop{*/
+            /*position: fixed;*/
+            /*top: -1px;*/
+            /*}*/
         .Header .logo .search .kuang .input11{
             float:left;
             width: 360px;
@@ -169,6 +169,18 @@
                     </tr>
                 </table>
                 </p>
+            </div>
+        </div>
+    </div>
+    <div class="rightct" >
+        <div class="rightzf" style="overflow: hidden">
+            <div class="title">全部知识点</div>
+            <div class="mainct">
+                <c:forEach var="article" items="${articles}">
+                    <div style="width: 170px;white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis;overflow: hidden">
+                        <a href="${ctx}/study/init.html?studyPlanId=${planId}&articleId=${article.id}">${article.title}</a>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </div>

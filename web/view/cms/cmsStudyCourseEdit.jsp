@@ -24,8 +24,17 @@
                 知识点:
             </td>
             <td  class="container">
-                <input type="text" name="articleName"  id="articleName" class="table_input" value="${bean.article.title}" validate="{required:true}"  readonly="true"/>&nbsp;
-                <input type="hidden" name="article" id="article" class="table_input" value="${bean.article.id}"  />&nbsp;
+                <div style="float: left">
+                    <select id="articleNames" name="articleNames" multiple="multiple" size="8" style="width: 200px;" class="textarea_table">
+                        <c:forEach var="article" items="${articles}">
+                             <option value="${article.id}">${article.title}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div><img src="${ctx}/skin/icons/edit_add.png" onclick="selectArticle();" title="选择知识点"></div>
+                <div><img src="${ctx}/skin/icons/edit_remove.png" onclick="deleteArticle();" title="删除知识点"></div>
+                <input type="hidden" name="articleIds" id="articleIds">
+                <input type="hidden" name="article"  value="">
             </td>
         </tr>
 
@@ -77,6 +86,7 @@
                onBeforeOpen: selectArticle, valueFieldID: 'article',width:300
         });
 
+        $("#articleIds").val(getArticleIds());
         $.metadata.setType("attr", "validate");
         v = $('#cmsStudyCourseEditForm').validate();
     });
@@ -93,17 +103,32 @@
 
     function selectArticleOK(item, dialog){
         var fn = dialog.frame.f_select || dialog.frame.window.f_select;
-        var data = fn();
-        if (!data)
+        var datas = fn();
+        if (!datas)
         {
             alert('请选择行!');
             return;
         }
-        $("#articleName").val(data.title);
-        $("#article").val(data.id);
-        dialog.close();
-
+        var articleIds = getArticleIds();
+        var htmlArr = [];
+        for(var j=0;j<datas.length;j++){
+            if(articleIds.indexOf(","+datas[j].id+",")>=0){
+                continue;
+            }else{
+                articleIds += datas[j].id +",";
+            }
+            htmlArr.push("<option value='"+datas[j].id+"'>"+datas[j].title+"</option>");
+        }
+        $("#articleNames").html(htmlArr.join(""));
+        if(!window.confirm("添加成功,是否继续添加?")){
+            dialog.close();
+        }else{
+            var cancel = dialog.frame.f_cancel || dialog.frame.window.f_cancel;
+            cancel();
+        }
+        $("#articleIds").val(getArticleIds());
     }
+
     function selectArticleCancel(item, dialog){
         dialog.close();
     }
@@ -125,4 +150,40 @@
        return true;
 
    }
+    function deleteArticle(){
+        var selecteds = $("#articleNames option:selected");
+        if(selecteds.length<=0){
+            alert("请选择知识点");
+            return;
+        }
+        if(window.confirm("您是否要删除选中的知识点?")){
+
+            var selectedIds = [];
+            for(var i=0;i<selecteds.length;i++){
+                selectedIds.push($(selecteds[i]).val()) ;
+            }
+            $.ajax({
+                url:"${ctx}/cmsStudyCourse/deleteArticle?courseId=${bean.id}",
+                type:"post",
+                data:{articleIds:selectedIds.join(",")},
+                success:function(){
+                    $("#articleNames option:selected").remove();
+                    $("#articleIds").val(getArticleIds());
+                },failure:function(){
+                    alert("删除失败") ;
+                }
+            });
+
+        }
+    }
+
+    function getArticleIds(){
+        var allOptios = $("#articleNames option");
+        var articleIds = ",";
+        for (var i = 0; i < allOptios.length; i++) {
+            articleIds += $(allOptios[i]).val() + ",";
+        }
+        return articleIds;
+    }
+
 </script>
