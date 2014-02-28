@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -32,7 +35,7 @@ public class CmsGroupController extends BaseCRUDActionController<CmsGroup> {
     private static Log log = LogFactory.getLog(CmsGroupController.class);
 
     @Autowired
-	private CmsGroupService cmsGroupService;
+    private CmsGroupService cmsGroupService;
 
     @Autowired
     private CmsGroupUserService cmsGroupUserService;
@@ -41,10 +44,10 @@ public class CmsGroupController extends BaseCRUDActionController<CmsGroup> {
     private SysUserService sysUserService;
 
 
-	@RequestMapping
+    @RequestMapping
     @ResponseBody
-	public Page<CmsGroup> grid(Page page, String condition) {
-		try {
+    public Page<CmsGroup> grid(Page page, String condition) {
+        try {
             page.setAutoCount(true);
 
             String hql = "from CmsGroup t where 1=1 " ;
@@ -53,12 +56,12 @@ public class CmsGroupController extends BaseCRUDActionController<CmsGroup> {
 
             // 查询
             page = cmsGroupService.findByPage(page, queryTranslate.toString());
-		} catch (Exception e) {
+        } catch (Exception e) {
             log.error("error", e);
-		}
+        }
 
         return page;
-	}
+    }
 
     @RequestMapping
     @ResponseBody
@@ -189,5 +192,37 @@ public class CmsGroupController extends BaseCRUDActionController<CmsGroup> {
         sendSuccessJSON(response, "删除成功");
     }
 
+    @RequestMapping
+    @ResponseBody
+    public List getUsers(HttpServletResponse response, String groupIds) throws Exception {
+        List<Map> arrayList = new ArrayList<Map>();
+        if(StringUtils.isNotEmpty(groupIds)){
+            String hql = "select g.user from CmsGroupUser g where g.group.id in("+groupIds+")";
+            List<SysUser> sysUsers = sysUserService.find(hql);
+            for (SysUser sysUser : sysUsers) {
+                HashMap hashMap = new HashMap();
+                hashMap.put("id",sysUser.getId());
+                hashMap.put("displayName",sysUser.getDisplayName());
+                arrayList.add(hashMap);
+            }
 
+        }
+        return arrayList;
+    }
+
+    @RequestMapping
+    @ResponseBody
+    public List getAllUsers(HttpServletResponse response, String groupIds) throws Exception {
+        List<Map> arrayList = new ArrayList<Map>();
+        String hql = "from SysUser";
+        List<SysUser> sysUsers = sysUserService.find(hql);
+        for (SysUser sysUser : sysUsers) {
+            HashMap hashMap = new HashMap();
+            hashMap.put("id",sysUser.getId());
+            hashMap.put("displayName",sysUser.getDisplayName());
+            arrayList.add(hashMap);
+        }
+
+        return arrayList;
+    }
 }
