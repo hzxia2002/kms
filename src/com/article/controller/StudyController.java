@@ -46,12 +46,25 @@ public class StudyController extends BaseCRUDActionController {
     @Autowired
     private CmsStudyCourseService cmsStudyCourseService;
 
+    @Autowired
+    private CmsCourseArticleService cmsCourseArticleService;
+
     @RequestMapping
-    public String init(Model model, Long studyPlanId) throws Exception {
+    public String init(Model model, Long studyPlanId,Long articleId) throws Exception {
         try {
             CmsStudyPlan cmsStudyPlan = studyPlanService.get(studyPlanId);
             CmsStudyCourse cmsStudyCourse = cmsStudyPlan.getCourse();
-            CmsArticle cmsArticle = cmsStudyCourse.getArticle();
+            CmsArticle cmsArticle = new CmsArticle();
+            List<CmsArticle> cmsArticles = articleService.find("select t.article from CmsCourseArticle t where t.course.id=" + cmsStudyCourse.getId());
+            if(cmsStudyCourse.getArticle()!=null){
+                cmsArticle = cmsStudyCourse.getArticle();
+                cmsArticles.add(cmsArticle);
+            }
+            if(articleId!=null){
+                cmsArticle = articleService.get(articleId);
+            }else if(cmsArticles.size()>0) {
+                cmsArticle =  cmsArticles.get(0);
+            }
             CmsCatalog path = cmsArticle.getPath();
             String paths = cmsArticle.getTitle();
             while (path!=null) {
@@ -83,9 +96,12 @@ public class StudyController extends BaseCRUDActionController {
             model.addAttribute("bean", cmsArticle);
             model.addAttribute("paths",paths);
             model.addAttribute("planId",studyPlanId);
+            model.addAttribute("articles",cmsArticles);
 
             //文章保存
-            articleService.save(cmsArticle);
+            if(cmsArticle.getId()!=null){
+                articleService.save(cmsArticle);
+            }
             //最后开始学习时间
             cmsStudyPlan.setLastStudyTime(new Timestamp(System.currentTimeMillis()));
             Long studyTimes = cmsStudyPlan.getStudyTimes();
