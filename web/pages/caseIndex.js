@@ -111,7 +111,7 @@ function createPage(total,pageNo,records){
             min = pageNo - 4;
             max = pageNo;
         }
-        htmlArr.push('<span style="float:left;">共计'+records+'条记录</span>');
+        htmlArr.push('<span style="float:left;color: #000000;">共计'+records+'条记录</span>');
         if(min>1){
             htmlArr.push('<span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(\''+nodeId+'\','+(1)+')" >'+'第一页'+'</a></span>');
             htmlArr.push('<span style="padding-left:5px;padding-right:5px;"><a href="javascript:void(0)" style="color:blue" onclick="loadContent(\''+nodeId+'\','+(pageNo-1)+')" >'+'上一页'+'</a></span>');
