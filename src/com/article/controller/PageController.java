@@ -83,7 +83,9 @@ public class PageController extends BaseCRUDActionController {
         try {
             CmsArticle cmsArticle = articleService.get(id);
             CmsCatalog path = cmsArticle.getPath();
+            String pathName = path.getPath();
             String paths = cmsArticle.getTitle();
+
             while (path!=null) {
                 paths = path.getName()+ ">>" + paths;
                 if(path.getParent()==null){
@@ -92,8 +94,11 @@ public class PageController extends BaseCRUDActionController {
                     }else if (path.getPath().equals(Constants.INVESTIGATION_KMS)){
                         model.addAttribute("type","3");
                     }else if (path.getPath().equals(Constants.CASE_KMS)){
-                        model.addAttribute("type","4");
-                        return showCase(request,model,id);
+                        // 微课程去学习页面，激战法使用普通页面浏览
+                        if(StringUtils.equals(pathName, "weikecheng")) {
+                            model.addAttribute("type","4");
+                            return showCase(request,model,id);
+                        }
                     }
                 }
                 path = path.getParent();
@@ -118,7 +123,6 @@ public class PageController extends BaseCRUDActionController {
             model.addAttribute("comments", cmsComments);
             model.addAttribute("bean", cmsArticle);
             model.addAttribute("paths",paths);
-
 
             //文章保存
             articleService.save(cmsArticle);
@@ -287,7 +291,7 @@ public class PageController extends BaseCRUDActionController {
                         }
 
                     }
-                    boolean isTV = "dat,wmv,avi,mp3,mpg".indexOf(orginName.substring(orginName.lastIndexOf(".") + 1)) >= 0;
+                    boolean isTV = "dat,wmv,avi,mp3,mpg,mpeg".indexOf(orginName.substring(orginName.lastIndexOf(".") + 1)) >= 0;
                     attachment.put("isAVI", isTV);
                     if(isTV&&!hasAVI){
                         String tvPath =  docAttachmentse.getFilePath();
@@ -499,6 +503,14 @@ public class PageController extends BaseCRUDActionController {
             map.put("publishDate",row.getPublishDate());
             map.put("path",row.getAttachPath());
             map.put("author",row.getAuthor());
+
+            // 将文章目录返回到前台
+            if(row.getPath() != null) {
+                map.put("catalog", row.getPath().getPath());
+            } else {
+                map.put("catalog", "");
+            }
+
             dataList.add(map);
         }
         dataMap.put("total",cmsArticlePage.getTotal());

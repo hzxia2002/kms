@@ -175,27 +175,27 @@
                 <%--<br />--%>
                 <%--<br />--%>
             <%--</div>--%>
-            <div class="main">
+            <div class="main" style="width: 100%;">
                 <input type="hidden" id="articleId" value="${bean.id}">
-                <h2 class="title1" id="title" style="text-align: left;overflow: hidden">
-                    <div >${bean.title}</div>
-                </h2>
+                <%--<h2 class="title1" id="title" style="text-align: left;overflow: hidden">--%>
+                    <%--<div >${bean.title}</div>--%>
+                <%--</h2>--%>
                 <c:if test="${not empty bean.keyWord}">
                     <div style="clear: both">
                         关键字：${bean.keyWord}
                     </div>
                 </c:if>
-            </div>
-            <div id="directionContainer" class="z-catalog nslog-area log-set-param" style="width: 75%;">
-                <table width="100%" style="border: 1px solid #dcdcdc;">
-                    <tr>
-                        <td width="10%" bgcolor="#FBFBFB"><h2><span>目录:</span></h2></td>
-                        <td style="background-color: #fff;" valign="top">${bean.catalogue}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="mainmuen" style="margin-top: 20px;">
-                ${bean.content}
+                <%--<div id="directionContainer" class="z-catalog nslog-area log-set-param" style="width: 75%;">--%>
+                    <%--<table width="100%" style="border: 1px solid #dcdcdc;">--%>
+                        <%--<tr>--%>
+                            <%--<td width="10%" bgcolor="#FBFBFB"><h2><span>目录:</span></h2></td>--%>
+                            <%--<td style="background-color: #fff;" valign="top">${bean.catalogue}</td>--%>
+                        <%--</tr>--%>
+                    <%--</table>--%>
+                <%--</div>--%>
+                <div class="mainmuen" style="margin-top: 30px;width: 100%;">
+                    ${bean.content}
+                </div>
             </div>
         </div>
     </div>
