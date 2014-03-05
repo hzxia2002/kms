@@ -126,6 +126,6 @@ function createPage(total,pageNo,records){
         }
         $("#page").html(htmlArr.join(""));
     } else{
-        $("#page").html('<span style="float:left;">共计'+records+'条记录</span>');
+        $("#page").html('<span style="float:left;color: #000000;">共计'+records+'条记录</span>');
     }
 }
