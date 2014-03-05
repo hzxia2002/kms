@@ -77,6 +77,9 @@ public class PageController extends BaseCRUDActionController {
     @Autowired
     private CmsCommentService cmsCommentService;
 
+    @Autowired
+    private HashMap systemMap;
+
 
     @RequestMapping
     public String view(HttpServletRequest request,Model model,Long id) throws Exception {
@@ -95,10 +98,14 @@ public class PageController extends BaseCRUDActionController {
                         model.addAttribute("type","3");
                     }else if (path.getPath().equals(Constants.CASE_KMS)){
                         // 微课程去学习页面，激战法使用普通页面浏览
-                        if(StringUtils.equals(pathName, "weikecheng")) {
-                            model.addAttribute("type","4");
-                            return showCase(request,model,id);
-                        }
+//                        if(StringUtils.equals(pathName, "weikecheng")) {
+                        Object pptPrefix = systemMap.get("pptPrefix");
+                        Object pptSuffix = systemMap.get("pptSuffix");
+                        model.addAttribute("pptPrefix", pptPrefix);
+                        model.addAttribute("pptSuffix", pptSuffix);
+                        model.addAttribute("type","4");
+                        return showCase(request,model,id);
+//                        }
                     }
                 }
                 path = path.getParent();
@@ -277,7 +284,7 @@ public class PageController extends BaseCRUDActionController {
                         if(file.exists()){
                             attachment.put("total", file.listFiles(new FileFilter() {
                                 public boolean accept(File file) {
-                                    return file.getName().endsWith("png");
+                                    return file.getName().toLowerCase().endsWith(systemMap.get("pptSuffix").toString().toLowerCase());
                                 }
                             }).length);
                         }else {

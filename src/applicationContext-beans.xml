@@ -22,6 +22,8 @@
             <map>
                 <entry key="filePath" value="${filePath}" />
                 <entry key="fileUploadSize" value="${fileUploadSize}" />
+                <entry key="pptPrefix" value="${pptPrefix}" />
+                <entry key="pptSuffix" value="${pptSuffix}" />
             </map>
         </constructor-arg>
     </bean>

@@ -177,6 +177,8 @@
             <%--</div>--%>
             <div class="main" style="width: 100%;">
                 <input type="hidden" id="articleId" value="${bean.id}">
+                <input type="hidden" id="pptPrefix" value="${pptPrefix}">
+                <input type="hidden" id="pptSuffix" value="${pptSuffix}">
                 <%--<h2 class="title1" id="title" style="text-align: left;overflow: hidden">--%>
                     <%--<div >${bean.title}</div>--%>
                 <%--</h2>--%>

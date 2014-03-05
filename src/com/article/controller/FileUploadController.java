@@ -9,6 +9,8 @@ import com.article.domain.DocDocument;
 import com.article.manager.CatalogManager;
 import com.article.manager.UploadConfig;
 import com.article.util.PPTConvertHander;
+import com.article.util.PPTOperator;
+import com.article.util.PPTToJPGHander;
 import com.comet.core.config.CustomizedPropertyPlaceholderConfigurer;
 import com.comet.core.controller.BaseCRUDActionController;
 import net.sf.json.JSONArray;
@@ -53,6 +55,9 @@ public class FileUploadController extends BaseCRUDActionController {
 
     @Autowired
     private UploadConfig uploadConfig;
+
+    @Autowired
+    private HashMap systemMap;
 
 
     @RequestMapping
@@ -237,7 +242,8 @@ public class FileUploadController extends BaseCRUDActionController {
                     String pptDir = wholePath + File.separator + dateDir + dateLong;
                     File file = new File(pptDir);
                     file.mkdir();
-                    PPTConvertHander pptConvertHander = new PPTConvertHander(pathName,pptDir,"pack");
+
+                    PPTToJPGHander pptConvertHander= new PPTToJPGHander(pathName,pptDir);
                     pptConvertHander.start();
                 }
 
@@ -331,7 +337,7 @@ public class FileUploadController extends BaseCRUDActionController {
                     getFileList(file.getPath(),list,contextPath);
                 }else{
                     String extName = file.getName().substring(file.getName().lastIndexOf(".") + 1);
-                    if("|gif|jpeg|jpg|png|bmp|".contains(extName.toLowerCase())&&!file.getName().contains("pack")){
+                    if("|gif|jpeg|jpg|png|bmp|".contains(extName.toLowerCase())&&!file.getName().contains(systemMap.get("pptPrefix").toString())){
                         list.add(file.getPath().substring(contextPath.length()+1).replaceAll("\\\\", "/"));
                     }
                 }

@@ -14,14 +14,14 @@ function goPrev(){
 }
 
 function toPage(){
-    $("#pic").attr('src',$("#path").val()+"/pack"+i+".png");
+    $("#pic").attr('src',$("#path").val()+"/"+$("#pptPrefix").val()+i+"."+$("#pptSuffix").val());
     $("#page").val(i);
 }
 
 function loadPPT(path,total){
     var htmlArr = [];
     htmlArr.push('<div style="width: 675px;height:476px;position: relative;border: 1px solid #dcdcdc;background-color: #d2d8ff"> ');
-    htmlArr.push('   <img src="'+path+'/pack1.png" style="width: 675px;height: 476px;z-index: 1" id="pic"> ');
+    htmlArr.push('   <img src="'+path+'/'+$("#pptPrefix").val()+'1.'+$("#pptSuffix").val()+'" style="width: 675px;height: 476px;z-index: 1" id="pic"> ');
     htmlArr.push('   <div style="position: absolute; left: 0px;bottom:230px;cursor: pointer;z-index: 11"> ') ;
     htmlArr.push('   <div class="prev" onclick="goPrev()"></div>') ;
     htmlArr.push('   </div>') ;
