@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>后台管理系统</title>
     <link href="js/jui/skins/Aqua/css/jui-all.css" rel="stylesheet" type="text/css" />
-    <link href="skin/defaulsyst.css" rel="stylesheet" type="text/css" />
+    <%--<link href="skin/defaulsyst.css" rel="stylesheet" type="text/css" />--%>
     <script src="js/jquery/jquery-1.7.2.js" type="text/javascript"></script>
     <script src="js/jui/js/jui-all.js" type="text/javascript"></script>
     <script src="js/jquery-validation/jquery.validate.js" type="text/javascript"></script>

@@ -3,7 +3,7 @@
 <link href="${ctx}/skin/default.css" rel="stylesheet" type="text/css" />
 <script src="${ctx}/js/jquery/jquery-1.7.2.js" type="text/javascript"></script>
 <script src="${ctx}/js/jui/js/jui-all.js" type="text/javascript"></script>
-<script src="${ctx}/js/jui/js/plugins/juicePanel.js" type="text/javascript"></script>
+<%--<script src="${ctx}/js/jui/js/plugins/juicePanel.js" type="text/javascript"></script>--%>
 <script src="${ctx}/js/jquery-validation/jquery.validate.js" type="text/javascript"></script>
 <script src="${ctx}/js/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
 <script src="${ctx}/js/jquery-validation/messages_cn.js" type="text/javascript"></script>
