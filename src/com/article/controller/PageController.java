@@ -147,6 +147,12 @@ public class PageController extends BaseCRUDActionController {
             CmsArticle cmsArticle = articleService.get(id);
             CmsCatalog path = cmsArticle.getPath();
             String paths = cmsArticle.getTitle();
+
+            Object pptPrefix = systemMap.get("pptPrefix");
+            Object pptSuffix = systemMap.get("pptSuffix");
+            model.addAttribute("pptPrefix", pptPrefix);
+            model.addAttribute("pptSuffix", pptSuffix);
+
             while (path!=null) {
                 paths = path.getName()+ ">>" + paths;
                 if(path.getParent()==null){
@@ -171,7 +177,6 @@ public class PageController extends BaseCRUDActionController {
             cmsArticle.setVisitTimes(visitTimes);
             model.addAttribute("bean", cmsArticle);
             model.addAttribute("paths",paths);
-
 
             //文章保存
             articleService.save(cmsArticle);

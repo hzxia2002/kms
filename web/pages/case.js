@@ -14,7 +14,7 @@ function goPrev(){
 }
 
 function toPage(){
-    $("#pic").attr('src',$("#path").val()+"/"+$("#pptPrefix").val()+i+"."+$("#pptSuffix").val());
+    $("#pic").attr('src',$("#path").val()+"/"+ encodeURI($("#pptPrefix").val())+i+"."+$("#pptSuffix").val());
     $("#page").val(i);
 }
 
