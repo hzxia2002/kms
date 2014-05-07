@@ -119,7 +119,7 @@
             }
             htmlArr.push("<option value='"+datas[j].id+"'>"+datas[j].title+"</option>");
         }
-        $("#articleNames").html(htmlArr.join(""));
+        $("#articleNames").append(htmlArr.join(""));
         if(!window.confirm("添加成功,是否继续添加?")){
             dialog.close();
         }else{
