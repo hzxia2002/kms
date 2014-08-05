@@ -97,13 +97,14 @@ public class PageController extends BaseCRUDActionController {
                     }else if (path.getPath().equals(Constants.INVESTIGATION_KMS)){
                         model.addAttribute("type","3");
                     }else if (path.getPath().equals(Constants.CASE_KMS)){
+                        model.addAttribute("type","4");
+
                         // 微课程去学习页面，技战法使用普通页面浏览
                         if(StringUtils.equals(pathName, "weikecheng")) {
                             Object pptPrefix = systemMap.get("pptPrefix");
                             Object pptSuffix = systemMap.get("pptSuffix");
                             model.addAttribute("pptPrefix", pptPrefix);
                             model.addAttribute("pptSuffix", pptSuffix);
-                            model.addAttribute("type","4");
                             return showCase(request,model,id);
                         }
                     }

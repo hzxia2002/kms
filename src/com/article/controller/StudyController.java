@@ -66,6 +66,9 @@ public class StudyController extends PageController {
             }else if(cmsArticles.size()>0) {
                 cmsArticle =  cmsArticles.get(0);
             }
+            model.addAttribute("articles",cmsArticles);
+            model.addAttribute("planId",studyPlanId);
+
             CmsCatalog path = cmsArticle.getPath();
             String paths = cmsArticle.getTitle();
             while (path!=null) {
@@ -98,8 +101,6 @@ public class StudyController extends PageController {
             }
             model.addAttribute("bean", cmsArticle);
             model.addAttribute("paths",paths);
-            model.addAttribute("planId",studyPlanId);
-            model.addAttribute("articles",cmsArticles);
 
             //文章保存
             if(cmsArticle.getId()!=null){
