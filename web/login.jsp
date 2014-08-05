@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.1//EN" "-//W3C//DTD XHTML 1.0 Transitional//EN">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xml:lang="en" lang="en">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.1//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="org.springframework.security.web.authentication.AbstractProcessingFilter"%>
 <%@ page import="com.comet.core.utils.Constant" %>
@@ -93,7 +93,7 @@
                           <span >
                             <div style="float: left;color:#10334D;line-height:24px;font-size:13px;width:140px;font-weight:bold;text-align: right;padding-right: 2px;">验证码</div>
                         </span>
-                        <input id="j_validation_code" name="j_validation_code" style="width: 80px;" tabindex="2" type="password" value="">
+                        <input id="j_validation_code" name="j_validation_code" style="width: 80px;" tabindex="2" type="text" value="">
                         <img id="pic" src="<c:url value="/common/imageCode.jsp"/>" onclick="reloadImage();" height="20" alt="点击图片显示新的验证码" style="vertical-align: middle;">
                         <a href="#" onclick="reloadImage();">换一张</a>
                     </p>
