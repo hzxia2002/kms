@@ -105,11 +105,11 @@ public class LigerMenuGenerator {
             if(sysMenuParent !=null){
                 String listKey = "list" + sysMenuParent.getId();
                 List childList =(List) tempMap.get(listKey);
-                if(childList==null){
-                    tempMap.put(listKey,new ArrayList());
-                }else{
-                    childList =(List)  tempMap.get(listKey);
+                if(childList == null){
+                    childList = new ArrayList();
+                    tempMap.put(listKey, childList);
                 }
+
                 childList.add(menuMap);
             }
             if(sysMenu.getParent()==null){
