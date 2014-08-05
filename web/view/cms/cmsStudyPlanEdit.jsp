@@ -51,7 +51,7 @@
                 最后学习时间:
             </td>
             <td  class="container">
-                <input type="text"  name="lastStudyTime" id="lastStudyTime">
+                ${bean.lastStudyTime}
 
             </td>
         </tr>
@@ -60,7 +60,7 @@
                 最后学习时长:
             </td>
             <td  class="container">
-                <input type="text" name="lastStudyDuration" value="${bean.lastStudyDuration}" class="table_input" validate="{number:true,min:0}"/>
+                ${bean.lastStudyDuration}
             </td>
         </tr>
     </table>
