@@ -154,6 +154,19 @@
                 </table>
             </div>
         </div>
+        <c:if test="${not empty articles}">
+            <div class="leftkckone">
+                <div class="title">全部知识点</div>
+                <div class="mainct">
+                    <c:forEach var="article" items="${articles}">
+                        <div style="width: 170px;white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis;overflow: hidden;padding-top: 8px;font-size: 14px;">
+                            <a href="${ctx}/study/init.html?studyPlanId=${planId}&articleId=${article.id}">${article.title}</a>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+        </c:if>
+
     </div>
     <div class="rightkck">
         <div class="tree" id="ppt" style="width:677px ;height:477px; border: 1px solid #cedce9;">
@@ -170,17 +183,17 @@
             <div class="title">课程介绍</div>
             <%--<div class="mainkjs" style="height: 485px; overflow-x: hidden; overflow-y: auto ">--%>
             <%--<div class="mainkjs" style="width:652px; height:485px; overflow-x: hidden; overflow-y: auto ">--%>
-                <%--<br />--%>
-                <%--${bean.content}--%>
-                <%--<br />--%>
-                <%--<br />--%>
+            <%--<br />--%>
+            <%--${bean.content}--%>
+            <%--<br />--%>
+            <%--<br />--%>
             <%--</div>--%>
             <div class="main" style="width: 100%;">
                 <input type="hidden" id="articleId" value="${bean.id}">
                 <input type="hidden" id="pptPrefix" value="${pptPrefix}">
                 <input type="hidden" id="pptSuffix" value="${pptSuffix}">
                 <%--<h2 class="title1" id="title" style="text-align: left;overflow: hidden">--%>
-                    <%--<div >${bean.title}</div>--%>
+                <%--<div >${bean.title}</div>--%>
                 <%--</h2>--%>
                 <c:if test="${not empty bean.keyWord}">
                     <div style="clear: both">
@@ -188,12 +201,12 @@
                     </div>
                 </c:if>
                 <%--<div id="directionContainer" class="z-catalog nslog-area log-set-param" style="width: 75%;">--%>
-                    <%--<table width="100%" style="border: 1px solid #dcdcdc;">--%>
-                        <%--<tr>--%>
-                            <%--<td width="10%" bgcolor="#FBFBFB"><h2><span>目录:</span></h2></td>--%>
-                            <%--<td style="background-color: #fff;" valign="top">${bean.catalogue}</td>--%>
-                        <%--</tr>--%>
-                    <%--</table>--%>
+                <%--<table width="100%" style="border: 1px solid #dcdcdc;">--%>
+                <%--<tr>--%>
+                <%--<td width="10%" bgcolor="#FBFBFB"><h2><span>目录:</span></h2></td>--%>
+                <%--<td style="background-color: #fff;" valign="top">${bean.catalogue}</td>--%>
+                <%--</tr>--%>
+                <%--</table>--%>
                 <%--</div>--%>
                 <div class="mainmuen" style="margin-top: 30px;width: 100%;">
                     ${bean.content}
