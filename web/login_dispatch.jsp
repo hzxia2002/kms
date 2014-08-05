@@ -3,10 +3,11 @@
 <%@ page import="com.comet.core.config.CustomizedPropertyPlaceholderConfigurer" %>
 <%
     String url = StringUtils.defaultIfEmpty((String)request.getAttribute("url"), "/index.jsp");
+    String serverIp = StringUtils.defaultIfEmpty((String)CustomizedPropertyPlaceholderConfigurer.getContextProperty("http.serverip"), "");
 
     if(url.indexOf("index.jsp") > -1) {
-        response.sendRedirect(CustomizedPropertyPlaceholderConfigurer.getContextProperty("http.serverip") + request.getContextPath() + url);
+        response.sendRedirect(serverIp + request.getContextPath() + url);
     } else {
-        response.sendRedirect(CustomizedPropertyPlaceholderConfigurer.getContextProperty("http.serverip") + request.getContextPath() + url);
+        response.sendRedirect(serverIp + request.getContextPath() + url);
     }
 %>
