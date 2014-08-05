@@ -81,7 +81,9 @@ public class StudyController extends PageController {
                     }else if (path.getPath().equals(Constants.CASE_KMS)){
                         model.addAttribute("type","4");
                         // 微课程去学习页面，激战法使用普通页面浏览
-                        return view(request,model,cmsArticle.getId());
+                        if(org.apache.commons.lang.StringUtils.equals(cmsArticle.getPath().getPath(), "weikecheng")){
+                            return view(request,model,cmsArticle.getId());
+                        }
                     }
                 }
                 path = path.getParent();
