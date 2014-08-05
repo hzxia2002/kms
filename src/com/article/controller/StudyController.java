@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.util.*;
@@ -31,7 +32,7 @@ import java.util.*;
  * @author: System
  */
 @Controller
-public class StudyController extends BaseCRUDActionController {
+public class StudyController extends PageController {
     private static Log log = LogFactory.getLog(StudyController.class);
 
     @Autowired
@@ -50,7 +51,7 @@ public class StudyController extends BaseCRUDActionController {
     private CmsCourseArticleService cmsCourseArticleService;
 
     @RequestMapping
-    public String init(Model model, Long studyPlanId,Long articleId) throws Exception {
+    public String init(HttpServletRequest request,Model model, Long studyPlanId,Long articleId) throws Exception {
         try {
             CmsStudyPlan cmsStudyPlan = studyPlanService.get(studyPlanId);
             CmsStudyCourse cmsStudyCourse = cmsStudyPlan.getCourse();
@@ -76,6 +77,8 @@ public class StudyController extends BaseCRUDActionController {
                         model.addAttribute("type","3");
                     }else if (path.getPath().equals(Constants.CASE_KMS)){
                         model.addAttribute("type","4");
+                        // 微课程去学习页面，激战法使用普通页面浏览
+                        return view(request,model,cmsArticle.getId());
                     }
                 }
                 path = path.getParent();
