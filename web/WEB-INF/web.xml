@@ -95,7 +95,7 @@
         -->
         <init-param>
             <param-name>instance-name</param-name>
-            <param-value>default</param-value>
+            <param-value>dev</param-value>
         </init-param>
 
         <!--
