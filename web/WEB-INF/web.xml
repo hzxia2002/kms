@@ -115,7 +115,7 @@
         -->
         <init-param>
             <param-name>client-config-location</param-name>
-            <param-value>/WEB-INF/hazelcast-client.properties</param-value>
+            <param-value>/WEB-INF/classes/hazelcast-client.properties</param-value>
         </init-param>
         <!--
             Do you want to shutdown HazelcastInstance during
