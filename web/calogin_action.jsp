@@ -74,7 +74,6 @@
             //password = dn.substring(dn.indexOf(" ")+1,dn.indexOf(","));
             request.setAttribute("cert",gaX509Cert);
         }
-
 %>
 <form action="<%=request.getContextPath()%>/j_spring_security_check" method="post" name="loginForm">
     <input id="j_username" name="j_username" type="password" size="15" value='<%=sfz%>' style='display:none'>
@@ -82,8 +81,7 @@
 </form>
 <script>loginForm.submit();</script>
 <%
-    }
-    catch(Exception e){
+    } catch(Exception e) {
         e.printStackTrace();
 %>
 <script>
