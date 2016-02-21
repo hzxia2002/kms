@@ -74,12 +74,19 @@
             //password = dn.substring(dn.indexOf(" ")+1,dn.indexOf(","));
             request.setAttribute("cert",gaX509Cert);
         }
-    }
-    catch(Exception e){
-    }
 %>
 <form action="<%=request.getContextPath()%>/j_spring_security_check" method="post" name="loginForm">
     <input id="j_username" name="j_username" type="password" size="15" value='<%=sfz%>' style='display:none'>
     <input id="j_password" name="j_password" type="hidden" size="15" value='<%=username%>' style='display:none'>
 </form>
 <script>loginForm.submit();</script>
+<%
+    } catch(Exception e) {
+        e.printStackTrace();
+%>
+<script>
+    window.alert("获取证书异常，取得的用户名为:<%=sfz%>，请和管理员联系!");
+</script>
+<%
+    }
+%>
