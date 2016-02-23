@@ -36,7 +36,7 @@
         </property>
     </bean>
 
-    <!--  dataSource -->
+    <!--  dataSource
     <bean id="dataSource"
         class="org.apache.commons.dbcp.BasicDataSource"
         destroy-method="close">
@@ -46,14 +46,11 @@
         <property name="password" value="${password}" />
         <property name="initialSize" value="40"/>
         <property name="maxActive" value="50"/>
-        <!--
-        <property name="removeAbandoned" value="true"/>
-        <property name="removeAbandonedTimeout" value="300"/>
-        <property name="logAbandoned" value="true"/>
-        -->
+        <property name="validationQuery" value="${validationQuery}" />
     </bean>
+    -->
 
-    <!-- 约定优于配置，约定优于配置
+    <!-- 约定优于配置，约定优于配置 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${driverClass}"></property>
         <property name="jdbcUrl" value="${jdbcUrl}"></property>
@@ -69,7 +66,7 @@
         <property name="checkoutTimeout" value="0"></property>
         <property name="testConnectionOnCheckout" value="false"></property>
         <property name="testConnectionOnCheckin" value="true"></property>
-        <property name="preferredTestQuery" value="select 1 from dual"></property>
+        <property name="preferredTestQuery" value="select id from sys_user where login_name = 'admin'"></property>
         <property name="properties">
             <props>
                 <prop key="v$session.program">${v$session.program}</prop>
@@ -78,7 +75,6 @@
             </props>
         </property>
     </bean>
-    -->
 
     <!-- Hibernate配置 -->
     <bean name="treeIdIncrease" class="java.lang.Integer">
