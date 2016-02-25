@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="ExaPaperSection"
+		table="exa_paper_section"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">exa_paper_section</meta>
+        <meta attribute="tableComment">试卷章节</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+				name="id"
+				type="long"
+				column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+		<property
+			name="paperId"
+			column="PAPER_ID"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">PAPER_ID</meta>
+            <meta attribute="ColumnComment">试卷ID</meta>
+        </property>
+
+		<property
+			name="dbId"
+			column="DB_ID"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">DB_ID</meta>
+            <meta attribute="ColumnComment">题库ID</meta>
+        </property>
+
+		<property
+			name="sectionName"
+			column="SECTION_NAME"
+			type="string"
+			not-null="false"
+			length="200"
+        >
+            <meta attribute="ColumnName">SECTION_NAME</meta>
+            <meta attribute="ColumnComment">章节名称</meta>
+        </property>
+
+		<property
+			name="perScore"
+			column="PER_SCORE"
+			type="java.lang.Long"
+			not-null="false"
+			length="10"
+        >
+            <meta attribute="ColumnName">PER_SCORE</meta>
+            <meta attribute="ColumnComment">每题分数</meta>
+        </property>
+
+		<property
+			name="questionNums"
+			column="QUESTION_NUMS"
+			type="java.lang.Long"
+			not-null="false"
+			length="10"
+        >
+            <meta attribute="ColumnName">QUESTION_NUMS</meta>
+            <meta attribute="ColumnComment">题目数量</meta>
+        </property>
+
+		<property
+			name="questionLevel"
+			column="QUESTION_LEVEL"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">QUESTION_LEVEL</meta>
+            <meta attribute="ColumnComment">试题难易程度</meta>
+        </property>
+
+		<property
+			name="questionType"
+			column="QUESTION_TYPE"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">QUESTION_TYPE</meta>
+            <meta attribute="ColumnComment">试题题型</meta>
+        </property>
+
+		<property
+			name="remark"
+			column="REMARK"
+			type="string"
+			not-null="false"
+			length="200"
+        >
+            <meta attribute="ColumnName">REMARK</meta>
+            <meta attribute="ColumnComment">描述</meta>
+        </property>
+
+		<property
+			name="createTime"
+			column="CREATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">CREATE_TIME</meta>
+            <meta attribute="ColumnComment">创建时间</meta>
+        </property>
+
+		<property
+			name="updateTime"
+			column="UPDATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">UPDATE_TIME</meta>
+            <meta attribute="ColumnComment">更新时间</meta>
+        </property>
+
+		<property
+			name="updateUser"
+			column="UPDATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">UPDATE_USER</meta>
+            <meta attribute="ColumnComment">更新人</meta>
+        </property>
+
+		<property
+			name="createUser"
+			column="CREATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">CREATE_USER</meta>
+            <meta attribute="ColumnComment">创建人</meta>
+        </property>
+
+
+
+	</class>	
+    <query name="exapapersection_all_data_query">
+        <![CDATA[FROM ExaPaperSection]]>
+    </query>
+</hibernate-mapping>

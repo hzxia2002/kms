@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="ExaPaper"
+		table="exa_paper"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">exa_paper</meta>
+        <meta attribute="tableComment">试卷</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+				name="id"
+				type="long"
+				column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+		<property
+			name="paperName"
+			column="PAPER_NAME"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">PAPER_NAME</meta>
+            <meta attribute="ColumnComment">试卷名称</meta>
+        </property>
+
+		<property
+			name="startTime"
+			column="START_TIME"
+			type="string"
+			not-null="false"
+			length="20"
+        >
+            <meta attribute="ColumnName">START_TIME</meta>
+            <meta attribute="ColumnComment">开始时间</meta>
+        </property>
+
+		<property
+			name="endTime"
+			column="END_TIME"
+			type="string"
+			not-null="false"
+			length="20"
+        >
+            <meta attribute="ColumnName">END_TIME</meta>
+            <meta attribute="ColumnComment">结束时间</meta>
+        </property>
+
+		<property
+			name="paperMinute"
+			column="PAPER_MINUTE"
+			type="java.lang.Long"
+			not-null="false"
+			length="10"
+        >
+            <meta attribute="ColumnName">PAPER_MINUTE</meta>
+            <meta attribute="ColumnComment">作答时间</meta>
+        </property>
+
+		<property
+			name="totalScore"
+			column="TOTAL_SCORE"
+			type="java.lang.Long"
+			not-null="false"
+			length="10"
+        >
+            <meta attribute="ColumnName">TOTAL_SCORE</meta>
+            <meta attribute="ColumnComment">试卷总分</meta>
+        </property>
+
+		<property
+			name="questionOrderType"
+			column="QUESTION_ORDER_TYPE"
+			type="string"
+			not-null="false"
+			length="2"
+        >
+            <meta attribute="ColumnName">QUESTION_ORDER_TYPE</meta>
+            <meta attribute="ColumnComment">时间排序类型</meta>
+        </property>
+
+		<property
+			name="postTime"
+			column="POST_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">POST_TIME</meta>
+            <meta attribute="ColumnComment">发布时间</meta>
+        </property>
+
+		<property
+			name="showScoreTime"
+			column="SHOW_SCORE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">SHOW_SCORE_TIME</meta>
+            <meta attribute="ColumnComment">显示分数时间</meta>
+        </property>
+
+		<property
+			name="isRandPaper"
+			column="IS_RAND_PAPER"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">IS_RAND_PAPER</meta>
+            <meta attribute="ColumnComment">是否随机时间</meta>
+        </property>
+
+		<property
+			name="status"
+			column="STATUS"
+			type="string"
+			not-null="false"
+			length="2"
+        >
+            <meta attribute="ColumnName">STATUS</meta>
+            <meta attribute="ColumnComment">试卷状态(1开放，-1不开放)</meta>
+        </property>
+
+		<property
+			name="remark"
+			column="REMARK"
+			type="string"
+			not-null="false"
+			length="50"
+        >
+            <meta attribute="ColumnName">REMARK</meta>
+            <meta attribute="ColumnComment">备注</meta>
+        </property>
+
+		<property
+			name="createTime"
+			column="CREATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">CREATE_TIME</meta>
+            <meta attribute="ColumnComment">创建时间</meta>
+        </property>
+
+		<property
+			name="updateTime"
+			column="UPDATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">UPDATE_TIME</meta>
+            <meta attribute="ColumnComment">更新时间</meta>
+        </property>
+
+		<property
+			name="updateUser"
+			column="UPDATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">UPDATE_USER</meta>
+            <meta attribute="ColumnComment">更新人</meta>
+        </property>
+
+		<property
+			name="createUser"
+			column="CREATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">CREATE_USER</meta>
+            <meta attribute="ColumnComment">创建人</meta>
+        </property>
+
+
+
+	</class>	
+    <query name="exapaper_all_data_query">
+        <![CDATA[FROM ExaPaper]]>
+    </query>
+</hibernate-mapping>

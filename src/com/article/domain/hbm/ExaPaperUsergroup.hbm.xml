@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="ExaPaperUsergroup"
+		table="exa_paper_usergroup"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">exa_paper_usergroup</meta>
+        <meta attribute="tableComment"></meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+				name="id"
+				type="long"
+				column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="paperId"
+			column="PAPER_ID"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">PAPER_ID</meta>
+            <meta attribute="ColumnComment">试卷ID</meta>
+        </property>
+
+		<property
+			name="roleId"
+			column="ROLE_ID"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">ROLE_ID</meta>
+            <meta attribute="ColumnComment">角色ID</meta>
+        </property>
+
+		<property
+			name="userId"
+			column="USER_ID"
+			type="long"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">USER_ID</meta>
+            <meta attribute="ColumnComment">用户ID</meta>
+        </property>
+
+		<property
+			name="createTime"
+			column="CREATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">CREATE_TIME</meta>
+            <meta attribute="ColumnComment">创建时间</meta>
+        </property>
+
+		<property
+			name="updateTime"
+			column="UPDATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">UPDATE_TIME</meta>
+            <meta attribute="ColumnComment">更新时间</meta>
+        </property>
+
+		<property
+			name="updateUser"
+			column="UPDATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">UPDATE_USER</meta>
+            <meta attribute="ColumnComment">更新人</meta>
+        </property>
+
+		<property
+			name="createUser"
+			column="CREATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">CREATE_USER</meta>
+            <meta attribute="ColumnComment">创建人</meta>
+        </property>
+
+
+
+	</class>	
+    <query name="exapaperusergroup_all_data_query">
+        <![CDATA[FROM ExaPaperUsergroup]]>
+    </query>
+</hibernate-mapping>
