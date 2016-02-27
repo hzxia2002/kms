@@ -8,8 +8,10 @@
 <body style="width: 100%">
 
 <div id="exaQuestionLayout" style="width:100%;overflow-y: hidden;overflow-x: hidden;margin:0; padding:0;">
-    <div position="left"  title="试题树" id="accordion1">
-        <ul id="exaQuestionTree" style="margin-top:3px;"></ul>
+    <div position="left"  title="题库" id="accordion1">
+        <ul id="exaQuestionTree" style="margin-top:3px;">
+
+        </ul>
     </div>
     <div position="center">
         <div id="exaQuestionQuery" title="查询窗口"  icon="search">
@@ -61,8 +63,7 @@
             columns: [
 				{display: 'ID', name: 'id', width: 50,hide:true },
 				{display: '题库ID', name: 'db', width: 50,hide:true },
-				{display: '题目类型(1单选，2多选，3填空，4判断，5问答
-)', name: 'questionType', width: 50,hide:true },
+				{display: '题目类型', name: 'questionType', width: 50,hide:true },
 				{display: '难易程度', name: 'questionLevel', width: 50,hide:true },
 				{display: '题目来源', name: 'questionFrom', width: 50,hide:true },
 				{display: '状态', name: 'status', width: 50,hide:true },
@@ -77,38 +78,11 @@
             ]
 //        enabledEdit: true
         });
+
         //创建树
+        createTree("exaQuestionTree",{ url:"${ctx}/exaQuestion/tree.do"});
 
     });
-    //树的右键菜单
-    function createMenu(treeNode){
-        var menu;
-        if(treeNode.data.uid == 'root') {
-            menu = $.juiceMenu({ top: 100, left: 100, width: 120, items:
-                    [
-                        { text: '增加', icon:'add', click:function(item){doAdd(treeNode.data.uid)}},
-//                        { text: '修改', click:function(item){doEdit(treeNode.uid)}},
-//                        { text: '查看', icon:'add', click:function(item){doView(treeNode.uid)}}
-                { line: true },
-                { text: '刷新', click:function(item){refreshNode();}}
-            ]
-            });
-        } else {
-            menu = $.juiceMenu({ top: 100, left: 100, width: 120, items:
-                    [
-                        { text: '增加', icon:'add', click:function(item){doAdd(treeNode.data.uid)}},
-                        { text: '修改', click:function(item){doEdit(treeNode.data.uid)}},
-//                        { text: '查看', icon:'view', click:function(item){doView(treeNode.data.uid)}},
-                { line: true },
-                { text: '上移', click:function(item){doMoveup(treeNode)}},
-                { text: '下移', click:function(item){doMovedown(treeNode)}},
-                { line: true },
-                { text: '刷新', click:function(item){refreshNode();}}
-            ]
-            });
-        }
-        return menu;
-    }
 
 
      function doView(id) {

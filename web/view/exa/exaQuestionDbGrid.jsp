@@ -69,8 +69,7 @@
                 {display: '备注', name: 'remark', width: "20%" },
                 {display: '创建时间', name: 'createTime', width: 80 },
                 { display: '创建人', name: 'createUser', width: 80},
-                {display: '更新时间', name: 'updateTime', width: 80},
-                {display: '更新人', name: 'updateUser', width: 80}
+                {display: '操作', name: 'createTime', width: '20%',render:renderOp }
             ]
 //        enabledEdit: true
         });
@@ -143,5 +142,22 @@
         }
     }
 
+    function renderOp(item,rowIndex){
+        var opStr = "<input type='button' style='padding: 1px' value='试题管理' onclick='doAddQuestion("+item.id+")'/>";
+        return opStr;
+    }
+
+    function doAddQuestion(id){
+        var juiId =  window.top.$.jui.getId();
+        var url = "${ctx}/exaQuestion/init.do?dbId="+id;
+        var settings = {
+            url: url,
+            id:juiId,
+            title:"题库题目管理",
+            height: $(window.top.document.body).height()-10,
+            width:$(window.top.document.body).width()
+        };
+        window.top.$.juiceDialog.open(settings);
+    }
 
 </script>
