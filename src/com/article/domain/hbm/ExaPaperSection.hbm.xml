@@ -104,6 +104,18 @@
         </property>
 
 		<property
+				name="orderNo"
+				column="ORDER_NO"
+				type="java.lang.Long"
+				not-null="false"
+				length="10"
+		>
+			<meta attribute="ColumnName">ORDER_NO</meta>
+			<meta attribute="ColumnComment">排序</meta>
+		</property>
+
+
+		<property
 			name="remark"
 			column="REMARK"
 			type="string"

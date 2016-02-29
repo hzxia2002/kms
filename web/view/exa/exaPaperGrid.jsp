@@ -13,10 +13,40 @@
             <form id="exaPaperForm" action="">
                 <table style="width: 100%">
                     <tr>
-					  <td>
-                         <input type="button" value="查询" class="btn_Search" onclick="javascript:search('exaPaperGrid','exaPaperForm');"/>&nbsp;
-                      </td>
-					 </tr>
+                        <td width="10%" align="right">
+                            试卷名称：
+                        </td>
+                        <td width="20%" >
+                            <input type="text" value="" class="table_input" id="title" name="paperName" op="like" entity="t"/>
+                        </td>
+                        <td width="10%" align="right">
+                            开始时间：
+                        </td>
+                        <td width="100" align="right">
+                            <input type="text" value="" class="jui-dateEditor" name="startTime" op="greatAndEq" entity="t" dType="date"/>
+                        </td>
+                        <td width="10" align="center">
+                            ~
+                        </td>
+                        <td align="left" width="100">
+                            <input type="text" value="" class="jui-dateEditor" name="startTime" op="lessAndEq" entity="t" dType="date"/>
+                        </td>
+                        <td width="10%" align="right">
+                            结束时间：
+                        </td>
+                        <td width="100" align="right">
+                            <input type="text" value="" class="jui-dateEditor" name="endTime" op="greatAndEq" entity="t" dType="date"/>
+                        </td>
+                        <td width="10" align="center">
+                            ~
+                        </td>
+                        <td align="left" width="100">
+                            <input type="text" value="" class="jui-dateEditor" name="endTime" op="lessAndEq" entity="t" dType="date"/>
+                        </td>
+                        <td>
+                            <input type="button" value="查询" class="btn_Search" onclick="javascript:search('exaPaperGrid','exaPaperForm');"/>&nbsp;
+                        </td>
+                    </tr>
                 </table>
                 <div style="display: none;height:30px" id="advanced_condition">
 
@@ -33,6 +63,7 @@
 
 <script type="text/javascript">
     $(function(){
+        $.jui.parse();
         //布局
         $("#exaPaperLayout").juiceLayout({ leftWidth: 190 , onAfterResize:function(width){
             $.jui.get("exaPaperGrid").setWidth(width);
@@ -56,22 +87,18 @@
         $("#exaPaperGrid").juiceGrid({
             toolbar:toolbar,
             columns: [
-				{display: 'ID', name: 'id', width: 50,hide:true },
-				{display: '试卷名称', name: 'paperName', width: 50,hide:true },
-				{display: '开始时间', name: 'startTime', width: 50,hide:true },
-				{display: '结束时间', name: 'endTime', width: 50,hide:true },
-				{display: '作答时间', name: 'paperMinute', width: 50,hide:true },
-				{display: '试卷总分', name: 'totalScore', width: 50,hide:true },
-				{display: '时间排序类型', name: 'questionOrderType', width: 50,hide:true },
-				{display: '发布时间', name: 'postTime', width: 50,hide:true },
-				{display: '显示分数时间', name: 'showScoreTime', width: 50,hide:true },
-				{display: '是否随机时间', name: 'isRandPaper', width: 50,hide:true },
-				{display: '试卷状态(1开放，-1不开放)', name: 'status', width: 50,hide:true },
-				{display: '备注', name: 'remark', width: 50,hide:true },
-				{display: '创建时间', name: 'createTime', width: 50,hide:true },
-				{display: '更新时间', name: 'updateTime', width: 50,hide:true },
-				{display: '更新人', name: 'updateUser', width: 50,hide:true },
-				{ display: '创建人', name: 'createUser', width: 50,hide:true }
+                {display: 'ID', name: 'id', width: 50,hide:true },
+                {display: '试卷名称', name: 'paperName', width:"10%"},
+                {display: '试卷类型', name: 'paperType', width: "10%" },
+                {display: '开始时间', name: 'startTime', width: "10%" },
+                {display: '结束时间', name: 'endTime', width: "10%"},
+                {display: '作答时间', name: 'paperMinute', width: "10%"},
+                {display: '试卷总分', name: 'totalScore', width:"10%" },
+//				{display: '时间排序类型', name: 'questionOrderType', width: 50,hide:true },
+                {display: '发布时间', name: 'postTime', width: "10%" },
+                {display: '显示分数时间', name: 'showScoreTime', width: "10%" },
+                {display: '操作', name: 'createTime', width: '10%',render:renderOp }
+
             ]
 //        enabledEdit: true
         });
@@ -79,7 +106,7 @@
 
     });
 
-     function doView(id) {
+    function doView(id) {
         var url = "${ctx}/exaPaper/view.do";
 
         commonView(url, "exaPaperGrid");
@@ -89,9 +116,9 @@
         commonDelete("exaPaperGrid","${ctx}/exaPaper/delete.do");
     }
 
-    function doAdd(){        
+    function doAdd(){
         var url = "${ctx}/exaPaper/init.do";
-        commonAddOrUpdate(url,"exaPaperGrid",null,"exaPaperGridForm",{title:"新增试卷",height:530,width:600});
+        commonAddOrUpdate(url,"exaPaperGrid",null,"exaPaperEditForm",{title:"新增试卷",height:530,width:600});
     }
 
     function doEdit(id){
@@ -102,8 +129,26 @@
             url = initUrl(url,"exaPaperGrid");
         }
         if(url){
-            commonAddOrUpdate(url,"exaPaperGrid",null,"exaPaperForm",{title:"编辑试卷",height:530,width:600});
+            commonAddOrUpdate(url,"exaPaperGrid",null,"exaPaperEditForm",{title:"编辑试卷",height:530,width:600});
         }
+    }
+
+    function renderOp(item,rowIndex){
+        var opStr = "<input type='button' style='padding: 1px' value='添加试题' onclick='doAddQuestion("+item.id+")'/>";
+        return opStr;
+    }
+
+    function doAddQuestion(id){
+        var juiId =  window.top.$.jui.getId();
+        var url = "${ctx}/exaPaper/addQuestion.do?paperId="+id+"&dialogJuiId="+juiId;
+        var settings = {
+            url: url,
+            id:juiId,
+            title:"添加试题",
+            height: $(window.top.document.body).height()-10,
+            width:$(window.top.document.body).width()
+        };
+        window.top.$.juiceDialog.open(settings);
     }
 
 

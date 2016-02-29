@@ -1,7 +1,10 @@
 package com.article.controller;
 
 import com.article.daoservice.ExaPaperSectionService;
+import com.article.daoservice.ExaPaperService;
+import com.article.domain.ExaPaper;
 import com.article.domain.ExaPaperSection;
+import com.article.manager.ExaPaperSectionManager;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
@@ -30,6 +33,12 @@ public class ExaPaperSectionController extends BaseCRUDActionController<ExaPaper
     @Autowired
 	private ExaPaperSectionService exaPaperSectionService;
 
+    @Autowired
+    private ExaPaperService exaPaperService;
+
+    @Autowired
+    private ExaPaperSectionManager exaPaperSectionManager;
+
 
 
 	@RequestMapping
@@ -38,7 +47,7 @@ public class ExaPaperSectionController extends BaseCRUDActionController<ExaPaper
 		try {
             page.setAutoCount(true);
 
-            String hql = "from ExaPaperSection t where 1=1 " + page.getOrderByString("t.treeId asc");
+            String hql = "from ExaPaperSection t where 1=1 order by t.orderNo asc" ;
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
@@ -52,13 +61,14 @@ public class ExaPaperSectionController extends BaseCRUDActionController<ExaPaper
 	}
 
     @RequestMapping
-    public String init(Model model, ExaPaperSection entity) throws Exception {
+    public String init(Model model, ExaPaperSection entity,Long paperId) throws Exception {
         try {
             if(entity != null && entity.getId() != null) {
                 entity = exaPaperSectionService.get(entity.getId());
-
-                model.addAttribute("bean", entity);
             }
+            ExaPaper exaPaper = exaPaperService.get(paperId);
+            model.addAttribute("bean", entity);
+            model.addAttribute("paper", exaPaper);
         } catch (Exception e) {
             log.error("error", e);
         }
@@ -80,18 +90,15 @@ public class ExaPaperSectionController extends BaseCRUDActionController<ExaPaper
         try {
             String[] columns = new String[]{
                     "id",
-                    "paper",
-                    "db",
+                    "paperId",
+                    "dbId",
                     "sectionName",
                     "perScore",
                     "questionNums",
                     "questionLevel",
                     "questionType",
-                    "remark",
-                    "createTime",
-                    "updateTime",
-                    "updateUser",
-                    "createUser"
+                    "orderNo",
+                    "remark"
             };
 
             ExaPaperSection target;
@@ -114,7 +121,7 @@ public class ExaPaperSectionController extends BaseCRUDActionController<ExaPaper
 
     @RequestMapping
     public void delete(HttpServletResponse response, Long id) throws Exception {
-        exaPaperSectionService.delete(id);
+        exaPaperSectionManager.deletePaperSection(id);
 
         sendSuccessJSON(response, "删除成功");
     }

@@ -16,117 +16,99 @@
             <td  class="container">
                 <input type="text" name="paperName" class="table_input" value="${bean.paperName}" />&nbsp;
             </td>
-
         </tr>
         <tr class="inputTr">
-
-            <td  align="right">
+            <td  align="right" >
                 开始时间:
             </td>
             <td  class="container">
-                <input type="text" name="startTime" id="startTime" value="${bean.startTime}" class="jui-dateEditor"/>&nbsp;
+                <input type="text"  name="startTime" id="startTime" readonly="true" value="${bean.startTime}"  >
             </td>
-
         </tr>
-        <tr class="inputTr">
-
+        <tr class="inputTr" >
             <td  align="right">
                 结束时间:
             </td>
-            <td  class="container">
-                <input type="text"  id="endTime"  name="endTime" value="${bean.endTime}" class="jui-dateEditor"/>&nbsp;
+            <td  class="container" >
+                <input type="text"  name="endTime"  id="endTime"  readonly="true" value="${bean.endTime}" >
             </td>
-
         </tr>
         <tr class="inputTr">
             <td  align="right">
-                作答时间:
+                作答时间(分钟):
             </td>
             <td  class="container">
-                <input type="text" name="paperMinute" value="${bean.paperMinute}" />&nbsp;
+                <input type="text" name="paperMinute" value="${bean.paperMinute}"   class="table_input" validate="{digits:true,min:1,required:true}"/>&nbsp;
             </td>
-
-
+        </tr>
+        <tr>
             <td  align="right">
                 试卷总分:
             </td>
             <td  class="container">
-                <input type="text" name="totalScore" value="${bean.totalScore}" />&nbsp;
+                <input type="text" name="totalScore" value="${bean.totalScore}"  class="table_input"  validate="{digits:true,min:1,max:150,required:true}"/>&nbsp;
             </td>
-
         </tr>
+        <%--<tr>--%>
+            <%--<td  align="right">--%>
+                <%--试卷排序类型:--%>
+            <%--</td>--%>
+            <%--<td  class="container">--%>
+                <%--<input type="text" name="questionOrderType" value="${bean.questionOrderType}" />&nbsp;--%>
+            <%--</td>--%>
+
+        <%--</tr>--%>
         <tr class="inputTr">
-
-            <td  align="right">
-                时间排序类型:
-            </td>
-            <td  class="container">
-                <input type="text" name="questionOrderType" value="${bean.questionOrderType}" />&nbsp;
-            </td>
-
-
             <td  align="right">
                 发布时间:
             </td>
             <td  class="container">
-                <input type="text"  name="postTime" class="jui-dateEditor" showTime="true">
+                <input type="text"  id="postTime" name="postTime" value="${bean.postTime}">
             </td>
 
         </tr>
         <tr class="inputTr">
-
             <td  align="right">
                 显示分数时间:
             </td>
             <td  class="container">
-                <input type="text"  name="showScoreTime" class="jui-dateEditor" showTime="true">
-            </td>
-
-
-            <td  align="right">
-                是否随机时间:
-            </td>
-            <td  class="container">
-                <input type="text" name="isRandPaper" value="${bean.isRandPaper}" />&nbsp;
+                <input type="text"   id="showScoreTime" name="showScoreTime" value="${bean.showScoreTime}">
             </td>
 
         </tr>
+        <%--<tr class="inputTr">--%>
+            <%--<td  align="right">--%>
+                <%--是否随机:--%>
+            <%--</td>--%>
+            <%--<td  class="container">--%>
+                <%--<input type="text" name="isRandPaper" value="${bean.isRandPaper}" />&nbsp;--%>
+            <%--</td>--%>
+
+        <%--</tr>--%>
         <tr class="inputTr">
 
             <td  align="right">
-                试卷状态(1开放，-1不开放):
+                试卷类型:
             </td>
             <td  class="container">
-                <input type="text" name="status" value="${bean.status}" />&nbsp;
+                <select name="paperType" id="paperType">
+                    <option value="0" <c:if test="${bean.paperType=='0'}">selected</c:if>>模拟</option>
+                    <option value="1" <c:if test="${bean.paperType=='1'}">selected</c:if>>练习</option>
+                    <option value="2" <c:if test="${bean.paperType=='2'}">selected</c:if>>考试</option>
+                </select>
             </td>
-
+        </tr>
+        <tr class="inputTr">
 
             <td  align="right">
                 备注:
             </td>
             <td  class="container">
-                <input type="text" name="remark" value="${bean.remark}" />&nbsp;
+                <textarea class="textarea_table" name="remark" id="remark"  cols="55" rows="8" >${bean.remark}</textarea>
             </td>
 
         </tr>
-        <tr class="inputTr">
 
-            <td  align="right">
-                试卷状态(1开放，-1不开放):
-            </td>
-            <td  class="container">
-                <input type="text" name="status" value="${bean.status}" />&nbsp;
-            </td>
-
-
-            <td  align="right">
-                备注:
-            </td>
-            <td  class="container">
-                <input type="text" name="remark" value="${bean.remark}" />&nbsp;
-            </td>
-
-        </tr>
 
     </table>
 </form:form>
@@ -136,8 +118,10 @@
 
 <script type="text/javascript">
     $(function(){
-        $("#startTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'<fmt:formatDate type="both" value="${bean.startTime}"></fmt:formatDate>'});
-        $("#endTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'<fmt:formatDate type="both" value="${bean.endTime}"></fmt:formatDate>'});
+        $("#startTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'${bean.startTime}'});
+        $("#endTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'${bean.endTime}'});
+        $("#showScoreTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'${bean.showScoreTime}'});
+        $("#postTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'${bean.postTime}'});
         $.metadata.setType("attr", "validate");
         v = $('#exaPaperEditForm').validate();
 

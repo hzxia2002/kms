@@ -34,11 +34,11 @@ public class ExaPaperDetailController extends BaseCRUDActionController<ExaPaperD
 
 	@RequestMapping
     @ResponseBody
-	public Page<ExaPaperDetail> grid(Page page, String condition) {
+	public Page<ExaPaperDetail> grid(Page page, String condition,Long paperId) {
 		try {
             page.setAutoCount(true);
 
-            String hql = "from ExaPaperDetail t where 1=1 " + page.getOrderByString("t.treeId asc");
+            String hql = "from ExaPaperDetail t where 1=1 and t.paperId=" + paperId;
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 

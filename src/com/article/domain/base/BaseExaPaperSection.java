@@ -88,6 +88,10 @@ public abstract class BaseExaPaperSection  implements Serializable {
     /*QUESTION_TYPE*/
     /*��������*/
 	private Long questionType;
+
+	/*ORDER_NO*/
+    /*����*/
+	private Long orderNo;
 	
     /*REMARK*/
     /*����*/
@@ -245,7 +249,20 @@ public abstract class BaseExaPaperSection  implements Serializable {
 	public void setQuestionType (Long questionType) {
 		this.questionType = questionType;
 	}
+	/**
+	 * Return the value associated with the column: ORDER_NO
+	 */
+	public Long getOrderNo () {
+		return orderNo;
+	}
 
+	/**
+	 * Set the value related to the column: ORDER_NO
+	 * @param orderNo the ORDER_NO value
+	 */
+	public void setOrderNo (Long orderNo) {
+		this.orderNo = orderNo;
+	}
 
 	/**
 	 * Return the value associated with the column: REMARK

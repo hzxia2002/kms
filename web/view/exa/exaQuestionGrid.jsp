@@ -46,35 +46,21 @@
         });
         //查询框初始化
         $("#exaQuestionQuery").juicePanel({ collapse:false,height: 50,closeAble:false});
-        //grid工具栏
-        var toolbar={
-            align:"right",
-            items: [
-                { text: '增加', click: doAdd, icon: 'add' },
-                { line: true },
-                { text: '修改', click: doEdit, icon: 'modify' },
-                { line: true },
-                { text: '删除', click: doDelete, icon:'delete' }
-            ]
-        };
+
         //grid
         $("#exaQuestionGrid").juiceGrid({
-            toolbar:toolbar,
+            showAddButton:false,
             columns: [
 				{display: 'ID', name: 'id', width: 50,hide:true },
-				{display: '题库ID', name: 'db', width: 50,hide:true },
 				{display: '题目类型', name: 'questionType', width: 50,hide:true },
-				{display: '难易程度', name: 'questionLevel', width: 50,hide:true },
-				{display: '题目来源', name: 'questionFrom', width: 50,hide:true },
-				{display: '状态', name: 'status', width: 50,hide:true },
-				{display: '内容', name: 'content', width: 50,hide:true },
-				{display: '发布时间', name: 'postTime', width: 50,hide:true },
-				{display: '选择题答案', name: 'skey', width: 50,hide:true },
-				{display: '文字描述答案', name: 'keyDesc', width: 50,hide:true },
-				{display: '创建时间', name: 'createTime', width: 50,hide:true },
-				{display: '更新时间', name: 'updateTime', width: 50,hide:true },
-				{display: '更新人', name: 'updateUser', width: 50,hide:true },
-				{ display: '创建人', name: 'createUser', width: 50,hide:true }
+				{display: '题目类型', name: 'questionTypeName', width:"20%" },
+//				{display: '难易程度', name: 'questionLevel', width: 50,hide:true },
+//				{display: '题目来源', name: 'questionFrom', width: 50,hide:true },
+//				{display: '状态', name: 'status', width: 50,hide:true },
+				{display: '题干', name: 'content',  width:"10%" },
+				{display: '发布时间', name: 'postTime',  width:"10%" },
+				{display: '选择题答案', name: 'skey', width:"10%" },
+				{display: '文字描述答案', name: 'keyDesc',  width:"25%" }
             ]
 //        enabledEdit: true
         });
@@ -85,31 +71,13 @@
     });
 
 
-     function doView(id) {
-        var url = "${ctx}/exaQuestion/view.do";
 
-        commonView(url, "exaQuestionGrid");
+    function f_select(){
+        return $.jui.get("exaQuestionGrid").getSelectedRows();
     }
 
-    function doDelete(){
-        commonDelete("exaQuestionGrid","${ctx}/exaQuestion/delete.do",refreshRootNode);
-    }
-
-    function doAdd(){        
-        var url = "${ctx}/exaQuestion/init.do";
-        commonAddOrUpdate(url,"exaQuestionGrid",null,"exaQuestionGridForm",{title:"新增试题",height:530,width:600});
-    }
-
-    function doEdit(id){
-        var url = "${ctx}/exaQuestion/init.do";
-        if(typeof id == "string"){
-            url += "?id=" + id;
-        }else{
-            url = initUrl(url,"exaQuestionGrid");
-        }
-        if(url){
-            commonAddOrUpdate(url,"exaQuestionGrid",null,"exaQuestionForm",{title:"编辑试题",height:530,width:600});
-        }
+    function f_cancel(){
+        return $.jui.get("exaQuestionGrid").loadData(true);
     }
 
 
