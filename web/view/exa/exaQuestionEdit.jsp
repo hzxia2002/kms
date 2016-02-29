@@ -128,7 +128,7 @@
                             选择题答案:
                         </td>
                         <td  class="container">
-                            <input type="text" name="skey" value="${bean.skey}" />&nbsp;
+                            <input type="text" id="skey"  name="skey" value="${bean.skey}" class="table_input"/>&nbsp;
                         </td>
                     </tr>
 
@@ -137,7 +137,7 @@
                             文字描述题答案:
                         </td>
                         <td  class="container">
-                            <input type="text" name="skey" value="${bean.keyDesc}" />&nbsp;
+                            <textarea class="textarea_table" name="keyDesc" id="keyDesc"  cols="55" rows="8" >${bean.keyDesc}</textarea>
                         </td>
                     </tr>
 
@@ -190,8 +190,8 @@
                 {display: '发布时间', name: 'postTime', width: "10%" },
                 {display: '选择题答案', name: 'skey',  width: "8%"},
 //                {display: '文字描述答案', name: 'keyDesc',  width: "10%" },
-                {display: '创建时间', name: 'createTime',  width: "8%" },
-                {display: '更新时间', name: 'updateTime',  width: "8%"}
+                {display: '创建人', name: 'createUser',  width: "8%"},
+                {display: '创建时间', name: 'createTime',  width: "8%" }
             ]
 //        enabledEdit: true
         });

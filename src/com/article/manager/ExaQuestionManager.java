@@ -29,6 +29,7 @@ public class ExaQuestionManager {
     public void saveQuestion(ExaQuestion exaQuestion, List< ExaQuestionOptions> exaQuestionOptionses){
         exaQuestionService.save(exaQuestion);
         for (ExaQuestionOptions exaQuestionOptions : exaQuestionOptionses) {
+            exaQuestionOptions.setQuestionId(exaQuestion.getId());
             exaQuestionOptionsService.save(exaQuestionOptions);
         }
     }

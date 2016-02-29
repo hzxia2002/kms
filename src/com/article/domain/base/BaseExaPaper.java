@@ -99,6 +99,8 @@ public abstract class BaseExaPaper  implements Serializable {
     /*IS_RAND_PAPER*/
     /*�Ƿ����ʱ��*/
 	private Long isRandPaper;
+
+	private String paperType;
 	
     /*STATUS*/
     /*�Ծ�״̬(1���ţ�-1������)*/
@@ -293,6 +295,14 @@ public abstract class BaseExaPaper  implements Serializable {
 		this.isRandPaper = isRandPaper;
 	}
 
+	public String getPaperType() {
+		return paperType;
+	}
+
+	public void setPaperType(String paperType) {
+		this.paperType = paperType;
+	}
+
 
 	/**
 	 * Return the value associated with the column: STATUS
@@ -425,6 +435,7 @@ public abstract class BaseExaPaper  implements Serializable {
 		builder.append(postTime);
 		builder.append(showScoreTime);
 		builder.append(isRandPaper);
+		builder.append(paperType);
 		builder.append(status);
 		builder.append(remark);
 		builder.append(createTime);

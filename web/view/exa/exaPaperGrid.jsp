@@ -8,9 +8,6 @@
 <body style="width: 100%">
 
 <div id="exaPaperLayout" style="width:100%;overflow-y: hidden;overflow-x: hidden;margin:0; padding:0;">
-    <div position="left"  title="试卷树" id="accordion1">
-        <ul id="exaPaperTree" style="margin-top:3px;"></ul>
-    </div>
     <div position="center">
         <div id="exaPaperQuery" title="查询窗口"  icon="search">
             <form id="exaPaperForm" action="">
@@ -81,36 +78,6 @@
         //创建树
 
     });
-    //树的右键菜单
-    function createMenu(treeNode){
-        var menu;
-        if(treeNode.data.uid == 'root') {
-            menu = $.juiceMenu({ top: 100, left: 100, width: 120, items:
-                    [
-                        { text: '增加', icon:'add', click:function(item){doAdd(treeNode.data.uid)}},
-//                        { text: '修改', click:function(item){doEdit(treeNode.uid)}},
-//                        { text: '查看', icon:'add', click:function(item){doView(treeNode.uid)}}
-                { line: true },
-                { text: '刷新', click:function(item){refreshNode();}}
-            ]
-            });
-        } else {
-            menu = $.juiceMenu({ top: 100, left: 100, width: 120, items:
-                    [
-                        { text: '增加', icon:'add', click:function(item){doAdd(treeNode.data.uid)}},
-                        { text: '修改', click:function(item){doEdit(treeNode.data.uid)}},
-//                        { text: '查看', icon:'view', click:function(item){doView(treeNode.data.uid)}},
-                { line: true },
-                { text: '上移', click:function(item){doMoveup(treeNode)}},
-                { text: '下移', click:function(item){doMovedown(treeNode)}},
-                { line: true },
-                { text: '刷新', click:function(item){refreshNode();}}
-            ]
-            });
-        }
-        return menu;
-    }
-
 
      function doView(id) {
         var url = "${ctx}/exaPaper/view.do";
@@ -119,7 +86,7 @@
     }
 
     function doDelete(){
-        commonDelete("exaPaperGrid","${ctx}/exaPaper/delete.do",refreshRootNode);
+        commonDelete("exaPaperGrid","${ctx}/exaPaper/delete.do");
     }
 
     function doAdd(){        

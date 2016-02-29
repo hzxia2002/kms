@@ -7,7 +7,8 @@ import com.article.domain.base.BaseExaPaper;
 public class ExaPaper extends BaseExaPaper {
 	private static final long serialVersionUID = 1L;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
+
+	/*[CONSTRUCTOR MARKER BEGIN]*/
 	public ExaPaper () {
 		super();
 	}

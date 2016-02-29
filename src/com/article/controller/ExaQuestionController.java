@@ -1,6 +1,7 @@
 package com.article.controller;
 
 import com.article.daoservice.ExaQuestionDbService;
+import com.article.daoservice.ExaQuestionOptionsService;
 import com.article.daoservice.ExaQuestionService;
 import com.article.domain.ExaQuestion;
 import com.article.domain.ExaQuestionDb;
@@ -9,6 +10,7 @@ import com.article.manager.ExaQuestionManager;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
+import com.comet.core.security.util.SpringSecurityUtils;
 import com.comet.core.utils.ReflectionUtils;
 import com.comet.system.domain.SysDept;
 import com.comet.system.tree.Node;
@@ -25,8 +27,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -44,6 +49,10 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
 
     @Autowired
     private ExaQuestionManager exaQuestionManager;
+
+    @Autowired
+    private ExaQuestionOptionsService exaOptionsService;
+
 
 
 
@@ -105,11 +114,8 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
                     "content",
                     "postTime",
                     "skey",
-                    "keyDesc",
-                    "createTime",
-                    "updateTime",
-                    "updateUser",
-                    "createUser"
+                    "keyDesc"
+
             };
 
             ExaQuestion target;
@@ -192,16 +198,22 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
             String[] columns = new String[]{
                     "id",
                     "content",
+                    "skey",
+                    "keyDesc",
                     "questionType"
             };
 
             ExaQuestion target;
             if (entity.getId() != null&&flag==1) {
                 target = exaQuestionService.get(entity.getId());
+                target.setUpdateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
+                target.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
                 ReflectionUtils.copyBean(entity, target, columns);
             } else {
                 target = entity;
+                target.setCreateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
+                target.setCreateTime(new Timestamp(System.currentTimeMillis()));
                 target.setId(null);
             }
             ExaQuestionDb exaQuestionDb = exaQuestionDbService.get(dbId);
@@ -221,9 +233,7 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
                 if(org.apache.commons.lang3.StringUtils.isNotEmpty(id.trim())&&flag==1){
                     exaQuestionOption.setId(Long.valueOf(id));
                 }
-                if(target.getId()!=null){
-                    exaQuestionOption.setQuestionId(target.getId());
-                }
+
                 arrayList.add(exaQuestionOption);
             }
             exaQuestionManager.saveQuestion(target,arrayList);
@@ -235,5 +245,31 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
         }
 
         sendSuccessJSON(response, "保存成功");
+    }
+
+
+    @RequestMapping
+    @ResponseBody
+    public Map getQuestion(Long questionId) {
+        HashMap hashMap = new HashMap();
+        try {
+            hashMap.put("question",exaQuestionService.get(questionId));
+            List<ExaQuestionOptions> optionsList = exaOptionsService.find("from ExaQuestionOptions where questionId=" + questionId);
+            ArrayList arrayList = new ArrayList();
+            for (ExaQuestionOptions exaQuestionOptions : optionsList) {
+                HashMap data = new HashMap();
+                data.put("id",exaQuestionOptions.getId());
+                data.put("indexNo",exaQuestionOptions.getOptionKey());
+                data.put("content",exaQuestionOptions.getOptionOption());
+                arrayList.add(data);
+            }
+            hashMap.put("options", arrayList);
+
+            // 查询
+        } catch (Exception e) {
+            log.error("error", e);
+        }
+
+        return hashMap;
     }
 }
