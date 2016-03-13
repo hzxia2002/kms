@@ -38,16 +38,7 @@
             <meta attribute="ColumnComment">试卷ID</meta>
         </property>
 
-		<property
-			name="questionId"
-			column="QUESTION_ID"
-			type="long"
-			not-null="false"
-			length="19"
-        >
-            <meta attribute="ColumnName">QUESTION_ID</meta>
-            <meta attribute="ColumnComment">题目ID</meta>
-        </property>
+
 
 		<property
 			name="sectionId"
@@ -126,6 +117,13 @@
             <meta attribute="ColumnComment">创建人</meta>
         </property>
 
+		<many-to-one
+				name="question"
+				column="QUESTION_ID"
+				class="ExaQuestion"
+				not-null="false"
+		>
+		</many-to-one>
 
 
 	</class>	

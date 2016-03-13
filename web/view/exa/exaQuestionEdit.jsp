@@ -22,14 +22,14 @@
                             题干：
                         </td>
                         <td width="20%">
-                            <input type="text" value="" class="table_input"   name="title" op="like" entity="t"/>
+                            <input type="text" value="" class="table_input"   name="content" op="like" entity="t"/>
                         </td>
 
                         <td width="10%" align="right">
                             题型：
                         </td>
                         <td width="20%">
-                            <select name="type" class="table_input"    op="like" entity="t">
+                            <select name="questionType" class="table_input"    op="like" entity="t">
                                 <option value="" >全部</option>
                                 <option value="0" >单选</option>
                                 <option value="1">多选</option>
@@ -75,7 +75,8 @@
                                 <option value="0" >单选</option>
                                 <option value="1">多选</option>
                                 <option value="2">判断</option>
-                                <option value="3">问答</option>
+                                <option value="3">填空</option>
+                                <option value="4">问答</option>
                             </select>
                         </td>
                     </tr>
@@ -184,7 +185,7 @@
             columns: [
                 {display: 'ID', name: 'id', width: 50,hide:true },
                 {display: '题干', name: 'content', width: "20%" },
-                {display: '题目类型', name: 'questionType',  width: "8%" },
+                {display: '题目类型', name: 'questionTypeName',  width: "8%" },
                 {display: '题目来源', name: 'questionFrom', width: "8%" },
                 {display: '状态', name: 'status',  width: "8%" },
                 {display: '发布时间', name: 'postTime', width: "10%" },

@@ -1,7 +1,9 @@
 package com.article.controller;
 
 import com.article.daoservice.ExaPaperDetailService;
+import com.article.daoservice.ExaQuestionService;
 import com.article.domain.ExaPaperDetail;
+import com.article.domain.ExaQuestion;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
@@ -30,6 +32,8 @@ public class ExaPaperDetailController extends BaseCRUDActionController<ExaPaperD
     @Autowired
 	private ExaPaperDetailService exaPaperDetailService;
 
+    @Autowired
+    private ExaQuestionService exaQuestionService;
 
 
 	@RequestMapping
@@ -37,8 +41,13 @@ public class ExaPaperDetailController extends BaseCRUDActionController<ExaPaperD
 	public Page<ExaPaperDetail> grid(Page page, String condition,Long paperId) {
 		try {
             page.setAutoCount(true);
+            String hql = "select d from ExaPaperDetail d where d.paperId= "+paperId;
 
-            String hql = "from ExaPaperDetail t where 1=1 and t.paperId=" + paperId;
+//            String hql = "select d from ExaPaperDetail d , ExaQuestion q where q.id=d.questionId and d.paperId="+paperId;
+
+//            List<ExaQuestion> exaQuestions = exaQuestionService.find(hql0);
+//
+//            String hql = "from ExaPaperDetail t where 1=1 and t.paperId=" + paperId;
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
@@ -84,11 +93,7 @@ public class ExaPaperDetailController extends BaseCRUDActionController<ExaPaperD
                     "question",
                     "section",
                     "score",
-                    "orderNo",
-                    "createTime",
-                    "updateTime",
-                    "updateUser",
-                    "createUser"
+                    "orderNo"
             };
 
             ExaPaperDetail target;

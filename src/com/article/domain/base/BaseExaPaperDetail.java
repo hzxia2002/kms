@@ -1,5 +1,8 @@
 package com.article.domain.base;
 
+import com.article.domain.ExaQuestion;
+import org.aspectj.weaver.patterns.TypePatternQuestions;
+
 import java.io.Serializable;
 
 
@@ -64,7 +67,7 @@ public abstract class BaseExaPaperDetail  implements Serializable {
 	
     /*QUESTION_ID*/
     /*��ĿID*/
-	private Long questionId;
+	private ExaQuestion question;
 	
     /*SECTION_ID*/
     /*�½�ID*/
@@ -139,16 +142,16 @@ public abstract class BaseExaPaperDetail  implements Serializable {
 	/**
 	 * Return the value associated with the column: QUESTION_ID
 	 */
-	public Long getQuestionId () {
-		return questionId;
+	public ExaQuestion getQuestion () {
+		return question;
 	}
 
 	/**
 	 * Set the value related to the column: QUESTION_ID
-	 * @param questionId the QUESTION_ID value
+	 * @param exaQuestion the QUESTION_ID value
 	 */
-	public void setQuestionId (Long questionId) {
-		this.questionId = questionId;
+	public void setQuestion (ExaQuestion exaQuestion) {
+		this.question = exaQuestion;
 	}
 
 
@@ -291,7 +294,7 @@ public abstract class BaseExaPaperDetail  implements Serializable {
 		org.apache.commons.lang.builder.ToStringBuilder builder = new org.apache.commons.lang.builder.ToStringBuilder(this);
 		builder.append(id);
 		builder.append(paperId);
-		builder.append(questionId);
+		builder.append(question);
 		builder.append(sectionId);
 		builder.append(score);
 		builder.append(orderNo);

@@ -6,130 +6,50 @@
     <%@ include file="../common/header_new.jsp" %>
 </head>
 <body>
-    <div>
-        <table border="0" cellspacing="1" width="100%" class="inputTable">
-
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        试卷名称:
-                    </td>
-                    <td class="container">
-                      ${bean.paperName}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        开始时间:
-                    </td>
-                    <td class="container">
-                      ${bean.startTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        结束时间:
-                    </td>
-                    <td class="container">
-                      ${bean.endTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        作答时间:
-                    </td>
-                    <td class="container">
-                      ${bean.paperMinute}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        试卷总分:
-                    </td>
-                    <td class="container">
-                      ${bean.totalScore}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        时间排序类型:
-                    </td>
-                    <td class="container">
-                      ${bean.questionOrderType}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        发布时间:
-                    </td>
-                    <td class="container">
-                      ${bean.postTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        显示分数时间:
-                    </td>
-                    <td class="container">
-                      ${bean.showScoreTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        是否随机时间:
-                    </td>
-                    <td class="container">
-                      ${bean.isRandPaper}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        试卷状态(1开放，-1不开放):
-                    </td>
-                    <td class="container">
-                      ${bean.status}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        备注:
-                    </td>
-                    <td class="container">
-                      ${bean.remark}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        创建时间:
-                    </td>
-                    <td class="container">
-                      ${bean.createTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        更新时间:
-                    </td>
-                    <td class="container">
-                      ${bean.updateTime}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        更新人:
-                    </td>
-                    <td class="container">
-                      ${bean.updateUser}
-                    </td>
-                </tr>
-                <tr class="inputTr">
-                     <td align="right" width="20%" nowrap="true">
-                        创建人:
-                    </td>
-                    <td class="container">
-                      ${bean.createUser}
-                    </td>
-                </tr>
-        </table>
+<div style="width: 100%;">
+    <div style="text-align: center;padding-bottom: 20px">
+            <span style="font-size: 24px;font-weight: bold">
+                ${paper.paperName}
+            </span>
     </div>
+
+    <ul>
+        <c:forEach items="${sections}" var="section" varStatus="sectionStatus">
+            <li style="padding-bottom: 20px;clear: both">
+                <div style="font-size: 16px;font-family: 宋体;padding-bottom: 8px;">
+                    <span style="font-size: 16px;font-weight: bold"> </span>${section.sectionName}
+                </div>
+                <ul style="padding-left: 20px;padding-right: 5%">
+                    <c:forEach items="${details}" var="paperDetail" varStatus="status">
+                        <c:set var="question" value="${paperDetail.question}"/>
+                        <c:if test="${section.id==paperDetail.sectionId}">
+                            <li style="padding-bottom: 20px;clear: both">
+                                <div style="font-size: 16px;font-family: 宋体;padding-bottom: 8px;">
+                                    <span style="font-size: 16px;font-weight: bold"> ${status.index+1}.</span>${question.content}
+                                </div>
+                                <ul style="padding-left: 20px;padding-right: 5%">
+                                    <c:forEach items="${question.options}" var="option">
+                                        <li style="padding-bottom: 5px;float:left;padding-right: 25px;height: 28px;">
+                                            <c:choose >
+                                                <c:when test="${question.questionType==1}">
+                                                    <span style="font-size: 14px;font-weight: bold">${option.optionKey}.</span>&nbsp;<input type="radio" name="question_${question.id}" value="${option.id}">${option.optionOption}
+                                                </c:when>
+                                                <c:when test="${question.questionType==2}">
+                                                    <span style="font-size: 14px;font-weight: bold">${option.optionKey}.</span>&nbsp;<input type="checkbox" name="question_${question.id}" value="${option.id}">${option.optionOption}
+                                                </c:when>
+                                            </c:choose>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </c:if>
+                    </c:forEach>
+                </ul>
+
+            </li>
+        </c:forEach>
+    </ul>
+
+</div>
 </body>
 </html>

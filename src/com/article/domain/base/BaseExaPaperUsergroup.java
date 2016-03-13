@@ -1,5 +1,9 @@
 package com.article.domain.base;
 
+import com.article.domain.ExaPaper;
+import com.comet.system.domain.SysUser;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 
@@ -18,7 +22,7 @@ import java.io.Serializable;
  * @hibernate.class
  *  table="exa_paper_usergroup"
  */
-
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 public abstract class BaseExaPaperUsergroup  implements Serializable {
 
 	public static String REF = "ExaPaperUsergroup";
@@ -57,7 +61,7 @@ public abstract class BaseExaPaperUsergroup  implements Serializable {
 	// fields
     /*PAPER_ID*/
     /*�Ծ�ID*/
-	private Long paperId;
+//	private Long paperId;
 	
     /*ROLE_ID*/
     /*��ɫID*/
@@ -65,7 +69,7 @@ public abstract class BaseExaPaperUsergroup  implements Serializable {
 	
     /*USER_ID*/
     /*�û�ID*/
-	private Long userId;
+//	private Long userId;
 	
     /*CREATE_TIME*/
     /*����ʱ��*/
@@ -107,22 +111,39 @@ public abstract class BaseExaPaperUsergroup  implements Serializable {
 	}
 
 
+	private ExaPaper paper;
+	private SysUser user;
 
+	public SysUser getUser() {
+		return user;
+	}
+
+	public void setUser(SysUser user) {
+		this.user = user;
+	}
+
+	public ExaPaper getPaper() {
+		return paper;
+	}
+
+	public void setPaper(ExaPaper paper) {
+		this.paper = paper;
+	}
 
 	/**
 	 * Return the value associated with the column: PAPER_ID
 	 */
-	public Long getPaperId () {
-		return paperId;
-	}
+//	public Long getPaperId () {
+//		return paperId;
+//	}
 
 	/**
 	 * Set the value related to the column: PAPER_ID
 	 * @param paperId the PAPER_ID value
 	 */
-	public void setPaperId (Long paperId) {
-		this.paperId = paperId;
-	}
+//	public void setPaperId (Long paperId) {
+//		this.paperId = paperId;
+//	}
 
 
 	/**
@@ -144,17 +165,17 @@ public abstract class BaseExaPaperUsergroup  implements Serializable {
 	/**
 	 * Return the value associated with the column: USER_ID
 	 */
-	public Long getUserId () {
-		return userId;
-	}
+//	public Long getUserId () {
+//		return userId;
+//	}
 
 	/**
 	 * Set the value related to the column: USER_ID
 	 * @param userId the USER_ID value
 	 */
-	public void setUserId (Long userId) {
-		this.userId = userId;
-	}
+//	public void setUserId (Long userId) {
+//		this.userId = userId;
+//	}
 
 
 	/**
@@ -247,9 +268,9 @@ public abstract class BaseExaPaperUsergroup  implements Serializable {
 	public String toString () {
 		org.apache.commons.lang.builder.ToStringBuilder builder = new org.apache.commons.lang.builder.ToStringBuilder(this);
 		builder.append(id);
-		builder.append(paperId);
+		builder.append(paper);
 		builder.append(roleId);
-		builder.append(userId);
+		builder.append(user);
 		builder.append(createTime);
 		builder.append(updateTime);
 		builder.append(updateUser);

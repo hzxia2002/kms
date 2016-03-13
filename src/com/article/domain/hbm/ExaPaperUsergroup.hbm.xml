@@ -27,16 +27,16 @@
 			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
 		</id>
 
-		<property
-			name="paperId"
-			column="PAPER_ID"
-			type="long"
-			not-null="false"
-			length="19"
-        >
-            <meta attribute="ColumnName">PAPER_ID</meta>
-            <meta attribute="ColumnComment">试卷ID</meta>
-        </property>
+		<!--<property-->
+			<!--name="paperId"-->
+			<!--column="PAPER_ID"-->
+			<!--type="long"-->
+			<!--not-null="false"-->
+			<!--length="19"-->
+        <!--&gt;-->
+            <!--<meta attribute="ColumnName">PAPER_ID</meta>-->
+            <!--<meta attribute="ColumnComment">试卷ID</meta>-->
+        <!--</property>-->
 
 		<property
 			name="roleId"
@@ -49,16 +49,16 @@
             <meta attribute="ColumnComment">角色ID</meta>
         </property>
 
-		<property
-			name="userId"
-			column="USER_ID"
-			type="long"
-			not-null="false"
-			length="19"
-        >
-            <meta attribute="ColumnName">USER_ID</meta>
-            <meta attribute="ColumnComment">用户ID</meta>
-        </property>
+		<!--<property-->
+			<!--name="userId"-->
+			<!--column="USER_ID"-->
+			<!--type="long"-->
+			<!--not-null="false"-->
+			<!--length="19"-->
+        <!--&gt;-->
+            <!--<meta attribute="ColumnName">USER_ID</meta>-->
+            <!--<meta attribute="ColumnComment">用户ID</meta>-->
+        <!--</property>-->
 
 		<property
 			name="createTime"
@@ -104,6 +104,21 @@
             <meta attribute="ColumnComment">创建人</meta>
         </property>
 
+
+		<many-to-one
+				name="user"
+				column="USER_ID"
+				class="com.comet.system.domain.SysUser"
+				not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+				name="paper"
+				column="PAPER_ID"
+				class="ExaPaper"
+				not-null="false"
+		>
+		</many-to-one>
 
 
 	</class>	

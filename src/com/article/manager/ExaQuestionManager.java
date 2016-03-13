@@ -49,7 +49,7 @@ public class ExaQuestionManager {
                 continue;
             }
             ExaPaperDetail paperDetail = new ExaPaperDetail();
-            paperDetail.setQuestionId(Long.valueOf(questionId));
+            paperDetail.setQuestion(exaQuestionService.get(Long.valueOf(questionId)));
             paperDetail.setCreateTime(new Timestamp(System.currentTimeMillis()));
             paperDetail.setCreateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
             paperDetail.setSectionId(sectionId);
@@ -57,6 +57,36 @@ public class ExaQuestionManager {
             exaPaperDetailService.save(paperDetail);
         }
     }
+
+    /**
+     * 删除考试试题
+     * @param questionIds
+     * @param sectionId
+     */
+    public void deleteQuestions(String questionIds,Long sectionId){
+        String [] questionIdArr = questionIds.split(",");
+        String savedQuestionIds = getSectionQuestionIds(sectionId);
+        for (String questionId : questionIdArr) {
+            if(!savedQuestionIds.contains("," + questionId + ",")){
+                continue;
+            }
+            exaPaperDetailService.delete(Long.valueOf(questionId));
+        }
+    }
+
+    /**
+     * 删除章节同时删除章节中的试题
+     * @param sectionId
+     */
+    public void deleteQuestionsBySectionId(Long sectionId){
+        List<ExaPaperDetail> details = getPaperDetail(sectionId);
+        for (ExaPaperDetail detail : details) {
+            exaPaperDetailService.delete(detail);
+        }
+         exaPaperSectionService.delete(sectionId);
+    }
+
+
 
     /**
      * 获取题目
@@ -71,7 +101,7 @@ public class ExaQuestionManager {
         List<ExaPaperDetail> details = getPaperDetail(sectionId);
         String ids = "";
         for (ExaPaperDetail detail : details) {
-            ids += "," + detail.getQuestionId();
+            ids += "," + detail.getQuestion().getId();
         }
         return  ids+",";
     }

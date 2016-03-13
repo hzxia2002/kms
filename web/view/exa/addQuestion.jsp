@@ -16,6 +16,26 @@
             <form id="exaPaperForm" action="">
                 <table style="width: 100%">
                     <tr>
+                        <td width="10%" align="right">
+                            题干：
+                        </td>
+                        <td width="20%">
+                            <input type="text" value="" class="table_input"   name="content" op="like" entity="d.question"/>
+                        </td>
+
+                        <td width="10%" align="right">
+                            题型：
+                        </td>
+                        <td width="20%">
+                            <select name="questionType" class="table_input"    op="eq" entity="d.question">
+                                <option value="" >全部</option>
+                                <option value="0" >单选</option>
+                                <option value="1">多选</option>
+                                <option value="2">判断</option>
+                                <option value="3">填空</option>
+                                <option value="4">问答</option>
+                            </select>
+                        </td>
                         <td>
                             <input type="button" value="查询" class="btn_Search" onclick="javascript:search('exaPaperGrid','exaPaperForm');"/>&nbsp;
                         </td>
@@ -50,7 +70,6 @@
             items: [
                 { text: '增加', click: doAdd, icon: 'add' },
                 { line: true },
-                { text: '修改', click: doEdit, icon: 'modify' },
                 { line: true },
                 { text: '删除', click: doDelete, icon:'delete' }
             ]
@@ -60,14 +79,14 @@
             toolbar:toolbar,
             columns: [
                 {display: 'ID', name: 'id', width: 50,hide:true },
-                {display: '试题题干', name: 'paperType', width: "10%" },
-                {display: '开始时间', name: 'startTime', width: "10%" },
-                {display: '结束时间', name: 'endTime', width: "10%"},
-                {display: '作答时间', name: 'paperMinute', width: "10%"},
-                {display: '试卷总分', name: 'totalScore', width:"10%" },
-//				{display: '时间排序类型', name: 'questionOrderType', width: 50,hide:true },
-                {display: '发布时间', name: 'postTime', width: "10%" },
-                {display: '显示分数时间', name: 'showScoreTime', width: "10%" }
+                {display: '题目类型', name: 'question.questionTypeName', width:"10%" },
+//				{display: '难易程度', name: 'questionLevel', width: 50,hide:true },
+//				{display: '题目来源', name: 'questionFrom', width: 50,hide:true },
+//				{display: '状态', name: 'status', width: 50,hide:true },
+                {display: '题干', name: 'question.content',  width:"20%" },
+                {display: '发布时间', name: 'question.postTime',  width:"10%" },
+                {display: '选择题答案', name: 'question.skey', width:"10%" },
+                {display: '文字描述答案', name: 'question.keyDesc',  width:"25%" }
 
             ]
 //        enabledEdit: true
@@ -135,7 +154,7 @@
     }
 
     function doDelete(){
-        commonDelete("exaPaperGrid","${ctx}/exaPaper/delete.do");
+        commonDelete("exaPaperGrid","${ctx}/exaPaperDetail/delete.do");
     }
 
     function doAdd(){
@@ -174,7 +193,7 @@
                 { text: '关闭', onclick: dialogCancel }
             ]
         };
-        window.top.$.juiceDialog.open(settings);
+        $.juiceDialog.open(settings);
         return false;
     }
 
@@ -206,6 +225,7 @@
                     var cancel = dialog.frame.f_cancel || dialog.frame.window.f_cancel;
                     cancel();
                 }
+                search('exaPaperGrid','exaPaperForm');
             },failure:function(){
                 alert("添加失败") ;
                 dialog.close();

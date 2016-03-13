@@ -73,19 +73,9 @@
         //查询框初始化
         $("#exaPaperQuery").juicePanel({ collapse:false,height: 50,closeAble:false});
         //grid工具栏
-        var toolbar={
-            align:"right",
-            items: [
-                { text: '增加', click: doAdd, icon: 'add' },
-                { line: true },
-                { text: '修改', click: doEdit, icon: 'modify' },
-                { line: true },
-                { text: '删除', click: doDelete, icon:'delete' }
-            ]
-        };
+
         //grid
         $("#exaPaperGrid").juiceGrid({
-            toolbar:toolbar,
             columns: [
                 {display: 'ID', name: 'id', width: 50,hide:true },
                 {display: '试卷名称', name: 'paperName', width:"10%"},
@@ -96,8 +86,7 @@
                 {display: '试卷总分', name: 'totalScore', width:"10%" },
 //				{display: '时间排序类型', name: 'questionOrderType', width: 50,hide:true },
                 {display: '发布时间', name: 'postTime', width: "10%" },
-                {display: '显示分数时间', name: 'showScoreTime', width: "10%" },
-                {display: '操作', name: 'createTime', width: '20%',render:renderOp }
+                {display: '显示分数时间', name: 'showScoreTime', width: "10%" }
 
             ]
 //        enabledEdit: true
@@ -112,73 +101,8 @@
         commonView(url, "exaPaperGrid");
     }
 
-    function doDelete(){
-        commonDelete("exaPaperGrid","${ctx}/exaPaper/delete.do");
-    }
-
-    function doAdd(){
-        var url = "${ctx}/exaPaper/init.do";
-        commonAddOrUpdate(url,"exaPaperGrid",null,"exaPaperEditForm",{title:"新增试卷",height:530,width:600});
-    }
-
-    function doEdit(id){
-        var url = "${ctx}/exaPaper/init.do";
-        if(typeof id == "string"){
-            url += "?id=" + id;
-        }else{
-            url = initUrl(url,"exaPaperGrid");
-        }
-        if(url){
-            commonAddOrUpdate(url,"exaPaperGrid",null,"exaPaperEditForm",{title:"编辑试卷",height:530,width:600});
-        }
-    }
-
-    function renderOp(item,rowIndex){
-        var opStr = "<input type='button' style='padding: 1px' value='试题维护' onclick='doAddQuestion("+item.id+")'/>&nbsp;&nbsp;";
-         opStr += "<input type='button' style='padding: 1px' value='试题查看' onclick='doViewQuestion("+item.id+")'/>&nbsp;&nbsp;";
-//         opStr += "<input type='button' style='padding: 1px' value='考试人员管理' onclick='doAddGroup("+item.id+")'/>&nbsp;";
-        return opStr;
-    }
-
-
-    function doAddQuestion(id){
-        var juiId =  window.top.$.jui.getId();
-        var url = "${ctx}/exaPaper/addQuestion.do?paperId="+id+"&dialogJuiId="+juiId;
-        var settings = {
-            url: url,
-            id:juiId,
-            title:"添加试题",
-            height: $(window.top.document.body).height()-10,
-            width:$(window.top.document.body).width()
-        };
-        window.top.$.juiceDialog.open(settings);
-    }
-
-    function doAddGroup(paperId){
-        var juiId =  window.top.$.jui.getId();
-        var url = "${ctx}/exaPaper/addGroup.do?paperId="+paperId+"&dialogJuiId="+juiId;
-        var settings = {
-            url: url,
-            id:juiId,
-            title:"考试人员维护",
-            height: $(window.top.document.body).height()-10,
-            width:$(window.top.document.body).width()
-        };
-        window.top.$.juiceDialog.open(settings);
-    }
-
-
-    function doViewQuestion(paperId){
-        var juiId =  window.top.$.jui.getId();
-        var url = "${ctx}/exaPaper/exaPaperView.do?paperId="+paperId+"&dialogJuiId="+juiId;
-        var settings = {
-            url: url,
-            id:juiId,
-            title:"查看试题",
-            height: $(window.top.document.body).height()-10,
-            width:$(window.top.document.body).width()
-        };
-        window.top.$.juiceDialog.open(settings);
+    function f_select(){
+        return $.jui.get("exaPaperGrid").getSelectedRow();
     }
 
 </script>

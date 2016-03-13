@@ -1,8 +1,10 @@
 package com.article.controller;
 
+import com.article.daoservice.ExaPaperDetailService;
 import com.article.daoservice.ExaPaperSectionService;
 import com.article.daoservice.ExaPaperService;
 import com.article.domain.ExaPaper;
+import com.article.domain.ExaPaperDetail;
 import com.article.domain.ExaPaperSection;
 import com.article.manager.ExaQuestionManager;
 import com.comet.core.controller.BaseCRUDActionController;
@@ -43,6 +45,9 @@ public class ExaPaperController extends BaseCRUDActionController<ExaPaper> {
 
     @Autowired
     private ExaQuestionManager exaQuestionManager;
+
+    @Autowired
+    private ExaPaperDetailService exaPaperDetailService;
 
 
 
@@ -214,6 +219,42 @@ public class ExaPaperController extends BaseCRUDActionController<ExaPaper> {
         }
 
     }
+
+    @RequestMapping
+    public String exaPaperView(Model model, Long paperId) {
+        ExaPaper exaPaper = exaPaperService.get(paperId);
+        List<ExaPaperSection> exaPaperSections = exaPaperSectionService.find("from ExaPaperSection where paperId="+paperId+" order by orderNo");
+        List<ExaPaperDetail> details = exaPaperDetailService.find("select distinct d from ExaPaperDetail d left join fetch d.question q left join fetch q.options  p where d.paperId="+paperId);
+
+        model.addAttribute("paper",exaPaper);
+        model.addAttribute("sections",exaPaperSections);
+        model.addAttribute("details",details);
+        return "view/exa/exaPaperView";
+    }
+
+
+    @RequestMapping
+    public void deleteQuestions(HttpServletResponse response, Model model,String questionIds,Long sectionId) throws Exception {
+        try {
+            exaQuestionManager.deleteQuestions(questionIds,sectionId);
+            sendSuccessJSON(response, "保存成功");
+        } catch (Exception e) {
+            sendFailureJSON(response, "保存失败:"+e.getMessage());
+        }
+
+    }
+
+    @RequestMapping
+    public void addUser(HttpServletResponse response, Model model,String questionIds,Long sectionId) throws Exception {
+        try {
+            exaQuestionManager.deleteQuestions(questionIds,sectionId);
+            sendSuccessJSON(response, "保存成功");
+        } catch (Exception e) {
+            sendFailureJSON(response, "保存失败:"+e.getMessage());
+        }
+
+    }
+
 
 
 

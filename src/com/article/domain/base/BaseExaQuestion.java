@@ -1,8 +1,10 @@
 package com.article.domain.base;
 
+import com.article.domain.ExaQuestionOptions;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import java.io.Serializable;
+import java.util.Set;
 
 
 /**
@@ -66,51 +68,51 @@ public abstract class BaseExaQuestion  implements Serializable {
 	// fields
     /*QUESTION_TYPE*/
 	private Long questionType;
-	
-    /*QUESTION_LEVEL*/
+
+	/*QUESTION_LEVEL*/
     /*���׳̶�*/
 	private Long questionLevel;
-	
-    /*QUESTION_FROM*/
+
+	/*QUESTION_FROM*/
     /*��Ŀ��Դ*/
 	private Long questionFrom;
-	
-    /*STATUS*/
+
+	/*STATUS*/
     /*״̬*/
 	private String status;
-	
-    /*CONTENT*/
+
+	/*CONTENT*/
     /*����*/
 	private String content;
-	
-    /*POST_TIME*/
+
+	/*POST_TIME*/
     /*����ʱ��*/
 	private java.sql.Timestamp postTime;
-	
-    /*SKEY*/
+
+	/*SKEY*/
     /*ѡ�����*/
 	private String skey;
-	
-    /*KEY_DESC*/
+
+	/*KEY_DESC*/
     /*����������*/
 	private String keyDesc;
-	
-    /*CREATE_TIME*/
+
+	/*CREATE_TIME*/
     /*����ʱ��*/
 	private java.sql.Timestamp createTime;
-	
-    /*UPDATE_TIME*/
+
+	/*UPDATE_TIME*/
     /*����ʱ��*/
 	private java.sql.Timestamp updateTime;
-	
-    /*UPDATE_USER*/
+
+	/*UPDATE_USER*/
     /*������*/
 	private String updateUser;
-	
-    /*CREATE_USER*/
+
+	/*CREATE_USER*/
     /*������*/
 	private String createUser;
-	
+
 
 	// many to one
 	private com.article.domain.ExaQuestionDb db;
@@ -119,10 +121,10 @@ public abstract class BaseExaQuestion  implements Serializable {
 
 	/**
 	 * Return the unique identifier of this class
-     * @hibernate.id
-     *  generator-class="sequence"
-     *  column="ID"
-     */
+	 * @hibernate.id
+	 *  generator-class="sequence"
+	 *  column="ID"
+	 */
 	public Long getId () {
 		return id;
 	}
@@ -138,7 +140,15 @@ public abstract class BaseExaQuestion  implements Serializable {
 	}
 
 
+	private Set<ExaQuestionOptions> options;
 
+	public Set<ExaQuestionOptions> getOptions() {
+		return options;
+	}
+
+	public void setOptions(Set<ExaQuestionOptions> options) {
+		this.options = options;
+	}
 
 	/**
 	 * Return the value associated with the column: QUESTION_TYPE
