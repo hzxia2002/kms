@@ -29,4 +29,19 @@ public interface Constants {
     public static final String TJZT_KMS = "tjzt";
     /***********************目录编码**********/
 
+    /****************试题类型**********************/
+    public static final String QUESTION_SINGLE = "0";
+
+    public static final String QUESTION_MULTI = "1";
+
+    public static final String QUESTION_JUDGE = "2";
+
+    public static final String QUESTION_FILL= "3";
+
+    public static final String QUESTION_QA= "4";
+
+
+
+
+
 }

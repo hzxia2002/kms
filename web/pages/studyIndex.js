@@ -38,6 +38,8 @@ function treeNodeClick(node){
         loadCollect();
     }else if(node.data.id==-3){
         loadHistory();
+    }else if(node.data.id==-4){
+        loadPaper();
     }else{
         nodeId = node.data.id;
         loadCollect(nodeId);
@@ -46,6 +48,20 @@ function treeNodeClick(node){
 
 function loadContent(pageNo){
     var url = context_path+"/page/myStudy.do";
+    if(pageNo){
+        url += "?pageNo=" + pageNo;
+    }
+    $.ajax({
+        url:url,
+        dataType: "text",
+        success:function(ret){
+            $("#studyContent").html(ret);
+        }
+    });
+}
+
+function loadPaper(pageNo){
+    var url = context_path+"/page/myPaper.do";
     if(pageNo){
         url += "?pageNo=" + pageNo;
     }

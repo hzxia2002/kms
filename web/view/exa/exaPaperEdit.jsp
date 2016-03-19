@@ -118,10 +118,10 @@
 
 <script type="text/javascript">
     $(function(){
-        $("#startTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'${bean.startTime}'});
-        $("#endTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'${bean.endTime}'});
-        $("#showScoreTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'${bean.showScoreTime}'});
-        $("#postTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd hh:mm:00",width:200 ,initValue:'${bean.postTime}'});
+        $("#startTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd",width:200 ,initValue:'${bean.startTime}'});
+        $("#endTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd",width:200 ,initValue:'${bean.endTime}'});
+        $("#showScoreTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd",width:200 ,initValue:'${bean.showScoreTime}'});
+        $("#postTime").juiceDateEditor({ showTime: true, format:"yyyy-MM-dd",width:200 ,initValue:'${bean.postTime}'});
         $.metadata.setType("attr", "validate");
         v = $('#exaPaperEditForm').validate();
 

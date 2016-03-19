@@ -1,36 +1,27 @@
 package com.article.controller;
 
-import com.article.daoservice.CmsArticleService;
-import com.article.daoservice.CmsCatalogService;
-import com.article.daoservice.CmsCollectArticleService;
-import com.article.daoservice.CmsCollectCatagoryService;
-import com.article.daoservice.CmsCommentService;
-import com.article.daoservice.CmsStudyPlanService;
-import com.article.daoservice.DocAttachmentsService;
-import com.article.domain.CmsArticle;
-import com.article.domain.CmsCatalog;
-import com.article.domain.CmsCollectArticle;
-import com.article.domain.CmsCollectCatagory;
-import com.article.domain.CmsComment;
-import com.article.domain.CmsStudyPlan;
-import com.article.domain.DocAttachments;
+import com.article.daoservice.*;
+import com.article.domain.*;
+import com.article.manager.ExaPaperManager;
 import com.article.util.Constants;
 import com.comet.core.config.CustomizedPropertyPlaceholderConfigurer;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.security.util.SpringSecurityUtils;
-import com.comet.core.session.UserSession;
-import com.comet.core.utils.ReflectionUtils;
 import com.comet.system.daoservice.SysUserService;
 import com.comet.system.tree.Node;
 import com.comet.system.tree.TreeBranch;
 import com.comet.system.tree.ZTreeNode;
 import com.comet.system.utils.PrivilegeUtils;
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.rtf.RtfWriter2;
+import com.lowagie.text.rtf.field.RtfPageNumber;
+import com.lowagie.text.rtf.headerfooter.RtfHeaderFooter;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,14 +29,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Date: 13-10-30
@@ -78,7 +67,21 @@ public class PageController extends BaseCRUDActionController {
     private CmsCommentService cmsCommentService;
 
     @Autowired
+    private ExaPaperSectionService exaPaperSectionService;
+
+    @Autowired
+    private ExaPaperService exaPaperService;
+
+    @Autowired
+    private ExaPaperDetailService exaPaperDetailService;
+
+    @Autowired
     private HashMap systemMap;
+
+    @Autowired
+    private ExaPaperManager exaPaperManager;
+
+
 
 
     @RequestMapping
@@ -581,6 +584,13 @@ public class PageController extends BaseCRUDActionController {
 
         treeDataList.add(rootMap);
 
+        rootMap = new HashMap();
+        rootMap.put("text","我的题库");
+        rootMap.put("id",-4L);
+        rootMap.put("isLoaded", true);
+
+        treeDataList.add(rootMap);
+
         return treeDataList;
     }
 
@@ -663,6 +673,34 @@ public class PageController extends BaseCRUDActionController {
         return "pages/collect";
     }
 
+    @RequestMapping
+    public String myPaper(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
+        Page page = getPage(pageNo, pageSize);
+
+        Long userId = SpringSecurityUtils.getCurrentUser().getId();
+
+        String hql = "select p.paper from ExaPaperUsergroup p   where p.user.id="+ userId;
+
+        Page<ExaPaper> byPage = exaPaperService.findByPage(page ,hql);
+        model.addAttribute("page",byPage);
+        model.addAttribute("id",id);
+        return "pages/paper";
+    }
+
+    @RequestMapping
+    public String toPractice(Model model, Long paperId) throws Exception {
+        ExaPaper exaPaper = exaPaperService.get(paperId);
+        List<ExaPaperSection> exaPaperSections = exaPaperManager.getExaPaperSections(paperId);
+        List<ExaPaperDetail> details = exaPaperManager.getPaperDetail(paperId);
+
+        model.addAttribute("paper",exaPaper);
+        model.addAttribute("sections",exaPaperSections);
+        model.addAttribute("details",details);
+
+        return "pages/practice";
+    }
+
+
     /**
      *  删除收藏
      * @param response
@@ -734,4 +772,112 @@ public class PageController extends BaseCRUDActionController {
             sendSuccessJSON(response, "请先删除收藏夹里的文章");
         }
     }
+
+    @RequestMapping
+    public void exportToWord(HttpServletResponse response,Long paperId){
+        response.setContentType("application/x-msdownload");
+        ExaPaper exaPaper = exaPaperService.get(paperId);
+        List<ExaPaperSection> exaPaperSections = exaPaperManager.getExaPaperSections(paperId);
+        List<ExaPaperDetail> details = exaPaperManager.getPaperDetail(paperId);
+        String TECH_INFO = "";
+        String FOOT_INFO = "";
+
+        try {
+            Document document = new Document(PageSize.A4);
+            RtfWriter2.getInstance(document, response.getOutputStream());
+            document.open();
+            BaseFont bfChinese = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", false);
+            Font titleFont = new Font(bfChinese, 14.0F, 1);
+            Font subTitleFont = new Font(bfChinese, 11.0F, 1);
+            Font contextFont = new Font(bfChinese, 10.0F, 1);
+            Font optionFont = new Font(bfChinese, 9.0F, 0);
+            Font headerFooterFont = new Font(bfChinese, 9.0F, 0);
+            Table header = new Table(2);
+            header.setBorder(0);
+            header.setWidth(100.0F);
+            Paragraph address = new Paragraph(TECH_INFO);
+            address.setFont(headerFooterFont);
+
+            Cell dateCell = new Cell(address);
+            dateCell.setBorder(0);
+            header.addCell(dateCell);
+            Paragraph date = new Paragraph("生成日期: " + (new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
+            date.setAlignment(2);
+            date.setFont(headerFooterFont);
+            dateCell = new Cell(date);
+            dateCell.setBorder(0);
+            header.addCell(dateCell);
+
+            document.setHeader(new RtfHeaderFooter(header));
+            Table footer = new Table(2);
+            footer.setBorder(0);
+            footer.setWidth(100.0F);
+            Paragraph company = new Paragraph(FOOT_INFO);
+            company.setFont(headerFooterFont);
+
+            Cell footCell = new Cell(company);
+            footCell.setBorder(0);
+            footer.addCell(footCell);
+            Paragraph pageNumber = new Paragraph("第 ");
+            pageNumber.add(new RtfPageNumber());
+            pageNumber.add(new Chunk(" 页"));
+            pageNumber.setAlignment(2);
+            pageNumber.setFont(headerFooterFont);
+            footCell = new Cell(pageNumber);
+            footCell.setBorder(0);
+            footer.addCell(footCell);
+
+            document.setFooter(new RtfHeaderFooter(footer));
+            Paragraph title = new Paragraph(exaPaper.getPaperName());
+            title.setAlignment(1);
+            title.setFont(titleFont);
+            document.add(title);
+
+
+            for (ExaPaperSection exaPaperSection : exaPaperSections) {
+                int row = 0;
+                Paragraph subTitle = new Paragraph(exaPaperSection.getSectionName() + "," + exaPaperSection.getRemark() );
+                subTitle.setFont(subTitleFont);
+                subTitle.setSpacingBefore(10.0F);
+                subTitle.setFirstLineIndent(0.0F);
+                document.add(subTitle);
+                for (ExaPaperDetail detail : details) {
+                    if(detail.getSectionId().equals(exaPaperSection.getId())){
+                        ExaQuestion question = detail.getQuestion();
+                        Paragraph context = new Paragraph( (row+1) +":" + question.getContent());
+                        context.setAlignment(0);
+                        context.setFont(contextFont);
+                        context.setSpacingBefore(10.0F);
+                        context.setFirstLineIndent(0.0F);
+                        document.add(context);
+                        StringBuffer sbOptions = new StringBuffer("");
+
+                        Set<ExaQuestionOptions> options = question.getOptions();
+                        for (ExaQuestionOptions option : options) {
+                            sbOptions.append(option.getOptionKey() + " : " + option.getOptionOption() + "\n");
+                        }
+
+                        Paragraph optionsParagraph = new Paragraph(sbOptions.toString());
+                        optionsParagraph.setAlignment(0);
+                        optionsParagraph.setFont(optionFont);
+                        optionsParagraph.setSpacingBefore(10.0F);
+                        optionsParagraph.setFirstLineIndent(0.0F);
+                        document.add(optionsParagraph);
+                    }
+                }
+
+            }
+
+            document.close();
+            response.setHeader("Content-Disposition", "attachment;filename=" +new String((exaPaper.getPaperName()+".doc").getBytes("GB2312"),"ISO-8859-1"));
+
+        } catch (DocumentException e) {
+            sendFailureJSON(response, "构造试卷报错");
+        } catch (IOException e) {
+            sendFailureJSON(response, "构造试卷报错");
+        }
+
+    }
+
+
 }
