@@ -13,10 +13,10 @@
             <form id="exaPaperForm" action="">
                 <table style="width: 100%">
                     <tr>
-                        <td width="10%" align="right">
+                        <td width="10%" align="right" height="30">
                             试卷名称：
                         </td>
-                        <td width="20%" >
+                        <td width="100" >
                             <input type="text" value="" class="table_input" id="title" name="paperName" op="like" entity="t"/>
                         </td>
                         <td width="10%" align="right">

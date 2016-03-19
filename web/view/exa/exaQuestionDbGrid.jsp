@@ -14,8 +14,8 @@
             <form id="exaQuestionDbForm" action="">
                 <table style="width: 100%">
                     <tr>
-                        <td width="10%" align="right">
-                            问卷名称：
+                        <td width="10%" align="right" height="30">
+                            题库名称：
                         </td>
                         <td width="20%">
                             <input type="text" value="" class="table_input" id="title" name="dbName" op="like" entity="t"/>
