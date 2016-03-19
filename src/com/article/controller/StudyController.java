@@ -2,6 +2,7 @@ package com.article.controller;
 
 import com.article.daoservice.*;
 import com.article.domain.*;
+import com.article.manager.ExaPaperManager;
 import com.article.util.Constants;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Condition;
@@ -40,6 +41,9 @@ public class StudyController extends PageController {
 
     @Autowired
     private CmsStudyPlanService studyPlanService;
+
+    @Autowired
+    private ExaPaperManager exaPaperManager;
 
     @Autowired
     private DocAttachmentsService docAttachmentsService;
@@ -103,6 +107,11 @@ public class StudyController extends PageController {
             }
             model.addAttribute("bean", cmsArticle);
             model.addAttribute("paths",paths);
+
+            //试卷
+            List<ExaPaper> exaPapers = exaPaperManager.getExaPapers(cmsStudyCourse.getId());
+            model.addAttribute("papers",exaPapers);
+
 
             //文章保存
             if(cmsArticle.getId()!=null){

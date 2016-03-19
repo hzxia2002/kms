@@ -142,7 +142,7 @@
 
     function doAdd(){
         var url = "${ctx}/cmsStudyCourse/init.do";
-        commonAddOrUpdate(url,"cmsStudyCourseGrid",null,"cmsStudyCourseEditForm",{title:"新增学习课程",height:530,width:600});
+        commonAddOrUpdate(url,"cmsStudyCourseGrid",null,"cmsStudyCourseEditForm",{title:"新增学习课程",height:550,width:600});
     }
 
     function doEdit(id){
@@ -153,7 +153,7 @@
             url = initUrl(url,"cmsStudyCourseGrid");
         }
         if(url){
-            commonAddOrUpdate(url,"cmsStudyCourseGrid",null,"cmsStudyCourseEditForm",{title:"编辑学习课程",height:530,width:600});
+            commonAddOrUpdate(url,"cmsStudyCourseGrid",null,"cmsStudyCourseEditForm",{title:"编辑学习课程",height:550,width:600});
         }
     }
 

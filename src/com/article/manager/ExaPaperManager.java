@@ -2,6 +2,8 @@ package com.article.manager;
 
 import com.article.daoservice.ExaPaperDetailService;
 import com.article.daoservice.ExaPaperSectionService;
+import com.article.daoservice.ExaPaperService;
+import com.article.domain.ExaPaper;
 import com.article.domain.ExaPaperDetail;
 import com.article.domain.ExaPaperSection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,10 @@ public class ExaPaperManager {
     @Autowired
     private ExaPaperDetailService exaPaperDetailService;
 
+    @Autowired
+    private ExaPaperService exaPaperService;
+
+
     /**
      * 获取试卷篇章
      * @param paperId
@@ -36,6 +42,10 @@ public class ExaPaperManager {
      */
     public  List<ExaPaperDetail> getPaperDetail(Long paperId){
         return exaPaperDetailService.find("select distinct d from ExaPaperDetail d left join fetch d.question q left join fetch q.options  p where d.paperId="+paperId);
+    }
+
+    public  List<ExaPaper> getExaPapers(Long courseId){
+       return exaPaperService.find("select t.paper from ExaArticlePaper t where t.course.id=" + courseId);
     }
 
 

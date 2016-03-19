@@ -102,7 +102,8 @@
     }
 
     function f_select(){
-        return $.jui.get("exaPaperGrid").getSelectedRow();
+        return $.jui.get("exaPaperGrid").getSelectedRows();
     }
+
 
 </script>

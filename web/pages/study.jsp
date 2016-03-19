@@ -82,10 +82,10 @@
             font-family: 微软雅黑,黑体 !important;
         }
 
-            /*.fixTop{*/
-            /*position: fixed;*/
-            /*top: -1px;*/
-            /*}*/
+        /*.fixTop{*/
+        /*position: fixed;*/
+        /*top: -1px;*/
+        /*}*/
         .Header .logo .search .kuang .input11{
             float:left;
             width: 360px;
@@ -144,6 +144,18 @@
                     <ul>
                         <c:forEach items="${docAttachmentses}" var="attachment">
                             <li><a href='${ctx}${attachment.filePath}' target='_blank'>${attachment.orginName}</a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            <div style="clear: both;font-size: 14px">
+                <div>
+                    <div style="float:left;font-weight: bold;">试卷：</div>
+                    <ul>
+                        <c:forEach items="${papers}" var="paper">
+                            <c:if test="${!paper.canNotDownload}">
+                                <li> <a style="color:blue" href="${ctx}/page/exportToWord.do?paperId=${paper.id}" target="_blank">${paper.paperName}</a></li>
+                            </c:if>
                         </c:forEach>
                     </ul>
                 </div>

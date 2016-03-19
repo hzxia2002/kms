@@ -71,6 +71,24 @@
             </td>
         </tr>
 
+        <tr class="inputTr">
+            <td  align="right">
+                关联试题:
+            </td>
+            <td  class="container">
+                <div style="float: left">
+                    <select id="paperNames" name="paperNames" multiple="multiple" size="8" style="width: 200px;" class="textarea_table">
+                        <c:forEach var="paper" items="${papers}">
+                            <option value="${paper.id}">${paper.paperName}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div><img src="${ctx}/skin/icons/edit_add.png" onclick="selectPaper();" title="选择试题"></div>
+                <div><img src="${ctx}/skin/icons/edit_remove.png" onclick="deletePaper();" title="删除试题"></div>
+                <input type="hidden" name="paperIds" id="paperIds">
+            </td>
+        </tr>
+
     </table>
 </form:form>
 </body>
@@ -109,7 +127,7 @@
             alert('请选择行!');
             return;
         }
-        var articleIds = getArticleIds();
+        var articleIds = getArticleIds("");
         var htmlArr = [];
         for(var j=0;j<datas.length;j++){
             if(articleIds.indexOf(","+datas[j].id+",")>=0){
@@ -177,13 +195,83 @@
         }
     }
 
-    function getArticleIds(){
-        var allOptios = $("#articleNames option");
-        var articleIds = ",";
-        for (var i = 0; i < allOptios.length; i++) {
-            articleIds += $(allOptios[i]).val() + ",";
+    function deletePaper(){
+        var selecteds = $("#paperNames option:selected");
+        if(selecteds.length<=0){
+            alert("请选择试卷");
+            return;
         }
-        return articleIds;
+        if(window.confirm("您是否要删除选中的试卷?")){
+
+            var selectedIds = [];
+            for(var i=0;i<selecteds.length;i++){
+                selectedIds.push($(selecteds[i]).val()) ;
+            }
+            $.ajax({
+                url:"${ctx}/cmsStudyCourse/deletePaper?courseId=${bean.id}",
+                type:"post",
+                data:{paperIds:selectedIds.join(",")},
+                success:function(){
+                    $("#paperNames option:selected").remove();
+                    $("#paperIds").val(getIds("paperNames"));
+                },failure:function(){
+                    alert("删除失败") ;
+                }
+            });
+
+        }
+    }
+
+
+    function selectPaper(){
+        window.top.$.juiceDialog.open({ title: '选择试题', name:'courseselector',width: 1024, height: 500, url: '${ctx}/view/exa/exaPaperSelectGrid.jsp', buttons: [
+            { text: '确定', onclick: selectPaperOK },
+            { text: '取消', onclick: selectArticleCancel }
+        ]
+        });
+        return false;
+    }
+
+    function selectPaperOK(item, dialog){
+        var fn = dialog.frame.f_select || dialog.frame.window.f_select;
+        var datas = fn();
+        if (!datas)
+        {
+            alert('请选择行!');
+            return;
+        }
+        var paperIds = getIds("paperNames");
+        var htmlArr = [];
+        for(var j=0;j<datas.length;j++){
+            if(paperIds.indexOf(","+datas[j].id+",")>=0){
+                continue;
+            }else{
+                paperIds += datas[j].id +",";
+            }
+            htmlArr.push("<option value='"+datas[j].id+"'>"+datas[j].paperName+"</option>");
+        }
+        $("#paperNames").append(htmlArr.join(""));
+        if(!window.confirm("添加成功,是否继续添加?")){
+            dialog.close();
+        }else{
+            var cancel = dialog.frame.f_cancel || dialog.frame.window.f_cancel;
+            cancel();
+        }
+        $("#paperIds").val(getIds("paperNames"));
+    }
+
+    function getIds(selectId){
+        var allOptios = $("#"+selectId+" option");
+        var ids = ",";
+        for (var i = 0; i < allOptios.length; i++) {
+            ids += $(allOptios[i]).val() + ",";
+        }
+        return ids;
+    }
+
+    function getArticleIds(){
+
+        return getIds("articleNames");
     }
 
 </script>

@@ -1,11 +1,8 @@
 package com.article.controller;
 
-import com.article.daoservice.CmsArticleService;
-import com.article.daoservice.CmsCourseArticleService;
-import com.article.daoservice.CmsStudyCourseService;
-import com.article.domain.CmsArticle;
-import com.article.domain.CmsCourseArticle;
-import com.article.domain.CmsStudyCourse;
+import com.article.daoservice.*;
+import com.article.domain.*;
+import com.article.manager.ExaPaperManager;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
 import com.comet.core.orm.hibernate.QueryTranslate;
@@ -44,6 +41,15 @@ public class CmsStudyCourseController extends BaseCRUDActionController<CmsStudyC
 
     @Autowired
     private CmsCourseArticleService cmsCourseArticleService;
+
+    @Autowired
+    private ExaPaperService exaPaperService;
+
+    @Autowired
+    private ExaPaperManager exaPaperManager;
+
+    @Autowired
+    private ExaArticlePaperService exaArticlePaperService;
 
 
     @RequestMapping
@@ -127,7 +133,10 @@ public class CmsStudyCourseController extends BaseCRUDActionController<CmsStudyC
                 if(entity.getArticle()!=null){
                     cmsArticles.add(entity.getArticle());
                 }
+                List<ExaPaper> exaPapers = exaPaperManager.getExaPapers(entity.getId());
+
                 model.addAttribute("articles", cmsArticles);
+                model.addAttribute("papers", exaPapers);
             }
             model.addAttribute("bean", entity);
         } catch (Exception e) {
@@ -146,7 +155,7 @@ public class CmsStudyCourseController extends BaseCRUDActionController<CmsStudyC
     }
 
     @RequestMapping
-    public void save(HttpServletResponse response, Model model, @ModelAttribute("bean") CmsStudyCourse entity,String articleIds)
+    public void save(HttpServletResponse response, Model model, @ModelAttribute("bean") CmsStudyCourse entity,String articleIds,String paperIds)
             throws Exception {
         try {
             String[] columns = new String[]{
@@ -190,6 +199,22 @@ public class CmsStudyCourseController extends BaseCRUDActionController<CmsStudyC
                 }
 
             }
+            if(StringUtils.isNotEmpty(paperIds)){
+                String[] paperIdArr = paperIds.split(",");
+                for (String id : paperIdArr) {
+                    if(StringUtils.isNotEmpty(id)){
+                        if(cmsCourseArticleService.find("from ExaArticlePaper where course.id="+target.getId()+" and paper.id="+id).size()==0){
+                            ExaPaper exaPaper = exaPaperService.get(Long.valueOf(id));
+                            ExaArticlePaper exaArticlePaper = new ExaArticlePaper();
+                            exaArticlePaper.setPaper(exaPaper);
+                            exaArticlePaper.setCourse(target);
+                            exaArticlePaperService.save(exaArticlePaper);
+                        }
+
+                    }
+                }
+
+            }
         } catch (Exception e) {
             log.error("error", e);
             super.processException(response, e);
@@ -220,5 +245,22 @@ public class CmsStudyCourseController extends BaseCRUDActionController<CmsStudyC
         }
         sendSuccessJSON(response, "删除成功");
     }
+
+    @RequestMapping
+    public void deletePaper(HttpServletResponse response, String paperIds,String courseId) throws Exception {
+        if(StringUtils.isNotEmpty(courseId)){
+            String[] paperIdArr = paperIds.split(",");
+            for (String id : paperIdArr) {
+                if(StringUtils.isNotEmpty(id)){
+                    List<ExaArticlePaper> exaArticlePapers = exaArticlePaperService.find("from ExaArticlePaper where course.id=" + courseId + " and paper.id=" + id);
+                    for (ExaArticlePaper exaArticlePaper : exaArticlePapers) {
+                        exaArticlePaperService.delete(exaArticlePaper);
+                    }
+                }
+            }
+        }
+        sendSuccessJSON(response, "删除成功");
+    }
+
 
 }
