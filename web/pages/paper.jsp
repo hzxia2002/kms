@@ -3,10 +3,10 @@
 <%@include file="common/header.jsp"%>
 <div class="one">
     <div class="title">我的试卷</div>
-    <div>
-        <input type="text" name="paperName" id="paperName"   style="height: 22px;width:200px;border: #71ccff 1px solid;">
-        <input type="button" onclick="loadPaper();" style="height: 24px;width: 60px;" value="查询">
-    </div>
+    <%--<div>--%>
+        <%--<input type="text" name="paperName" id="paperName"   style="height: 22px;width:200px;border: #71ccff 1px solid;">--%>
+        <%--<input type="button" onclick="loadPaper();" style="height: 24px;width: 60px;" value="查询">--%>
+    <%--</div>--%>
     <div class="main">
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
             <tr>

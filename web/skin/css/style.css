@@ -599,6 +599,22 @@ a:active { color: #333;}
     border-bottom-color: #ccdde7;
 }
 
+.ContentHome .rightxxyh .one .main .tab_second_tit{
+    background-image: url(../images/tree_bg.jpg);
+    background-repeat: repeat-x;
+    background-position: 0 -60px;
+    line-height: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: #ccdde7;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #ccdde7;
+}
+
+
 .ContentHome .one{
     width: 1020px;
     border: 1px solid #cedce9;
