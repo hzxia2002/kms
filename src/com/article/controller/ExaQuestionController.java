@@ -53,19 +53,17 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
     @Autowired
     private ExaQuestionOptionsService exaOptionsService;
 
-
-
-
-
-
-
     @RequestMapping
     @ResponseBody
-    public Page<ExaQuestion> grid(Page page, String condition) {
+    public Page<ExaQuestion> grid(Page page, String condition, String dbId) {
         try {
             page.setAutoCount(true);
 
             String hql = "from ExaQuestion t where 1=1 " ;
+
+            if(StringUtils.isNotBlank(dbId)) {
+                hql += " and t.db = " + dbId;
+            }
 
             QueryTranslate queryTranslate = new QueryTranslate(hql, condition);
 
@@ -79,17 +77,39 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
     }
 
     @RequestMapping
-    public String init(Model model, Long dbId) throws Exception {
+    public String init(Model model, Long id) throws Exception {
+//        try {
+//            ExaQuestionDb exaQuestionDb = exaQuestionDbService.get(dbId);
+//            model.addAttribute("db", exaQuestionDb);
+//            model.addAttribute("bean", new ExaQuestion());
+//
+//        } catch (Exception e) {
+//            log.error("error", e);
+//        }
+
         try {
-            ExaQuestionDb exaQuestionDb = exaQuestionDbService.get(dbId);
-            model.addAttribute("db", exaQuestionDb);
-            model.addAttribute("bean", new ExaQuestion());
+            if(id != null) {
+                ExaQuestion question = exaQuestionService.get(id);
+
+                List<ExaQuestionOptions> optionsList = exaOptionsService.find("from ExaQuestionOptions where questionId=" + id);
+                ArrayList arrayList = new ArrayList();
+                for (ExaQuestionOptions exaQuestionOptions : optionsList) {
+                    HashMap data = new HashMap();
+                    data.put("id", exaQuestionOptions.getId());
+                    data.put("indexNo", exaQuestionOptions.getOptionKey());
+                    data.put("content", exaQuestionOptions.getOptionOption());
+                    arrayList.add(data);
+                }
+
+                model.addAttribute("bean", question);
+                model.addAttribute("options", arrayList);
+            }
 
         } catch (Exception e) {
             log.error("error", e);
         }
 
-        return "view/exa/exaQuestionEdit";
+        return "view/exa/exaQuestionAdd";
     }
 
     @RequestMapping
@@ -115,7 +135,6 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
                     "postTime",
                     "skey",
                     "keyDesc"
-
             };
 
             ExaQuestion target;
@@ -131,6 +150,8 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
         } catch (Exception e) {
             log.error("error", e);
             super.processException(response, e);
+
+            return;
         }
 
         sendSuccessJSON(response, "保存成功");
@@ -192,7 +213,8 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
     }
 
     @RequestMapping
-    public void saveData(HttpServletResponse response, Model model, @ModelAttribute("bean") ExaQuestion entity,String option,String opIndexNo,String opIds,Integer flag,Long dbId)
+    public void saveData(HttpServletResponse response, Model model, @ModelAttribute("bean") ExaQuestion entity,
+                         String option,String opIndexNo,String opIds,Integer flag,Long dbId)
             throws Exception {
         try {
             String[] columns = new String[]{
@@ -237,11 +259,11 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
                 arrayList.add(exaQuestionOption);
             }
             exaQuestionManager.saveQuestion(target,arrayList);
-
-            //
         } catch (Exception e) {
             log.error("error", e);
-            super.processException(response, "创建试题失败");
+            super.processException(response, "保存试题失败");
+
+            return;
         }
 
         sendSuccessJSON(response, "保存成功");

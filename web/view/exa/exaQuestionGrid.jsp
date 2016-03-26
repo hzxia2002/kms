@@ -30,7 +30,6 @@
         </div>
         <div id="exaQuestionGrid" checkbox="true" rownumbers="true"  height="100%"  url='${ctx}/exaQuestion/grid.do' root="rows" record="records"  width="100%"  colDraggable="true" >
         </div>
-
     </div>
 </div>
 </body>
@@ -44,6 +43,7 @@
             $.jui.get("exaQuestionQuery").setWidth(width);
         }
         });
+
         //查询框初始化
         $("#exaQuestionQuery").juicePanel({ collapse:false,height: 50,closeAble:false});
 
@@ -67,10 +67,7 @@
 
         //创建树
         createTree("exaQuestionTree",{ url:"${ctx}/exaQuestion/tree.do"});
-
     });
-
-
 
     function f_select(){
         return $.jui.get("exaQuestionGrid").getSelectedRows();
