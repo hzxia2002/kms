@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.article.domain">
+	<class
+		name="ConQuestion"
+		table="con_question"
+	>
+		
+		<meta attribute="sync-DAO">false</meta>
+		<meta attribute="sync-jsp">true</meta>
+		<meta attribute="sync-boolean">get</meta>
+		<meta attribute="treeable">false</meta>
+		<meta attribute="projectable">false</meta>
+        <meta attribute="tableName">con_question</meta>
+        <meta attribute="tableComment">咨询问题</meta>
+	    <meta attribute="sync-templatePatterns">list\w*</meta>
+        <meta attribute="sub-system"></meta>
+
+		<id
+			name="id"
+			type="long"
+			column="ID"
+		>
+			<generator class="com.comet.core.orm.hibernate.LongIdGenerator"/>
+		</id>
+
+		<property
+			name="title"
+			column="TITLE"
+			type="string"
+			not-null="false"
+			length="200"
+        >
+            <meta attribute="ColumnName">TITLE</meta>
+            <meta attribute="ColumnComment">标题</meta>
+        </property>
+
+
+		<property
+			name="content"
+			column="CONTENT"
+			type="string"
+			not-null="false"
+            length="2000"
+        >
+            <meta attribute="ColumnName">CONTENT</meta>
+            <meta attribute="ColumnComment">内容</meta>
+        </property>
+
+        <property
+                name="remark"
+                column="REMARK"
+                type="string"
+                not-null="false"
+                length="200"
+        >
+            <meta attribute="ColumnName">REMARK</meta>
+            <meta attribute="ColumnComment">备注</meta>
+        </property>
+
+		<property
+			name="indexNo"
+			column="INDEX_NO"
+			type="long"
+			not-null="false"
+			length="10"
+        >
+            <meta attribute="ColumnName">INDEX_NO</meta>
+            <meta attribute="ColumnComment">排序</meta>
+        </property>
+
+		<property
+			name="asker"
+			column="ASKER"
+            type="string"
+            not-null="false"
+            length="50"
+        >
+            <meta attribute="ColumnName">ASKER</meta>
+            <meta attribute="ColumnComment">提问人</meta>
+        </property>
+
+		<property
+			name="publishTime"
+			column="PUBLISH_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">PUBLISH_TIME</meta>
+            <meta attribute="ColumnComment">发布时间</meta>
+        </property>
+
+		<property
+			name="responseTime"
+			column="RESPONSE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">RESPONSE_TIME</meta>
+            <meta attribute="ColumnComment">回复时间',</meta>
+        </property>
+
+        <property
+                name="responser"
+                column="RESPONSER"
+                type="string"
+                not-null="false"
+                length="50"
+        >
+            <meta attribute="ColumnName">RESPONSER</meta>
+            <meta attribute="ColumnComment">提问人</meta>
+        </property>
+
+
+		<property
+			name="isTop"
+			column="IS_TOP"
+			type="java.lang.Boolean"
+			not-null="false"
+			length="1"
+        >
+            <meta attribute="ColumnName">IS_TOP</meta>
+            <meta attribute="ColumnComment">是否置顶</meta>
+        </property>
+
+        <property
+                name="setTopTime"
+                column="SET_TOP_TIME"
+                type="timestamp"
+                not-null="false"
+                length="19"
+        >
+            <meta attribute="ColumnName">SET_TOP_TIME</meta>
+            <meta attribute="ColumnComment">设置主题时间</meta>
+        </property>
+
+
+		<property
+			name="createTime"
+			column="CREATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">CREATE_TIME</meta>
+            <meta attribute="ColumnComment">创建时间</meta>
+        </property>
+
+		<property
+			name="updateTime"
+			column="UPDATE_TIME"
+			type="timestamp"
+			not-null="false"
+			length="19"
+        >
+            <meta attribute="ColumnName">UPDATE_TIME</meta>
+            <meta attribute="ColumnComment">更新时间</meta>
+        </property>
+
+		<property
+			name="updateUser"
+			column="UPDATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">UPDATE_USER</meta>
+            <meta attribute="ColumnComment">更新人</meta>
+        </property>
+
+		<property
+			name="createUser"
+			column="CREATE_USER"
+			type="string"
+			not-null="false"
+			length="100"
+        >
+            <meta attribute="ColumnName">CREATE_USER</meta>
+            <meta attribute="ColumnComment">创建人</meta>
+        </property>
+
+		<property
+			name="refId"
+			column="REF_ID"
+			type="long"
+			not-null="false"
+			length="10"
+        >
+            <meta attribute="ColumnName">REF_ID</meta>
+            <meta attribute="ColumnComment">引用ID</meta>
+        </property>
+
+
+	</class>	
+    <query name="conquestion_all_data_query">
+        <![CDATA[FROM ConQuestion]]>
+    </query>
+</hibernate-mapping>

@@ -7,6 +7,7 @@ import com.article.util.Constants;
 import com.comet.core.config.CustomizedPropertyPlaceholderConfigurer;
 import com.comet.core.controller.BaseCRUDActionController;
 import com.comet.core.orm.hibernate.Page;
+import com.comet.core.security.user.BaseUser;
 import com.comet.core.security.util.SpringSecurityUtils;
 import com.comet.system.daoservice.SysUserService;
 import com.comet.system.tree.Node;
@@ -73,7 +74,7 @@ public class PageController extends BaseCRUDActionController {
     private ExaPaperService exaPaperService;
 
     @Autowired
-    private ExaPaperDetailService exaPaperDetailService;
+    private ConQuestionService conQuestionService;
 
     @Autowired
     private HashMap systemMap;
@@ -368,6 +369,50 @@ public class PageController extends BaseCRUDActionController {
     }
 
     @RequestMapping
+    public String consult(Model model) throws Exception {
+
+        //样式控制
+        model.addAttribute("type","6");
+        return "pages/consult";
+    }
+
+    @RequestMapping
+    public String conIndex(Model model,Integer pageNo,Integer pageSize) throws Exception {
+        Page page = getPage(pageNo, 20);
+        String hql = "from ConQuestion t where t.refId is null order by t.isTop desc";
+        Page<ConQuestion> byPage = conQuestionService.findByPage(page,hql);
+
+        List<ConQuestion> rows = byPage.getRows();
+        for (ConQuestion row : rows) {
+            row.setAsker(row.getAsker().substring(0,1)+"**");
+        }
+        model.addAttribute("page",byPage);
+
+        //样式控制
+        model.addAttribute("type","6");
+        return "pages/conIndex";
+    }
+
+    @RequestMapping
+    public String conView(Model model,Long conId) throws Exception {
+        ConQuestion conQuestion = conQuestionService.findUnique("from ConQuestion t where t.id="+conId);
+
+        String hql = "from ConQuestion t where t.refId =" + conId;
+        List<ConQuestion> answers = conQuestionService.find(hql);
+
+        conQuestion.setAsker(conQuestion.getAsker().substring(0,1)+"**");
+        for (ConQuestion answer : answers) {
+            answer.setResponser(answer.getResponser().substring(0,1)+"**");
+        }
+        model.addAttribute("question",conQuestion);
+        model.addAttribute("answers",answers);
+        //样式控制
+        model.addAttribute("type","6");
+        return "pages/conView";
+    }
+
+
+    @RequestMapping
     public void collect(HttpServletResponse response,HttpServletRequest request,Model model,String title,Long dictory_val,Long articleId) throws Exception {
         if(cmsCollectArticleService.find("from CmsCollectArticle where article.id=" + articleId).size()>0){
             sendSuccessJSON(response, "该文章已经收藏");
@@ -391,6 +436,8 @@ public class PageController extends BaseCRUDActionController {
         model.addAttribute("articleId", articleId);
         return "pages/collectInit";
     }
+
+
 
     /**
      * 取得树数据
@@ -878,6 +925,28 @@ public class PageController extends BaseCRUDActionController {
         }
 
     }
+
+    /**
+     * 提交问题
+     * @param response
+     * @param conQuestion
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping
+    public String submitQuestion(HttpServletResponse response,ConQuestion conQuestion) throws Exception {
+        BaseUser currentUser = SpringSecurityUtils.getCurrentUser();
+        conQuestion.setAsker(currentUser.getLoginName());
+        conQuestion.setCreateUser(currentUser.getId().toString());
+        conQuestion.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        conQuestion.setIsTop(false);
+        conQuestion.setPublishTime(new Timestamp(System.currentTimeMillis()));
+        conQuestionService.save(conQuestion);
+
+        return "redirect:conIndex";
+
+    }
+
 
 
 }
