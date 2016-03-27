@@ -76,6 +76,26 @@ public class ExaQuestionController extends BaseCRUDActionController<ExaQuestion>
         return page;
     }
 
+    /**
+     * 初始化新增问题
+     *
+     * @param model
+     * @param dbId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping
+    public String initAdd(Model model, Long dbId) throws Exception {
+        ExaQuestionDb db = exaQuestionDbService.get(dbId);
+
+        ExaQuestion question = new ExaQuestion();
+        question.setDb(db);
+
+        model.addAttribute("bean", question);
+
+        return "view/exa/exaQuestionAdd";
+    }
+
     @RequestMapping
     public String init(Model model, Long id) throws Exception {
 //        try {

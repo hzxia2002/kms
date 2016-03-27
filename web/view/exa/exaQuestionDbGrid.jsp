@@ -79,7 +79,7 @@
 
         //grid
         $("#exaQuestionGrid").juiceGrid({
-            toolbar:toolbar,
+//            toolbar:toolbar,
             title: "试题列表",
             columns: [
                 {display: 'ID', name: 'id', width: 1,hide:true },
@@ -110,7 +110,7 @@
 
     function doAdd(){
         var url = "${ctx}/exaQuestionDb/init.do";
-        commonAddOrUpdate(url,"exaQuestionDbGrid",null,"exaQuestionDbEditForm",{title:"新增题库",height:530,width:600});
+        commonAddOrUpdate(url,"exaQuestionDbGrid",null,"exaQuestionDbEditForm",{title:"新增题库",height:300,width:600});
     }
 
     function doEdit(id){
@@ -121,7 +121,7 @@
             url = initUrl(url,"exaQuestionDbGrid");
         }
         if(url){
-            commonAddOrUpdate(url,"exaQuestionDbGrid",null,"exaQuestionDbEditForm",{title:"编辑题库",height:530,width:600});
+            commonAddOrUpdate(url,"exaQuestionDbGrid",null,"exaQuestionDbEditForm",{title:"编辑题库",height:300,width:600});
         }
     }
 
@@ -135,6 +135,7 @@
 
     function renderOp(item,rowIndex){
         var opStr = "<input type='button' style='padding: 1px' value='查看试题' onclick='viewQuestions("+item.id+")'/>";
+        opStr += "&nbsp;<input type='button' style='padding: 1px' value='增加试题' onclick='doAddQuestion("+item.id+")'/>";
         return opStr;
     }
 
@@ -145,7 +146,7 @@
 
     function doAddQuestion(id){
         var juiId =  window.top.$.jui.getId();
-        var url = "${ctx}/exaQuestion/init.do?dbId="+id;
+        var url = "${ctx}/exaQuestion/initAdd.do?dbId="+id;
         var settings = {
             url: url,
             id:juiId,
@@ -163,7 +164,7 @@
             url: url,
             id:juiId,
             title:"题目编辑",
-            height: 800,
+            height: $(window.top.document.body).height()-10,
             width:800
         };
         window.top.$.juiceDialog.open(settings);
