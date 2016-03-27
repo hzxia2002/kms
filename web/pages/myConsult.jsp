@@ -10,17 +10,17 @@
     <div class="main">
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
             <tr>
-                <td align="center" class="tabtit" width="5%">序号</td>
-                <td align="center" class="tabtit" width="30%">主题</td>
+                <td align="center" class="tabtit" width="5%" nowrap>序号</td>
+                <td align="center" class="tabtit" width="50%">主题</td>
                 <td align="center" class="tabtit" width="20%" nowrap="nowrap">咨询时间</td>
                 <td align="center" class="tabtit" width="20%" nowrap="nowrap">答复时间</td>
-                <td align="center" class="tabtit" >操作</td>
+                <td align="center" class="tabtit" width="5%">操作</td>
             </tr>
             <c:forEach var="bean" items="${page.rows}" varStatus="status">
                 <tr>
-                    <td bgcolor="#f9f9f9" class="tabmain"nowrap align="center">${status.index+1}&nbsp;</td>
-                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                        <a href="${ctx}/page/conView?conId=${bean.id}" target="_blank" style="margin-left: 2px;">${bean.title}&nbsp;</a>
+                    <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center" >${status.index+1}&nbsp;</td>
+                    <td bgcolor="#f9f9f9" class="tabmain"  align="center" style="word-break: break-all; word-wrap:break-word;">
+                        <a href="${ctx}/page/conView?conId=${bean.id}" target="_blank" style="margin-left: 2px; ">${bean.title}&nbsp;</a>
                     </td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
                             ${bean.publishTime}
