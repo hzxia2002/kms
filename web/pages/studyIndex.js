@@ -40,6 +40,8 @@ function treeNodeClick(node){
         loadHistory();
     }else if(node.data.id==-4){
         loadPaper();
+    }else if(node.data.id==-5){
+        loadConsult();
     }else{
         nodeId = node.data.id;
         loadCollect(nodeId);
@@ -73,6 +75,22 @@ function loadPaper(pageNo){
         }
     });
 }
+
+function loadConsult(pageNo){
+    var url = context_path+"/page/myConsult.do";
+    if(pageNo){
+        url += "?pageNo=" + pageNo;
+    }
+    $.ajax({
+        url:url,
+        dataType: "text",
+        success:function(ret){
+            $("#studyContent").html(ret);
+        }
+    });
+}
+
+
 
 function loadHistory(pageNo){
     var url = context_path+"/page/studyHistory.do";

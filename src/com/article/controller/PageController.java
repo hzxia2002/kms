@@ -638,6 +638,13 @@ public class PageController extends BaseCRUDActionController {
 
         treeDataList.add(rootMap);
 
+        rootMap = new HashMap();
+        rootMap.put("text","我的咨询");
+        rootMap.put("id",-5L);
+        rootMap.put("isLoaded", true);
+
+        treeDataList.add(rootMap);
+
         return treeDataList;
     }
 
@@ -732,6 +739,26 @@ public class PageController extends BaseCRUDActionController {
         model.addAttribute("page",byPage);
         model.addAttribute("id",id);
         return "pages/paper";
+    }
+
+
+
+    @RequestMapping
+    public String myConsult(Long id,Integer pageNo,Integer pageSize,Model model) throws Exception {
+        Page page = getPage(pageNo, pageSize);
+
+        Long userId = SpringSecurityUtils.getCurrentUser().getId();
+
+
+        String hql = "from ConQuestion t where t.createUser="+ userId+" order by t.createTime desc";
+
+        Page<ConQuestion> byPage = conQuestionService.findByPage(page ,hql);
+        model.addAttribute("page",byPage);
+        model.addAttribute("id",id);
+
+        //样式控制
+        model.addAttribute("type","6");
+        return "pages/myConsult";
     }
 
     @RequestMapping
