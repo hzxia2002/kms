@@ -78,6 +78,7 @@
             alert('请选择行!');
             return;
         }
+
         $("#paperName").val(data.paperName);
         $("#paper").val(data.id);
         dialog.close();

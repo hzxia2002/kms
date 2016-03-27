@@ -53,7 +53,7 @@
                 </div>
             </form>
         </div>
-        <div id="exaPaperGrid" checkbox="true" rownumbers="true"  height="100%"  url='${ctx}/exaPaper/grid.do' root="rows" record="records"  width="100%"  colDraggable="true" >
+        <div id="exaPaperGrid" checkbox="false" rownumbers="true"  height="100%"  url='${ctx}/exaPaper/grid.do' root="rows" record="records"  width="100%"  colDraggable="true" >
         </div>
 
     </div>
@@ -102,7 +102,7 @@
     }
 
     function f_select(){
-        return $.jui.get("exaPaperGrid").getSelectedRows();
+        return $.jui.get("exaPaperGrid").getSelected();
     }
 
 
