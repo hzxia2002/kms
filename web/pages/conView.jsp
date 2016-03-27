@@ -22,7 +22,7 @@
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
                     <tr>
                         <th colspan="2" class="tab_second_tit"  align="center" style="text-align: center" >
-                            <span style="font-size: 16px;font-weight: bold">主题：${question.title}</span>
+                            <span style="font-size: 16px;font-weight: bold;word-break: break-all;">主题：${question.title}</span>
                         </th>
                     </tr>
                     <tr>
@@ -41,7 +41,7 @@
                     </tr>
                     <tr style="min-height: 200px;">
 
-                        <td align="left"  class="tabmain"  bgcolor="#f9f9f9" width="90%">${question.content}</td>
+                        <td align="left"  class="tabmain"  bgcolor="#f9f9f9" width="90%" style="word-break: break-all;">${question.content}</td>
                     </tr>
                     <c:forEach var="bean" items="${answers}" varStatus="status">
                         <tr>
@@ -55,7 +55,7 @@
                             </td>
                         </tr>
                         <tr style="min-height: 200px;">
-                            <td align="left" class="tabmain"  bgcolor="#f9f9f9" width="90%">${bean.content}</td>
+                            <td align="left" class="tabmain"  bgcolor="#f9f9f9" width="90%" style="word-break: break-all;">${bean.content}</td>
                         </tr>
                     </c:forEach>
                 </table>

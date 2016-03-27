@@ -27,13 +27,13 @@
                                 主题:
                             </td>
                             <td  class="tabtit" width="70%" colspan="2">
-                                <input type="text" name="title" id="title"  style="height: 22px;width:350px;border: #71ccff 1px solid;">
+                                <input type="text" name="title" id="title"  style="height: 22px;width:600px;border: #71ccff 1px solid;" maxlength="100">
                             </td>
                         </tr>
                         <tr>
-                            <td align="right" class="tabtit" width="30%">  <span style="color: red">*</span>内容:</td>
+                            <td align="right" class="tabtit" width="30%">  <span style="color: red">*</span>内容(最多2000字):</td>
                             <td  class="tabtit" width="20%">
-                                <textarea  name="content" id="content" rows="12" cols="70" style="border: #71ccff 1px solid;" title="提问内容"></textarea>
+                                <textarea  name="content" id="content" rows="12" cols="110" style="border: #71ccff 1px solid;" title="提问内容" ></textarea>
                             </td>
                             <td style="padding-left: 2px">                                <span id="contentMsg" style="color: red;display: none">请输入提问内容</span>
                             </td>
