@@ -14,7 +14,7 @@
 <div>
 <form:form id="exaQuestionEditForm" modelAttribute="bean" name="exaQuestionEditForm" action="${ctx}/exaQuestion/save.do" method="post">
     <input type="hidden" name="id" id="id" value="${bean.id}" />
-    <input type="hidden" name="dbId" id="questionary_id" value="${bean.db.id}" />
+    <input type="hidden" name="dbId" id="dbId" value="${bean.db.id}" />
     <table border="0" cellspacing="1" width="100%" class="inputTable">
         <tr class="inputTr">
             <td  align="right" style="width:15%;" nowrap>
@@ -44,7 +44,7 @@
                 选项:
             </td>
             <td  class="container" >
-                <div style="max-height: 300px;overflow-y: auto;width: 100%">
+                <div style="max-height: 250px;overflow-y: auto;width: 100%">
                     <table border="0" cellspacing="1" width="90%" class="inputTable" id="fileTable" >
                         <tr class="inputTr" style="height: 28px">
                             <th>编号</th>
@@ -65,20 +65,37 @@
                                 <img src="${ctx}/skin/icons/edit_remove.png" title="删除行" onclick="removeRow(this);">&nbsp;
                             </td>
                         </tr>
-                        <tr class="inputTr">
-                            <td style="min-width: 32px">
-                                <input type="text" name="opIndexNo"  class="table_input" style="width: 30px" />
-                                <input type="hidden" name="opIds"  value=" " />
-                            </td>
-                            <td >
-                                <%--<input type="text" name="option"  class="table_input" style="width: 280px" />--%>
-                                <textarea name="option" id="option" cols="80" rows="3" class="textarea_table"></textarea>
-                            </td>
-                            <td  class="container" style="width: 50px">
-                                <img src="${ctx}/skin/icons/edit_add.png" title="添加行" onclick="addRow();">&nbsp;
-                            </td>
-                        </tr>
-
+                        <c:forEach var="item" items="${options}" varStatus="status">
+                            <tr class="inputTr">
+                                <td style="min-width: 32px">
+                                    <input type="text" name="opIndexNo" value="${item.indexNo}"  class="table_input" style="width: 30px" />
+                                    <input type="hidden" name="opIds"  value="${item.id}" />
+                                </td>
+                                <td >
+                                        <%--<input type="text" name="option"  class="table_input" style="width: 280px" />--%>
+                                    <textarea name="option" id="option" cols="80" rows="3" class="textarea_table">${item.content}</textarea>
+                                </td>
+                                <td  class="container" style="width: 50px">
+                                    <img src="${ctx}/skin/icons/edit_add.png" title="添加行" onclick="addRow();">&nbsp;
+                                    <img src="${ctx}/skin/icons/edit_remove.png" title="删除行" onclick="removeRow(this);">
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        <c:if test="${empty options}">
+                            <tr class="inputTr">
+                                <td style="min-width: 32px">
+                                    <input type="text" name="opIndexNo"  class="table_input" style="width: 30px" />
+                                    <input type="hidden" name="opIds"  value=" " />
+                                </td>
+                                <td >
+                                    <%--<input type="text" name="option"  class="table_input" style="width: 280px" />--%>
+                                    <textarea name="option" id="option" cols="80" rows="3" class="textarea_table"></textarea>
+                                </td>
+                                <td  class="container" style="width: 50px">
+                                    <img src="${ctx}/skin/icons/edit_add.png" title="添加行" onclick="addRow();">&nbsp;
+                                </td>
+                            </tr>
+                        </c:if>
                     </table>
                 </div>
             </td>
@@ -216,8 +233,6 @@
         }
         var formData = $("#exaQuestionEditForm" ).serializeArray();
 
-        debugger;
-
         $.ajax({
             type: 'POST',
             url: "${ctx}/exaQuestion/saveData.do?flag="+flag,
@@ -234,50 +249,11 @@
 
     }
 
-
-    function dbclick(data, rowindex, rowobj){
-        $.ajax({
-            type: 'POST',
-            url: "${ctx}/exaQuestion/getQuestion.do?questionId="+data.id,
-            dataType: 'json',
-            success: function(data) {
-                var question  = data.question;
-                for(var key in question){
-                    $("#"+key).val(question[key]);
-                }
-
-                //选项
-                var datas = data.options;
-                if(datas){
-                    setTrValue($("#fileTable tr").eq(2),datas[0]);
-                    $("#fileTable tr:gt(2)").remove();
-                    for(var i=1;i<datas.length;i++){
-                        addRow(datas[i]);
-                    }
-                }
-                $("#modify").show();
-
-            },
-            error: function(xmlR, status, e) {
-                showInfoMsg("[" + e + "]" + xmlR.responseText, "error");
-            }
-        });
-    }
-
     function questionType(data, rowindex, rowobj) {
         if(data.type==0){
             return "单选题";
         }else if(data.type==1){
             return "多选题";
         }
-    }
-
-    function opModify(data, rowindex, rowobj){
-        return "<input type='button' style='padding: 1px' value='修改' onclick='doEdit("+rowindex+")'/>";
-    }
-
-    function doEdit(rowindex){
-        var data = $.jui.get("exaQuestionGrid").getRow(rowindex) ;
-        dbclick(data,rowindex);
     }
 </script>
