@@ -60,6 +60,14 @@
                 { text: '删除', click: doDelete, icon:'delete' }
             ]
         };
+
+        var toolbar2={
+            align:"right",
+            items: [
+                { text: '删除', click: doQuestionDelete, icon:'delete' }
+            ]
+        };
+
         //grid
         $("#exaQuestionDbGrid").juiceGrid({
             toolbar:toolbar,
@@ -70,8 +78,8 @@
                 {display: '题库名称', name: 'dbName', width: "20%" },
                 {display: '状态', name: 'status', width:"10%",render:renderStatus },
                 {display: '备注', name: 'remark', width: "20%" },
-                {display: '创建时间', name: 'createTime', width: 80 },
-                { display: '创建人', name: 'createUser', width: 80},
+                {display: '创建时间', name: 'createTime', width: 150 },
+                { display: '创建人', name: 'createUser', width: 120},
                 {display: '操作', name: 'createTime', width: '20%',render:renderOp }
             ]
 //        enabledEdit: true
@@ -79,20 +87,20 @@
 
         //grid
         $("#exaQuestionGrid").juiceGrid({
-//            toolbar:toolbar,
+            toolbar:toolbar2,
             title: "试题列表",
             columns: [
                 {display: 'ID', name: 'id', width: 1,hide:true },
 //                {display: '题目类型', name: 'questionType', width: 50,hide:true },
-                {display: '题目类型', name: 'questionTypeName', width:"20%" },
+                {display: '题目类型', name: 'questionTypeName', width:"10%" },
 //				{display: '难易程度', name: 'questionLevel', width: 50,hide:true },
 //				{display: '题目来源', name: 'questionFrom', width: 50,hide:true },
 //				{display: '状态', name: 'status', width: 50,hide:true },
-                {display: '题干', name: 'content',  width:"10%" },
+                {display: '题干', name: 'content',  width:"30%" },
                 {display: '发布时间', name: 'postTime',  width:"10%" },
                 {display: '选择题答案', name: 'skey', width:"10%" },
                 {display: '文字描述答案', name: 'keyDesc',  width:"25%" },
-                {display: '操作', name: 'createTime', width: '20%',render:renderQuestionOp }
+                {display: '操作', name: 'createTime', width: '10%',render:renderQuestionOp }
             ]
 //        enabledEdit: true
         });
@@ -176,5 +184,9 @@
 
     function selectQuestion(rowdata,rowid,rowobj) {
         $.jui.get("exaQuestionGrid")._setUrl('${ctx}/exaQuestion/grid.do?dbId=' + rowdata['id']);
+    }
+
+    function doQuestionDelete() {
+        commonDelete("exaQuestionGrid","${ctx}/exaQuestion/delete.do");
     }
 </script>
