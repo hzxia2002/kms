@@ -114,7 +114,7 @@
                 文字描述题答案:
             </td>
             <td  class="container">
-                <textarea class="textarea_table" name="keyDesc" id="keyDesc"  cols="55" rows="8" >${bean.keyDesc}</textarea>
+                <textarea class="textarea_table" name="keyDesc" id="keyDesc"  cols="90" rows="8" >${bean.keyDesc}</textarea>
             </td>
         </tr>
 
