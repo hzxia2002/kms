@@ -21,6 +21,7 @@
                         </td>
                         <td width="20%">
                             <input type="text" value="" class="table_input"   name="content" op="like" entity="d.question"/>
+                            <input type="hidden"  id="sectionId" name="sectionId" op="eq" entity="d"/>
                         </td>
 
                         <td width="10%" align="right">
@@ -92,7 +93,7 @@
 //        enabledEdit: true
         });
         //创建树
-        createTree("exaPaperQuestionTree",{ url:"${ctx}/exaPaper/tree.do",createMenu:createMenu,onSelect:treeNodeClick});
+        createTree("exaPaperQuestionTree",{ url:"${ctx}/exaPaper/tree.do?paperId=${paperId}",createMenu:createMenu,onSelect:treeNodeClick});
     });
     //树的右键菜单
     function createMenu(treeNode){
@@ -117,7 +118,11 @@
     }
 
     function treeNodeClick(treeNode){
-        $("#treeId").val(treeNode.data.treeId);
+        if(treeNode.data.uid=="root"){
+            $("#sectionId").val("");
+        }else{
+            $("#sectionId").val(treeNode.data.uid);
+        }
         search('exaPaperGrid','exaPaperForm');
     }
 
@@ -160,7 +165,7 @@
     function doAdd(){
         var tree = $.jui.get("exaPaperQuestionTree");
         var selectNode = tree.getSelected();
-        if(selectNode){
+        if(selectNode&&selectNode.data.uid!="root"){
             doSelectQuestion(selectNode.data.uid);
         }else{
             alert("请先选择左边试题章节");

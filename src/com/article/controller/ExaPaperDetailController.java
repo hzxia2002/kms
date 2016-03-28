@@ -38,10 +38,11 @@ public class ExaPaperDetailController extends BaseCRUDActionController<ExaPaperD
 
 	@RequestMapping
     @ResponseBody
-	public Page<ExaPaperDetail> grid(Page page, String condition,Long paperId) {
+	public Page<ExaPaperDetail> grid(Page page, String condition,Long paperId,Long sectionId) {
 		try {
             page.setAutoCount(true);
-            String hql = "select d from ExaPaperDetail d where d.paperId= "+paperId;
+            String hql = "select d from ExaPaperDetail d where d.paperId= "+paperId ;
+
 
 //            String hql = "select d from ExaPaperDetail d , ExaQuestion q where q.id=d.questionId and d.paperId="+paperId;
 

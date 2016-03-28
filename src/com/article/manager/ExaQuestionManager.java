@@ -42,8 +42,9 @@ public class ExaQuestionManager {
 
     public void saveQuestions(String questionIds,Long sectionId){
         ExaPaperSection exaPaperSection = exaPaperSectionService.get(sectionId);
+        Long paperId = exaPaperSection.getPaperId();
         String [] questionIdArr = questionIds.split(",");
-        String savedQuestionIds = getSectionQuestionIds(sectionId);
+        String savedQuestionIds = getPaperQuestionIds(paperId);
         for (String questionId : questionIdArr) {
             if(savedQuestionIds.contains("," + questionId + ",")){
                 continue;
@@ -89,7 +90,7 @@ public class ExaQuestionManager {
 
 
     /**
-     * 获取题目
+     * 获取章节题目
      * @param sectionId
      * @return
      */
@@ -97,8 +98,31 @@ public class ExaQuestionManager {
         return exaPaperDetailService.find("from ExaPaperDetail where sectionId="+sectionId);
     }
 
+    /**
+     * 获取试卷试题
+     * @param paperId
+     * @return
+     */
+    public List<ExaPaperDetail> getPaperDetailByPaper(Long paperId){
+        return exaPaperDetailService.find("from ExaPaperDetail where paperId="+paperId);
+    }
+
     public String getSectionQuestionIds(Long sectionId){
         List<ExaPaperDetail> details = getPaperDetail(sectionId);
+        String ids = "";
+        for (ExaPaperDetail detail : details) {
+            ids += "," + detail.getQuestion().getId();
+        }
+        return  ids+",";
+    }
+
+    /**
+     * 获取一份试卷所有的试题id
+     * @param paperId
+     * @return
+     */
+    public String getPaperQuestionIds(Long paperId){
+        List<ExaPaperDetail> details = getPaperDetailByPaper(paperId);
         String ids = "";
         for (ExaPaperDetail detail : details) {
             ids += "," + detail.getQuestion().getId();

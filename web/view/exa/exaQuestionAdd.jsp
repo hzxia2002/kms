@@ -30,11 +30,11 @@
             </td>
             <td  class="container" >
                 <select  name="questionType"  id="questionType" class="table_input">
-                    <option value="0">单选</option>
-                    <option value="1">多选</option>
-                    <option value="2">判断</option>
-                    <option value="3">填空</option>
-                    <option value="4">问答</option>
+                    <option value="0" <c:if test="${0==bean.questionType}">selected</c:if> >单选</option>
+                    <option value="1" <c:if test="${1==bean.questionType}">selected</c:if>>多选</option>
+                    <option value="2" <c:if test="${2==bean.questionType}">selected</c:if>>判断</option>
+                    <option value="3" <c:if test="${3==bean.questionType}">selected</c:if>>填空</option>
+                    <option value="4" <c:if test="${4==bean.questionType}">selected</c:if>>问答</option>
                 </select>
             </td>
         </tr>

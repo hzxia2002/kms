@@ -154,7 +154,8 @@
                     <ul>
                         <c:forEach items="${papers}" var="paper">
                             <c:if test="${!paper.canNotDownload}">
-                                <li> <a style="color:blue" href="${ctx}/page/exportToWord.do?paperId=${paper.id}" target="_blank">${paper.paperName}</a></li>
+                                <li> ${paper.paperName} ( <a style="color:blue" href="${ctx}/page/toPractice.do?paperId=${paper.id}" target="_blank">练习</a>
+                                    <a style="color:blue" href="${ctx}/page/exportToWord.do?paperId=${paper.id}" target="_blank">下载</a>)</li>
                             </c:if>
                         </c:forEach>
                     </ul>

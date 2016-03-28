@@ -163,7 +163,7 @@ public class ExaPaperController extends BaseCRUDActionController<ExaPaper> {
      */
     @RequestMapping
     @ResponseBody
-    public List<Node> tree(String type, String uid, String id) throws Exception {
+    public List<Node> tree(String type, String uid, String paperId) throws Exception {
         TreeBranch treeBranch = new TreeBranch();
         type = StringUtils.defaultString(type, "");
 
@@ -179,7 +179,7 @@ public class ExaPaperController extends BaseCRUDActionController<ExaPaper> {
             treeNode.setUid("root");
             treeBranch.addTreeNode(treeNode);
         } else {
-            String hql = "from ExaPaperSection order by orderNo asc";
+            String hql = "from ExaPaperSection where paperId="+paperId+" order by orderNo asc";
 
             List<ExaPaperSection> exaPaperSections = exaPaperSectionService.findByQuery(hql);
 

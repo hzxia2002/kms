@@ -138,20 +138,22 @@
                     <c:forEach items="${details}" var="paperDetail" varStatus="status">
                         <c:set var="question" value="${paperDetail.question}"/>
                         <c:if test="${section.id==paperDetail.sectionId}">
+                            <c:set var="i" value="${i+1}"/>
                             <li style="padding-bottom: 20px;clear: both">
                                 <div style="font-size: 16px;font-family: 宋体;padding-bottom: 8px;">
-                                    <span style="font-size: 16px;font-weight: bold"> ${status.index+1}.</span>${question.content}
+                                    <span style="font-size: 16px;font-weight: bold"> ${i}.</span>${question.content}
                                 </div>
                                 <ul style="padding-left: 20px;padding-right: 5%">
                                     <c:forEach items="${question.options}" var="option">
                                         <li style="padding-bottom: 5px;float:left;padding-right: 25px;height: 28px;">
                                             <c:choose >
-                                                <c:when test="${question.questionType==1}">
+                                                <c:when test="${question.questionType==0||question.questionType==2}">
                                                     <span style="font-size: 14px;font-weight: bold">${option.optionKey}.</span>&nbsp;<input type="radio" name="question_${question.id}" value="${option.id}">${option.optionOption}
                                                 </c:when>
-                                                <c:when test="${question.questionType==2}">
+                                                <c:when test="${question.questionType==1}">
                                                     <span style="font-size: 14px;font-weight: bold">${option.optionKey}.</span>&nbsp;<input type="checkbox" name="question_${question.id}" value="${option.id}">${option.optionOption}
                                                 </c:when>
+
                                             </c:choose>
                                         </li>
                                     </c:forEach>

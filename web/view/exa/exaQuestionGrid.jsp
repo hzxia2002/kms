@@ -18,6 +18,27 @@
             <form id="exaQuestionForm" action="">
                 <table style="width: 100%">
                     <tr>
+                        <td width="10%" align="right">
+                            题干：
+                        </td>
+                        <td width="20%">
+                            <input type="text" value="" class="table_input"   name="content" op="like" entity="t"/>
+                            <input type="hidden"  id="id" name="id" op="eq" entity="t.db"/>
+                        </td>
+
+                        <td width="10%" align="right">
+                            题型：
+                        </td>
+                        <td width="20%">
+                            <select name="questionType" class="table_input"    op="eq" entity="t">
+                                <option value="" >全部</option>
+                                <option value="0" >单选</option>
+                                <option value="1">多选</option>
+                                <option value="2">判断</option>
+                                <option value="3">填空</option>
+                                <option value="4">问答</option>
+                            </select>
+                        </td>
 					  <td>
                          <input type="button" value="查询" class="btn_Search" onclick="javascript:search('exaQuestionGrid','exaQuestionForm');"/>&nbsp;
                       </td>
@@ -66,8 +87,18 @@
         });
 
         //创建树
-        createTree("exaQuestionTree",{ url:"${ctx}/exaQuestion/tree.do"});
+        createTree("exaQuestionTree",{ url:"${ctx}/exaQuestion/tree.do",onSelect:treeNodeClick});
     });
+
+    function treeNodeClick(treeNode){
+        if(treeNode.data.uid=="root"){
+            $("#id").val("");
+        }else{
+            $("#id").val(treeNode.data.uid);
+        }
+        search('exaQuestionGrid','exaQuestionForm');
+    }
+
 
     function f_select(){
         return $.jui.get("exaQuestionGrid").getSelectedRows();
