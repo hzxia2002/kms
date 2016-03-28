@@ -59,8 +59,8 @@ String initValue = StringUtils.defaultIfEmpty((String)request.getAttribute("key"
             <li class="n1"><a href="<c:url value="/page/lawProgramIndex.html"/>" id="pageIndex2">执法办案程序库</a></li>
             <li class="n1"><a href="<c:url value="/page/kmsIndex.html"/>" id="pageIndex3">侦查知识点库</a></li>
             <li class="n1"><a href="<c:url value="/page/caseIndex.html"/>" id="pageIndex4">技战法案例课程库</a></li>
-            <li class="n1"><a href="<c:url value="/page/studyIndex"/>" id="pageIndex5">学习银行</a></li>
             <li class="n1"><a href="<c:url value="/page/conIndex"/>" id="pageIndex6">咨询栏目</a></li>
+            <li class="n1"><a href="<c:url value="/page/studyIndex"/>" id="pageIndex5">学习银行</a></li>
             <li class="n1"><a href="../main.jsp">系统管理</a></li>
         </ul>
     </div>
