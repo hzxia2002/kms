@@ -21,10 +21,10 @@
                     <td bgcolor="#f9f9f9" class="tabmain"nowrap align="center">${status.index+1}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${bean.paperName}&nbsp;</td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                            ${bean.startTime}
+                        <fmt:formatDate value="${bean.startTime}" type="both" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
                     </td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                            ${bean.endTime}
+                        <fmt:formatDate value="${bean.endTime}" type="both" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
                     </td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
                         <c:choose >

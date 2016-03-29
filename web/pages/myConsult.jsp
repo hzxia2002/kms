@@ -23,10 +23,10 @@
                         <a href="${ctx}/page/conView?conId=${bean.id}" target="_blank" style="margin-left: 2px; ">${bean.title}&nbsp;</a>
                     </td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                            ${bean.publishTime}
+                        <fmt:formatDate value="${bean.publishTime}" type="both" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
                     </td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                            ${bean.responseTime}
+                        <fmt:formatDate value="${bean.responseTime}" type="both" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
                     </td>
                     <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
                         <a style="color:blue" href="${ctx}/page/conView?conId=${bean.id}" target="_blank">查看</a>&nbsp;&nbsp;
