@@ -10,7 +10,6 @@
 <div id="exaQuestionLayout" style="width:100%;overflow-y: hidden;overflow-x: hidden;margin:0; padding:0;">
     <div position="left"  title="题库" id="accordion1">
         <ul id="exaQuestionTree" style="margin-top:3px;">
-
         </ul>
     </div>
     <div position="center">
@@ -19,18 +18,10 @@
                 <table style="width: 100%">
                     <tr>
                         <td width="10%" align="right">
-                            题干：
-                        </td>
-                        <td width="20%">
-                            <input type="text" value="" class="table_input"   name="content" op="like" entity="t"/>
-                            <input type="hidden"  id="id" name="id" op="eq" entity="t.db"/>
-                        </td>
-
-                        <td width="10%" align="right">
                             题型：
                         </td>
                         <td width="20%">
-                            <select name="questionType" class="table_input"    op="eq" entity="t">
+                            <select name="questionType" class="table_input" op="eq" entity="t">
                                 <option value="" >全部</option>
                                 <option value="0" >单选</option>
                                 <option value="1">多选</option>
@@ -38,6 +29,13 @@
                                 <option value="3">填空</option>
                                 <option value="4">问答</option>
                             </select>
+                        </td>
+                        <td width="10%" align="right">
+                            题干：
+                        </td>
+                        <td width="20%">
+                            <input type="text" value="" class="table_input" name="content" op="like" entity="t"/>
+                            <input type="hidden"  id="id" name="id" op="eq" entity="t.db"/>
                         </td>
 					  <td>
                          <input type="button" value="查询" class="btn_Search" onclick="javascript:search('exaQuestionGrid','exaQuestionForm');"/>&nbsp;
@@ -72,16 +70,16 @@
         $("#exaQuestionGrid").juiceGrid({
             showAddButton:false,
             columns: [
-				{display: 'ID', name: 'id', width: 50,hide:true },
-				{display: '题目类型', name: 'questionType', width: 50,hide:true },
-				{display: '题目类型', name: 'questionTypeName', width:"20%" },
+				{display: 'ID', name: 'id', width: 1,hide:true },
+				{display: '题目类型', name: 'questionType', width: 1,hide:true },
+				{display: '题目类型', name: 'questionTypeName', width:"10%" },
 //				{display: '难易程度', name: 'questionLevel', width: 50,hide:true },
 //				{display: '题目来源', name: 'questionFrom', width: 50,hide:true },
 //				{display: '状态', name: 'status', width: 50,hide:true },
-				{display: '题干', name: 'content',  width:"10%" },
-				{display: '发布时间', name: 'postTime',  width:"10%" },
+				{display: '题干', name: 'content',  width:"20%" },
 				{display: '选择题答案', name: 'skey', width:"10%" },
-				{display: '文字描述答案', name: 'keyDesc',  width:"25%" }
+				{display: '文字描述答案', name: 'keyDesc',  width:"30%" },
+                {display: '创建时间', name: 'createTime',  width:"20%" }
             ]
 //        enabledEdit: true
         });

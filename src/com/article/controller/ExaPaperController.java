@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -209,17 +210,36 @@ public class ExaPaperController extends BaseCRUDActionController<ExaPaper> {
         return "view/exa/exaQuestionGrid";
     }
 
+    /**
+     * 往试卷中增加试题
+     *
+     * @param response
+     * @param model
+     * @param questionIds
+     * @param sectionId
+     * @throws Exception
+     */
     @RequestMapping
     public void addQuestions(HttpServletResponse response, Model model,String questionIds,Long sectionId) throws Exception {
         try {
-            exaQuestionManager.saveQuestions(questionIds,sectionId);
-            sendSuccessJSON(response, "保存成功");
-        } catch (Exception e) {
-            sendFailureJSON(response, "保存失败:"+e.getMessage());
-        }
+            Map map = exaQuestionManager.saveQuestions(questionIds,sectionId);
 
+            int totalCount = Integer.parseInt(String.valueOf(map.get("totalCount")));
+            int includedCount = Integer.parseInt(String.valueOf(map.get("includedCount")));
+
+            sendSuccessJSON(response, "保存成功:成功保存[" + totalCount + "]条;已包含[" + includedCount + "]条!");
+        } catch (Exception e) {
+            sendFailureJSON(response, "保存失败,原因[" + e.getMessage() + "]");
+        }
     }
 
+    /**
+     * 试卷预览
+     *
+     * @param model
+     * @param paperId
+     * @return
+     */
     @RequestMapping
     public String exaPaperView(Model model, Long paperId) {
         ExaPaper exaPaper = exaPaperService.get(paperId);

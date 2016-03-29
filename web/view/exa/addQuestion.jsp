@@ -17,25 +17,24 @@
                 <table style="width: 100%">
                     <tr>
                         <td width="10%" align="right">
-                            题干：
-                        </td>
-                        <td width="20%">
-                            <input type="text" value="" class="table_input"   name="content" op="like" entity="d.question"/>
-                            <input type="hidden"  id="sectionId" name="sectionId" op="eq" entity="d"/>
-                        </td>
-
-                        <td width="10%" align="right">
                             题型：
                         </td>
                         <td width="20%">
-                            <select name="questionType" class="table_input"    op="eq" entity="d.question">
+                            <select name="questionType" class="table_input" op="eq" entity="d.question">
                                 <option value="" >全部</option>
-                                <option value="0" >单选</option>
+                                <option value="0">单选</option>
                                 <option value="1">多选</option>
                                 <option value="2">判断</option>
                                 <option value="3">填空</option>
                                 <option value="4">问答</option>
                             </select>
+                        </td>
+                        <td width="10%" align="right">
+                            题干：
+                        </td>
+                        <td width="20%">
+                            <input type="text" value="" class="table_input"   name="content" op="like" entity="d.question"/>
+                            <input type="hidden"  id="sectionId" name="sectionId" op="eq" entity="d"/>
                         </td>
                         <td>
                             <input type="button" value="查询" class="btn_Search" onclick="javascript:search('exaPaperGrid','exaPaperForm');"/>&nbsp;
@@ -71,7 +70,6 @@
             items: [
                 { text: '增加', click: doAdd, icon: 'add' },
                 { line: true },
-                { line: true },
                 { text: '删除', click: doDelete, icon:'delete' }
             ]
         };
@@ -85,9 +83,9 @@
 //				{display: '题目来源', name: 'questionFrom', width: 50,hide:true },
 //				{display: '状态', name: 'status', width: 50,hide:true },
                 {display: '题干', name: 'question.content',  width:"20%" },
-                {display: '发布时间', name: 'question.postTime',  width:"10%" },
-                {display: '选择题答案', name: 'question.skey', width:"10%" },
-                {display: '文字描述答案', name: 'question.keyDesc',  width:"25%" }
+                {display: '选择题答案', name: 'question.skey', width:"8%" },
+                {display: '文字描述答案', name: 'question.keyDesc',  width:"30%" },
+                {display: '创建时间', name: 'question.createTime',  width:"15%" }
 
             ]
 //        enabledEdit: true
@@ -207,7 +205,7 @@
         var datas = fn();
         if (!datas)
         {
-            alert('请选择行!');
+            alert('请选择试题!');
             return;
         }
         var questionIds = [];
@@ -223,7 +221,7 @@
             dataType:"json",
             data:{questionIds:questionIds.join(","),sectionId:selectNode.data.uid||""},
             success:function(data){
-                if(!window.confirm(data.msg+",是否继续添加?")){
+                if(!window.confirm(data.msg+"是否继续添加?")){
                     $.jui.get("exaPaperGrid").loadData(true);
                     dialog.close();
                 }else{
@@ -231,8 +229,8 @@
                     cancel();
                 }
                 search('exaPaperGrid','exaPaperForm');
-            },failure:function(){
-                alert("添加失败") ;
+            },failure:function(data){
+                alert(data.msg) ;
                 dialog.close();
             }
         });
