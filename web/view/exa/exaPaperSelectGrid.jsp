@@ -1,9 +1,13 @@
+<%@ page import="org.apache.commons.lang.StringUtils" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/common/taglibs.jsp" %>
 <html>
 <head>
     <%@ include file="../common/header_new.jsp" %>
+    <%
+    request.setAttribute("single", StringUtils.isNotBlank(request.getParameter("single")));
+    %>
 </head>
 <body style="width: 100%">
 
@@ -53,7 +57,7 @@
                 </div>
             </form>
         </div>
-        <div id="exaPaperGrid" checkbox="false" rownumbers="true"  height="100%"  url='${ctx}/exaPaper/grid.do' root="rows" record="records"  width="100%"  colDraggable="true" >
+        <div id="exaPaperGrid" checkbox="${!single}" rownumbers="true"  height="100%"  url='${ctx}/exaPaper/grid.do' root="rows" record="records"  width="100%"  colDraggable="true" >
         </div>
 
     </div>
@@ -103,6 +107,10 @@
 
     function f_select(){
         return $.jui.get("exaPaperGrid").getSelected();
+    }
+
+    function f_selects(){
+        return $.jui.get("exaPaperGrid").getSelectedRows();
     }
 
 

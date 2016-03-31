@@ -53,7 +53,7 @@
     });
 
     function selectPaper(){
-        window.top.$.juiceDialog.open({ title: '选择试题', name:'courseselector',width: 1024, height: 500, url: '${ctx}/view/exa/exaPaperSelectGrid.jsp', buttons: [
+        window.top.$.juiceDialog.open({ title: '选择试题', name:'courseselector',width: 1024, height: 500, url: '${ctx}/view/exa/exaPaperSelectGrid.jsp?single=true', buttons: [
             { text: '确定', onclick: selectCourseOK },
             { text: '取消', onclick: dialogCancel }
         ]
@@ -62,7 +62,7 @@
     }
 
     function selectUser(){
-        window.top.$.juiceDialog.open({ title: '选择学习人员', name:'userselector',width: 1024, height: 500, url: '${ctx}/view/sys_new/sysUserGridSelect.jsp', buttons: [
+        window.top.$.juiceDialog.open({ title: '选择学习人员', name:'userselector',width: 1024, height: 500, url: '${ctx}/view/sys_new/sysUserGridSelect.jsp?single=true', buttons: [
             { text: '确定', onclick: selectUserOK },
             { text: '取消', onclick: dialogCancel }
         ]

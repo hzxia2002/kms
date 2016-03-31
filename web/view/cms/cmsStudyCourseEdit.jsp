@@ -233,8 +233,9 @@
     }
 
     function selectPaperOK(item, dialog){
-        var fn = dialog.frame.f_select || dialog.frame.window.f_select;
+        var fn = dialog.frame.f_selects || dialog.frame.window.f_selects;
         var datas = fn();
+
         if (!datas)
         {
             alert('请选择行!');
