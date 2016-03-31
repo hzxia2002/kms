@@ -39,7 +39,7 @@
                             <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${bean.responseTime}" type="both"></fmt:formatDate></span>
                             </c:if>
                             <br/>
-                            <span class="comment-body" style="margin-left: 30px; margin-right: 10px;word-break: break-all;">${bean.content}</span>
+                            <div class="comment-body" style="margin-left: 2px; margin-right: 12px;word-break: break-all;text-indent: 2em">${bean.content}</div>
                         </div>
                     </div>
                 </c:forEach>
