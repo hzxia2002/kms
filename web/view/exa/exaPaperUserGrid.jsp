@@ -77,8 +77,8 @@
             align:"right",
             items: [
                 { text: '批量分配', click: doAddAll, icon: 'add' },
-                { text: '增加', click: doAdd, icon: 'add' },
                 { line: true },
+                { text: '增加', click: doAdd, icon: 'add' },
 //                { text: '修改', click: doEdit, icon: 'modify' },
                 { line: true },
                 { text: '删除', click: doDelete, icon:'delete' }
@@ -90,15 +90,17 @@
             toolbar:toolbar,
             columns: [
                 {display: 'ID', name: 'id', width: 50,hide:true },
-                {display: '试卷名称', name: 'paper.paperName', width:"10%"},
-                {display: '试卷类型', name: 'paper.paperType', width: "10%" },
+                {display: '试卷名称', name: 'paper.paperName', width:"20%",render:renderOp},
+                {display: '试卷类型', name: 'paper.paperTypeName', width: "5%" },
                 {display: '开始时间', name: 'paper.startTime', width: "10%" },
                 {display: '结束时间', name: 'paper.endTime', width: "10%"},
-                {display: '作答时间(分钟)', name: 'paper.paperMinute', width: "10%"},
-                {display: '考试人', name: 'user.displayName', width:"10%" },
+                {display: '作答时间(分钟)', name: 'paper.paperMinute', width: "5%"},
+                {display: '考试人', name: 'user.displayName', width:"8%" },
 //				{display: '时间排序类型', name: 'questionOrderType', width: 50,hide:true },
-                {display: '发布时间', name: 'paper.postTime', width: "10%" },
-                {display: '显示分数时间', name: 'paper.showScoreTime', width: "10%" }
+                {display: '发布时间', name: 'paper.postTime', width: "12%" },
+                {display: '显示分数时间', name: 'paper.showScoreTime', width: "12%" },
+                {display: '创建时间', name: 'createTime', width: "12%" },
+                {display: '创建人', name: 'createUser', width: "8%" }
 //                {display: '操作', name: 'createTime', width: '20%',render:renderOp }
 
             ]
@@ -108,13 +110,23 @@
 
     });
 
-
-
     function renderOp(item,rowIndex){
-        var opStr  = "<input type='button' style='padding: 1px' value='考试人员管理' onclick='doAddGroup("+item.id+")'/>&nbsp;";
+        var opStr  = "<a href='#' onclick='doViewQuestion(" + item.paper.id + ")'>" + item.paper.paperName + "</a>";
         return opStr;
     }
 
+    function doViewQuestion(paperId){
+        var juiId =  window.top.$.jui.getId();
+        var url = "${ctx}/exaPaper/exaPaperView.do?paperId="+paperId+"&dialogJuiId="+juiId;
+        var settings = {
+            url: url,
+            id:juiId,
+            title:"查看试题",
+            height: $(window.top.document.body).height()-10,
+            width:$(window.top.document.body).width()
+        };
+        window.top.$.juiceDialog.open(settings);
+    }
 
     function doDelete(){
         commonDelete("exaPaperUserGrid","${ctx}/exaPaperUsergroup/deleteUser.do",refreshRootNode);
@@ -141,7 +153,4 @@
         var url = "${ctx}/exaPaperUsergroup/addUsers.do";
         commonAddOrUpdate(url,"exaPaperUserGrid",null,"exaPaperUserEditForm",{title:"批量分配考试",height:400,width:600});
     }
-
-
-
 </script>

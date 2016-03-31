@@ -32,8 +32,10 @@ $(function(){
         var iHeight=250;//窗口高度
         var iTop=(window.screen.height-iHeight)/2;
         var iLeft=(window.screen.width-iWidth)/2;
-        window.showModalDialog(url,window,"dialogHeight: "+iHeight+"px; dialogWidth: "+iWidth+"px;dialogTop: "+iTop+"; dialogLeft: "+iLeft+"; resizable: no; location:no;status: no;scroll:no");
- //       $.ajax({
+        // window.showModalDialog(url,window,"dialogHeight: "+iHeight+"px; dialogWidth: "+iWidth+"px;dialogTop: "+iTop+"; dialogLeft: "+iLeft+"; resizable: no; location:no;status: no;scroll:no");
+
+        window.open(url);
+        //       $.ajax({
 //            url:"collect.do",
 //            data:{url:window.location.href},
 //            success:function(){
@@ -49,7 +51,9 @@ $(function(){
         var iHeight=600;//窗口高度
         var iTop=(window.screen.height-iHeight)/2;
         var iLeft=(window.screen.width-iWidth)/2;
-        window.showModalDialog(url,window,"dialogHeight: "+iHeight+"px; dialogWidth: "+iWidth+"px;dialogTop: "+iTop+"; dialogLeft: "+iLeft+"; resizable: no; location:no;status: no;scroll:yes;");
+        // window.showModalDialog(url,window,"dialogHeight: "+iHeight+"px; dialogWidth: "+iWidth+"px;dialogTop: "+iTop+"; dialogLeft: "+iLeft+"; resizable: no; location:no;status: no;scroll:yes;");
+
+        window.open(url);
     });
     loadComments("");
 });

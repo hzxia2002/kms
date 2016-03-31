@@ -87,17 +87,17 @@
         $("#exaPaperGrid").juiceGrid({
             toolbar:toolbar,
             columns: [
-                {display: 'ID', name: 'id', width: 50,hide:true },
-                {display: '试卷名称', name: 'paperName', width:"10%"},
-                {display: '试卷类型', name: 'paperType', width: "10%" },
+                {display: 'ID', name: 'id', width: 1,hide:true },
+                {display: '试卷名称', name: 'paperName', width:"20%"},
+                {display: '试卷类型', name: 'paperTypeName', width: "5%" },
                 {display: '开始时间', name: 'startTime', width: "10%" },
                 {display: '结束时间', name: 'endTime', width: "10%"},
-                {display: '作答时间', name: 'paperMinute', width: "10%"},
-                {display: '试卷总分', name: 'totalScore', width:"10%" },
+                {display: '作答时间', name: 'paperMinute', width: "5%"},
+                {display: '试卷总分', name: 'totalScore', width:"5%" },
 //				{display: '时间排序类型', name: 'questionOrderType', width: 50,hide:true },
-                {display: '发布时间', name: 'postTime', width: "10%" },
-                {display: '显示分数时间', name: 'showScoreTime', width: "10%" },
-                {display: '操作', name: 'createTime', width: '20%',render:renderOp }
+                {display: '发布时间', name: 'postTime', width: "12%" },
+                {display: '显示分数时间', name: 'showScoreTime', width: "12%" },
+                {display: '操作', name: 'createTime', width: '12%',render:renderOp }
 
             ]
 //        enabledEdit: true
@@ -135,7 +135,7 @@
 
     function renderOp(item,rowIndex){
         var opStr = "<input type='button' style='padding: 1px' value='试题维护' onclick='doAddQuestion("+item.id+")'/>&nbsp;&nbsp;";
-         opStr += "<input type='button' style='padding: 1px' value='试题查看' onclick='doViewQuestion("+item.id+")'/>&nbsp;&nbsp;";
+         opStr += "<input type='button' style='padding: 1px' value='试卷预览' onclick='doViewQuestion("+item.id+")'/>";
 //         opStr += "<input type='button' style='padding: 1px' value='考试人员管理' onclick='doAddGroup("+item.id+")'/>&nbsp;";
         return opStr;
     }

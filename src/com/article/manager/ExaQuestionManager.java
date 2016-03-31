@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Time: 下午1:29
@@ -40,23 +42,43 @@ public class ExaQuestionManager {
         }
     }
 
-    public void saveQuestions(String questionIds,Long sectionId){
+    /**
+     * 保存试卷问题
+     *
+     * @param questionIds
+     * @param sectionId
+     */
+    public Map<String, Integer> saveQuestions(String questionIds, Long sectionId){
+        Map map = new HashMap();
+        int totalCount = 0;
+        int includedCount = 0;
+
         ExaPaperSection exaPaperSection = exaPaperSectionService.get(sectionId);
         Long paperId = exaPaperSection.getPaperId();
         String [] questionIdArr = questionIds.split(",");
         String savedQuestionIds = getPaperQuestionIds(paperId);
+
         for (String questionId : questionIdArr) {
             if(savedQuestionIds.contains("," + questionId + ",")){
+                includedCount++;
                 continue;
             }
+
             ExaPaperDetail paperDetail = new ExaPaperDetail();
             paperDetail.setQuestion(exaQuestionService.get(Long.valueOf(questionId)));
             paperDetail.setCreateTime(new Timestamp(System.currentTimeMillis()));
             paperDetail.setCreateUser(SpringSecurityUtils.getCurrentUser().getLoginName());
             paperDetail.setSectionId(sectionId);
             paperDetail.setPaperId(exaPaperSection.getPaperId());
+
             exaPaperDetailService.save(paperDetail);
+            totalCount++;
         }
+
+        map.put("totalCount", Integer.valueOf(totalCount));
+        map.put("includedCount", Integer.valueOf(includedCount));
+
+        return map;
     }
 
     /**

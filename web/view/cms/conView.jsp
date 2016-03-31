@@ -28,8 +28,7 @@
             </td>
         </tr>
         <tr class="inputTr" style="min-height: 200px;">
-
-            <td align="left"    width="90%">${question.content}</td>
+            <td align="left" style="word-break: break-all; line-height: 24px;" width="90%">${question.content}</td>
         </tr>
         <c:forEach var="bean" items="${answers}" varStatus="status">
             <tr class="inputTr">
@@ -43,7 +42,7 @@
                 </td>
             </tr>
             <tr class="inputTr" style="min-height: 200px;">
-                <td align="left"   width="90%">${bean.content}</td>
+                <td align="left" style="word-break: break-all; line-height: 24px;" width="90%">${bean.content}</td>
             </tr>
         </c:forEach>
     </table>

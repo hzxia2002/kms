@@ -82,15 +82,15 @@
         $("#exaPaperGrid").juiceGrid({
             columns: [
                 {display: 'ID', name: 'id', width: 50,hide:true },
-                {display: '试卷名称', name: 'paperName', width:"10%"},
-                {display: '试卷类型', name: 'paperType', width: "10%" },
+                {display: '试卷名称', name: 'paperName', width:"20%"},
+                {display: '试卷类型', name: 'paperTypeName', width: "10%" },
                 {display: '开始时间', name: 'startTime', width: "10%" },
                 {display: '结束时间', name: 'endTime', width: "10%"},
-                {display: '作答时间', name: 'paperMinute', width: "10%"},
-                {display: '试卷总分', name: 'totalScore', width:"10%" },
+                {display: '作答时间', name: 'paperMinute', width: "5%"},
+                {display: '试卷总分', name: 'totalScore', width:"5%" },
 //				{display: '时间排序类型', name: 'questionOrderType', width: 50,hide:true },
-                {display: '发布时间', name: 'postTime', width: "10%" },
-                {display: '显示分数时间', name: 'showScoreTime', width: "10%" }
+                {display: '发布时间', name: 'postTime', width: "15%" },
+                {display: '显示分数时间', name: 'showScoreTime', width: "15%" }
 
             ]
 //        enabledEdit: true

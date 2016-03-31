@@ -66,7 +66,6 @@
 				{display: '回复时间', name: 'responseTime', width: "10%" },
 				{display: '是否置顶', name: 'isTop', width: "5%",render:booleanFormatter },
 				{display: '操作', name: 'op', width: "15%",render:renderOp }
-
             ]
 //        enabledEdit: true
         });
@@ -103,8 +102,7 @@
         return menu;
     }
 
-
-     function doView(id) {
+    function doView(id) {
         var url = "${ctx}/conQuestion/view.do";
 
         commonView(url, "conQuestionGrid");
@@ -114,11 +112,10 @@
         commonDelete("conQuestionGrid","${ctx}/conQuestion/delete.do");
     }
 
-
     function doReplay(id){
         var url = "${ctx}/conQuestion/doReplay.do?id="+id;
         if(url){
-            commonAddOrUpdate(url,"conQuestionGrid",null,"conQuestionEditForm",{title:"回复",height:530,width:800});
+            commonAddOrUpdate(url,"conQuestionGrid",null,"conQuestionEditForm",{title:"回复",height:400,width:600});
         }
     }
 
@@ -140,8 +137,10 @@
             url: url,
             id:juiId,
             title:"查看咨询问题",
-            height: $(window.top.document.body).height()-10,
-            width:$(window.top.document.body).width()
+//            height: $(window.top.document.body).height()-20,
+//            width:$(window.top.document.body).width()-100
+            height: 600,
+            width: 800
         };
         window.top.$.juiceDialog.open(settings);
     }

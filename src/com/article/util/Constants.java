@@ -41,7 +41,11 @@ public interface Constants {
     public static final String QUESTION_QA= "4";
 
 
+    public static final String PAPER_TYPE_SIMULATOR = "0";
 
+    public static final String PAPER_TYPE_EXERCISE = "1";
+
+    public static final String PAPER_TYPE_EXAMINATION = "2";
 
 
 }
