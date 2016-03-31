@@ -115,6 +115,9 @@
     <div style="text-align: center;padding-bottom: 20px">
             <span style="font-size: 24px;font-weight: bold">
                 ${paper.paperName}
+            </span><br/>
+            <span style="font-size: 14px;font-weight: bold">
+                答题时间:${paper.paperMinute}分钟&nbsp;&nbsp;总分:${paper.totalScore}分
             </span>
     </div>
     <div style="text-align: center;padding-bottom: 20px">

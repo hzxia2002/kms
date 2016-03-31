@@ -25,34 +25,23 @@
                 </span>
             </div>
             <div class="main">
-                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
-                    <tr>
-                        <td align="center" class="tabtit" width="5%" nowrap="nowrap">序号</td>
-                        <td align="center" class="tabtit" width="45%" >主题</td>
-                        <td align="center" class="tabtit" width="10%" nowrap="nowrap">提问人</td>
-                        <td align="center" class="tabtit" width="20%" nowrap="nowrap">提问时间</td>
-                        <td align="center" class="tabtit" width="20%" nowrap="nowrap">回复时间</td>
-                    </tr>
-                    <c:forEach var="bean" items="${page.rows}" varStatus="status">
-                        <tr>
-                            <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">${status.index+1}&nbsp;</td>
-                            <td bgcolor="#f9f9f9" class="tabmain"  align="left" style="word-break: break-all;">
-                                 <a href="${ctx}/page/conView?conId=${bean.id}" target="_blank" style="margin-left: 2px;">${bean.title}&nbsp;</a>
-                            </td>
-                            <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                                    ${bean.asker}
-                            </td>
-                            <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                                    ${bean.publishTime}
-                            </td>
-                            <td bgcolor="#f9f9f9" class="tabmain" nowrap align="center">
-                                    ${bean.responseTime}
-                            </td>
-
-                        </tr>
-                    </c:forEach>
-                </table>
-
+                <c:forEach var="bean" items="${page.rows}" varStatus="status">
+                    <div class="feed-item" style="display: block;">
+                        <divp>
+                            <a href="${ctx}/page/conView?conId=${bean.id}" target="_blank" style="margin-left: 10px;">
+                            <span style="word-break: break-all;margin-left: 10px;" class="comment-title">${bean.title}</span></a>
+                            <span class="comment-gray" style="margin-right: 10px;">咨询</span>
+                        </divp>
+                        <div style="padding-left: 10px;">
+                            <span class="comment-gray" style="margin-left: 10px; margin-right: 10px;">${bean.asker}</span>提交于
+                            <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${bean.publishTime}" type="both"></fmt:formatDate></span>
+                            <span class="comment-gray" style="margin-left: 10px; margin-right: 10px;">${bean.responser}</span>回复于
+                            <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${bean.responseTime}" type="both"></fmt:formatDate></span>
+                            <br/>
+                            <span class="comment-body" style="margin-left: 10px; margin-right: 10px;word-break: break-all;">${bean.content}</span>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
             <c:if test="${page.total>1}">
                 <div align="right">

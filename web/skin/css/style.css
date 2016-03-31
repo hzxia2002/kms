@@ -995,3 +995,34 @@ h1 span span[style] {
 a{
     cursor: pointer;
 }
+
+.comment-title {
+    color: rgb(19, 110, 194);
+    float: left;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-family: 微软雅黑, 宋体, 黑体;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.comment-gray {
+    color: #999;
+    font-weight: 400;
+}
+
+.feed-item {
+    border-top: 1px solid #eee;
+    padding: 10px 0;
+    margin-left: 0;
+    /*outline: 0;*/
+    min-height:60px;
+}
+
+.comment-body {
+    font-family: 微软雅黑, 宋体, 黑体;
+    font-size: 14px;
+    line-height: 1.7;
+    word-wrap: break-word;
+    color: #222;
+}
