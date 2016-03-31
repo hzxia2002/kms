@@ -23,7 +23,7 @@
             <td  align="right" width="10%">
                 内容:
             </td>
-            <td  class="container" colspan="2">
+            <td  class="container" colspan="2" style="word-break: break-all; line-height: 24px;">
                     ${bean.content}
             </td>
 
@@ -34,7 +34,7 @@
                 回复:
             </td>
             <td  class="container" colspan="2">
-                <textarea id="content" name="content" rows="6" cols="60" class="textarea_table">${reply.content}</textarea>
+                <textarea id="content" name="content" rows="8" cols="70" class="textarea_table">${reply.content}</textarea>
             </td>
         </tr>
 

@@ -35,13 +35,12 @@
                         </td>
                         <td align="left"  class="tabmain"  bgcolor="#f9f9f9" width="90%">
                             <span style="float: left;">
-                                <span style="font-weight: bold"> 提问时间:</span>
+                                <span style="font-weight: bold">提问时间:</span>
                                 ${question.publishTime}</span>
                         </td>
                     </tr>
                     <tr style="min-height: 200px;">
-
-                        <td align="left"  class="tabmain"  bgcolor="#f9f9f9" width="90%" style="word-break: break-all;">${question.content}</td>
+                        <td align="left" class="tabmain"  bgcolor="#f9f9f9" style="word-break: break-all;">${question.content}</td>
                     </tr>
                     <c:forEach var="bean" items="${answers}" varStatus="status">
                         <tr>
