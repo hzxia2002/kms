@@ -19,48 +19,28 @@
                 <span>咨询栏目</span>
             </div>
             <div class="main">
-                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tabkuang">
-                    <tr>
-                        <th colspan="2" class="tab_second_tit"  align="center" style="text-align: center" >
-                            <span style="font-size: 16px;font-weight: bold;word-break: break-all;">主题：${question.title}</span>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td align="center" class="tab_second_tit" width="10%">作者</td>
-                        <td align="center" class="tab_second_tit" width="90%">正文</td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="tabmain" bgcolor="#f9f9f9" width="10%" rowspan="2">
-                            ${question.asker}
-                        </td>
-                        <td align="left"  class="tabmain"  bgcolor="#f9f9f9" width="90%">
-                            <span style="float: left;">
-                                <span style="font-weight: bold">提问时间:</span>
-                                ${question.publishTime}</span>
-                        </td>
-                    </tr>
-                    <tr style="min-height: 200px;">
-                        <td align="left" class="tabmain"  bgcolor="#f9f9f9" style="word-break: break-all;">${question.content}</td>
-                    </tr>
+                <div class="feed-item" style="display: block;">
+                    <div>
+                        <a href="${ctx}/page/conView?conId=${question.id}" target="_blank" style="margin-left: 10px;">
+                            <span style="word-break: break-all;margin-left: 10px;" class="comment-title">${question.title}</span></a>
+                        <span class="comment-gray" style="margin-right: 10px;">咨询</span>
+                    </div>
+                    <div style="padding-left: 10px; clear: both;border-top: 1px solid #eee; ">
+                        <span class="comment-gray" style="margin-left: 10px; margin-right: 10px;">${question.asker}</span>提交于
+                        <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${question.publishTime}" type="both"></fmt:formatDate></span>
+                        <br/>
+                        <span class="comment-body" style="margin-left: 30px; margin-right: 10px;word-break: break-all;">${question.content}</span>
+                    </div>
                     <c:forEach var="bean" items="${answers}" varStatus="status">
-                        <tr>
-                            <td align="center" class="tabmain" bgcolor="#f9f9f9" width="10%" rowspan="2">
-                                    ${bean.responser}
-                            </td>
-                            <td align="left"  class="tabmain"  bgcolor="#f9f9f9" width="90%">
-                            <span style="float: left;">
-                                <span style="font-weight: bold"> 回复时间:</span>
-                                    ${bean.responseTime}</span>
-                            </td>
-                        </tr>
-                        <tr style="min-height: 200px;">
-                            <td align="left" class="tabmain"  bgcolor="#f9f9f9" width="90%" style="word-break: break-all;">${bean.content}</td>
-                        </tr>
+                        <div style="padding-left: 10px;border-top: 1px solid #eee;">
+                                <span class="comment-gray" style="margin-left: 10px; margin-right: 10px;">${bean.responser}</span>回复于
+                                <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${bean.responseTime}" type="both"></fmt:formatDate></span>
+                            <br/>
+                            <span class="comment-body" style="margin-left: 30px; margin-right: 10px;word-break: break-all;">${bean.content}</span>
+                        </div>
                     </c:forEach>
-                </table>
-
+                </div>
             </div>
-
         </div>
     </div>
 
