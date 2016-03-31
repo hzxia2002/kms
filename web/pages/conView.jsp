@@ -21,7 +21,7 @@
             <div class="main">
                 <div class="feed-item" style="display: block;">
                     <div>
-                        <a href="${ctx}/page/conView?conId=${bean.id}" target="_blank" style="margin-left: 10px;">
+                        <a href="${ctx}/page/conView?conId=${question.id}" target="_blank" style="margin-left: 10px;">
                             <span style="word-break: break-all;margin-left: 10px;" class="comment-title">${question.title}</span></a>
                         <span class="comment-gray" style="margin-right: 10px;">咨询</span>
                     </div>
