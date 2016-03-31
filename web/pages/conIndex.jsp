@@ -27,12 +27,12 @@
             <div class="main">
                 <c:forEach var="bean" items="${page.rows}" varStatus="status">
                     <div class="feed-item" style="display: block;">
-                        <divp>
+                        <div>
                             <a href="${ctx}/page/conView?conId=${bean.id}" target="_blank" style="margin-left: 10px;">
                             <span style="word-break: break-all;margin-left: 10px;" class="comment-title">${bean.title}</span></a>
                             <span class="comment-gray" style="margin-right: 10px;">咨询</span>
-                        </divp>
-                        <div style="padding-left: 10px;">
+                        </div>
+                        <div style="padding-left: 10px;clear: both">
                             <span class="comment-gray" style="margin-left: 10px; margin-right: 10px;">${bean.asker}</span>提交于
                             <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${bean.publishTime}" type="both"></fmt:formatDate></span>
                             <c:if test="${not empty bean.responser}">
@@ -40,7 +40,7 @@
                             <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${bean.responseTime}" type="both"></fmt:formatDate></span>
                             </c:if>
                             <br/>
-                            <span class="comment-body" style="margin-left: 10px; margin-right: 10px;word-break: break-all;">${bean.content}</span>
+                            <span class="comment-body" style="margin-left: 10px; margin-right: 10px;word-break: break-all;text-indent: 2em">${bean.content}</span>
                         </div>
                     </div>
                 </c:forEach>
