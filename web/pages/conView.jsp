@@ -29,14 +29,14 @@
                         <span class="comment-gray" style="margin-left: 10px; margin-right: 10px;">${question.asker}</span>提交于
                         <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${question.publishTime}" type="both"></fmt:formatDate></span>
                         <br/>
-                        <span class="comment-body" style="margin-left: 30px; margin-right: 10px;word-break: break-all;">${question.content}</span>
+                        <div class="comment-body" style="margin-left: 2px; margin-right: 12px;word-break: break-all;text-indent: 2em">${question.content}</div>
                     </div>
                     <c:forEach var="bean" items="${answers}" varStatus="status">
                         <div style="padding-left: 10px;border-top: 1px solid #eee;">
                                 <span class="comment-gray" style="margin-left: 10px; margin-right: 10px;">${bean.responser}</span>回复于
                                 <span class="comment-gray" style="margin-left: 10px;"><fmt:formatDate value="${bean.responseTime}" type="both"></fmt:formatDate></span>
                             <br/>
-                            <span class="comment-body" style="margin-left: 30px; margin-right: 10px;word-break: break-all;">${bean.content}</span>
+                            <div class="comment-body" style="margin-left: 2px; margin-right: 12px;word-break: break-all;text-indent: 2em">${bean.content}</div>
                         </div>
                     </c:forEach>
                 </div>
